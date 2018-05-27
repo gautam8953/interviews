@@ -1,3 +1,5 @@
+Q. we can get value of a input box by both js and jquery but which one will give faster result.
+
 what are the selecters in jquery
 how to send ajax request by jquery
 windowload
