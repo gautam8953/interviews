@@ -1,9 +1,9 @@
-Q. directory structure
-Q. difference with cakephp
-Q. how  session variable created unset and retrieve
-Q. how to write query
-Q. default controller
-Q. what is hooks
-Q. what is routing
-Q. first file run?
+Q. waht is the directory structure of codeigniter
+Q. waht is the difference between cakephp nad codeigniter?
+Q. how  session variable created unset and retrieve in codeignter?
+Q. how to write query in codeigniter with example?
+Q. name default controller in codeigniter?
+Q. what is hooks in codeigniter?
+Q. what is routing in codeigniter?
+Q. name first file run in codeigniter?
 Q
