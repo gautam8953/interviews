@@ -1,0 +1,358 @@
+Q. Difference  in echo and print???
+1.	Speed. There is a difference between the two, but speed-wise it should be irrelevant which one you use. echo is marginally faster since it doesn't set a return value if you really want to get down to the nitty gritty.
+2.	Expression. print() behaves like a function in that you can do: $ret = print "Hello World"; And $ret will be 1. That means that print can be used as part of a more complex expression where echo cannot. An example from the PHP Manual:
+$b ? print "true" : print "false";
+print is also part of the precedence table which it needs to be if it is to be used within a complex expression. It is just about at the bottom of the precedence list though. Only "," AND, OR and XOR are lower.
+3.	Parameter(s). The grammar is: echo expression [, expression[, expression] ... ] But echo ( expression, expression ) is not valid. This would be valid: echo ("howdy"),("partner"); the same as: echo "howdy","partner"; (Putting the brackets in that simple example serves no purpose since there is no operator precedence issue with a single term like that.)
+So, echo without parentheses can take multiple parameters, which get concatenated:
+   echo  "and a ", 1, 2, 3;   // comma-separated without parentheses
+   echo ("and a 123");        // just one parameter with parentheses
+print() can only take one parameter:
+   print ("and a 123");
+   print  "and a 123";
+
+Q. What are super global variable and example
+9 variables in PHP are "superglobals", which means that they are always accessible, regardless of scope - and you can access them from any function, class or file without having to do anything special.
+The PHP superglobal variables are:
+•	$_GET
+•	$_POST
+•	$_REQUEST
+•	$_FILES
+•	$_COOKIE
+•	$_SESSION
+•	$GLOBALS
+•	$_SERVER
+•	$_ENV
+
+$GLOBALS is a PHP super global variable which is used to access global variables from anywhere in the PHP script (also from within functions or methods).PHP stores all global variables in an array called $GLOBALS[index]. The index holds the name of the variable.
+<?php 
+$x = 75; 
+$y = 25;
+ 
+function addition() { 
+    $GLOBALS['z'] = $GLOBALS['x'] + $GLOBALS['y']; 
+} 
+ 
+addition(); 
+echo $z; 
+?>
+$_SERVER is a PHP super global variable which holds information about headers, paths, and script locations.
+$_SERVER['PHP_SELF']	Returns the filename of the currently executing script
+$_SERVER['GATEWAY_INTERFACE']	Returns the version of the Common Gateway Interface (CGI) the server
+ is using
+$_SERVER['SERVER_ADDR']	Returns the IP address of the host server
+$_SERVER['SERVER_NAME']	Returns the name of the host server (such as www.w3schools.com)
+$_SERVER['SERVER_SOFTWARE']	Returns the server identification string
+ (such as Apache/2.2.24)
+$_SERVER['SERVER_PROTOCOL']	Returns the name and revision of the information protocol 
+(such as HTTP/1.1)
+$_SERVER['REQUEST_METHOD']	Returns the request method used to access the page
+ (such as POST)
+$_SERVER['REQUEST_TIME']	Returns the timestamp of the start of the request
+ (such as 1377687496)
+$_SERVER['QUERY_STRING']	Returns the query string if the page is accessed via 
+a query string
+$_SERVER['HTTP_ACCEPT']	Returns the Accept header from the current request
+$_SERVER['HTTP_ACCEPT_CHARSET']	Returns the Accept_Charset header from the current request 
+(such as utf-8,ISO-8859-1)
+$_SERVER['HTTP_HOST']	Returns the Host header from the current request
+$_SERVER['HTTP_REFERER']	Returns the complete URL of the current page (
+not reliable because not all user-agents support it)
+$_SERVER['HTTPS']	Is the script queried through a secure HTTP protocol
+$_SERVER['REMOTE_ADDR']	Returns the IP address from where the user is viewing the current page
+$_SERVER['REMOTE_HOST']	Returns the Host name from where the user is viewing the current page
+$_SERVER['REMOTE_PORT']	Returns the port being used on the user's machine to 
+communicate with the web server
+$_SERVER['SCRIPT_FILENAME']	Returns the absolute pathname of the currently
+ executing script
+$_SERVER['SERVER_ADMIN']	Returns the value given to the SERVER_ADMIN
+ directive in the web server configuration file 
+(if your script runs on a virtual host, it will be 
+the value defined for that virtual host)
+ (such as someone@w3schools.com)
+$_SERVER['SERVER_PORT']	Returns the port on the server machine being used by
+ the web server
+ for communication (such as 80)
+$_SERVER['SERVER_SIGNATURE']	Returns the server version and virtual host name which are added 
+to server-generated pages
+$_SERVER['PATH_TRANSLATED']	Returns the file system based path to the current script
+$_SERVER['SCRIPT_NAME']	Returns the path of the current script
+$_SERVER['SCRIPT_URI']	Returns the URI of the current page
+
+$_GET:  limit 2000 characters, send via url, data can be seen, no security, files images can’t be sent, we can bookmark a page
+$_POST: all names/values are embedded within the body of the HTTP request, has no limit, secure, files images can be sent, variable are not seen show we can’t bookmark a page
+$_FILES:  enctype="multipart/form-data" must be added to form, method will be post,
+move_uploaded_file($_FILES['photo']['tmp_name'],"uploads/candidate/photo/".$photo)
+Getimagesize() to get uploading image height and width
+file_exists(url) to check file exist or not
+if ($_FILES["fileToUpload"]["size"] > 500000) limit upload
+$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION); to get extension
+$_COOKIE: A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values
+setcookie(name, value, expire, path, domain, secure, httponly);
+$cookie_name = "user";
+$cookie_value = "John Doe";
+setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
+To disable a cookie set cookie with past date.
+if(count($_COOKIE) > 0) To check cookie is enable 
+$_SESSION A session is a way to store information (in variables) to be used across multiple pages. It stores in tmp folder on the server.
+session_start();
+$_SESSION["favcolor"] = "green";
+session_destroy();session_unset();  unset($_SESSION["favcolor"]);
+default time 24 minutes (1440 seconds)
+increase sesion time // server should keep session data for AT LEAST 1 hour
+ini_set('session.gc_maxlifetime', 3600);
+
+// each client should remember their session id for EXACTLY 1 hour
+session_set_cookie_params(3600);
+
+session_start(); // ready to go!
+
+To change session path: ini_set(session.save_path, '/path/to/your/folder')
+ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+session_start();
+Apache used /var/tmp, while CLI used something like /var/folders/kf/hk_dyn7s2z9bh7y_j59cmb3m0000gn/T
+
+Get session id $a = session_id();
+if(empty($a)) session_start();
+echo "SID: ".SID."<br>session_id(): ".session_id()."<br>COOKIE: ".$_COOKIE["PHPSESSID"];
+Q. Headers in php: The header() function sends a raw HTTP header to a client. It is important to notice that header() must be called before any actual output is sent (In PHP 4 and later, you can use output buffering to solve this problem)
+header('Location: http://www.example.com/');
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+header("Cache-Control: no-cache");
+header("Pragma: no-cache");
+Let the user be prompted to save a generated PDF file (Content-Disposition header is used to supply a recommended filename and force the browser to display the save dialog box):
+<?php
+header("Content-type:application/pdf");
+
+// It will be called downloaded.pdf
+header("Content-Disposition:attachment;filename='downloaded.pdf'");
+
+// The PDF source is in original.pdf
+readfile("original.pdf");
+?>
+
+<html>
+<body>
+
+
+
+Q. How to concatate two strings in php  by .  operater $a=”ram”.”test”;
+String functions: 
+ trim() along with ltrim() and rtrim() strip characters from a string. trim($string) without any further arguments will strip all spaces, carriage returns, new lines, null characters, and vertical tabs from $string.
+trim($string, 'ld'): Hello Wor
+str_replace() replaces all instances of a given character with another. To strip out all ‘l’s from our string, use
+echo str_replace('l', '', $string);
+This returns “Heo Word”.
+ strtolower() transforms a string into all lower-case letters.
+Strtoupper(),strtotime(time), ucfirst($str), ucwords($str)
+echo strlen($string);
+substr($string, 3);: lo World,  after 3rd all charcter
+echo substr($string, -1); d from last 1 character
+strpos($string, 'l'); :2, position of a character in a string
+chop()
+Removes whitespace or other characters from the right end of a string
+addcslashes()
+Returns a string with backslashes in front of the specified characters
+addslashes()
+Returns a string with backslashes in front of predefined characters
+echo()
+Outputs one or more strings
+print()
+Outputs one or more strings
+printf()
+Outputs a formatted string
+ str_getcsv() function parses a string for fields in CSV format and returns an array containing the fields read.
+str_repeat()
+Repeats a string a specified number of times
+str_replace()
+Replaces some characters in a string (case-sensitive)
+str_word_count()
+Count the number of words in a string
+str_split()
+Splits a string into an array
+strchr()
+Finds the first occurrence of a string inside another string (alias of strstr())
+strcmp()
+Compares two strings (case-sensitive)
+strip_tags()
+Strips HTML and PHP tags from a string
+strlen()
+Returns the length of a string
+strncmp()
+String comparison of the first n characters (case-sensitive)
+strpos()
+Returns the position of the first occurrence of a string inside another string (case-sensitive)
+
+
+
+
+Q. PHP array
+1. Indexed array	2. Associative array	3. Multidimensional array
+1. Indexed array
+$cars = array("Volvo", "BMW", "Toyota");
+echo "I like " . $cars[0] . ", " . $cars[1] . " and " . $cars[2] . ".";
+
+Getting the length of the array: <?php  echo count($cars); ?>
+
+
+
+2.Associative array
+
+<?php
+$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
+echo "Peter is " . $age['Peter'] . " years old.";
+foreach($age as $x => $x_value) {
+    echo "Key=" . $x . ", Value=" . $x_value;
+    echo "<br>";
+}
+?>
+
+3.Multidimesional array
+$cars = array
+  (
+  array("Volvo",22,18),
+  array("BMW",15,13),
+  array("Saab",5,2),
+  array("Land Rover",17,15)
+  );
+
+array_column()
+Returns the values from a single column in the input array
+array_combine()
+Creates an array by using the elements from one "keys" array and one "values" array
+array_count_values()
+Counts all the values of an array
+array_fill()
+Fills an array with values
+array_fill_keys()
+Fills an array with values, specifying keys
+array_key_exists()
+Checks if the specified key exists in the array
+array_merge()
+Merges one or more arrays into one array
+array_pop()
+Deletes the last element of an array
+array_push()
+Inserts one or more elements to the end of an array
+array_rand()
+Returns one or more random keys from an array
+array_reverse()
+Returns an array in the reverse order
+array_search()
+Searches an array for a given value and returns the key
+array_shift()
+Removes the first element from an array, and returns the value of the removed element
+array_sum()
+Returns the sum of the values in an array
+array_unique()
+Removes duplicate values from an array
+arsort()
+Sorts an associative array in descending order, according to the value
+asort()
+Sorts an associative array in ascending order, according to the value
+count()
+Returns the number of elements in an array
+current()
+Returns the current element in an array
+end()
+Sets the internal pointer of an array to its last element
+krsort()
+Sorts an associative array in descending order, according to the key
+ksort()
+Sorts an associative array in ascending order, according to the key
+rsort()
+Sorts an indexed array in descending order
+sort()
+Sorts an indexed array in ascending order
+
+Q. array.push, array.pop, how to insert an element in an array
+Q. Difference in array merge and combinbe
+Q. how you will check a variable is array or not, or string/number
+•	ctype_digit() - Check for numeric character(s)
+•	is_bool() - Finds out whether a variable is a boolean
+•	is_null() - Finds whether a variable is NULL
+•	is_float() - Finds whether the type of a variable is float
+•	is_int() - Find whether the type of a variable is integer
+•	is_string() - Find whether the type of a variable is string
+•	is_object() - Finds whether a variable is an object
+•	is_array() - Finds whether a variable is an array
+is_numeric — Finds whether a variable is a number or a numeric string
+
+Q abstract, class, method, variable, polymorphism, function overloading, function overriding,
+polymorphism allows you define one interface and have multiple implementations
+two types are in java
+1 method overloading also compile time: method difned several times by changing argument data type and number of argument
+ 2 method overriding also runtime : defined function in base class also defined in child class
+
+Abstract method: function only declare not defined in the class
+Abstract class: Classes defined as abstract may not be instantiated, and any class that contains at least one abstract method must also be abstract.
+Abstract classes are classes that contain one or more abstract methods. An abstract method is a method that is declared, but contains no implementation. Abstract classes may not be instantiated, and require subclasses to provide implementations for the abstract methods.
+interfaces are abstract classes with no method declared.
+Default visibility public and only do not support multiple inheritance.
+Can implements many interface but can extend only one class
+
+Q. final class and final method difference
+if methode is final, it can’t be override and if a class is final it can’t be extended.
+Q cookies
+setcookie(name, value, expire, path, domain, security);
+Here is the detail of all the arguments:
+•	Name - This sets the name of the cookie and is stored in an environment variable called HTTP_COOKIE_VARS. This variable is used while accessing cookies.
+•	Value -This sets the value of the named variable and is the content that you actually want to store.
+•	Expiry - This specify a future time in seconds since 00:00:00 GMT on 1st Jan 1970. After this time cookie will become inaccessible. If this parameter is not set then cookie will automatically expire when the Web Browser is closed.
+•	Path -This specifies the directories for which the cookie is valid. A single forward slash character permits the cookie to be valid for all directories.
+•	Domain - This can be used to specify the domain name in very large domains and must contain at least two periods to be valid. All cookies are only valid for the host and domain which created them.
+•	Security - This can be set to 1 to specify that the cookie should only be sent by secure transmission using HTTPS otherwise set to 0 which mean cookie can be sent by regular HTTP.
+Following example will create two cookies name and age these cookies will be expired after one hour.
+<?php
+   setcookie("name", "John Watkin", time()+3600, "/","", 0);
+   setcookie("age", "36", time()+3600, "/", "",  0);
+?>
+<html>
+<head>
+<title>Setting Cookies with PHP</title>
+</head>
+<body>
+<?php echo "Set Cookies"?>
+</body>
+</html>
+
+Officially, to delete a cookie you should call setcookie() with the name argument only but this does not always work well, however, and should not be relied on.
+It is safest to set the cookie with a date that has already expired:
+setcookie( "name", "", time()- 60, "/","", 0);
+
+
+Q. what is $_server, how to get browser name   
+   echo $_SERVER['HTTP_USER_AGENT'] . "\n\n";  
+ $browser = get_browser(null,true);
+Current url-  <?php echo $_SERVER['REQUEST_URI']; ?>
+Request method (get, post,put,delete)  $_SERVER['REQUEST_METHOD']
+
+
+
+Q. difference in fetch_associate and fetch_array
+fetch_array() returns two arrays, one with numeric keys and other with associative strings (column names), so here you can either use $row['column_name'] or $row[0]
+Where as fetch_assoc() will return string indexed key array and no numeric array so you won't have an option here of using numeric keys like $row[0].
+So the latter one is better in performance compared to fetch_array() and obviously using named indexes is far better compared to numeric indexes.
+
+
+
+Q. Difference between two dates
+<?php
+$datetime1 = new DateTime('2015-08-29');
+$datetime2 = new DateTime('2015-08-30');
+$interval = $datetime1->diff($datetime2);
+echo $interval->format('%R%a days');
+?>
+
+relation in session and cokkies
+
+how you will check a variable is array or not, or string/number        echo gettype($value), "\n";
+difference in fetch_associate and fetch_array
+number of days finding
+swap two number without uing third variable a=5,b=6; b=5+6; a=b-a; b=b-a;
+strstr vs strops
+print table without using loop
+magic methods and magic constants
+if vs switch
+loop levels
+mysql_fetch_aray and mysql_fetch_object
