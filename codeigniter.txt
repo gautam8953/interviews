@@ -1,0 +1,9 @@
+Q. directory structure
+Q. difference with cakephp
+Q. how  session variable created unset and retrieve
+Q. how to write query
+Q. default controller
+Q. what is hooks
+Q. what is routing
+Q. first file run?
+Q
