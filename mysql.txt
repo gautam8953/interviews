@@ -10,10 +10,18 @@ WHERE (N-1) = (
     SELECT COUNT(DISTINCT(Emp2.Salary)) 
     FROM  Employee Emp2 
     WHERE Emp2.Salary > Emp1.Salary)
-
+    
 Q. Select record of all employee  whose salary is 2nd highest.
 A. select * from sallary where sallary = (select distinct sallary from sallary order by sallary desc limit 1,1)
    SELECT MAX(Salary) FROM Employee WHERE Salary NOT IN (SELECT MAX(Salary) FROM Employee )
+   
+Q. fetch record of all employee have 4th highest sallery
+A. first query select first element from top and it is in ascending means lowest at top and 
+second query selects top “n” query from table and it is descending means if we want 3rd highest first we select 3 hightest sallery in descending order than will arrange it to ascending and select first that is desire 3rd highest.
+SELECT MIN(EmpSalary) from (
+SELECT EmpSalary from Employee ORDER BY EmpSalary DESC LIMIT 3
+);
+SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n-1,1;
 
 Q. what are storage engines and name different type of storage engines in mysql. 
 A.
@@ -28,28 +36,15 @@ Engine     | Support | Comment                                                  
 | ARCHIVE    | YES     | Archive storage engine                                         | NO           | NO   | NO         |
 | MyISAM     | DEFAULT | Default engine as of MySQL 3.23 with great performance         | NO           | NO   | NO         |
 +------------+---------+------------------------------------------------------
-Q. what is the difference between myISAM and Innodb?
-A. MyISAM and InnoDB are the most commonly used engines.
-MyISAM is slightly faster than InnoDB, and implements the FULLTEXT index which is quite useful for integrating search capabilities. MyISAM is not transacted and doesn't implement foreign key constraints, which is a major drawback.
-if you have a high number of updates or inserts compared to your searches and selects then you will get better performance out of the InnoDB engine.
-
 *The MERGE engine is an exceedingly effective way of querying data from multiple, identically defined, tables.
 *The MEMORY engine is the best way to perform a large number of complex queries on data that would be inefficient to search on a disk based engine.
 *The CSV engine is a great way to export data that could be used in other applications.
 *BDB is excellent for data that has a unique key that is frequently accessed.
 
-
-
-
-
-first query select first element from top and it is in ascending means lowest at top and 
-second query selects top “n” query from table and it is descending means if we want 3rd highest first we select 3 hightest sallery in descending order than will arrange it to ascending and select first that is desire 3rd highest.
-SELECT MIN(EmpSalary) from (
-SELECT EmpSalary from Employee ORDER BY EmpSalary DESC LIMIT 3
-);
-
-SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n-1,1;
-
+Q. what is the difference between myISAM and Innodb?
+A. MyISAM and InnoDB are the most commonly used engines.
+MyISAM is slightly faster than InnoDB, and implements the FULLTEXT index which is quite useful for integrating search capabilities. MyISAM is not transacted and doesn't implement foreign key constraints, which is a major drawback.
+if you have a high number of updates or inserts compared to your searches and selects then you will get better performance out of the InnoDB engine.
 My|sam and innodb diference
 MYISAM:
 1.	MYISAM supports Table-level Locking
@@ -66,28 +61,24 @@ INNODB:
 4.	InnoDB stores its tables and indexes in a tablespace
 5.	InnoDB supports transaction. You can commit and rollback with InnoDB
 
+Q. Write Query to change type of database engine in mysql?
+A. ALTER TABLE t ENGINE = MYISAM;
 
+Q. what is triger?
+Q. what is the difference between group by and  having clause?
+Q. what is indexing and how to achieve it
+A. maximum 16 index can be defined in  a table
 
-how to find 2nd,3rd...nth highest/lowest sallery.
-fetching record of all employee have 4th highest sallery
-what is triger 
-type of database engine in mysql and to change them    ALTER TABLE t ENGINE = MYISAM;
-difference in database engines
-what is group by and  having clause
-what is indexing and how to achieve it
-checking number result obtained
-query for getting all vote to a candidate from two table(one has name and other has vote)
-what is indexing in mysql, ho to do it
-acid property
-transaction
-delete vs truncate
-what are joins
-what is subquery
-nth highest sallery
-left right joins
-sql injuctions
-table types (storage types)
-indexes andits uses, maximum 16 index can be defined
+Q. how to check number result obtained byy mysql
+Q. query for getting all vote to a candidate from two table(one has voter name, one has parties and other has vote)
+Q. explain acid property
+Q. what is transaction
+Q. difference between delete & truncate
+Q. what are joins
+Q. what is subquery
+Q. sql injuctions
+
+indexes andits uses, 
 heap tables what is
 default port of mysql : 3306
 enum and sets
