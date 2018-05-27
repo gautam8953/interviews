@@ -2,9 +2,8 @@ Q. name different type of indexes in mysql
 Q. write a query to find the age of an employee from his dob stored
 Q. if you got the files of mysql myISM databs, can you restore it or get data back from it
 Q. if you have to transfer data from one server to another waht are different ideas?
-
-Q finding the 2nd, 3rd, 4th highest/lowest salary and fetching all records
-SELECT DISTINCT(column name) FROM table ORDER BY (column name) desc LIMIT n-1,1
+Q. write diffrent query to find the 2nd, 3rd, 4th highest/lowest salary and fetching all records containing these salries
+A. SELECT DISTINCT(column name) FROM table ORDER BY (column name) desc LIMIT n-1,1
 
 SELECT * FROM Employee Emp1 
 WHERE (N-1) = ( 
@@ -12,13 +11,12 @@ WHERE (N-1) = (
     FROM  Employee Emp2 
     WHERE Emp2.Salary > Emp1.Salary)
 
-Select record of all employee  whose salary is 2nd highest.
-select * from sallary where sallary = (select distinct sallary from sallary order by sallary desc limit 1,1)
+Q. Select record of all employee  whose salary is 2nd highest.
+A. select * from sallary where sallary = (select distinct sallary from sallary order by sallary desc limit 1,1)
+   SELECT MAX(Salary) FROM Employee WHERE Salary NOT IN (SELECT MAX(Salary) FROM Employee )
 
-SELECT MAX(Salary) FROM Employee
-  WHERE Salary NOT IN (SELECT MAX(Salary) FROM Employee )
-
-Q. storage engines
+Q. what are storage engines and name different type of storage engines in mysql. 
+A.
 Engine     | Support | Comment                                                        | Transactions | XA   | Savepoints |
 +------------+---------+----------------------------------------------------------------+--------------+------+------------+
 | InnoDB     | YES     | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
@@ -30,28 +28,19 @@ Engine     | Support | Comment                                                  
 | ARCHIVE    | YES     | Archive storage engine                                         | NO           | NO   | NO         |
 | MyISAM     | DEFAULT | Default engine as of MySQL 3.23 with great performance         | NO           | NO   | NO         |
 +------------+---------+------------------------------------------------------
-MyISAM and InnoDB are the most commonly used engines.
+Q. what is the difference between myISAM and Innodb?
+A. MyISAM and InnoDB are the most commonly used engines.
 MyISAM is slightly faster than InnoDB, and implements the FULLTEXT index which is quite useful for integrating search capabilities. MyISAM is not transacted and doesn't implement foreign key constraints, which is a major drawback.
-But you can use the best of both and create tables with different storage engines. Some software (WordPress, I think) use Inno for most data, like relations between pages, versions etc. Records for the posts contain an ID that links to a record in a separate content table that uses MyISAM. That way, the content is stored in the table that has the best search capabilities, while most other data is stored in tables that enforce data integrity.
-If I were you, I'd pick Inno, because it is the most reliable. Only use MyISAM for specific purposes if you need to.
-You can configure your database to use InnoDB by default when creating new tables.
+if you have a high number of updates or inserts compared to your searches and selects then you will get better performance out of the InnoDB engine.
 
-Different storage engines available, there are few reasons not to use either the MyISAM or InnoDB engine types. MyISAM will do in most situations, but if you have a high number of updates or inserts compared to your searches and selects then you will get better performance out of the InnoDB engine. To get the best performance out of InnoDB you need to tweak the parameters for your server, otherwise there is no reason not to use it.
-The MERGE engine is an exceedingly effective way of querying data from multiple, identically defined, tables.
- The MEMORY engine is the best way to perform a large number of complex queries on data that would be inefficient to search on a disk based engine.
- The CSV engine is a great way to export data that could be used in other applications.
- BDB is excellent for data that has a unique key that is frequently accessed.
+*The MERGE engine is an exceedingly effective way of querying data from multiple, identically defined, tables.
+*The MEMORY engine is the best way to perform a large number of complex queries on data that would be inefficient to search on a disk based engine.
+*The CSV engine is a great way to export data that could be used in other applications.
+*BDB is excellent for data that has a unique key that is frequently accessed.
 
 
 
-Selecting nth number from sql
-SELECT TOP 1 salary
-FROM (
-      SELECT DISTINCT TOP n salary
-      FROM employee
-      ORDER BY salary DESC
-      ) a
-ORDER BY salary
+
 
 first query select first element from top and it is in ascending means lowest at top and 
 second query selects top “n” query from table and it is descending means if we want 3rd highest first we select 3 hightest sallery in descending order than will arrange it to ascending and select first that is desire 3rd highest.
