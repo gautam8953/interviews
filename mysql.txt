@@ -1,3 +1,7 @@
+Q. name different type of indexes in mysql
+Q. write a query to find the age of an employee from his dob stored
+Q. if you got the files of mysql myISM databs, can you restore it or get data back from it
+
 Q finding the 2nd, 3rd, 4th highest/lowest salary and fetching all records
 SELECT DISTINCT(column name) FROM table ORDER BY (column name) desc LIMIT n-1,1
 
@@ -124,4 +128,5 @@ Nth salary : select distict(salary0 from emp order by salary desc limit n-1,1
 fro getting latest record in group by query
 SELECT id, branchId, roleId FROM mapping WHERE id IN ( SELECT MAX(id) FROM mapping GROUP BY branchId )
 Primary vs unique
+
 
