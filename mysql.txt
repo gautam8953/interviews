@@ -1,0 +1,127 @@
+Q finding the 2nd, 3rd, 4th highest/lowest salary and fetching all records
+SELECT DISTINCT(column name) FROM table ORDER BY (column name) desc LIMIT n-1,1
+
+SELECT * FROM Employee Emp1 
+WHERE (N-1) = ( 
+    SELECT COUNT(DISTINCT(Emp2.Salary)) 
+    FROM  Employee Emp2 
+    WHERE Emp2.Salary > Emp1.Salary)
+
+Select record of all employee  whose salary is 2nd highest.
+select * from sallary where sallary = (select distinct sallary from sallary order by sallary desc limit 1,1)
+
+SELECT MAX(Salary) FROM Employee
+  WHERE Salary NOT IN (SELECT MAX(Salary) FROM Employee )
+
+Q. storage engines
+Engine     | Support | Comment                                                        | Transactions | XA   | Savepoints |
++------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| InnoDB     | YES     | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
+| MRG_MYISAM | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |
+| BLACKHOLE  | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |
+| CSV        | YES     | CSV storage engine                                             | NO           | NO   | NO         |
+| MEMORY     | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |
+| FEDERATED  | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |
+| ARCHIVE    | YES     | Archive storage engine                                         | NO           | NO   | NO         |
+| MyISAM     | DEFAULT | Default engine as of MySQL 3.23 with great performance         | NO           | NO   | NO         |
++------------+---------+------------------------------------------------------
+MyISAM and InnoDB are the most commonly used engines.
+MyISAM is slightly faster than InnoDB, and implements the FULLTEXT index which is quite useful for integrating search capabilities. MyISAM is not transacted and doesn't implement foreign key constraints, which is a major drawback.
+But you can use the best of both and create tables with different storage engines. Some software (WordPress, I think) use Inno for most data, like relations between pages, versions etc. Records for the posts contain an ID that links to a record in a separate content table that uses MyISAM. That way, the content is stored in the table that has the best search capabilities, while most other data is stored in tables that enforce data integrity.
+If I were you, I'd pick Inno, because it is the most reliable. Only use MyISAM for specific purposes if you need to.
+You can configure your database to use InnoDB by default when creating new tables.
+
+Different storage engines available, there are few reasons not to use either the MyISAM or InnoDB engine types. MyISAM will do in most situations, but if you have a high number of updates or inserts compared to your searches and selects then you will get better performance out of the InnoDB engine. To get the best performance out of InnoDB you need to tweak the parameters for your server, otherwise there is no reason not to use it.
+The MERGE engine is an exceedingly effective way of querying data from multiple, identically defined, tables.
+ The MEMORY engine is the best way to perform a large number of complex queries on data that would be inefficient to search on a disk based engine.
+ The CSV engine is a great way to export data that could be used in other applications.
+ BDB is excellent for data that has a unique key that is frequently accessed.
+
+
+
+Selecting nth number from sql
+SELECT TOP 1 salary
+FROM (
+      SELECT DISTINCT TOP n salary
+      FROM employee
+      ORDER BY salary DESC
+      ) a
+ORDER BY salary
+
+first query select first element from top and it is in ascending means lowest at top and 
+second query selects top “n” query from table and it is descending means if we want 3rd highest first we select 3 hightest sallery in descending order than will arrange it to ascending and select first that is desire 3rd highest.
+SELECT MIN(EmpSalary) from (
+SELECT EmpSalary from Employee ORDER BY EmpSalary DESC LIMIT 3
+);
+
+SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n-1,1;
+
+My|sam and innodb diference
+MYISAM:
+1.	MYISAM supports Table-level Locking
+2.	MyISAM designed for need of speed
+3.	MyISAM does not support foreign keys hence we call MySQL with MYISAM is DBMS
+4.	MyISAM stores its tables, data and indexes in diskspace using separate three different files. (tablename.FRM, tablename.MYD, tablename.MYI)
+5.	MYISAM not supports transaction. You cannot commit and rollback with MYISAM. Once you issue a command it’s done.
+6.	MYISAM supports fulltext search
+7.	You can use MyISAM, if the table is more static with lots of select and less update and delete.
+INNODB:
+1.	InnoDB supports Row-level Locking
+2.	InnoDB designed for maximum performance when processing high volume of data
+3.	InnoDB support foreign keys hence we call MySQL with InnoDB is RDBMS
+4.	InnoDB stores its tables and indexes in a tablespace
+5.	InnoDB supports transaction. You can commit and rollback with InnoDB
+
+
+
+how to find 2nd,3rd...nth highest/lowest sallery.
+fetching record of all employee have 4th highest sallery
+what is triger 
+type of database engine in mysql and to change them    ALTER TABLE t ENGINE = MYISAM;
+difference in database engines
+what is group by and  having clause
+what is indexing and how to achieve it
+checking number result obtained
+query for getting all vote to a candidate from two table(one has name and other has vote)
+what is indexing in mysql, ho to do it
+acid property
+transaction
+delete vs truncate
+what are joins
+what is subquery
+nth highest sallery
+left right joins
+sql injuctions
+table types (storage types)
+indexes andits uses, maximum 16 index can be defined
+heap tables what is
+default port of mysql : 3306
+enum and sets
+char and varchar
+get  version of mysql : select version();
+primary key & candidate key
+what are federated tables: which allow access to the tables located on other database on another servers
+autoincrement: automatically increased value. When maximum value reached it stops and error flashed
+how to see indexes defind for a table: show index from tablename
+% and _ and like uery
+Difference in like and regrex operators
+Difference in blob and text
+Myisam: develop by ibm to store data like tape. Full form: mysql indexed sequential access method
+By using created statement we can create database, event, function, index, procedure, table, trigger, user, view
+Trigerss allowed insert, update,delete on before or after each, means 6 combination of 2 each
+Common sql function
+Rdms and itrs features and dbms
+Data mining means
+Maximum 64 colums can be updated in a single query, 64 chars leght name can be create
+Ddl, dml, dcl
+Delete vs truncate
+Heap and temporary table
+Float nad doubles
+Char vs varchar: 255,4000 charcters, fixed size, variable, 50% faster is char than varchar, static memory allocation usred, dyanamic used
+Mysql connect nad mysql p connect
+
+Nth salary : select distict(salary0 from emp order by salary desc limit n-1,1
+fro getting latest record in group by query
+SELECT id, branchId, roleId FROM mapping WHERE id IN ( SELECT MAX(id) FROM mapping GROUP BY branchId )
+Primary vs unique
+
