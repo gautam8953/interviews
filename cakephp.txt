@@ -1,0 +1,41 @@
+Q. cakephp directory structure
+— root (the root directory)
+— — app (here’s where your application logic will go)
+— — — config (application specific configurations)
+
+— — — controllers (controllers go here)
+— — — — components
+— — — index.php
+— — — models (models go here)
+— — — plugins (third party apps – go here)
+— — — views (view related files go here)
+— — — — elements (small repeated layout items go here)
+— — — — errors (error pages go here)
+— — — — helpers (your home-based helpers go here)
+— — — — layouts (page layouts go here)
+— — — — pages (static content managed by PagesController go here)
+— — — webroot (this directory as your webroot, and stick your public files in here)
+— — — — css
+— — — — files
+— — — — img
+— — — — js
+— — cake (this is where the libraries are placed: Note: it’s best not to touch)
+— — index.php
+— — tmp (used for logs, baking, etc.)
+— — vendors (stick your third party libraries here)
+
+Q. cakephp component, module difference
+Component: share logic between controller
+Module: share logic between models
+Plugin: combination of controller, view, model
+Q. difference with codeigniter
+Q. what is scaffolding
+Q. how databse relation ship in cakephp
+Q. can I call view directly
+Q. what will happen if same url patern found… (error or what )
+Q. first file run?
+Q. what is Helpers?
+running flow of cakphp
+why use cakephp
+is it support multiple database
+can i cange dtabse from mysql to other if yes how
