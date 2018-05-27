@@ -1,4 +1,4 @@
-Q. cakephp directory structure
+Q. write cakephp directory structure for 2.*
 — root (the root directory)
 — — app (here’s where your application logic will go)
 — — — config (application specific configurations)
@@ -24,10 +24,11 @@ Q. cakephp directory structure
 — — tmp (used for logs, baking, etc.)
 — — vendors (stick your third party libraries here)
 
-Q. cakephp component, module difference
+Q. what is cakephp component, modules, plugins, and what is the difference between them
 Component: share logic between controller
 Module: share logic between models
 Plugin: combination of controller, view, model
+
 Q. difference with codeigniter
 Q. what is scaffolding
 Q. how databse relation ship in cakephp
