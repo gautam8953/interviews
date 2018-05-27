@@ -54,6 +54,8 @@ MYISAM:
 5.	MYISAM not supports transaction. You cannot commit and rollback with MYISAM. Once you issue a command it’s done.
 6.	MYISAM supports fulltext search
 7.	You can use MyISAM, if the table is more static with lots of select and less update and delete.
+8: develop by ibm to store data like tape. 
+9. mysql indexed sequential access method(FULL FORM)
 INNODB:
 1.	InnoDB supports Row-level Locking
 2.	InnoDB designed for maximum performance when processing high volume of data
@@ -65,9 +67,13 @@ Q. Write Query to change type of database engine in mysql?
 A. ALTER TABLE t ENGINE = MYISAM;
 
 Q. what is triger?
+A. Trigerss allowed insert, update,delete on before or after each, means 6 combination of 2 each
+
 Q. what is the difference between group by and  having clause?
 Q. what is indexing and how to achieve it
 A. maximum 16 index can be defined in  a table
+
+Q. how to see indexes defind for a table: show index from tablename
 
 Q. how to check number result obtained byy mysql
 Q. query for getting all vote to a candidate from two table(one has voter name, one has parties and other has vote)
@@ -77,37 +83,40 @@ Q. difference between delete & truncate
 Q. what are joins
 Q. what is subquery
 Q. sql injuctions
+Q. What is heap tables?
+Q. Explain Heap and temporary table
+Q. WWhat is default default port of mysql : 3306
+Q. compare enum and sets
+Q. compare char and varchar
+A. Char vs varchar: 255,4000 charcters; fixed size, variable; 50% faster is char than varchar; static memory allocation usred, dyanamic used
+Q. how to get version of mysql : select version();
+Q. Explain parimary key & candidate key
+Q. Primary vs unique
+Q. what are federated tables?
+A. which allow access to the tables located on other database on another servers
 
-indexes andits uses, 
-heap tables what is
-default port of mysql : 3306
-enum and sets
-char and varchar
-get  version of mysql : select version();
-primary key & candidate key
-what are federated tables: which allow access to the tables located on other database on another servers
-autoincrement: automatically increased value. When maximum value reached it stops and error flashed
-how to see indexes defind for a table: show index from tablename
-% and _ and like uery
-Difference in like and regrex operators
-Difference in blob and text
-Myisam: develop by ibm to store data like tape. Full form: mysql indexed sequential access method
-By using created statement we can create database, event, function, index, procedure, table, trigger, user, view
-Trigerss allowed insert, update,delete on before or after each, means 6 combination of 2 each
-Common sql function
-Rdms and itrs features and dbms
-Data mining means
-Maximum 64 colums can be updated in a single query, 64 chars leght name can be create
-Ddl, dml, dcl
-Delete vs truncate
-Heap and temporary table
-Float nad doubles
-Char vs varchar: 255,4000 charcters, fixed size, variable, 50% faster is char than varchar, static memory allocation usred, dyanamic used
-Mysql connect nad mysql p connect
+Q. Explain autoincrement in mysql?
+A. it automatically increased value. When maximum value reached it stops and error flashed
 
-Nth salary : select distict(salary0 from emp order by salary desc limit n-1,1
-fro getting latest record in group by query
-SELECT id, branchId, roleId FROM mapping WHERE id IN ( SELECT MAX(id) FROM mapping GROUP BY branchId )
-Primary vs unique
+Q. Explain % and _ and like uery
+Q. Difference in like and regrex operators
+Q. Difference in blob and text field
+Q. Use of create statement in sql
+A. By using create statement we can create database, event, function, index, procedure, table, trigger, user, view
+
+Q. name some Common sql function
+Q. Difference between rdbms and dbms
+Q. What Data mining means?
+Q. How many columns can be updated by a single query
+A. Maximum 64 colums can be updated in a single query, 64 chars leght name can be create
+
+Q. compare ddl, dml, dcl
+Q. Delete vs truncate
+Q. Float vs doubles
+Q. Mysql connect and mysql p connect
+Q. Mysql pdo conection and query
+Q. How to get latest record in group by query
+A. SELECT id, branchId, roleId FROM mapping WHERE id IN ( SELECT MAX(id) FROM mapping GROUP BY branchId )
+
 
 
