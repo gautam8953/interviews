@@ -65,43 +65,36 @@ C. $_GET:  limit 2000 characters, send via url, data can be seen, no security, f
 
 D. $_POST: all names/values are embedded within the body of the HTTP request, has no limit, secure, files images can be sent, variable are not seen show we can’t bookmark a page
 
-E. $_FILES:  enctype="multipart/form-data" must be added to form, method will be post,
-move_uploaded_file($_FILES['photo']['tmp_name'],"uploads/candidate/photo/".$photo)
-Getimagesize() to get uploading image height and width
-file_exists(url) to check file exist or not
-if ($_FILES["fileToUpload"]["size"] > 500000) limit upload
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION); to get extension of file
+E. $_FILES:  
+for upload file enctype="multipart/form-data" must be added to form and method will be post
+syntax to uplaod files: move_uploaded_file($_FILES['photo']['tmp_name'],"uploads/candidate/photo/".$photo)
+synatx to get uploading image height and width: Getimagesize()
+synatx to check file exist or not: file_exists(url)
+Synatx to set uplaod limit : if ($_FILES["fileToUpload"]["size"] > 500000) // 500KB
+Synatx to get extension of file: $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 F. $_COOKIE: A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values
-setcookie(name, value, expire, path, domain, secure, httponly);
+Synatx: setcookie(name, value, expire, path, domain, secure, httponly);
 $cookie_name = "user";
 $cookie_value = "John Doe";
 setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 To disable a cookie set cookie with past date.
-if(count($_COOKIE) > 0) To check cookie is enable 
+Synatx to check cookie is enables or not : if(count($_COOKIE) > 0) 
 
 G. $_SESSION A session is a way to store information (in variables) to be used across multiple pages. It stores in tmp folder on the server.
-session_start();
-$_SESSION["favcolor"] = "green";
-session_destroy();session_unset();  unset($_SESSION["favcolor"]);
-default time 24 minutes (1440 seconds)
-increase sesion time // server should keep session data for AT LEAST 1 hour
-ini_set('session.gc_maxlifetime', 3600);
-
-// each client should remember their session id for EXACTLY 1 hour
-session_set_cookie_params(3600);
-
-session_start(); // ready to go!
-
+Synatx: session_start();
+synatx to set session variable: $_SESSION["favcolor"] = "green";
+synatx to destroy session variable:  session_destroy();session_unset();  unset($_SESSION["favcolor"]);
+default time of session variables: 24 minutes (1440 seconds)
+synatx to increase sesion time // server should keep session data for AT LEAST 1 hour: ini_set('session.gc_maxlifetime', 3600);
+each client should remember their session id for EXACTLY 1 hour : session_set_cookie_params(3600);
 To change session path: ini_set(session.save_path, '/path/to/your/folder')
 ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
-session_start();
-Apache used /var/tmp, while CLI used something like /var/folders/kf/hk_dyn7s2z9bh7y_j59cmb3m0000gn/T
+Syntax to Get session id : session_start(); $a = session_id();
+      echo "SID: ".SID."<br>session_id(): ".session_id()."<br>COOKIE: ".$_COOKIE["PHPSESSID"];
 
-Get session id $a = session_id();
-if(empty($a)) session_start();
-echo "SID: ".SID."<br>session_id(): ".session_id()."<br>COOKIE: ".$_COOKIE["PHPSESSID"];
-Q. Headers in php: The header() function sends a raw HTTP header to a client. It is important to notice that header() must be called before any actual output is sent (In PHP 4 and later, you can use output buffering to solve this problem)
+Q. Headers in php: 
+A. The header() function sends a raw HTTP header to a client. It is important to notice that header() must be called before any actual output is sent (In PHP 4 and later, you can use output buffering to solve this problem)
 header('Location: http://www.example.com/');
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Cache-Control: no-cache");
@@ -109,14 +102,11 @@ header("Pragma: no-cache");
 Let the user be prompted to save a generated PDF file (Content-Disposition header is used to supply a recommended filename and force the browser to display the save dialog box):
 <?php
 header("Content-type:application/pdf");
-
 // It will be called downloaded.pdf
 header("Content-Disposition:attachment;filename='downloaded.pdf'");
-
 // The PDF source is in original.pdf
 readfile("original.pdf");
 ?>
-
 <html>
 <body>
 
