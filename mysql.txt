@@ -1,7 +1,11 @@
 Q. name different type of indexes in mysql
+    INDEX, UNIQUE, PRIMARY
 Q. write a query to find the age of an employee from his dob stored
+    SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),'2010-11-25')), '%Y')+0 AS Age;
 Q. if you got the files of mysql myISM databs, can you restore it or get data back from it
-Q. if you have to transfer data from one server to another waht are different ideas?
+    yes. stop server, place file in mysql/data folder then restart
+Q. if you have to transfer data from one server to another what are different ideas?
+    download sql, master slave, transfer data by connecting to another
 Q. write diffrent query to find the 2nd, 3rd, 4th highest/lowest salary and fetching all records containing these salries
 A. SELECT DISTINCT(column name) FROM table ORDER BY (column name) desc LIMIT n-1,1
 
@@ -70,13 +74,33 @@ Q. what is triger?
 A. Trigerss allowed insert, update,delete on before or after each, means 6 combination of 2 each
 
 Q. what is the difference between group by and  having clause?
+    Having Clause is basically like the aggregate function with the GROUP BY clause. The HAVING clause is used instead of WHERE with aggregate functions. While the GROUP BY Clause groups rows that have the same values into summary rows. The having clause is used with the where clause in order to find rows with certain conditions. The having clause is always used after the group By clause.
+
+    SELECT COUNT (SALARIES) AS COUNT_SALARIES, EMPLOYEES
+    FROM EMPLOYEES
+    GROUP BY SALARIES
+    HAVING COUNT(SALARIES) > 1; 
+
 Q. what is indexing and how to achieve it
 A. maximum 16 index can be defined in  a table
+    CREATE TABLE tableName (
+    ID int,
+    LName varchar(255),
+    FName varchar(255),
+    DOB varchar(255),
+    LOC varchar(255),
+    PRIMARY KEY (ID),
+    UNIQUE INDEX ( ID )
+    );
+    CREATE UNIQUE INDEX indexName ON tableName (ID, LName, FName, LOC);
+    DROP INDEX indexName ON tableName;
 
 Q. how to see indexes defind for a table: show index from tablename
 
-Q. how to check number result obtained byy mysql
+Q. how to check number result obtained by mysql : $num_rows = mysqli_num_rows($result);
+
 Q. query for getting all vote to a candidate from two table(one has voter name, one has parties and other has vote)
+
 Q. explain acid property
 Q. what is transaction
 Q. difference between delete & truncate
