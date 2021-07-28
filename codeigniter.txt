@@ -1,4 +1,5 @@
 Q. waht is the directory structure of codeigniter
+    index->routing->security->appController->(model,library,helper,plugin,script)->view->caching->index.php
 Q. waht is the difference between cakephp nad codeigniter?
 Q. how  session variable created unset and retrieve in codeignter?
 Q. how to write query in codeigniter with example?
