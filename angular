@@ -20,6 +20,14 @@ Q. what is decorator in angular : Decorators are functions that are invoked with
            @Inject () is a common and widely used parameter decorator. Using this decorator, we can inject services in Angular classes
  jit and eot 
  
+ What is an observable?
+ What is the difference between promise and observable?
+    Observable	                                     Promise
+    Declarative: Computation does not start until subscription so that they can be run whenever you need the result	                   Execute immediately on creation
+    Provide multiple values over time	                                                                                                  Provide only one
+    Subscribe method is used for error handling which makes centralized and predictable error handling	                                  Push errors to the child promises
+    Provides chaining and subscription to handle complex applications	                                                                  Uses only .then() clause
+ 
  testing setup, process
 compare two array by a single loop
 compare two object 
