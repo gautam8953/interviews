@@ -1,9 +1,25 @@
+Q.  Tell something about the undeclared and undefined variables?
 Q. we can get value of a input box by both js and jquery but which one will give faster result.
+Q. How many data types are there in JavaScript? Can you name them?
+Q. what are the selecters in jquery
+Q. how to send ajax request by jquery
+Q. windowload and document.ready() -> difference in them
+Q. how to reload a page
+Q. What is negative Infinity? - Negative Infinity is a number in JavaScript which can be derived by dividing negative number by zero.
+Q. In JavaScript, it is possible for the programmers to convert the string to an integer? parseInt()
+Q.Differene between innerText and innerHTML
+	Retrieves and sets the content in plain text.			Retrieves and sets the content in HTML format.
+	We can not insert the HTML tags.				We can insert the HTML tags.
+	It ignores the spaces.						It considers the spaces.
+	It returns text without an inner element tag.			It returns a tag with an inner element tag.
+Q.What a pop()method in JavaScript is?
+	The pop() method is similar to the shift() method, but the difference is that the Shift method works at the array’s start. 
+	The pop() method takes the last element off of the given array and returns it. The array on which it is called is then altered
+Q. What is event bubbling? 
+	JavaScript allows DOM elements to be nested inside each other. In such a case, if the handler of the child is clicked, the handler of the parent will also work as if it were clicked too.
+Q. Write the point of difference between a web garden and a web farm?
+	Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. At the same time,web-farm is a larger setup that uses more than one server.
 
-what are the selecters in jquery
-how to send ajax request by jquery
-windowload
-how to reload a page
 three select option, two have common data and third one have that common data. when a valuse is selected in third select  
 option other select option automaticaly select the valuse that is selected in third select option using jquery
 how to send ajax request in javascript and jquery
