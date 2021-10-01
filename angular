@@ -1,6 +1,45 @@
+Q. difference in angular js and angular 
+ Tell something about the undeclared and undefined variables? 
+   undeclared -> not exist, not declared
+   undefined -> exist, defined but value not assigned
+Q. latest angular version -> whats new in it -> latest angular worked on 
+Q. angular project setup -> how code generate
+Q. angular architecture 
+Q. how many files generated in component and use of it
+Q.  angular code execution flow 
+Q. what is decorator in angular : Decorators are functions that are invoked with a prefixed @ symbol, and are immediately followed by a class, method or property. 
+   They allow a service, directive or filter to be changed before being used. Basically, a decorator provides configuration metadata that determines how the component, 
+   class or a function should be processed, instantiated and used at runtime
+  -> Types of Decorators - There are four types of decorators and each type further has its own subset of decorators
+    1.class : This is the first type of decorator which tells us about a particular class’s intent and helps answer questions like whether the class is a component or a module. 
+          There are various Class decorators in Angular, and among them @Component and @NgModule are widely used
+    2.method : Method decorators, as the name indicates, are used to decorate the method defined inside our class with functionality
+    3.property : Property decorators are used to decorate specific properties inside a class. Using a property decorator, 
+           we can easily identify why we use any particular property of a class Like @Input (), @Output, @ReadOnly (), @Override ()
+    4.Parameter Decorators: Parameter decorators allow us to decorate parameters in our class constructors.  
+           @Inject () is a common and widely used parameter decorator. Using this decorator, we can inject services in Angular classes
  jit and eot 
+ 
+ testing setup, process
+compare two array by a single loop
+compare two object 
+pass by refrence 
  error when data size to big 
  promise and callback 
  observable
  dept ise sec hignest sal of employee maps
 arrow function
+
+Q. Types of CSS -> 1. Inline CSS, 2.Internal or Embedded CSS, 3.External CSS
+Q. have you use SCSS. what is different in css and scss
+Q. can you make a jpg design to html
+Q. can you make responsive 
+Q. have you used media query 
+Q. different kind of selector in css
+
+What is the advantage of collapsing white space?
+How do you insert a copyright symbol on a browser page?
+What are the limits of the text field size?
+What are two types of Web Storage in HTML5?
+Define Semantic elements in HTML
+Why do we need the MathML element in HTML5 -> MathML stands for Mathematical Markup Language. It is used for displaying mathematical expressions on web pages
