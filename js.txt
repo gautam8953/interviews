@@ -1,3 +1,10 @@
+Q. differene in let, var and const?
+Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
+	Console.log('1');
+	Settimeout(()=>{
+	Console.log('2')
+	},1000)
+	Console.lgo('3')
 Q.  Tell something about the undeclared and undefined variables?
 Q. we can get value of a input box by both js and jquery but which one will give faster result.
 Q. How many data types are there in JavaScript? Can you name them?
