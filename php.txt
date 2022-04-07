@@ -82,6 +82,7 @@ To disable a cookie set cookie with past date.
 Synatx to check cookie is enables or not : if(count($_COOKIE) > 0) 
 
 G. $_SESSION A session is a way to store information (in variables) to be used across multiple pages. It stores in tmp folder on the server.
+   The time interval in which two systems(i.e. the client and the server) communicate with each other can be termed as a session.
 Synatx: session_start();
 synatx to set session variable: $_SESSION["favcolor"] = "green";
 synatx to destroy session variable:  session_destroy();session_unset();  unset($_SESSION["favcolor"]);
