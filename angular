@@ -9,7 +9,18 @@ Ans.
    Mobile support	
    A. It does not support mobile browsers. 	
    B. Angular is supported by all the popular mobile browsers.
+   
 Q. What are some of the advantages of Angular over other frameworks?
+Ans A.  Excellent Material Design Library
+   B. Efficient Problem-Solving Patterns
+   C. More Lightweight Web Applications
+   D. Readable and Testable Code
+   E. Faster Development Process
+   
+Q. What’s the difference between JavaScript and ECMAScript?
+Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript, etc. It is a trademark scripting language specification. 
+   JavaScript is a language based on ECMAScript. A standard for scripting languages like JavaScript, JScript is ECMAScript. 
+   JavaScript is considered as one of the most popular implementations of ECMAScript
 Q. Tell something about the undeclared and undefined variables? 
    undeclared -> not exist, not declared
    undefined -> exist, defined but value not assigned
