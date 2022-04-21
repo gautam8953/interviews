@@ -1,4 +1,14 @@
 Q. difference in angular js and angular 
+Ans. 
+   Architecture
+   A. It supports the Model-View-Controller design. The view processes the information available in the model to generate the output. 	
+   B. It uses components and directives. Components are the directives with a template.
+   Written Language	
+   A. Written in JavaScript. 	
+   B. Written in Microsoft’s TypeScript language, which is a superset of ECMAScript 6 (ES6).
+   Mobile support	
+   A. It does not support mobile browsers. 	
+   B. Angular is supported by all the popular mobile browsers.
 Q. What are some of the advantages of Angular over other frameworks?
 Q. Tell something about the undeclared and undefined variables? 
    undeclared -> not exist, not declared
