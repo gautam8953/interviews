@@ -31,6 +31,26 @@ Ans. install nodejs. npm installed by default. Then install angular by command n
       -g measn it will be installed globaly. for specific version npm install -g @angular/cli@8.3.19
       
 Q. angular architecture 
+Ans. Here’s a list of the most important files on the root folder, created by Angular CLI:
+      –  package.json – containing all the packages needed for development and production
+      –  tsconfig.json – containing TypeScript transpilation configuration
+      –  tslint.json – containing all the rules for TypeScript static code analysis (ie. linting)
+      –  angular.json – containing options for building and configuring Angular projects
+      Everything else is located on the src folder, including the following:
+      – index.html – as a single entry point for serving the Angular application
+      – main.ts – representing the main TypeScript file for bootstrapping the application
+      – styles.scss – as a globally defined cascading stylesheets (CSS) file (or any other CSS compiler file supported by the configuration)
+      – app folder – containing all the Angular code
+      – assets folder – containing static files (eg. images, fonts, JSON files)
+      – environments folder – containing different environments used when deploying or testing the application
+      
+in build following files generated : 
+   – main.js – containing the application-based transpiled code (what we made by ourselves)
+   – polyfills.js – containing the additional code logic for supporting versions of older browsers
+   – runtime.js – containing the plumbing code of Angular to run the application
+   -scripts. js – with all the script code required for support styles and custom JavaScript libraries
+   – styles.js – containing styles, defined by the application and from the third-party UX libraries (such as Bootstrap)
+   – vendor.ts – the code that’s coming from the node_modules folder (ie. third-party libraries, including Angular itself).
 
 Q. how many files generated in component and use of it
 Ans. 4 files are generated. CSS, HTML, SPEC, TS
@@ -46,7 +66,20 @@ Ans. angular.json -> angular-cli configuration file main.ts -> Angular module bo
    Based upon your entry module, it configures which component will load first from that module and what others dependency modules, components, pipes, services.
 
 Q. what is lazy loading and how to achieve it .
+Ans. To lazy load Angular modules, use loadChildren (instead of component) in your AppRoutingModule routes. it load the defined folder when route matches.
+
+Q. what is polyfil and why polyfil.ts is used?
+Ans. Polyfills in basic language are extra lines of code which make your application compatible for different browsers. 
+   The code we write is mostly in ES6(New Features: Overview and Comparison) and is not compatible with IE or firefox 
+   and needs some environment setups before being able to be viewed or used in these browsers. 
+   So, the polyfills takes uo the task abd do these low level setups for you.
+   This file is divided into 2 sections:
+   A. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
+   B. Application imports. Files imported after ZoneJS should be loaded before your main file
+   
 Q. explain process to implement authorisation in a big application.
+Ans. 
+
 Q. what is decorator in angular : Decorators are functions that are invoked with a prefixed @ symbol, and are immediately followed by a class, method or property. 
    They allow a service, directive or filter to be changed before being used. Basically, a decorator provides configuration metadata that determines how the component, 
    class or a function should be processed, instantiated and used at runtime
@@ -96,7 +129,7 @@ let var difference
 ecma 6 new 
 promise nad its state 
 observable 
-polyfil is used why or what is polyfil
+
 what is auth guard?
 what is arrow function? have you use it?
 what is pipes? difference in pure and impur pipes
