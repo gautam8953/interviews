@@ -22,13 +22,29 @@ Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript
    JavaScript is a language based on ECMAScript. A standard for scripting languages like JavaScript, JScript is ECMAScript. 
    JavaScript is considered as one of the most popular implementations of ECMAScript
 Q. Tell something about the undeclared and undefined variables? 
-   undeclared -> not exist, not declared
-   undefined -> exist, defined but value not assigned
+Ans.  undeclared -> not exist, not declared
+      undefined -> exist, defined but value not assigned
+   
 Q. latest angular version -> whats new in it -> latest angular worked on 
 Q. angular project setup -> how code generate
+Ans. install nodejs. npm installed by default. Then install angular by command npm install -g @angular/cli
+      -g measn it will be installed globaly. for specific version npm install -g @angular/cli@8.3.19
+      
 Q. angular architecture 
+
 Q. how many files generated in component and use of it
+Ans. 4 files are generated. CSS, HTML, SPEC, TS
+      A. CSS -> for style 
+      B. HTML -> for display 
+      C. SPEC -> The spec files are unit tests for your source files. The convention for Angular applications is to have a .spec.ts file for each .ts file. 
+         They are run using the Jasmine javascript test framework through the Karma test runner (https://karma-runner.github.io/) when you use the ng test command
+      D. TS -> for logics and 
+   
 Q.  angular code execution flow 
+Ans. angular.json -> angular-cli configuration file main.ts -> Angular module bootstrap application file. 
+   Set the entry module for your application. app.module.ts -> 
+   Based upon your entry module, it configures which component will load first from that module and what others dependency modules, components, pipes, services.
+
 Q. what is lazy loading and how to achieve it .
 Q. explain process to implement authorisation in a big application.
 Q. what is decorator in angular : Decorators are functions that are invoked with a prefixed @ symbol, and are immediately followed by a class, method or property. 
@@ -84,7 +100,9 @@ polyfil is used why or what is polyfil
 what is auth guard?
 what is arrow function? have you use it?
 what is pipes? difference in pure and impur pipes
-Explain Components, Modules and Services in Angular
+Q. Explain Components, Modules and Services in Angular
+Ans. Services are plain Typescript / JavaScript class providing a very specific functionality
+
 what is jit and eot
 What is the difference between promise and observable?
 what is for roor in app module
