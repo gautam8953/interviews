@@ -408,4 +408,9 @@ Ans.  $string = "ZEESHAN";
       echo $reverse;
 Q. Print equiletral triangle or similar patterns 
 Q. what is namespace in php 
-
+Q. Types of PHP Encryption
+Ans A. Hashing 
+      The Hashing Algorithm of the PHP Programming Language usually takes one input value and then transforms it into one message digest. can not be decoded. 
+   B. Secret Key Encryption
+      The Secret Key Encryption of the PHP usually uses one single key to both encryption and decryption data. It is also known as symmetric encryption.
+   C. Envelope Encryption
