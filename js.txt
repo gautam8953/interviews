@@ -5,9 +5,15 @@ Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	Console.log('2')
 	},1000)
 	Console.lgo('3')
+Q. typeof(typeof(4+"7")) output : string 	
 Q.  Tell something about the undeclared and undefined variables?
 Q. we can get value of a input box by both js and jquery but which one will give faster result.
 Q. How many data types are there in JavaScript? Can you name them?
+Q. what is operator in js 
+Q. waht is hoisting 
+Q. difference in settimeout and setinterval function 
+Q. js annotation
+Q. Difference between One-way Binding and Two-way Binding
 Q. what are the selecters in jquery
 Q. how to send ajax request by jquery
 Q. windowload and document.ready() -> difference in them
@@ -38,3 +44,4 @@ which function you have used in jquery
 what is document.ready()
 what is $ in jquery
 document.ready function and $
+
