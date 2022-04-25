@@ -133,16 +133,19 @@ observable
 what is auth guard?
 what is arrow function? have you use it?
 what is pipes? difference in pure and impur pipes
+Q. how to create a module 
 Q. Explain Components, Modules and Services in Angular
 Ans. Services are plain Typescript / JavaScript class providing a very specific functionality
 
+what is closure 
+what is property binding 
 what is jit and eot
 What is the difference between promise and observable?
 what is for roor in app module
 
 version controlling in angular 
 testing  apply in angualr 
-
+angular life cycle and its uses 
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
