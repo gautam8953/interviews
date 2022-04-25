@@ -286,6 +286,45 @@ Q. The static keyword is used to declare properties and methods of a class as st
    echo "<br>";
    echo MyClass::hello();
    ?>
+Q. self and $this keyword in php 
+Ans. $this is used to access any member data and function in a class. 
+      self is used to acess static data nd member function in the class. 
+      <?php
+    class Person {
+        // first name of person
+        private $name;
+        
+        // public function to set value for name (setter method)
+        public function setName($name) {
+            $this->name = $name;
+        }
+        
+        // public function to get value of name (getter method)
+        public function getName() {
+            return $this->name;
+        }
+    }
+    
+    // creating class object
+    $john = new Person();    
+    // calling the public function to set fname
+    $john->setName("John Wick");    
+    // getting the value of the name variable
+    echo "My name is " . $john->getName();
+      ?>
+      
+      <?php
+          class Person {
+              // first name of person
+              public static $name;
+
+              // public function to get value of name (getter method)
+              public static function getName() {
+                  return self::$name;     // using self here
+              }
+          }
+      ?>
+   
 Q. final class and final method difference
 if methode is final, it can’t be override and if a class is final it can’t be extended.
 
@@ -347,6 +386,7 @@ Q. urlencode() -> The urlencode() function is an inbuilt function in PHP which i
    
 how you will check a variable is array or not, or string/number        echo gettype($value), "\n";
 difference in fetch_associate and fetch_array
+difference in include nad require
 number of days finding
 swap two number without uing third variable a=5,b=6; b=5+6; a=b-a; b=b-a;
 strstr vs strops
