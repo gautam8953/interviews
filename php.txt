@@ -324,7 +324,7 @@ Ans. $this is used to access any member data and function in a class.
               }
           }
       ?>
-   
+Q. Member functions in PHP are those functions which are defined inside the class and are used to access the object data.   
 Q. final class and final method difference
 if methode is final, it can’t be override and if a class is final it can’t be extended.
 
@@ -407,4 +407,5 @@ Ans.  $string = "ZEESHAN";
       }
       echo $reverse;
 Q. Print equiletral triangle or similar patterns 
+Q. what is namespace in php 
 
