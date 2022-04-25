@@ -1,3 +1,5 @@
+Q. default execution time of php : 30 seconds,  ini_set('max_execution_time', 120);
+Q. default path of ini file : in linus where apache is present. (/etc/php/7.4/apache2/php.ini)
 Q. Difference  in echo and print???
 1.	Speed. There is a difference between the two, but speed-wise it should be irrelevant which one you use. echo is marginally faster since it doesn't set a return value if you really want to get down to the nitty gritty.
 2.	Expression. print() behaves like a function in that you can do: $ret = print "Hello World"; And $ret will be 1. That means that print can be used as part of a more complex expression where echo cannot. An example from the PHP Manual:
@@ -270,6 +272,7 @@ Can implements many interface but can extend only one class
 
 Q. final class and final method difference
 if methode is final, it can’t be override and if a class is final it can’t be extended.
+
 Q cookies
 setcookie(name, value, expire, path, domain, security);
 Here is the detail of all the arguments:
@@ -284,18 +287,10 @@ Following example will create two cookies name and age these cookies will be exp
    setcookie("name", "John Watkin", time()+3600, "/","", 0);
    setcookie("age", "36", time()+3600, "/", "",  0);
 ?>
-<html>
-<head>
-<title>Setting Cookies with PHP</title>
-</head>
-<body>
-<?php echo "Set Cookies"?>
-</body>
-</html>
-
 Officially, to delete a cookie you should call setcookie() with the name argument only but this does not always work well, however, and should not be relied on.
 It is safest to set the cookie with a date that has already expired:
 setcookie( "name", "", time()- 60, "/","", 0);
+get cookie value -> $_COOKIE[$cookie_name]
 
 
 Q. what is $_server, how to get browser name   
@@ -323,6 +318,17 @@ echo $interval->format('%R%a days');
 
 relation in session and cokkies
 
+Q. set_time_limit -> Set the number of seconds a script is allowed to run. If this is reached, the script returns a fatal error. 
+   The default limit is 30 seconds or, if it exists, the max_execution_time value defined in the php.ini.
+   When called, set_time_limit() restarts the timeout counter from zero. 
+   while setting the set_time_limit(), the duration of sleep() will be ignored in the execution time
+
+q. unset() -> The unset() function unsets a variable.
+Q. urlencode() -> The urlencode() function is an inbuilt function in PHP which is used to encode the url. 
+   This function returns a string which consist all non-alphanumeric characters except -_. 
+   and replace by the percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs.
+   urldecode() -> decode string encoded by encode()
+   
 how you will check a variable is array or not, or string/number        echo gettype($value), "\n";
 difference in fetch_associate and fetch_array
 number of days finding
@@ -333,3 +339,16 @@ magic methods and magic constants
 if vs switch
 loop levels
 mysql_fetch_aray and mysql_fetch_object
+Q. reverse a string without using predefined function 
+Ans.  $string = "ZEESHAN";
+      $reverse = "";
+      $j = 0;
+      while(isset($string[$j])){
+          $j++;
+      }
+      for($i = $j - 1; $i >= 0; $i--){
+          $reverse .= $string[$i];
+      }
+      echo $reverse;
+Q. Print quiletral triangle or similar patterns 
+
