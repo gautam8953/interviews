@@ -414,3 +414,5 @@ Ans A. Hashing
    B. Secret Key Encryption
       The Secret Key Encryption of the PHP usually uses one single key to both encryption and decryption data. It is also known as symmetric encryption.
    C. Envelope Encryption
+Q. have any project made using oops 
+Q. why we use oops for project development
