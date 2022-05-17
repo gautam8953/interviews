@@ -44,4 +44,4 @@ which function you have used in jquery
 what is document.ready()
 what is $ in jquery
 document.ready function and $
-
+map function is js
