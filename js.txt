@@ -4,59 +4,108 @@ Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript
    JavaScript is a language based on ECMAScript. A standard for scripting languages like JavaScript, JScript is ECMAScript. 
    JavaScript is considered as one of the most popular implementations of ECMAScript
    
+Q. whats new is latest ecma script?
+   
 Q. Tell something about the undeclared and undefined variables? 
 Ans.  undeclared -> not exist, not declared
       undefined -> exist, defined but value not assigned
       
 Q. differene in let, var and const?
+
 Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	Console.log('1');
 	Settimeout(()=>{
 	Console.log('2')
 	},1000)
 	Console.lgo('3')
-Q. typeof(typeof(4+"7")) output : string 	
+	
+Q. typeof(typeof(4+"7")) output : string 
+
 Q.  Tell something about the undeclared and undefined variables?
+
+Q.  What is an observable?
+
+Q. waht is promise and what are different states of promise?
+
+Q. What is the difference between promise and observable?
+   Promise:
+   1. Execute immediately on creation
+   2. Provide only one
+   3. Push errors to the child promises
+   4. Uses only .then() clause
+   
+    Observable :	                                     
+    1. Declarative: Computation does not start until subscription so that they can be run whenever you need the result	                   
+    2. Provide multiple values over time	                                                                                                  
+    3. Subscribe method is used for error handling which makes centralized and predictable error handling	                                  
+    4. Provides chaining and subscription to handle complex applications	
+    
+ Q. What is the difference between promise and callback 
+ 
+Q. what is arrow function?
+
 Q. we can get value of a input box by both js and jquery but which one will give faster result.
+
 Q. How many data types are there in JavaScript? Can you name them?
+
 Q. what is operator in js 
-Q. waht is hoisting 
+
+Q. what is hoisting?
+
 Q. difference in settimeout and setinterval function 
+
 Q. js annotation
+
 Q. Difference between One-way Binding and Two-way Binding
+
 Q. what are the selecters in jquery
-Q. how to send ajax request by jquery
-Q. windowload and document.ready() -> difference in them
-Q. how to reload a page
+
+Q. how to send ajax request by jquery and javascript?
+
+Q. what are stages of ajax request?
+
+Q. difference between windowload and document.ready() ?
+
+Q. how to reload a page by JS?
+
 Q. What is negative Infinity? - Negative Infinity is a number in JavaScript which can be derived by dividing negative number by zero.
-Q. In JavaScript, it is possible for the programmers to convert the string to an integer? parseInt()
+
+Q. In JavaScript, it is possible for the programmers to convert the string to an integer? 
+  Ans. parseInt()
+
 Q.Differene between innerText and innerHTML
 	Retrieves and sets the content in plain text.			Retrieves and sets the content in HTML format.
 	We can not insert the HTML tags.				We can insert the HTML tags.
 	It ignores the spaces.						It considers the spaces.
 	It returns text without an inner element tag.			It returns a tag with an inner element tag.
+	
 Q.What a pop()method in JavaScript is?
 	The pop() method is similar to the shift() method, but the difference is that the Shift method works at the array’s start. 
 	The pop() method takes the last element off of the given array and returns it. The array on which it is called is then altered
+	
 Q. What is event bubbling? 
-	JavaScript allows DOM elements to be nested inside each other. In such a case, if the handler of the child is clicked, the handler of the parent will also work as if it were clicked too.
+Ans. JavaScript allows DOM elements to be nested inside each other. In such a case, if the handler of the child is clicked, 
+	the handler of the parent will also work as if it were clicked too.
+	
 Q. Write the point of difference between a web garden and a web farm?
-	Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. At the same time,web-farm is a larger setup that uses more than one server.
+Ans. Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. 
+	At the same time,web-farm is a larger setup that uses more than one server.
 
-three select option, two have common data and third one have that common data. when a valuse is selected in third select  
-option other select option automaticaly select the valuse that is selected in third select option using jquery
-how to send ajax request in javascript and jquery
-getting current url using js, jquery  var currentURL = window.location.href; 
+Q. getting current url using js, jquery
+Ans. var currentURL = window.location.href;	
 	$(location).attr('href');      // http://www.refulz.com:8082/index.php#tab2
-  	$(location).attr('pathname');  // index.php
+  	$(location).attr('pathname');  // index.php 		get file name
 
-which function you have used in jquery
-what is document.ready()
-what is $ in jquery
-document.ready function and $
-map function is js
-compare two array by a single loop
-compare two object 
-pass by refrence 
- error when data size to big
+Q. what is document.ready()
+
+Q. what is $ in jquery
+
+Q. map function is js
+
+Q. compare two array by a single loop
+
+Q. compare two object 
+
+Q. pass by refrence 
  
+Q. what is closure
