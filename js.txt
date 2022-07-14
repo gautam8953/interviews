@@ -1,3 +1,13 @@
+
+Q. What’s the difference between JavaScript and ECMAScript?
+Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript, etc. It is a trademark scripting language specification. 
+   JavaScript is a language based on ECMAScript. A standard for scripting languages like JavaScript, JScript is ECMAScript. 
+   JavaScript is considered as one of the most popular implementations of ECMAScript
+   
+Q. Tell something about the undeclared and undefined variables? 
+Ans.  undeclared -> not exist, not declared
+      undefined -> exist, defined but value not assigned
+      
 Q. differene in let, var and const?
 Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	Console.log('1');
