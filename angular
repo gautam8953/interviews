@@ -17,14 +17,6 @@ Ans A.  Excellent Material Design Library
    D. Readable and Testable Code
    E. Faster Development Process
    
-Q. What’s the difference between JavaScript and ECMAScript?
-Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript, etc. It is a trademark scripting language specification. 
-   JavaScript is a language based on ECMAScript. A standard for scripting languages like JavaScript, JScript is ECMAScript. 
-   JavaScript is considered as one of the most popular implementations of ECMAScript
-Q. Tell something about the undeclared and undefined variables? 
-Ans.  undeclared -> not exist, not declared
-      undefined -> exist, defined but value not assigned
-   
 Q. latest angular version -> whats new in it -> latest angular worked on 
 Q. angular project setup -> how code generate
 Ans. install nodejs. npm installed by default. Then install angular by command npm install -g @angular/cli
@@ -81,8 +73,9 @@ Q. explain process to implement authorisation in a big application.
 Ans. 
 
 Q. what is decorator in angular : Decorators are functions that are invoked with a prefixed @ symbol, and are immediately followed by a class, method or property. 
-   They allow a service, directive or filter to be changed before being used. Basically, a decorator provides configuration metadata that determines how the component, 
-   class or a function should be processed, instantiated and used at runtime
+   They allow a service, directive or filter to be changed before being used. 
+   Basically, a decorator provides configuration metadata that determines how the component, class or a function should be processed, instantiated and used at runtime.
+   
   -> Types of Decorators - There are four types of decorators and each type further has its own subset of decorators
     1.class : This is the first type of decorator which tells us about a particular class’s intent and helps answer questions like whether the class is a component or a module. 
           There are various Class decorators in Angular, and among them @Component and @NgModule are widely used
@@ -91,61 +84,27 @@ Q. what is decorator in angular : Decorators are functions that are invoked with
            we can easily identify why we use any particular property of a class Like @Input (), @Output, @ReadOnly (), @Override ()
     4.Parameter Decorators: Parameter decorators allow us to decorate parameters in our class constructors.  
            @Inject () is a common and widely used parameter decorator. Using this decorator, we can inject services in Angular classes
- jit and eot 
+
+Q. jit and eot 
  
- What is an observable?
- What is the difference between promise and observable?
-    Observable	                                     Promise
-    Declarative: Computation does not start until subscription so that they can be run whenever you need the result	                   Execute immediately on creation
-    Provide multiple values over time	                                                                                                  Provide only one
-    Subscribe method is used for error handling which makes centralized and predictable error handling	                                  Push errors to the child promises
-    Provides chaining and subscription to handle complex applications	                                                                  Uses only .then() clause
- 
- testing setup, process
-compare two array by a single loop
-compare two object 
-pass by refrence 
- error when data size to big 
- promise and callback 
- observable
- dept ise sec hignest sal of employee maps
-arrow function
+Q. testing setup in angular, process
 
-Q. Types of CSS -> 1. Inline CSS, 2.Internal or Embedded CSS, 3.External CSS
-Q. have you use SCSS. what is different in css and scss
-Q. can you make a jpg design to html
-Q. can you make responsive 
-Q. have you used media query 
-Q. different kind of selector in css
+Q. what is auth guard?
 
-What is the advantage of collapsing white space?
-How do you insert a copyright symbol on a browser page?
-What are the limits of the text field size?
-What are two types of Web Storage in HTML5?
-Define Semantic elements in HTML
-Why do we need the MathML element in HTML5 -> MathML stands for Mathematical Markup Language. It is used for displaying mathematical expressions on web pages
+Q. what is pipes? difference in pure and impur pipes?
 
-let var difference 
-ecma 6 new 
-promise nad its state 
-observable 
-
-what is auth guard?
-what is arrow function? have you use it?
-what is pipes? difference in pure and impur pipes
 Q. how to create a module 
+
 Q. Explain Components, Modules and Services in Angular
 Ans. Services are plain Typescript / JavaScript class providing a very specific functionality
+ 
+Q. what is property binding 
 
-what is closure 
-what is property binding 
-what is jit and eot
-What is the difference between promise and observable?
-what is for roor in app module
+Q. what is forRoot() in modules? What is its use?
 
-version controlling in angular 
-testing  apply in angualr 
-angular life cycle and its uses 
+Q. version controlling in angular 
+ 
+Q. angular life cycle and its uses 
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
