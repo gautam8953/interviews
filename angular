@@ -111,3 +111,4 @@ logical
 2. how to implement lazy loading 
 3. how to implemnt authorisation steps 
 4. version control in angular 
+5. three select options are there, two have common data and third one have that common data. when a valuse is selected in third select
