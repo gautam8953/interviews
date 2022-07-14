@@ -55,3 +55,8 @@ what is document.ready()
 what is $ in jquery
 document.ready function and $
 map function is js
+compare two array by a single loop
+compare two object 
+pass by refrence 
+ error when data size to big
+ 
