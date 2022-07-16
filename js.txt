@@ -5,6 +5,7 @@ Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript
    JavaScript is considered as one of the most popular implementations of ECMAScript
    
 Q. whats new is latest ecma script?
+A. javacript developed by Mocha in 1995. first ecma script edition come in June 1997.
 
 Q. What is the difference between JavaScript and JScript?
    Netscape provided the JavaScript language. Microsoft changed the name and called it JScript to avoid the trademark issue. 
