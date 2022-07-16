@@ -5,13 +5,86 @@ Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript
    JavaScript is considered as one of the most popular implementations of ECMAScript
    
 Q. whats new is latest ecma script?
+
+Q. What is the difference between JavaScript and JScript?
+   Netscape provided the JavaScript language. Microsoft changed the name and called it JScript to avoid the trademark issue. 
+   In other words, you can say JScript is the same as JavaScript, but Microsoft provides it.
    
+Q. Is JavaScript case sensitive language?  Yes
+
+Q. What is BOM?
+   BOM stands for Browser Object Model. It provides interaction with the browser. The default object of a browser is a window. 
+   So, you can call all the functions of the window by specifying the window or directly. 
+   The window object provides various properties like document, history, screen, navigator, location, innerHeight, innerWidth,
+   
+Q. What is DOM? What is the use of document object?
+   DOM stands for Document Object Model. A document object represents the HTML document. It can be used to access and change the content of HTML.
+   
+Q. In which location cookies are stored on the hard disk?
+	Netscape Navigator - c:\Program Files\Netscape\Users\username\cookies.txt
+	Internet Explorer - c:\Windows\Cookies\username@Website.txt.
+	
+Q. What's the difference between event.preventDefault() and event.stopPropagation() methods in JavaScript?
+A. In JavaScript, the event.preventDefault() method is used to prevent the default behavior of an element. 
+   On the other hand, the event.stopPropagation() method is used to stop the propagation of an event or 
+   stop the event from occurring in the bubbling or capturing phase.
+   
+Q. How can you check if the event.preventDefault() method was used in an element?
+A. When we use the event.defaultPrevent() method in the event object returns a Boolean indicating that the event.preventDefault() was called in a particular element.
+	
+Q. What are the different data types present in JavaScript?
+   There are two types of data types in JavaScript:
+	1. Primitive data types  - String, Number, Boolean, BigInt, Undefined, Null, typeof
+	2. Non- Primitive data types  - Object, Array,
+	
+Q. Name the types of functions in JS?
+	1. named function 
+	2. anonymous function
+	
 Q. Tell something about the undeclared and undefined variables? 
 Ans.  undeclared -> not exist, not declared
       undefined -> exist, defined but value not assigned
       
 Q. differene in let, var and const?
 
+Q. what is cursor in js?
+A. JavaScript cursor is a thing used as a mouse cursor whenever it’s going to point on specific elements. 
+   There are various types of cursor available those are like wait, help, move, pointer, crosshair, cell, not allowed, zoom-in, zoom-out, etc. 
+   This cursor can be changed by assigning value to document.body.style.cursor.
+   
+Q. How to set the cursor to wait in JavaScript?
+A. The cursor can be set to wait in JavaScript by using the property "cursor". The following example illustrates the usage:
+	<script>  
+	window.document.body.style.cursor = "wait";   
+	</script>
+	
+Q. What are the pop-up boxes available in JavaScript?
+   Alert Box
+   Confirm Box
+   Prompt Box
+	
+Q. What is the difference between View state and Session state?
+A. "View state" is specific to a page in a session whereas "Session state" is specific to a user or browser 
+   that can be accessed across all pages in the web application.
+
+Q. Define closure.
+   In JavaScript, we need closures when a variable which is defined outside the scope in reference is accessed from some inner scope.
+	var num = 10;  
+	function sum()   
+	{  
+	document.writeln(num+num);  
+	}   
+	sum();
+
+Q. What does the isNaN() function?
+   The isNan() function returns true if the variable value is not a number.
+   
+Q. If we want to return the character from a specific index which method is used?
+	var str="Javatpoint";    
+	document.writeln(str.charAt(4));
+	
+Q.  What is the output of 10+20+"30" in JavaScript?  3030
+	
 Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	Console.log('1');
 	Settimeout(()=>{
@@ -21,7 +94,7 @@ Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	
 Q. typeof(typeof(4+"7")) output : string 
 
-Q.  Tell something about the undeclared and undefined variables?
+
 
 Q.  What is an observable?
 
@@ -108,4 +181,3 @@ Q. compare two object
 
 Q. pass by refrence 
  
-Q. what is closure
