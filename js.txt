@@ -76,6 +76,31 @@ Q. Define closure.
 	}   
 	sum();
 
+Q. How can we detect OS of the client machine using JavaScript?  navigator.appVersion
+
+Q. What is this keyword in JavaScript?
+A. The this keyword is a reference variable that refers to the current object.
+	
+Q. How to handle exceptions in JavaScript?
+A.  By the help of try/catch block, we can handle exceptions in JavaScript. JavaScript supports try, catch, finally and throw keywords for exception handling.
+	
+Q. What is the use of debugger keyword in JavaScript?
+A. JavaScript debugger keyword sets the breakpoint through the code itself. The debugger stops the execution of the program at the position it is applied.
+	
+Q. What is the role of a strict mode in JavaScript?
+A. JavaScript's strict mode, introduced in ECMAScript 5. This expression can only be placed as the first statement in a script or a function.
+   It is not a statement, but a literal expression, ignored by earlier versions of JavaScript.
+   The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
+   With strict mode, you can not, for example, use undeclared variables.
+   
+Q. What are the falsy values in JavaScript, and how can we check if a value is falsy?
+A. Those values which become false while converting to Boolean are called falsy values.
+	const falsyValues = ['', 0, null, undefined, NaN, false];   
+	We can check if a value is falsy by using the Boolean function or the Double NOT operator (!!).
+	
+Q. What do you understand by hoisting in JavaScript?
+A. Hoisting is the default behavior of JavaScript where all the variable and function declarations are moved on top.
+
 Q. What does the isNaN() function?
    The isNan() function returns true if the variable value is not a number.
    
@@ -94,8 +119,84 @@ Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	
 Q. typeof(typeof(4+"7")) output : string 
 
+Q. What is the use of a Date object in JavaScript?
+A. The JavaScript date object can be used to get a year, month and day. You can display a timer on the webpage by the help of JavaScript date object.
 
+	function display()  
+	{  
+	  var date=new Date();    
+	var day=date.getDate();    
+	var month=date.getMonth()+1;    
+	var year=date.getFullYear();    
+	document.write("<br>Date is: "+day+"/"+month+"/"+year);    
+	}  
+	display();
+	
+Q. What is the use of a Set object in JavaScript?
+A.  The JavaScript Set object is used to store the elements with unique values. The values can be of any type i.e. whether primitive values or object references. 
+	For example:
+	function display()  
+	{  
+	var set = new Set();    
+	set.add("jQuery");    
+	set.add("AngularJS");    
+	set.add("Bootstrap");    
+	for (let elements of set) {    
+	 document.writeln(elements+"<br>");    
+	}     
+	}  
+	display();
+	
+Q. What is the use of a WeakSet object in JavaScript?
+A. The JavaScript WeakSet object is the type of collection that allows us to store weakly held objects. Unlike Set, the WeakSet are the collections of objects only. 
+	It doesn't contain the arbitrary values. For example:
 
+	function display()  
+	{  
+	var ws = new WeakSet();    
+	var obj1={};    
+	var obj2={};    
+	ws.add(obj1);    
+	ws.add(obj2);    
+	//Let's check whether the WeakSet object contains the added object    
+	document.writeln(ws.has(obj1)+"<br>");    
+	document.writeln(ws.has(obj2));     
+	}     
+	display();
+	
+Q. What is the use of a Map object in JavaScript?
+A. The JavaScript Map object is used to map keys to values. It stores each element as key-value pair. 
+    It operates the elements such as search, update and delete on the basis of specified key. For example:
+
+	function display()  
+	{  
+	var map=new Map();    
+	map.set(1,"jQuery");    
+	map.set(2,"AngularJS");    
+	map.set(3,"Bootstrap");    
+	document.writeln(map.get(1)+"<br>");    
+	document.writeln(map.get(2)+"<br>");    
+	document.writeln(map.get(3));    
+	}  
+	display();
+Q. What is the use of a WeakMap object in JavaScript?
+A. The JavaScript WeakMap object is a type of collection which is almost similar to Map. 
+   It stores each element as a key-value pair where keys are weakly referenced. 
+   Here, the keys are objects and the values are arbitrary values. For example:
+
+function display()  
+{  
+var wm = new WeakMap();    
+var obj1 = {};    
+var obj2 = {};    
+var obj3= {};    
+wm.set(obj1, "jQuery");    
+wm.set(obj2, "AngularJS");    
+wm.set(obj3,"Bootstrap");    
+document.writeln(wm.has(obj2));     
+}     
+display();	
+	
 Q.  What is an observable?
 
 Q. waht is promise and what are different states of promise?
