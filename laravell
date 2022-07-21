@@ -1,5 +1,10 @@
 1. what is Illuminate in laravell?
+
 2. what is hashing and encyption? 
+
 3. how to prevent sql injection in laravell?
+
 4. what is service container in laravell?
+A. Service container is a tool used for performing dependency injection in Laravel.
+
 5. what is quese and jobs in laravell
