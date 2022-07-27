@@ -266,7 +266,7 @@ two types are in java
 Abstract method: function only declare not defined in the class
 Abstract class: Classes defined as abstract may not be instantiated, and any class that contains at least one abstract method must also be abstract.
 Abstract classes are classes that contain one or more abstract methods. An abstract method is a method that is declared, but contains no implementation. Abstract classes may not be instantiated, and require subclasses to provide implementations for the abstract methods.
-interfaces are abstract classes with no method declared.
+interfaces are abstract classes with no method defined. There are only abstract methods desclared.
 Default visibility public and only do not support multiple inheritance.
 Can implements many interface but can extend only one class
 
