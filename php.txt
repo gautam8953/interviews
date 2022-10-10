@@ -1,15 +1,25 @@
 Q. default execution time of php : 30 seconds,  ini_set('max_execution_time', 120);
 Q. default path of ini file : in linus where apache is present. (/etc/php/7.4/apache2/php.ini)
-Q. Difference  in echo and print???
-1.	Speed. There is a difference between the two, but speed-wise it should be irrelevant which one you use. echo is marginally faster since it doesn't set a return value if you really want to get down to the nitty gritty.
-2.	Expression. print() behaves like a function in that you can do: $ret = print "Hello World"; And $ret will be 1. That means that print can be used as part of a more complex expression where echo cannot. An example from the PHP Manual:
-$b ? print "true" : print "false";
-print is also part of the precedence table which it needs to be if it is to be used within a complex expression. It is just about at the bottom of the precedence list though. Only "," AND, OR and XOR are lower.
-3.	Parameter(s). The grammar is: echo expression [, expression[, expression] ... ] But echo ( expression, expression ) is not valid. This would be valid: echo ("howdy"),("partner"); the same as: echo "howdy","partner"; (Putting the brackets in that simple example serves no purpose since there is no operator precedence issue with a single term like that.)
-So, echo without parentheses can take multiple parameters, which get concatenated:
+Q. Difference  in echo and print?
+A.	Speed - There is a difference between the two, but speed-wise it should be irrelevant which one you use. 
+   echo is marginally faster since it doesn't set a return value if you really want to get down to the nitty gritty.
+	
+   Expression - print() behaves like a function in that you can do: $ret = print "Hello World"; And $ret will be 1. 
+   That means that print can be used as part of a more complex expression where echo cannot. 
+   An example from the PHP Manual: $b ? print "true" : print "false";
+   
+   print is also part of the precedence table which it needs to be if it is to be used within a complex expression. 
+   It is just about at the bottom of the precedence list though. Only "," AND, OR and XOR are lower.
+	
+   Parameter(s) - The grammar is: echo expression [, expression[, expression] ... ] But echo ( expression, expression ) is not valid. 
+   This would be valid: echo ("howdy"),("partner"); the same as: echo "howdy","partner"; 
+   (Putting the brackets in that simple example serves no purpose since there is no operator precedence issue with a single term like that.)
+   
+   So, echo without parentheses can take multiple parameters, which get concatenated:
    echo  "and a ", 1, 2, 3;   // comma-separated without parentheses
    echo ("and a 123");        // just one parameter with parentheses
-print() can only take one parameter:
+   
+   print() can only take one parameter:
    print ("and a 123");
    print  "and a 123";
 
@@ -26,16 +36,17 @@ The PHP superglobal variables are:
 •	$_SERVER
 •	$_ENV
 
-A. $GLOBALS is a PHP super global variable which is used to access global variables from anywhere in the PHP script (also from within functions or methods).PHP stores all global variables in an array called $GLOBALS[index]. The index holds the name of the variable.
-<?php 
-$x = 75; 
-$y = 25;
-function addition() { 
-    $GLOBALS['z'] = $GLOBALS['x'] + $GLOBALS['y']; 
-} 
-addition(); 
-echo $z; 
-?>
+A. $GLOBALS is a PHP super global variable which is used to access global variables from anywhere in the PHP script (also from within functions or methods).
+   PHP stores all global variables in an array called $GLOBALS[index]. The index holds the name of the variable.
+   <?php 
+   $x = 75; 
+   $y = 25;
+   function addition() { 
+       $GLOBALS['z'] = $GLOBALS['x'] + $GLOBALS['y']; 
+   } 
+   addition(); 
+   echo $z; 
+   ?>
 
 B. $_SERVER is a PHP super global variable which holds information about headers, paths, and script locations.
 $_SERVER['PHP_SELF'] : Returns the filename of the currently executing script
