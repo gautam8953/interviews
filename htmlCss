@@ -1,12 +1,22 @@
 Q. Types of CSS -> 1. Inline CSS, 2.Internal or Embedded CSS, 3.External CSS
 Q. have you use SCSS. what is different in css and scss
 Q. can you make a jpg design to html
-Q. can you make responsive 
+
+Q. can you make responsive? waht is responsive web designing?
+A. page that look good on all screen and resolution
+
 Q. have you used media query 
 Q. different kind of selector in css
 Q. What is the advantage of collapsing white space?
 Q. How do you insert a copyright symbol on a browser page?
 Q. What are the limits of the text field size?
-Q. What are two types of Web Storage in HTML5?
+
+Q. What are two types of Web Storage in HTML5? 
+A. localStorage, sessionStorage 
+
 Q. Define Semantic elements in HTML
+A. A semantic element clearly describes its meaning to both the browser and the developer.
+    Examples of non-semantic elements: <div> and <span> - Tells nothing about its content.
+    Examples of semantic elements: <form>, <table>, and <article> - Clearly defines its content.
+    
 Q. Why do we need the MathML element in HTML5 -> MathML stands for Mathematical Markup Language. It is used for displaying mathematical expressions on web pages
