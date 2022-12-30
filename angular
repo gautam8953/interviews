@@ -106,6 +106,14 @@ Q. version controlling in angular
  
 Q. angular life cycle and its uses 
 
+Q. pristine VS dirty VS touched
+valid: This property returns true if the element’s contents are valid and false otherwise.
+invalid: This property returns true if the element’s contents are invalid and false otherwise.
+pristine: This property returns true if the element’s contents have not been changed.
+dirty: This property returns true if the element’s contents have been changed.
+untouched: This property returns true if the user has not visited the element.
+touched: This property returns true if the user has visited the element.
+
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
 2. how to implement lazy loading 
