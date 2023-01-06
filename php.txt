@@ -241,7 +241,7 @@ sort() Sorts an indexed array in ascending order
 
 Q. array.push, array.pop, how to insert an element in an array
 Q. Difference in array merge and combinbe
-Q. how you will check a variable is array or not, or string/number
+Q. how you will check a variable is array or not, or string/number  -> echo gettype($value), "\n";
 •	ctype_digit() - Check for numeric character(s)
 •	is_bool() - Finds out whether a variable is a boolean
 •	is_null() - Finds whether a variable is NULL
@@ -250,7 +250,8 @@ Q. how you will check a variable is array or not, or string/number
 •	is_string() - Find whether the type of a variable is string
 •	is_object() - Finds whether a variable is an object
 •	is_array() - Finds whether a variable is an array
-is_numeric — Finds whether a variable is a number or a numeric string
+	is_numeric — Finds whether a variable is a number or a numeric string
+
 
 Q class and object
 polymorphism allows you define one interface and have multiple implementations
