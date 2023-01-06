@@ -74,6 +74,12 @@ $_SERVER['PATH_TRANSLATED'] : Returns the file system based path to the current 
 $_SERVER['SCRIPT_NAME'] : Returns the path of the current script
 $_SERVER['SCRIPT_URI'] : Returns the URI of the current page
 
+Q. how to get browser name   
+   echo $_SERVER['HTTP_USER_AGENT'] . "\n\n";  
+   $browser = get_browser(null,true);
+Current url-  <?php echo $_SERVER['REQUEST_URI']; ?>
+Request method  $_SERVER['REQUEST_METHOD']  -> (get, post,put,delete)
+
 C. $_GET:  limit 2000 characters, send via url, data can be seen, no security, files images can’t be sent, we can bookmark a page
 
 D. $_POST: all names/values are embedded within the body of the HTTP request, has no limit, secure, files images can be sent, variable are not seen show we can’t bookmark a page
@@ -93,6 +99,25 @@ $cookie_value = "John Doe";
 setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 To disable a cookie set cookie with past date.
 Synatx to check cookie is enables or not : if(count($_COOKIE) > 0) 
+
+Here is the detail of all the arguments:
+•	Name - This sets the name of the cookie and is stored in an environment variable called HTTP_COOKIE_VARS. This variable is used while accessing cookies.
+•	Value -This sets the value of the named variable and is the content that you actually want to store.
+•	Expiry - This specify a future time in seconds since 00:00:00 GMT on 1st Jan 1970. After this time cookie will become inaccessible. If this parameter is not set then cookie will automatically expire when the Web Browser is closed.
+•	Path -This specifies the directories for which the cookie is valid. A single forward slash character permits the cookie to be valid for all directories.
+•	Domain - This can be used to specify the domain name in very large domains and must contain at least two periods to be valid. All cookies are only valid for the host and domain which created them.
+•	Security - This can be set to 1 to specify that the cookie should only be sent by secure transmission using HTTPS otherwise set to 0 which mean cookie can be sent by regular HTTP.
+
+Following example will create two cookies name and age these cookies will be expired after one hour.
+<?php
+   setcookie("name", "John Watkin", time()+3600, "/","", 0);
+   setcookie("age", "36", time()+3600, "/", "",  0);
+?>
+Officially, to delete a cookie you should call setcookie() with the name argument only but this does not always work well, however, and should not be relied on.
+It is safest to set the cookie with a date that has already expired:
+setcookie( "name", "", time()- 60, "/","", 0);
+get cookie value -> $_COOKIE[$cookie_name]
+
 
 G. $_SESSION A session is a way to store information (in variables) to be used across multiple pages. It stores in tmp folder on the server.
    The time interval in which two systems(i.e. the client and the server) communicate with each other can be termed as a session.
@@ -157,8 +182,6 @@ strip_tags() Strips HTML and PHP tags from a string
 strlen() Returns the length of a string
 strncmp() String comparison of the first n characters (case-sensitive)
 strpos() Returns the position of the first occurrence of a string inside another string (case-sensitive)
-
-
 
 
 Q. PHP array
@@ -229,15 +252,17 @@ Q. how you will check a variable is array or not, or string/number
 •	is_array() - Finds whether a variable is an array
 is_numeric — Finds whether a variable is a number or a numeric string
 
-Q abstract, class, method, variable, polymorphism, function overloading, function overriding,
+Q class and object
 polymorphism allows you define one interface and have multiple implementations
-two types are in java
-1 method overloading also compile time: method difned several times by changing argument data type and number of argument
- 2 method overriding also runtime : defined function in base class also defined in child class
+two types of polymorphism are in java
+1. method overloading also compile time: method difned several times by changing argument data type and number of argument
+2. method overriding also runtime : defined function in base class also defined in child class
 
 Abstract method: function only declare not defined in the class
+
 Abstract class: Classes defined as abstract may not be instantiated, and any class that contains at least one abstract method must also be abstract.
-Abstract classes are classes that contain one or more abstract methods. An abstract method is a method that is declared, but contains no implementation. Abstract classes may not be instantiated, and require subclasses to provide implementations for the abstract methods.
+Abstract classes are classes that contain one or more abstract methods. Abstract classes may not be instantiated, and require subclasses to provide implementations for the abstract methods.
+
 interfaces are abstract classes with no method defined. There are only abstract methods desclared.
 Default visibility public and only do not support multiple inheritance.
 Can implements many interface but can extend only one class
@@ -253,7 +278,6 @@ Q. The static keyword is used to declare properties and methods of a class as st
        echo MyClass::$str;
      }
    }
-
    echo MyClass::$str;
    echo "<br>";
    echo MyClass::hello();
@@ -298,42 +322,13 @@ Ans. $this is used to access any member data and function in a class.
       ?>
 Q. Member functions in PHP are those functions which are defined inside the class and are used to access the object data.   
 Q. final class and final method difference
-if methode is final, it can’t be override and if a class is final it can’t be extended.
-
-Q cookies
-setcookie(name, value, expire, path, domain, security);
-Here is the detail of all the arguments:
-•	Name - This sets the name of the cookie and is stored in an environment variable called HTTP_COOKIE_VARS. This variable is used while accessing cookies.
-•	Value -This sets the value of the named variable and is the content that you actually want to store.
-•	Expiry - This specify a future time in seconds since 00:00:00 GMT on 1st Jan 1970. After this time cookie will become inaccessible. If this parameter is not set then cookie will automatically expire when the Web Browser is closed.
-•	Path -This specifies the directories for which the cookie is valid. A single forward slash character permits the cookie to be valid for all directories.
-•	Domain - This can be used to specify the domain name in very large domains and must contain at least two periods to be valid. All cookies are only valid for the host and domain which created them.
-•	Security - This can be set to 1 to specify that the cookie should only be sent by secure transmission using HTTPS otherwise set to 0 which mean cookie can be sent by regular HTTP.
-Following example will create two cookies name and age these cookies will be expired after one hour.
-<?php
-   setcookie("name", "John Watkin", time()+3600, "/","", 0);
-   setcookie("age", "36", time()+3600, "/", "",  0);
-?>
-Officially, to delete a cookie you should call setcookie() with the name argument only but this does not always work well, however, and should not be relied on.
-It is safest to set the cookie with a date that has already expired:
-setcookie( "name", "", time()- 60, "/","", 0);
-get cookie value -> $_COOKIE[$cookie_name]
-
-
-Q. what is $_server, how to get browser name   
-   echo $_SERVER['HTTP_USER_AGENT'] . "\n\n";  
- $browser = get_browser(null,true);
-Current url-  <?php echo $_SERVER['REQUEST_URI']; ?>
-Request method (get, post,put,delete)  $_SERVER['REQUEST_METHOD']
-
-
+    if methode is final, it can’t be override and if a class is final it can’t be extended.
 
 Q. difference in fetch_associate and fetch_array
-fetch_array() returns two arrays, one with numeric keys and other with associative strings (column names), so here you can either use $row['column_name'] or $row[0]
-Where as fetch_assoc() will return string indexed key array and no numeric array so you won't have an option here of using numeric keys like $row[0].
-So the latter one is better in performance compared to fetch_array() and obviously using named indexes is far better compared to numeric indexes.
-
-
+   fetch_array() returns two arrays, one with numeric keys and other with associative strings (column names), 
+   so here you can either use $row['column_name'] or $row[0]
+   fetch_assoc() will return string indexed key array and no numeric array so you won't have an option here of using numeric keys like $row[0].
+   So the latter one is better in performance compared to fetch_array() and obviously using named indexes is far better compared to numeric indexes.
 
 Q. Difference between two dates
 <?php
@@ -343,7 +338,7 @@ $interval = $datetime1->diff($datetime2);
 echo $interval->format('%R%a days');
 ?>
 
-relation in session and cokkies
+Q. relation in session and cokkies
 
 Q. set_time_limit -> Set the number of seconds a script is allowed to run. If this is reached, the script returns a fatal error. 
    The default limit is 30 seconds or, if it exists, the max_execution_time value defined in the php.ini.
@@ -356,8 +351,8 @@ Q. urlencode() -> The urlencode() function is an inbuilt function in PHP which i
    and replace by the percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs.
    urldecode() -> decode string encoded by encode()
    
-how you will check a variable is array or not, or string/number        echo gettype($value), "\n";
-difference in fetch_associate and fetch_array
+
+
 difference in include nad require
 number of days finding
 swap two number without uing third variable a=5,b=6; b=5+6; a=b-a; b=b-a;
