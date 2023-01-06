@@ -139,39 +139,24 @@ echo strlen($string);
 substr($string, 3);: lo World,  after 3rd all charcter
 echo substr($string, -1); d from last 1 character
 strpos($string, 'l'); :2, position of a character in a string
-chop()
-Removes whitespace or other characters from the right end of a string
+chop() Removes whitespace or other characters from the right end of a string
 addcslashes()
 Returns a string with backslashes in front of the specified characters
-addslashes()
-Returns a string with backslashes in front of predefined characters
-echo()
-Outputs one or more strings
-print()
-Outputs one or more strings
-printf()
-Outputs a formatted string
- str_getcsv() function parses a string for fields in CSV format and returns an array containing the fields read.
-str_repeat()
-Repeats a string a specified number of times
-str_replace()
-Replaces some characters in a string (case-sensitive)
-str_word_count()
-Count the number of words in a string
-str_split()
-Splits a string into an array
-strchr()
-Finds the first occurrence of a string inside another string (alias of strstr())
-strcmp()
-Compares two strings (case-sensitive)
-strip_tags()
-Strips HTML and PHP tags from a string
-strlen()
-Returns the length of a string
-strncmp()
-String comparison of the first n characters (case-sensitive)
-strpos()
-Returns the position of the first occurrence of a string inside another string (case-sensitive)
+addslashes() Returns a string with backslashes in front of predefined characters
+echo() Outputs one or more strings
+print() Outputs one or more strings
+printf() Outputs a formatted string
+str_getcsv() function parses a string for fields in CSV format and returns an array containing the fields read.
+str_repeat() Repeats a string a specified number of times
+str_replace() Replaces some characters in a string (case-sensitive)
+str_word_count() Count the number of words in a string
+str_split() Splits a string into an array
+strchr() Finds the first occurrence of a string inside another string (alias of strstr())
+strcmp() Compares two strings (case-sensitive)
+strip_tags() Strips HTML and PHP tags from a string
+strlen() Returns the length of a string
+strncmp() String comparison of the first n characters (case-sensitive)
+strpos() Returns the position of the first occurrence of a string inside another string (case-sensitive)
 
 
 
