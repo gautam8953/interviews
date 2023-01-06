@@ -118,6 +118,7 @@ It is safest to set the cookie with a date that has already expired:
 setcookie( "name", "", time()- 60, "/","", 0);
 get cookie value -> $_COOKIE[$cookie_name]
 
+Q. relation in session and cokkies
 
 G. $_SESSION A session is a way to store information (in variables) to be used across multiple pages. It stores in tmp folder on the server.
    The time interval in which two systems(i.e. the client and the server) communicate with each other can be termed as a session.
@@ -182,7 +183,8 @@ strip_tags() Strips HTML and PHP tags from a string
 strlen() Returns the length of a string
 strncmp() String comparison of the first n characters (case-sensitive)
 strpos() Returns the position of the first occurrence of a string inside another string (case-sensitive)
-
+strstr()  returns a pointer to the beginning of the first occurrence of string2 in string1.
+in PHP8 strpos() & strstr() are deprecated. str_contains($haystack, 'needle')
 
 Q. PHP array
 1. Indexed array	2. Associative array	3. Multidimensional array
@@ -338,8 +340,7 @@ $datetime2 = new DateTime('2015-08-30');
 $interval = $datetime1->diff($datetime2);
 echo $interval->format('%R%a days');
 ?>
-
-Q. relation in session and cokkies
+Q. number of days finding
 
 Q. set_time_limit -> Set the number of seconds a script is allowed to run. If this is reached, the script returns a fatal error. 
    The default limit is 30 seconds or, if it exists, the max_execution_time value defined in the php.ini.
@@ -352,12 +353,9 @@ Q. urlencode() -> The urlencode() function is an inbuilt function in PHP which i
    and replace by the percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs.
    urldecode() -> decode string encoded by encode()
    
-
-
-difference in include nad require
-number of days finding
-swap two number without uing third variable a=5,b=6; b=5+6; a=b-a; b=b-a;
-strstr vs strops
+Q. difference in include and require
+Q. swap two number without uing third variable a=5,b=6; b=5+6; a=b-a; b=b-a;
+Q. strstr vs strops 
 print table without using loop
 magic methods and magic constants
 if vs switch
