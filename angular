@@ -126,6 +126,21 @@ Q. Why should ngOnInit be used, if we already have a constructor?
 
 	Mostly we use ngOnInit for all the initialization/declaration and avoid stuff to work in the constructor. The constructor should only be used to initialize class members but shouldn't do actual "work". So you should use constructor() to setup Dependency Injection and not much else. ngOnInit() is better place to "start" - it's where/when components' bindings are resolved.
 
+Q. How to detect a route change in Angular?
+	
+Q. What is Angular Ivy?
+	Answer : A big part of Angular is its compiler: it takes all your HTML and generates the necessary JS code. This compiler (and the runtime) has been completely rewritten over the last year, and this is what Ivy is about. The last rewrite was done in Angular 4.0.
+	Ivy is a complete rewrite of the compiler (and runtime) in order to:
+	reach better build times (with a more incremental compilation)
+	reach better build sizes (with a generated code more compatible with tree-shaking)
+	unlock new potential features (metaprogramming or higher order components, lazy loading of component instead of modules, a new change detection system not based on zone.js…)
+Q. What is Bazel?
+	Google open sourced the software responsible for building most of its projects under the name Bazel. Bazel is a powerful tool which can keep track of the dependencies between different packages and build targets.
+	Some of the features of Bazel are:
+	1. It has a smart algorithm for determining the build dependencies - based on the dependency graph of a project, Bazel determines which targets it can build in parallel
+	2. Bazel is independent of the tech stack. We can build anything we want with it using the same interface. For example, there are plugins for Java, Go, TypeScript, JavaScript, and more
+
+
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
 2. how to implement lazy loading 
