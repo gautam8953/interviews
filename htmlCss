@@ -20,3 +20,4 @@ A. A semantic element clearly describes its meaning to both the browser and the 
     Examples of semantic elements: <form>, <table>, and <article> - Clearly defines its content.
     
 Q. Why do we need the MathML element in HTML5 -> MathML stands for Mathematical Markup Language. It is used for displaying mathematical expressions on web pages
+Q. What are void elements in HTML? no closing tag 
