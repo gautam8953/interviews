@@ -140,6 +140,12 @@ Q. What is Bazel?
 	1. It has a smart algorithm for determining the build dependencies - based on the dependency graph of a project, Bazel determines which targets it can build in parallel
 	2. Bazel is independent of the tech stack. We can build anything we want with it using the same interface. For example, there are plugins for Java, Go, TypeScript, JavaScript, and more
 
+9. how to share data between two independent component
+Q. process to call a api in angular?
+version controlling in angular
+ng store use and example 
+Difference between ng-template, ng-container and ng-content
+what is rest api  (representational state transfer) (stateless/statefull)
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
