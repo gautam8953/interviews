@@ -114,6 +114,8 @@ dirty: This property returns true if the element’s contents have been changed.
 untouched: This property returns true if the user has not visited the element.
 touched: This property returns true if the user has visited the element.
 
+Q. what is property binding and string interpolation in angular
+
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
 2. how to implement lazy loading 
