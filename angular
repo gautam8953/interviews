@@ -119,6 +119,12 @@ Q. what is property binding and string interpolation in angular
 Q. What is the purpose of Wildcard route?
 	If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. In this case, you can use wildcard route. A wildcard route has a path consisting of two asterisks to match every URL.
 	{ path: '**', component: PageNotFoundComponent }
+	
+Q. Why should ngOnInit be used, if we already have a constructor?
+	The Constructor is a default method of the class that is executed when the class is instantiated and ensures proper initialization of fields in the class and its subclasses.
+	ngOnInit is a life cycle hook called by Angular2 to indicate that Angular is done creating the component.
+
+	Mostly we use ngOnInit for all the initialization/declaration and avoid stuff to work in the constructor. The constructor should only be used to initialize class members but shouldn't do actual "work". So you should use constructor() to setup Dependency Injection and not much else. ngOnInit() is better place to "start" - it's where/when components' bindings are resolved.
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
