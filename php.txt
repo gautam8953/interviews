@@ -255,6 +255,61 @@ Q. how you will check a variable is array or not, or string/number  -> echo gett
 	is_numeric — Finds whether a variable is a number or a numeric string
 
 
+Q. Difference between two dates
+<?php
+$datetime1 = new DateTime('2015-08-29');
+$datetime2 = new DateTime('2015-08-30');
+$interval = $datetime1->diff($datetime2);
+echo $interval->format('%R%a days');
+?>
+Q. number of days finding
+
+Q. set_time_limit -> Set the number of seconds a script is allowed to run. If this is reached, the script returns a fatal error. 
+   The default limit is 30 seconds or, if it exists, the max_execution_time value defined in the php.ini.
+   When called, set_time_limit() restarts the timeout counter from zero. 
+   while setting the set_time_limit(), the duration of sleep() will be ignored in the execution time
+
+q. unset() -> The unset() function unsets a variable.
+Q. urlencode() -> The urlencode() function is an inbuilt function in PHP which is used to encode the url. 
+   This function returns a string which consist all non-alphanumeric characters except -_. 
+   and replace by the percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs.
+   urldecode() -> decode string encoded by encode()
+
+Q. waht is magic methods and sme examle 
+Q. what is magic constants and some example
+Q. difference in include and require
+Q. strstr vs strops 
+Q. what is output buffering  and related topics
+Q. if vs switch
+Q. loop levels
+Q. difference in === and ==
+Q. what is ternory operator 
+Q. what is null coliision  
+Q. null safe operator
+Q. mysql_fetch_aray and mysql_fetch_object
+Q. difference in fetch_associate and fetch_array
+   fetch_array() returns two arrays, one with numeric keys and other with associative strings (column names), 
+   so here you can either use $row['column_name'] or $row[0]
+   fetch_assoc() will return string indexed key array and no numeric array so you won't have an option here of using numeric keys like $row[0].
+   So the latter one is better in performance compared to fetch_array() and obviously using named indexes is far better compared to numeric indexes.
+Q. what is namespace in php 
+Q. Types of PHP Encryption
+Ans A. Hashing 
+      The Hashing Algorithm of the PHP Programming Language usually takes one input value and then transforms it into one message digest. can not be decoded. 
+   B. Secret Key Encryption
+      The Secret Key Encryption of the PHP usually uses one single key to both encryption and decryption data. It is also known as symmetric encryption.
+   C. Envelope Encryption
+
+
+
+
+
+
+
+
+
+
+
 class and object : 
 Q. why use oops?
 
@@ -334,45 +389,21 @@ Q. final class and final method difference
 
 Q. how to call parent class constructer 
 Q. what is inheritance . how to inherit class 
+Q. how to use multiple inheritance in php 
 Q. php support function overloading or not? 
-    
-    
-    
+Q. how to use interface in php?
+Q. is php oop language 
+Q. is php support class and object 
+Q. how to access class in php     
+Q. have any project made using oops 
+Q. why we use oops for project development
+Q. what is treat? 
 
-Q. difference in fetch_associate and fetch_array
-   fetch_array() returns two arrays, one with numeric keys and other with associative strings (column names), 
-   so here you can either use $row['column_name'] or $row[0]
-   fetch_assoc() will return string indexed key array and no numeric array so you won't have an option here of using numeric keys like $row[0].
-   So the latter one is better in performance compared to fetch_array() and obviously using named indexes is far better compared to numeric indexes.
 
-Q. Difference between two dates
-<?php
-$datetime1 = new DateTime('2015-08-29');
-$datetime2 = new DateTime('2015-08-30');
-$interval = $datetime1->diff($datetime2);
-echo $interval->format('%R%a days');
-?>
-Q. number of days finding
 
-Q. set_time_limit -> Set the number of seconds a script is allowed to run. If this is reached, the script returns a fatal error. 
-   The default limit is 30 seconds or, if it exists, the max_execution_time value defined in the php.ini.
-   When called, set_time_limit() restarts the timeout counter from zero. 
-   while setting the set_time_limit(), the duration of sleep() will be ignored in the execution time
 
-q. unset() -> The unset() function unsets a variable.
-Q. urlencode() -> The urlencode() function is an inbuilt function in PHP which is used to encode the url. 
-   This function returns a string which consist all non-alphanumeric characters except -_. 
-   and replace by the percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs.
-   urldecode() -> decode string encoded by encode()
-   
-Q. difference in include and require
+Q. print table without using loop
 Q. swap two number without uing third variable a=5,b=6; b=5+6; a=b-a; b=b-a;
-Q. strstr vs strops 
-print table without using loop
-magic methods and magic constants
-if vs switch
-loop levels
-mysql_fetch_aray and mysql_fetch_object
 Q. reverse a string without using predefined function 
 Ans.  $string = "ZEESHAN";
       $reverse = "";
@@ -385,12 +416,23 @@ Ans.  $string = "ZEESHAN";
       }
       echo $reverse;
 Q. Print equiletral triangle or similar patterns 
-Q. what is namespace in php 
-Q. Types of PHP Encryption
-Ans A. Hashing 
-      The Hashing Algorithm of the PHP Programming Language usually takes one input value and then transforms it into one message digest. can not be decoded. 
-   B. Secret Key Encryption
-      The Secret Key Encryption of the PHP usually uses one single key to both encryption and decryption data. It is also known as symmetric encryption.
-   C. Envelope Encryption
-Q. have any project made using oops 
-Q. why we use oops for project development
+Q. Q. what is 016/2 output 
+
+
+
+
+
+Q. what is MVC
+Q. SOLID Principles of Object-Oriented Programming
+Q. php good features 
+Q. is php safe language
+Q. PSR standerds in php
+Q. test case in php 
+Q. write unit test case in php
+Q. how to write sceniors in php
+
+
+
+
+
+
