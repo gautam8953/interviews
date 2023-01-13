@@ -255,7 +255,9 @@ Q. how you will check a variable is array or not, or string/number  -> echo gett
 	is_numeric — Finds whether a variable is a number or a numeric string
 
 
-Q class and object
+class and object : 
+Q. why use oops?
+
 polymorphism allows you define one interface and have multiple implementations
 two types of polymorphism are in java
 1. method overloading also compile time: method difned several times by changing argument data type and number of argument
@@ -265,6 +267,9 @@ Abstract method: function only declare not defined in the class
 
 Abstract class: Classes defined as abstract may not be instantiated, and any class that contains at least one abstract method must also be abstract.
 Abstract classes are classes that contain one or more abstract methods. Abstract classes may not be instantiated, and require subclasses to provide implementations for the abstract methods.
+
+Q. use case of Abstract class?
+Q. how to abstarct property and function in classes?
 
 interfaces are abstract classes with no method defined. There are only abstract methods desclared.
 Default visibility public and only do not support multiple inheritance.
@@ -326,6 +331,13 @@ Ans. $this is used to access any member data and function in a class.
 Q. Member functions in PHP are those functions which are defined inside the class and are used to access the object data.   
 Q. final class and final method difference
     if methode is final, it can’t be override and if a class is final it can’t be extended.
+
+Q. how to call parent class constructer 
+Q. what is inheritance . how to inherit class 
+Q. php support function overloading or not? 
+    
+    
+    
 
 Q. difference in fetch_associate and fetch_array
    fetch_array() returns two arrays, one with numeric keys and other with associative strings (column names), 
