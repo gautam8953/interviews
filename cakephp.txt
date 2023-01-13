@@ -31,7 +31,8 @@ Plugin: combination of controller, view, model
 
 Q. what is the difference between cakephp and codeigniter
 Q. what is scaffolding in cakephp
-Q. how databse relation ship in cakephp
+Q. how to define databse relation ship in cakephp
+Q. how many type of database relation in cakephp 
 Q. how to handle/use two database in cakephp
 Q. can I call view directly in cakephp
 Q. what will happen if same url patern found… (error or what )
@@ -39,5 +40,3 @@ Q. what is thefirst file run in cakephp?
 Q. what is Helpers?
 Q. waht is running flow of cakphp files?
 Q. why we use cakephp not other framework?
-
-
