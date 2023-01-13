@@ -68,7 +68,7 @@ Q. What are the pop-up boxes available in JavaScript?
    Confirm Box
    Prompt Box
 	
-Q. What is the difference between View state and Session state?
+Q. What is the difference between 'View state' and 'Session state'?
 A. "View state" is specific to a page in a session whereas "Session state" is specific to a user or browser 
    that can be accessed across all pages in the web application.
 
@@ -108,6 +108,8 @@ A. Hoisting is the default behavior of JavaScript where all the variable and fun
 
 Q. What does the isNaN() function?
    The isNan() function returns true if the variable value is not a number.
+   
+Q. explain foreach in javasccript   
    
 Q. If we want to return the character from a specific index which method is used?
 	var str="Javatpoint";    
