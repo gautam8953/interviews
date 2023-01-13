@@ -1,31 +1,9 @@
 Q. name different type of indexes in mysql
     INDEX, UNIQUE, PRIMARY
-Q. write a query to find the age of an employee from his dob stored
-    SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),'2010-11-25')), '%Y')+0 AS Age;
 Q. if you got the files of mysql myISM databs, can you restore it or get data back from it
     yes. stop server, place file in mysql/data folder then restart
 Q. if you have to transfer data from one server to another what are different ideas?
     download sql, master slave, transfer data by connecting to another
-Q. write diffrent query to find the 2nd, 3rd, 4th highest/lowest salary and fetching all records containing these salries
-A. SELECT DISTINCT(column name) FROM table ORDER BY (column name) desc LIMIT n-1,1
-
-SELECT * FROM Employee Emp1 
-WHERE (N-1) = ( 
-    SELECT COUNT(DISTINCT(Emp2.Salary)) 
-    FROM  Employee Emp2 
-    WHERE Emp2.Salary > Emp1.Salary)
-    
-Q. Select record of all employee  whose salary is 2nd highest.
-A. select * from sallary where sallary = (select distinct sallary from sallary order by sallary desc limit 1,1)
-   SELECT MAX(Salary) FROM Employee WHERE Salary NOT IN (SELECT MAX(Salary) FROM Employee )
-   
-Q. fetch record of all employee have 4th highest sallery
-A. first query select first element from top and it is in ascending means lowest at top and 
-second query selects top “n” query from table and it is descending means if we want 3rd highest first we select 3 hightest sallery in descending order than will arrange it to ascending and select first that is desire 3rd highest.
-SELECT MIN(EmpSalary) from (
-SELECT EmpSalary from Employee ORDER BY EmpSalary DESC LIMIT 3
-);
-SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n-1,1;
 
 Q. what are storage engines and name different type of storage engines in mysql. 
 A.
@@ -67,14 +45,51 @@ INNODB:
 4.	InnoDB stores its tables and indexes in a tablespace
 5.	InnoDB supports transaction. You can commit and rollback with InnoDB
 
-Q. Write Query to change type of database engine in mysql?
-A. ALTER TABLE t ENGINE = MYISAM;
 
+Q. explain acid property
+Q. what is transaction
+Q. difference between delete & truncate
+Q. what are joins
+Q. what is subquery
+Q. sql injuctions preventions 
+Q. What is heap tables?
+Q. Explain Heap and temporary table
+Q. WWhat is default default port of mysql : 3306
+Q. compare enum and sets
+Q. compare char and varchar
+A. Char vs varchar: 255,4000 charcters; fixed size, variable; 50% faster is char than varchar; static memory allocation usred, dyanamic used
+Q. Explain parimary key & candidate key
+Q. Primary vs unique
+Q. what are federated tables?
+A. which allow access to the tables located on other database on another servers
+
+Q. Explain autoincrement in mysql?
+A. it automatically increased value. When maximum value reached it stops and error flashed
+
+Q. Explain % and _ and like uery
+Q. Difference in like and regrex operators
+Q. Difference in blob and text field
+Q. Use of create statement in sql
+A. By using create statement we can create database, event, function, index, procedure, table, trigger, user, view
+
+Q. name some Common sql function
+Q. Difference between rdbms and dbms
+Q. What Data mining means?
+Q. How many columns can be updated by a single query : Maximum 64 colums can be updated in a single query, 64 chars length name can be create
+
+Q. compare ddl, dml, dcl
+Q. Delete vs truncate
+Q. Float vs doubles
+Q. Mysql connect and mysql p connect
+Q. Mysql pdo conection and query
+Q. mysql what is cursor 
+Q. function and procedure 
 Q. what is triger?
 A. Trigerss allowed insert, update,delete on before or after each, means 6 combination of 2 each
 
 Q. what is the difference between group by and  having clause?
-    Having Clause is basically like the aggregate function with the GROUP BY clause. The HAVING clause is used instead of WHERE with aggregate functions. While the GROUP BY Clause groups rows that have the same values into summary rows. The having clause is used with the where clause in order to find rows with certain conditions. The having clause is always used after the group By clause.
+    Having Clause is basically like the aggregate function with the GROUP BY clause. 
+    The HAVING clause is used instead of WHERE with aggregate functions. While the GROUP BY Clause groups rows that have the same values into summary rows. The having clause is used with the where clause in order to find rows with certain conditions. The having clause is always used after the group By clause.
 
     SELECT COUNT (SALARIES) AS COUNT_SALARIES, EMPLOYEES
     FROM EMPLOYEES
@@ -95,52 +110,43 @@ A. maximum 16 index can be defined in  a table
     CREATE UNIQUE INDEX indexName ON tableName (ID, LName, FName, LOC);
     DROP INDEX indexName ON tableName;
 
-Q. how to see indexes defind for a table: show index from tablename
-
+Q. how to see indexes defind for a table? show index from tablename
 Q. how to check number result obtained by mysql : $num_rows = mysqli_num_rows($result);
+
+
+
+
+Q. write a query to find the age of an employee from his dob stored
+    SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),'2010-11-25')), '%Y')+0 AS Age;    
+Q. write diffrent query to find the 2nd, 3rd, 4th highest/lowest salary and fetching all records containing these salries
+A. SELECT DISTINCT(column name) FROM table ORDER BY (column name) desc LIMIT n-1,1
+    SELECT * FROM Employee Emp1 
+    WHERE (N-1) = ( 
+    SELECT COUNT(DISTINCT(Emp2.Salary)) 
+    FROM  Employee Emp2 
+    WHERE Emp2.Salary > Emp1.Salary)
+    
+Q. Select record of all employee  whose salary is 2nd highest.
+A. select * from sallary where sallary = (select distinct sallary from sallary order by sallary desc limit 1,1)
+   SELECT MAX(Salary) FROM Employee WHERE Salary NOT IN (SELECT MAX(Salary) FROM Employee )
+   
+Q. fetch record of all employee have 4th highest sallery
+A. first query select first element from top and it is in ascending means lowest at top and 
+second query selects top “n” query from table and it is descending means if we want 3rd highest first we select 3 hightest sallery in descending order than will arrange it to ascending and select first that is desire 3rd highest.
+SELECT MIN(EmpSalary) from (
+SELECT EmpSalary from Employee ORDER BY EmpSalary DESC LIMIT 3
+);
+SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n-1,1;
 
 Q. query for getting all vote to a candidate from two table(one has voter name, one has parties and other has vote)
 
-Q. explain acid property
-Q. what is transaction
-Q. difference between delete & truncate
-Q. what are joins
-Q. what is subquery
-Q. sql injuctions
-Q. What is heap tables?
-Q. Explain Heap and temporary table
-Q. WWhat is default default port of mysql : 3306
-Q. compare enum and sets
-Q. compare char and varchar
-A. Char vs varchar: 255,4000 charcters; fixed size, variable; 50% faster is char than varchar; static memory allocation usred, dyanamic used
-Q. how to get version of mysql : select version();
-Q. Explain parimary key & candidate key
-Q. Primary vs unique
-Q. what are federated tables?
-A. which allow access to the tables located on other database on another servers
-
-Q. Explain autoincrement in mysql?
-A. it automatically increased value. When maximum value reached it stops and error flashed
-
-Q. Explain % and _ and like uery
-Q. Difference in like and regrex operators
-Q. Difference in blob and text field
-Q. Use of create statement in sql
-A. By using create statement we can create database, event, function, index, procedure, table, trigger, user, view
-
-Q. name some Common sql function
-Q. Difference between rdbms and dbms
-Q. What Data mining means?
-Q. How many columns can be updated by a single query
-A. Maximum 64 colums can be updated in a single query, 64 chars leght name can be create
-
-Q. compare ddl, dml, dcl
-Q. Delete vs truncate
-Q. Float vs doubles
-Q. Mysql connect and mysql p connect
-Q. Mysql pdo conection and query
 Q. How to get latest record in group by query
 A. SELECT id, branchId, roleId FROM mapping WHERE id IN ( SELECT MAX(id) FROM mapping GROUP BY branchId )
+Q. Write Query to change type of database engine in mysql?  ALTER TABLE t ENGINE = MYISAM;
+Q. how to get version of mysql : select version();
+
+
+ 
 
 
 
