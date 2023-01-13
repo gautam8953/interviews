@@ -221,6 +221,10 @@ Q. What is the difference between promise and observable?
     
  Q. What is the difference between promise and callback 
  
+ Q. what is async
+ 
+Q.  what is await
+ 
 Q. what is arrow function?
 
 Q. we can get value of a input box by both js and jquery but which one will give faster result.
