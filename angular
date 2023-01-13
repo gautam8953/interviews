@@ -141,8 +141,8 @@ Q. What is Bazel?
 	2. Bazel is independent of the tech stack. We can build anything we want with it using the same interface. For example, there are plugins for Java, Go, TypeScript, JavaScript, and more
 
 9. how to share data between two independent component
+Q. how to protetct a root from unauthorise access
 Q. process to call a api in angular?
-version controlling in angular
 ng store use and example 
 Difference between ng-template, ng-container and ng-content
 what is rest api  (representational state transfer) (stateless/statefull)
