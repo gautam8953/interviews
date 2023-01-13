@@ -1,3 +1,13 @@
 Q. how to restrict call from other locations 
 Q. what is cross origin 
 Q. what is headers and some examples
+Q. knowledge of aws 
+
+
+
+project development : 
+Q. what is agile methodology 
+Q. sprints methodology 
+
+Git hub : 
+Q. difference in pull and fetch 
