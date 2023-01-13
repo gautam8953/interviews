@@ -1,3 +1,3 @@
 Q. how to restrict call from other locations 
 Q. what is cross origin 
-Q. what ise headers
+Q. what is headers and some examples
