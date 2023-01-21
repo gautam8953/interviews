@@ -57,9 +57,6 @@ Ans. angular.json -> angular-cli configuration file main.ts -> Angular module bo
    Set the entry module for your application. app.module.ts -> 
    Based upon your entry module, it configures which component will load first from that module and what others dependency modules, components, pipes, services.
 
-Q. what is lazy loading and how to achieve it .
-Ans. To lazy load Angular modules, use loadChildren (instead of component) in your AppRoutingModule routes. it load the defined folder when route matches.
-
 Q. what is polyfil and why polyfil.ts is used?
 Ans. Polyfills in basic language are extra lines of code which make your application compatible for different browsers. 
    The code we write is mostly in ES6(New Features: Overview and Comparison) and is not compatible with IE or firefox 
@@ -68,9 +65,6 @@ Ans. Polyfills in basic language are extra lines of code which make your applica
    This file is divided into 2 sections:
    A. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
    B. Application imports. Files imported after ZoneJS should be loaded before your main file
-   
-Q. explain process to implement authorisation in a big application.
-Ans. 
 
 Q. what is decorator in angular : Decorators are functions that are invoked with a prefixed @ symbol, and are immediately followed by a class, method or property. 
    They allow a service, directive or filter to be changed before being used. 
@@ -84,6 +78,15 @@ Q. what is decorator in angular : Decorators are functions that are invoked with
            we can easily identify why we use any particular property of a class Like @Input (), @Output, @ReadOnly (), @Override ()
     4.Parameter Decorators: Parameter decorators allow us to decorate parameters in our class constructors.  
            @Inject () is a common and widely used parameter decorator. Using this decorator, we can inject services in Angular classes
+	   
+Q. what is lazy loading and how to achieve it .
+Ans. To lazy load Angular modules, use loadChildren (instead of component) in your AppRoutingModule routes. it load the defined folder when route matches.
+   
+Q. explain process to implement authorisation in a big application.
+A. authentication : Authentication (AuthN) is a process that verifies that someone is who? example : login authetication
+    identitiy authentication : Identity authentication is the process of verifying the identity of a user or service. example : manager or employee
+   authorization : Authorization is the security process that determines a user or service's level of access.
+   after login determine waht manager user have access and what employee user has access.
 
 Q. jit and eot 
  
