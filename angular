@@ -89,6 +89,22 @@ A. authentication : Authentication (AuthN) is a process that verifies that someo
    after login determine waht manager user have access and what employee user has access.
 
 Q. jit and eot 
+A. The main differences between JIT and AOT in Angular are:
+   Just-in-Time (JIT), compiles your app in the browser at runtime.
+   1. laods application slower as it need to compile the application when running for the first time
+   2. it download compiler nad compiles the application before displaying 
+   3. since code include compiler code, so bundle size will be high
+   4. suitable for development 
+   5. example command : ng serve, ng build 
+   6. template binding error can be viewd at the time of displaying application
+   
+   Ahead-of-Time (AOT), compiles your app at build time on the server.
+   1. laods application quiclly than jit
+   2. doesn't need to downlaod compiler as already compiles the code while building application
+   3. since compiled and optimized so bundle size is less
+   4. suitable for production
+   5. example command : ng serve --aot, ng build --aot , ng build --prod
+   6. template binding error are sgown at time of building
  
 Q. testing setup in angular, process
 
