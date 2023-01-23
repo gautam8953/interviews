@@ -476,7 +476,7 @@ A. ng-content is used to display children in a template,
 	</app-child>
 	If you check your browser, all the heading tags will be visible from child component with the help of <ng-content>
 
-ng store use and example 
+
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
@@ -487,4 +487,3 @@ logical
    other select option automaticaly select the valuse that is selected in third select option
 
 
-what is rest api  (representational state transfer) (stateless/statefull)
