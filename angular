@@ -149,6 +149,9 @@ A. AuthGuard is used to protect the routes from unauthorized access in angular.
 	CanDeactivate :  The Angular CanDeactivate Guard determines whether we can navigate away from a route.
 	The CanDeactivate guard gives us a chance to warn the user that 
 	he has not saved his work and give him a chance to cancel the navigation
+	
+Q. how to protetct a root from unauthorise access
+A. by using auth guard canActivate method.
 
 Q. what is pipes? difference in pure and impur pipes?
 A. Pipes are simply a function that we can directly apply on any expression/value in a template to transform it into some other value.
@@ -282,6 +285,29 @@ Q. What is the purpose of Wildcard route?
 	If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. In this case, you can use wildcard route. A wildcard route has a path consisting of two asterisks to match every URL.
 	{ path: '**', component: PageNotFoundComponent }
 	
+Q. subject and BehaviorSubject  difference
+A. A BehaviorSubject holds one value. When it is subscribed it emits the value immediately. 
+	BehaviorSubject should be created with an initial value: new Rx.BehaviorSubject(1)
+	
+	A Subject doesn't hold a value.
+	
+	ReplaySubject is a variant of a Subject which keeps a cache of previous values emitted by a source observable 
+	and sends them to all new observers immediately on subscription. 
+	
+	const subject = new Rx.Subject();
+	subject.next(1);
+	subject.subscribe(x => console.log(x));
+	subject.next(2);
+	Console output will be empty. it will console value when we use next(2) after subscribe.
+	in above code it will console 2 but not 1.
+
+	BehaviorSubject example:
+
+	const subject = new Rx.BehaviorSubject(0);
+	subject.next(1);
+	subject.subscribe(x => console.log(x));
+	Console output: 1
+	
 Q. Why should ngOnInit be used, if we already have a constructor?
 	The Constructor is a default method of the class that is executed when the class is instantiated and ensures proper initialization of fields in the class and its subclasses.
 	ngOnInit is a life cycle hook called by Angular2 to indicate that Angular is done creating the component.
@@ -289,25 +315,168 @@ Q. Why should ngOnInit be used, if we already have a constructor?
 	Mostly we use ngOnInit for all the initialization/declaration and avoid stuff to work in the constructor. The constructor should only be used to initialize class members but shouldn't do actual "work". So you should use constructor() to setup Dependency Injection and not much else. ngOnInit() is better place to "start" - it's where/when components' bindings are resolved.
 
 Q. How to detect a route change in Angular?
+A. import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
+	constructor(router:Router) {
+	  router.events.forEach((event) => {
+		if(event instanceof NavigationStart) {
+		}
+		// NavigationEnd
+		// NavigationCancel
+		// NavigationError
+		// RoutesRecognized
+	  });
+	}
 	
 Q. What is Angular Ivy?
-	Answer : A big part of Angular is its compiler: it takes all your HTML and generates the necessary JS code. This compiler (and the runtime) has been completely rewritten over the last year, and this is what Ivy is about. The last rewrite was done in Angular 4.0.
+A: 	A big part of Angular is its compiler: it takes all your HTML and generates the necessary JS code. 
+	This compiler (and the runtime) has been completely rewritten over the last year, and this is what Ivy is about. 
+	The last rewrite was done in Angular 4.0.
 	Ivy is a complete rewrite of the compiler (and runtime) in order to:
 	reach better build times (with a more incremental compilation)
 	reach better build sizes (with a generated code more compatible with tree-shaking)
 	unlock new potential features (metaprogramming or higher order components, lazy loading of component instead of modules, a new change detection system not based on zone.js…)
+	
 Q. What is Bazel?
 	Google open sourced the software responsible for building most of its projects under the name Bazel. Bazel is a powerful tool which can keep track of the dependencies between different packages and build targets.
 	Some of the features of Bazel are:
 	1. It has a smart algorithm for determining the build dependencies - based on the dependency graph of a project, Bazel determines which targets it can build in parallel
 	2. Bazel is independent of the tech stack. We can build anything we want with it using the same interface. For example, there are plugins for Java, Go, TypeScript, JavaScript, and more
 
-9. how to share data between two independent component
-Q. how to protetct a root from unauthorise access
+Q. how to share data between two independent component
+A. 1. Parent to Child component: 
+	When you define @Input() in the child component it will receive value from the master or parent component.
+	parent code : <app-personal-co-app [personalData]="personalData"></app-personal-co-app>
+	childe code : import { Component, OnInit, Input } from '@angular/core';
+					@Input() personalData: any;
+					
+	2. Child to Parent component: For sharing data from child to parent we need output decorator
+	In childe code : 
+	@Output() childToParent = new EventEmitter<String>();
+	sendToParent(name){
+		this.childToParent.emit(name);
+	}
+	in parent code : <app-child (childToParent)=”childToParent($event)”></app-child>
+	
+	3. Sharing data between sibling components: First share data between the child to parent using output decorator and EventEmitter. 
+	Once received data in parent component share it to another child component using Input decorator. 
+	So siblings can talk each other via parent components.
+	
+	4. More Power: Sharing data using ViewChild decorator: 
+	import { PersonalCoAppComponent } from './personal-co-app/personal-co-app.component';
+	
+	@ViewChildren(PersonalCoAppComponent) coappComponents: QueryList<PersonalCoAppComponent>;
+	@ViewChild(AppChildComponent) child;
+	constructor() { }
+	ngAfterViewInit() {
+		this.product.productName=child.masterName; //<= This will set data
+	}
+	5. Sharing data between not related components: This happens when your components are in different modules.
+	For creating data service. We have to define BehaviorSubject. BehaviorSubject holds the current value and the last value.
+	I always prefer to use BehaviorSubject because of following reasons:
+	1. It automatically updates the lates value wherever subscribed.
+	2. Always give last value when called via getValue() method.
+	3. No need to call next, just create a set and get method in order to get value.
+	
+	import { Injectable } from '@angular/core';
+	import { BehaviorSubject } from 'rxjs';
+
+	@Injectable({
+	  providedIn: 'root'
+	})
+	export class SharedService {
+	  
+	  private notificationData = new BehaviorSubject<any>({});
+	  globalNotificationData = this.notificationData.asObservable();
+
+	  constructor() { }
+
+	  shareNotificationData(notificationDataObj){
+		this.notificationData.next(notificationDataObj);
+	  }
+	}
+	
+	share data code : this.sharedService.shareNotificationData(sharedNotificationObj);
+	get shared data : 
+	this.sharedService.globalNotificationData.subscribe(dataShared => {
+        this.notifictnCount=dataShared;
+    });
+
+
 Q. process to call a api in angular?
+A. Angular provides HttpClient Module that you can use to consume any API. 
+	First, you need to import the module in the AppModule or any other parent module and add it in the imports array.
+	import { HttpClientModule } from '@angular/common/http';
+	Once it is added in the module you can import that in any service. 
+	
+	Then create a service and inject the HttpClient in the constructor. 
+	Then create methods and use it accordingly. These methods return Observable.
+	
+	import { Injectable } from '@angular/core';
+	import { HttpClient } from '@angular/common/http';
+
+	@Injectable({
+	  providedIn: 'root'
+	})
+	export class AppService {
+
+	  constructor(private http: HttpClient) { }
+
+	  rootURL = '/api';
+
+	  getUsers() {
+		return this.http.get(this.rootURL + '/users');
+	  }
+
+	}
+
+
+Q. Difference between ng-template, ng-container and ng-content
+A. ng-content is used to display children in a template, 
+	ng-container is used as a non-rendered container to avoid having to add a span or a div, 
+	and ng-template allows you to group some content that is not rendered directly 
+	but can be used in other places of your template or you code.
+
+	1. <ng-template></ng-template> : 
+	As the name suggests the it is a template element that Angular uses with structural directives 
+	Like :( *ngIf , *ngFor , [ngSwitch] and custom directives)
+	
+	<div> 
+	   Ng-template Content 
+	   <div *ngIf=”false else showNgTemplateContent”> 
+		  Shouldn't be displayed 
+	   </div>
+	</div>
+ 
+	<ng-template #showNgTemplateContent> Should be displayed
+	</ng-template>
+	
+	2. <ng-container></ng-container> 
+	ng-container is an extremely simple directive that allows you to group elements in a template 
+	that doesn’t interfere with styles or layout because Angular doesn’t put it in the DOM.
+	This is helpful if you don’t want any extra div on DOM
+	
+	<ng-container *ngIf="details">
+	  <div *ngFor="let info of details">
+		{{ info.content }}
+	  </div>
+	</ng-container>
+	
+	3. <ng-content></ng-content>
+	ng-content is used to project content into Angular components. 
+	You use the <ng-content></ng-content> tag as a placeholder for that dynamic content, 
+	then when the template is parsed Angular will replace that placeholder tag with your content
+	
+	<h1>Child Info</h1>
+	<ng-content select="[input], [form-field]"></ng-content>
+	
+	<app-child>
+	  <h1 input>Content1!</h3>
+	  <h2 form-field>Content2!</h2>
+	  <h3 input form-field>Content1 & Content2!</h1>
+	</app-child>
+	If you check your browser, all the heading tags will be visible from child component with the help of <ng-content>
+
 ng store use and example 
-Difference between ng-template, ng-container and ng-content
-what is rest api  (representational state transfer) (stateless/statefull)
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
@@ -316,3 +485,6 @@ logical
 4. version control in angular 
 5. three select options are there, two have common data and third one have that common data. when a valuse is selected in third select option,
    other select option automaticaly select the valuse that is selected in third select option
+
+
+what is rest api  (representational state transfer) (stateless/statefull)
