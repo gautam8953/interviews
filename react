@@ -5,3 +5,5 @@ React core principles,
 React life cycle, 
 React-Thunk, React-Saga, flux, redux, redux-toolkit,
 react unit testing with RTL, Jest, Enzyme/mocha.
+Q. ng store use and example 
+A.  it is present in ngrx store module. read ngrx for details
