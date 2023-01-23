@@ -11,13 +11,41 @@ Ans.
    B. Angular is supported by all the popular mobile browsers.
    
 Q. What are some of the advantages of Angular over other frameworks?
-Ans A.  Excellent Material Design Library
+A. A. Excellent Material Design Library
    B. Efficient Problem-Solving Patterns
    C. More Lightweight Web Applications
    D. Readable and Testable Code
    E. Faster Development Process
    
 Q. latest angular version -> whats new in it -> latest angular worked on 
+A. Angular 13 on November 3, 2021
+	Feature : 
+	1. Support for TypeScript 4.4
+	2. No Longer Support for Internet Explorer 11
+	3. Improvements in Localization : $localize is a consistent API. 
+		Developers use it to produce an effective way for in-built internationalization (i18n) 
+		and tag messages for translation in code and templates
+	4. New Type of Forms : Angular v13 highlights a new type of form: FormControlStatus. 
+		It accumulates all status strings for form controls: 
+	
+	Angular 14 was released on 2 June 2022.
+	features : 
+	1. Angular CLI Auto-Completion - execute 'ng completion' for one time in terminal.
+		then by pressing tab after 'ng' you can get suggestion on cli commands
+	2. Strictly Typed Forms : now accepts a generic type that describes the type of value it holds for the first time.
+	3. Standalone Components : Now you can use Angular modules as an option. you can also use standalone components for the first time
+	4. Enhanced Template Diagnostics : better template diagnostics, allowing Angular developers to be protected from common errors by the compiler
+	5. Angular DevTools : In offline mode, you can use the Angular DevTools debugging plugin
+	
+	Angular 15 was released on 16 November 2022.
+	1. Stable Standalone APIs : Now Angular 15 can allow developers to build Angular applications without any module
+	2. Http with provideHttpClient : With the help of provideHttpClient(), it’s possible to offer the HttpClient. 
+		HTTP interceptors are also evolving and can now be defined as functions.
+	3. Optimized CLI with a Bunch of Improvements
+	4. Router Unwraps Default Imports : The router now automatically unwraps default exports when lazy loading, 
+		simplifying the router even more and reducing boilerplate.
+	5. Forms : The forms package now includes the utility functions like, isFormControl, isFormGroup, isFormRecord, and isFormArray
+
 Q. angular project setup -> how code generate
 Ans. install nodejs. npm installed by default. Then install angular by command npm install -g @angular/cli
       -g measn it will be installed globaly. for specific version npm install -g @angular/cli@8.3.19
@@ -80,7 +108,8 @@ Q. what is decorator in angular : Decorators are functions that are invoked with
            @Inject () is a common and widely used parameter decorator. Using this decorator, we can inject services in Angular classes
 	   
 Q. what is lazy loading and how to achieve it .
-Ans. To lazy load Angular modules, use loadChildren (instead of component) in your AppRoutingModule routes. it load the defined folder when route matches.
+A. To lazy load Angular modules, use loadChildren (instead of component) in your AppRoutingModule routes. 
+	it load the defined folder when route matches.
    
 Q. explain process to implement authorisation in a big application.
 A. authentication : Authentication (AuthN) is a process that verifies that someone is who? example : login authetication
@@ -107,33 +136,147 @@ A. The main differences between JIT and AOT in Angular are:
    6. template binding error are sgown at time of building
  
 Q. testing setup in angular, process
+A. The project you create with the CLI is immediately ready to test. Just run the ng test CLI command
+	The ng test command builds the application in watch mode, and launches the Karma test runner
 
 Q. what is auth guard?
+A. AuthGuard is used to protect the routes from unauthorized access in angular. 
+	Auth guard provide lifecycle event called canActivate. The canActivate is like a constructor. 
+	It will be called before accessing the routes. The canActivate has to return true to access the page.
+	If it returns false, we can not access the page. 
+	We can write our user authorization and authentication logic inside the canActivate function.
+	
+	CanDeactivate :  The Angular CanDeactivate Guard determines whether we can navigate away from a route.
+	The CanDeactivate guard gives us a chance to warn the user that 
+	he has not saved his work and give him a chance to cancel the navigation
 
 Q. what is pipes? difference in pure and impur pipes?
+A. Pipes are simply a function that we can directly apply on any expression/value in a template to transform it into some other value.
+	Built-in pipes in Angular : 
+	uppercase (to convert string in upper case);
+	lowercase (to convert string in upper case);
+	date (to format the date into different types);
+	json (to convert a value or object into JSON formatted string). 
+	<p>{{ 'Makesh' | uppercase }}</p>
 
-Q. how to create a module 
+	Types of pipes : 
+	1. Pure Pipes : A pure pipe is only called when Angular detects a change in the value or the parameters passed to a pipe.  
+	2. Impure Pipes : An impure pipe is called for every change detection cycle no matter whether the value or parameter(s) changes
 
-Q. Explain Components, Modules and Services in Angular
-Ans. Services are plain Typescript / JavaScript class providing a very specific functionality
+Q. Explain Components, Modules and Services in Angular. nad how to create it.
+A. component is basic building block of a UI in an Angular application.
+	It comes as a directive with a special decorator (@Component) and template.
+	Component decorator allows you to mark a class as an Angular component 
+	and provide additional metadata that determines how the component should be processed, instantiated, and used at runtime
+	command : ng g c componentName
+	
+	The module can be considered as a collection of components, directives, services, pipes, helpers, etc.
+	Each component can use other components, which are declared in the same module. 
+	To use components declared in other modules, they need to be exported from that module and 
+	the module needs to be imported into our module where we need that functionality.
+	command : ng g m moduleName
+
+	Services are plain Typescript / JavaScript class providing a very specific functionality. 
+	Angular services are objects that get instantiated just once during the lifetime of an application. 
+	They contain methods that maintain data throughout the life of an application, i.e., data is available all the time
+	
+	import { Injectable } from '@angular/core'; 
+	@Injectable({ 
+		providedIn: 'root', 
+	})
+	export class DebugService { 
+	   constructor() { } 
+	}
  
 Q. what is property binding 
+A. Property Binding is a one-way data-binding technique. 
+	we bind a property of a DOM element to a field which is a defined property in our component TypeScript code. 
+	<button [disabled]='bool'>GeekyButton</button>
+	
+Q. what is string interpolation in angular?
+A. String Interpolation is a one-way databinding technique which is used to output the data from a TypeScript code to HTML template (view). 
+	It uses the template expression in double curly braces to display the data from the component to the view
 
 Q. what is forRoot() in modules? What is its use?
-
+A. forRoot() is used when we want to maintain a single instance (singleton)of a service across the application 
+	which will also have lazy loaded modules
+	The counter is maintained by a CounterService which resides under SharedModule. 
+	Since, the lazy loaded modules creates its own instance of service, 
+	we lose the singleton behavior of the Angular Services.
+	
+	In routing module : 
+	The forRoot() method creates an NgModule that contains all the directives, the given routes, and the Router service itself.
+	The forChild() method creates an NgModule that contains all the directives and the given routes, but does not include the Router service
+	
 Q. version controlling in angular 
+A. steps : 
+	1. open tsconfig.app.json & tsconfig.spec.json , add “node” under compilerOptions -> types
+	2. open environment.ts and create a property for holding the application version in environment variable 
+		export const environment = {
+			appVersion: require('../../package.json').version + '-dev',
+			production: false
+		};
+	3. Add version number to a component and show it in the application
+		import {Component} from '@angular/core';
+		import {environment} from '../environments/environment';
+
+		@Component({
+			selector: 'app-root',
+			template: `<h1>{{title}}</h1>
+			<h3>v{{currentApplicationVersion}}</h3>`
+		})
+		export class AppComponent {
+			title = 'Demo application for version numbering';
+			currentApplicationVersion = environment.appVersion;
+		}
+	4. automatically increase build number in the version property. For this we will use npm version functionality
+	5. run : npm version patch   
+	The patchargument means, only the patch number will be incremented with 1. 
+	this command creates a new commit, to avoid this use '—- no-git-tag-version' flag.
+	add "prebuild": "npm --no-git-tag-version version patch", in "scripts": of package.json
  
 Q. angular life cycle and its uses 
+A. In Angular, each component is channeled through 8 different phases in its lifecycle. 
+	To be precise, it is first initialized, and then the root is created and is later presented to its components. 
+	It is always checked whenever the components get loaded during the development of the application and are gradually updated.
+
+	Angular executes its life cycle hook methods in a specific order.
+	1. Constructor
+	2. ngOnChanges : Called when the input properties have changed
+		OnChanges is a lifecycle hook that is called when any data-bound property of a directive changes
+	3. ngOnInit : Called on initialization
+		OnInit is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive
+	4. ngDoCheck : Developer’s custom change detection
+		DoCheck is a callback method that performs change detection, invoked after the default change detector runs.
+	4.1. ngAfterContentInit : Called when the component’s content ngContent is initialized
+	4.2  ngAfterContentChecked : Called when the component’s content is updated or checked for updates
+	4.3  ngAfterViewInit : Called when the component’s projected view has been initialized
+	4.4  ngAfterViewChecked : Called after the projected view has been checked
+	5.   ngOnDestroy : Called before the component is destroyed
+		OnDestroy is a lifecycle hook that is called when a directive, pipe, or service is destroyed. 
+		Use this for any custom cleanup that needs to occur when the instance is destroyed.
+		This hook is mostly used to unsubscribe from our observable streams and detach event handlers to avoid memory leaks.
+	
+Q. why use constructor if we have ngOnInit
+A. Constructor and OnInit seem the same, but they are called at different phases. 
+	Angular has two phases: the bootstrapping phase and the change detection phase.
+	
+	The constructor is a Typescript feature used to instantiate the Typescript class. 
+	In most Angular projects about the only thing that should ever be done in the constructor is to inject services.
+
+	The ngOnInit function is specific to the Angular framework and is called when Angular is done creating the component. 
+	It should be called with any custom finalization like loading data for your component to display.	
+	
 
 Q. pristine VS dirty VS touched
-valid: This property returns true if the element’s contents are valid and false otherwise.
-invalid: This property returns true if the element’s contents are invalid and false otherwise.
-pristine: This property returns true if the element’s contents have not been changed.
-dirty: This property returns true if the element’s contents have been changed.
-untouched: This property returns true if the user has not visited the element.
-touched: This property returns true if the user has visited the element.
+	valid: This property returns true if the element’s contents are valid and false otherwise.
+	invalid: This property returns true if the element’s contents are invalid and false otherwise.
+	pristine: This property returns true if the element’s contents have not been changed.
+	dirty: This property returns true if the element’s contents have been changed.
+	untouched: This property returns true if the user has not visited the element.
+	touched: This property returns true if the user has visited the element.
 
-Q. what is property binding and string interpolation in angular
+
 
 Q. What is the purpose of Wildcard route?
 	If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. In this case, you can use wildcard route. A wildcard route has a path consisting of two asterisks to match every URL.
