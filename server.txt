@@ -1,8 +1,10 @@
 Q. how to restrict call from other locations 
 A. restrict access on server that it will allow access only from particular IP
+
 Q. what is cross origin reuqest
 A. request made to another domain for resource like css/scripts for execution is called cross request.
     full form - Cross-Origin Resource Sharing
+    
 Q. what is headers and some examples
 A.  HTTP Headers are the meta-data associated with the API request and response. Headers carry information for:
     1. Request and Response Body
@@ -12,6 +14,8 @@ A.  HTTP Headers are the meta-data associated with the API request and response.
     Other than the above categories HTTP headers also carry a lot of other information around HTTP connection types, proxies etc.
     Headers are mostly classified as request headers and response headers, know the major request and response headers.
     like : Cache-Control, Content-Type, Accept-Charset, Authorization, WWW-Authenticate
+    
+Q. what is rest api  (representational state transfer) (stateless/statefull)
 
 Q. knowledge of aws 
 
