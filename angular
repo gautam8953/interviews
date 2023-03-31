@@ -490,7 +490,10 @@ A. ng-content is used to display children in a template,
 	</app-child>
 	If you check your browser, all the heading tags will be visible from child component with the help of <ng-content>
 
-
+Q. what is NgRX?
+A. NgRx/store is a library for managing state in your Angular applications, it is a reactive state management library powered by RxJS. 
+   Similar to Redux, this library can be used to manage the flow of data throughout your application, 
+   when actions are dispatched, reducers act on them and mutate the store.
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
