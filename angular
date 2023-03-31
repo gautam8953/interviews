@@ -268,7 +268,17 @@ A. Constructor and OnInit seem the same, but they are called at different phases
 	In most Angular projects about the only thing that should ever be done in the constructor is to inject services.
 
 	The ngOnInit function is specific to the Angular framework and is called when Angular is done creating the component. 
-	It should be called with any custom finalization like loading data for your component to display.	
+	It should be called with any custom finalization like loading data for your component to display.
+	
+	The Constructor is a default method of the class that is executed 
+	when the class is instantiated and ensures proper initialization of fields in the class and its subclasses.
+	ngOnInit is a life cycle hook called by Angular2 to indicate that Angular is done creating the component.
+
+	Mostly we use ngOnInit for all the initialization/declaration and avoid stuff to work in the constructor. 
+	The constructor should only be used to initialize class members but shouldn't do actual "work". 
+	So you should use constructor() to setup Dependency Injection and not much else. 
+	ngOnInit() is better place to "start" - it's where/when components' bindings are resolved.	
+	
 	
 
 Q. pristine VS dirty VS touched
@@ -306,13 +316,7 @@ A. A BehaviorSubject holds one value. When it is subscribed it emits the value i
 	const subject = new Rx.BehaviorSubject(0);
 	subject.next(1);
 	subject.subscribe(x => console.log(x));
-	Console output: 1
-	
-Q. Why should ngOnInit be used, if we already have a constructor?
-	The Constructor is a default method of the class that is executed when the class is instantiated and ensures proper initialization of fields in the class and its subclasses.
-	ngOnInit is a life cycle hook called by Angular2 to indicate that Angular is done creating the component.
-
-	Mostly we use ngOnInit for all the initialization/declaration and avoid stuff to work in the constructor. The constructor should only be used to initialize class members but shouldn't do actual "work". So you should use constructor() to setup Dependency Injection and not much else. ngOnInit() is better place to "start" - it's where/when components' bindings are resolved.
+	Console output: 1	
 
 Q. How to detect a route change in Angular?
 A. import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
