@@ -190,7 +190,9 @@ A. component is basic building block of a UI in an Angular application.
 	export class DebugService { 
 	   constructor() { } 
 	}
- 
+
+Q. Explain Event Binding? <button (click)="raiseVolume()"></button>
+
 Q. what is property binding 
 A. Property Binding is a one-way data-binding technique. 
 	we bind a property of a DOM element to a field which is a defined property in our component TypeScript code. 
