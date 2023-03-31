@@ -199,6 +199,14 @@ A. Property Binding is a one-way data-binding technique.
 Q. what is string interpolation in angular?
 A. String Interpolation is a one-way databinding technique which is used to output the data from a TypeScript code to HTML template (view). 
 	It uses the template expression in double curly braces to display the data from the component to the view
+	
+Q. Explain the concept of Data Binding. 
+A. Data Binding can be best described as a technique that is used to link the application’s data to the view layer
+	There are two types of data binding - 
+	1. One-way data-binding: One way data binding is a unidirectional data binding method, 
+	  that is, we can either bind the data from the component to the view or bind the data from the view to the component
+	2. Two-way data binding: Two-way data binding in Angular version 8 helps the users to exchange data from the component to the view 
+	  and from the view to the component
 
 Q. what is forRoot() in modules? What is its use?
 A. forRoot() is used when we want to maintain a single instance (singleton)of a service across the application 
