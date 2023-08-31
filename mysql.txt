@@ -1,5 +1,17 @@
 Q. name different type of indexes in mysql
+A. A database index is a data structure that improves the speed of operations in a table. 
+    Practically, indexes are also a type of tables, which keep primary key or index field and a pointer to each record into the actual table.
+    The INSERT and UPDATE statements take more time on tables having indexes, whereas the SELECT statements become fast on those tables. 
+    The reason is that while doing insert or update, a database needs to insert or update the index values as well.
+    1. Unique - The Unique index in MySQL specifies that all values in the columns of a table must be distinct when applied. 
+        single column : no duplicate value 
+        multi column : grouping of column values in every row should be unique
+        unique coumn can have single null value but it depends on language. ANSI SQL, Oracle allows columns with UNIQUE constraints to have multiple NULLs.
+        “NULL” is not a value in itself and since it is not a value, it is not comparable at all, so it can be multiple.
+        but NULL=NULL is true, so many dbms implements unique column with single null value like mysql,  Microsoft sql server
     INDEX, UNIQUE, PRIMARY
+
+
 Q. if you got the files of mysql myISM databs, can you restore it or get data back from it
     yes. stop server, place file in mysql/data folder then restart
 Q. if you have to transfer data from one server to another what are different ideas?
