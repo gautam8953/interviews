@@ -9,13 +9,59 @@ A. A database index is a data structure that improves the speed of operations in
         unique coumn can have single null value but it depends on language. ANSI SQL, Oracle, PostgreSQL allows columns with UNIQUE constraints to have multiple NULLs.
         “NULL” is not a value in itself and since it is not a value, it is not comparable at all, so it can be multiple.
         but NULL=NULL is true, so many dbms implements unique column with single null value like mysql,  Microsoft sql server
-    INDEX, UNIQUE, PRIMARY
-
+        CREATE UNIQUE INDEX Indexname ON Tablename(indexcolumn1, indexcolumn2,…);
+        OR,
+        CREATE TABLE Tablename(Column1 CHAR (30) NOT NULL, UNIQUE INDEX (column2));
+        OR,
+        ALTER TABLE Tablename ADD UNIQUE INDEX (column1, column2);
+    2. Primary Key - uniquely identifies a row in tables. unique+not null = primary  key
+        CREATE TABLE Tablename (Columnname Data_type PRIMARY KEY );
+        OR,
+        CREATE TABLE Tablename (Column1 CHAR(30) NOT NULL, Column2 CHAR(30) NOT NULL, PRIMARY KEY (Column1, Column2));
+        OR,
+        ALTER TABLE Tablename ADD PRIMARY KEY(Column1, Column2);
+    3. Simple | Regular | Normal
+        this type of Index named simple, regular, or normal, the specified column values do not require to be unique and can be NULL. 
+        They essentially supplement the database searching process to make record retrieval faster
+        CREATE INDEX Indexname ON Tablename  (Indexcolumn1, Indexcolumn2, …);
+        OR,
+        CREATE TABLE Tablename(Column1 CHAR(30) NOT NULL, INDEX(Column2));
+        OR,
+        ALTER TABLE Tablename ADD INDEX(Column1, Column2);
+    4. Full-Text
+        This index type is implemented for full-text searches. suppose you need to find a blob that includes a certain word or combination of words, 
+        or it can even be a substring within the higher block text. 
+        these indexes are maintained only for MyISAM and InnoDB tables in the database and can consist of only VARCHAR, CHAR, and TEXT table columns.
+        CREATE FULLTEXT INDEX Indexname ON Tablename(indexcolumn1, indexcolumn2, …);
+        OR,
+        CREATE TABLE Tablename (column1 TEXT, FULLTEXT(column1));
+        OR,
+        ALTER TABLE Tablename ADD FULLTEXT(column1, column2);
+    5. Spatial
+        MySQL allows the creation of Spatial indexes on geometry-valued columns with NOT NULL constraint.
+        The spatial index creates an R-tree index. The engine builds up a B-tree index for storage engines that maintain nonspatial indexing of the spatial table columns
+        CREATE INDEX Indexname ON Tablename(Indexcolumn1);
+        OR,
+        CREATE TABLE Tablename (column1 GEOMETRY NOT NULL SRID 4326,SPATIAL INDEX(Column2));
+        OR,
+        ALTER TABLE Tablename ADD SPATIAL INDEX (column1, column2);
+    6. Descending
+        Version 8+ of MySQL offers the Descending index, a consistent index stored in the inverse order
+        It supports users when they run queries to find out the most newly added data
+        CREATE INDEX Indexname ON Tablename (Indexcolumn1 DESC);
+        OR,
+        CREATE TABLE Tablename (Column1 INT, Column2 INT, INDEX asc_index1(Column1 ASC, Column2 ASC), INDEX desc_index1 (Column1 DESC,      Column2 DESC));
+        OR,
+        ALTER TABLE Tablename ADD INDEX(column1 DESC, column2 ASC);
 
 Q. if you got the files of mysql myISM databs, can you restore it or get data back from it
-    yes. stop server, place file in mysql/data folder then restart
+A.    yes. stop server, place file in mysql/data folder then restart. files - (tablename.FRM, tablename.MYD, tablename.MYI)
+
 Q. if you have to transfer data from one server to another what are different ideas?
-    download sql, master slave, transfer data by connecting to another
+    1. PC to PC using third party software. ex- EaseUS Todo PCTrans runs full compatible with SQL server 2004
+    2. using Copy Database Wizard - if in same PC
+    3. using backup and store - download sql 
+    4. using master slave- 
 
 Q. what are storage engines and name different type of storage engines in mysql. 
 A.
@@ -37,28 +83,36 @@ Engine     | Support | Comment                                                  
 
 Q. what is the difference between myISAM and Innodb?
 A. MyISAM and InnoDB are the most commonly used engines.
-MyISAM is slightly faster than InnoDB, and implements the FULLTEXT index which is quite useful for integrating search capabilities. MyISAM is not transacted and doesn't implement foreign key constraints, which is a major drawback.
-if you have a high number of updates or inserts compared to your searches and selects then you will get better performance out of the InnoDB engine.
-My|sam and innodb diference
-MYISAM:
-1.	MYISAM supports Table-level Locking
-2.	MyISAM designed for need of speed
-3.	MyISAM does not support foreign keys hence we call MySQL with MYISAM is DBMS
-4.	MyISAM stores its tables, data and indexes in diskspace using separate three different files. (tablename.FRM, tablename.MYD, tablename.MYI)
-5.	MYISAM not supports transaction. You cannot commit and rollback with MYISAM. Once you issue a command it’s done.
-6.	MYISAM supports fulltext search
-7.	You can use MyISAM, if the table is more static with lots of select and less update and delete.
-8: develop by ibm to store data like tape. 
-9. mysql indexed sequential access method(FULL FORM)
-INNODB:
-1.	InnoDB supports Row-level Locking
-2.	InnoDB designed for maximum performance when processing high volume of data
-3.	InnoDB support foreign keys hence we call MySQL with InnoDB is RDBMS
-4.	InnoDB stores its tables and indexes in a tablespace
-5.	InnoDB supports transaction. You can commit and rollback with InnoDB
+    MyISAM is slightly faster than InnoDB, and implements the FULLTEXT index which is quite useful for integrating search capabilities. 
+    MyISAM is not transacted and doesn't implement foreign key constraints, which is a major drawback.
+    if you have a high number of updates or inserts compared to your searches and selects then you will get better performance out of the InnoDB engine.
+    My|sam and innodb diference
+    MYISAM:
+    1.	MYISAM supports Table-level Locking
+    2.	MyISAM designed for need of speed
+    3.	MyISAM does not support foreign keys hence we call MySQL with MYISAM is DBMS
+    4.	MyISAM stores its tables, data and indexes in diskspace using separate three different files. (tablename.FRM, tablename.MYD, tablename.MYI)
+    5.	MYISAM not supports transaction. You cannot commit and rollback with MYISAM. Once you issue a command it’s done.
+    6.	MYISAM supports fulltext search
+    7.	You can use MyISAM, if the table is more static with lots of select and less update and delete.
+    8: develop by ibm to store data like tape. 
+    9. mysql indexed sequential access method(FULL FORM)
+    INNODB:
+    1.	InnoDB supports Row-level Locking
+    2.	InnoDB designed for maximum performance when processing high volume of data
+    3.	InnoDB support foreign keys hence we call MySQL with InnoDB is RDBMS
+    4.	InnoDB stores its tables and indexes in a tablespace
+    5.	InnoDB supports transaction. You can commit and rollback with InnoDB
 
 
 Q. explain acid property
+A. In order to maintain consistency in a database, before and after the transaction, certain properties are followed. These are called ACID properties
+    Atomicity: either the entire transaction takes place at once or doesn’t happen at all.  i.e. transactions do not occur partially.
+    Atomicity is also known as the ‘All or nothing rule’. 
+    It involves the following two operations. 
+    —Abort: If a transaction aborts, changes made to the database are not visible. 
+    —Commit: If a transaction commits, changes made are visible. 
+
 Q. what is transaction
 Q. difference between delete & truncate
 Q. what are joins
