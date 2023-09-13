@@ -96,16 +96,18 @@ A. MyISAM and InnoDB are the most commonly used engines.
     3.	MyISAM does not support foreign keys hence we call MySQL with MYISAM is DBMS
     4.	MyISAM stores its tables, data and indexes in diskspace using separate three different files. (tablename.FRM, tablename.MYD, tablename.MYI)
     5.	MYISAM not supports transaction. You cannot commit and rollback with MYISAM. Once you issue a command it’s done.
-    6.	MYISAM supports fulltext search
-    7.	You can use MyISAM, if the table is more static with lots of select and less update and delete.
-    8: develop by ibm to store data like tape. 
-    9. mysql indexed sequential access method(FULL FORM)
+    6. does not support ACID property of database
+    7.	MYISAM supports fulltext search
+    8.	You can use MyISAM, if the table is more static with lots of select and less update and delete.
+    9: develop by ibm to store data like tape. 
+    10. mysql indexed sequential access method(FULL FORM)
     INNODB:
     1.	InnoDB supports Row-level Locking
     2.	InnoDB designed for maximum performance when processing high volume of data
     3.	InnoDB support foreign keys hence we call MySQL with InnoDB is RDBMS
     4.	InnoDB stores its tables and indexes in a tablespace
     5.	InnoDB supports transaction. You can commit and rollback with InnoDB
+    6.  support ACID property of database
 
 query to get table list uing MyISAM engine : SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ‘database_name’ AND ENGINE = ‘MyISAM’;
 query to change engine : ALTER TABLE `table_name` ENGINE = InnoDB; 
