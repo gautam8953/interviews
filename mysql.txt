@@ -115,11 +115,14 @@ query to change engine : ALTER TABLE `table_name` ENGINE = InnoDB;
 
 Q. explain acid property
 A. In order to maintain consistency in a database, before and after the transaction, certain properties are followed. These are called ACID properties
-    Atomicity: either the entire transaction takes place at once or doesn’t happen at all.  i.e. transactions do not occur partially.
+    1. Atomicity: either the entire transaction takes place at once or doesn’t happen at all.  i.e. transactions do not occur partially.
     Atomicity is also known as the ‘All or nothing rule’. 
     It involves the following two operations. 
     —Abort: If a transaction aborts, changes made to the database are not visible. 
     —Commit: If a transaction commits, changes made are visible. 
+    2. Consistency : databse must be consistent before and after the transection
+    3. Isolation : multiple transection occurs independentally without interference 
+    4. Durability : changes of a successfull transection occurs even if the system failure occurs
 
 Q. what is transaction
 Q. difference between delete & truncate
