@@ -104,6 +104,9 @@ A. MyISAM and InnoDB are the most commonly used engines.
     4.	InnoDB stores its tables and indexes in a tablespace
     5.	InnoDB supports transaction. You can commit and rollback with InnoDB
 
+query to get table list uing MyISAM engine : SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ‘database_name’ AND ENGINE = ‘MyISAM’;
+query to change engine : ALTER TABLE `table_name` ENGINE = InnoDB; 
+
 
 Q. explain acid property
 A. In order to maintain consistency in a database, before and after the transaction, certain properties are followed. These are called ACID properties
