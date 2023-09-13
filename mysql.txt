@@ -67,14 +67,14 @@ Q. what are storage engines and name different type of storage engines in mysql.
 A.
 Engine     | Support | Comment                                                        | Transactions | XA   | Savepoints |
 +------------+---------+----------------------------------------------------------------+--------------+------+------------+
-| InnoDB     | YES     | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
+| MyISAM     | DEFAULT | Default engine as of MySQL 3.23 with great performance         | NO           | NO   | NO         |
 | MRG_MYISAM | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |
+| InnoDB     | YES     | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
 | BLACKHOLE  | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |
 | CSV        | YES     | CSV storage engine                                             | NO           | NO   | NO         |
 | MEMORY     | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |
 | FEDERATED  | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |
 | ARCHIVE    | YES     | Archive storage engine                                         | NO           | NO   | NO         |
-| MyISAM     | DEFAULT | Default engine as of MySQL 3.23 with great performance         | NO           | NO   | NO         |
 +------------+---------+------------------------------------------------------
 *The MERGE engine is an exceedingly effective way of querying data from multiple, identically defined, tables.
 *The MEMORY engine is the best way to perform a large number of complex queries on data that would be inefficient to search on a disk based engine.
