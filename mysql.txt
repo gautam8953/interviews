@@ -56,6 +56,9 @@ A. A database index is a data structure that improves the speed of operations in
 
 Q. if you got the files of mysql myISM databs, can you restore it or get data back from it
 A.    yes. stop server, place file in mysql/data folder then restart. files - (tablename.FRM, tablename.MYD, tablename.MYI)
+    .frm – The table format containing the table structure or table definition.
+    .myi – The index file with indexes for each table.
+    .myd – The data file that contains data of each table.
 
 Q. if you have to transfer data from one server to another what are different ideas?
     1. PC to PC using third party software. ex- EaseUS Todo PCTrans runs full compatible with SQL server 2004
