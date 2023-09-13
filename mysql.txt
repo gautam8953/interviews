@@ -125,7 +125,36 @@ A. In order to maintain consistency in a database, before and after the transact
     4. Durability : changes of a successfull transection occurs even if the system failure occurs
 
 Q. what is transaction
-Q. difference between delete & truncate
+A. Transactions refer to a set of operations that are used for performing a set of logical work. 
+    Usually, a transaction means the data present in the DB has changed. 
+    Protecting the user data from system failures is one of the primary uses of DBMS
+
+Q. difference between delete & drop & truncate
+A. 1. Language - 
+    -: DML command  
+    -: DDL commnd  
+    -: DDL command
+    2. use 
+    -: deletes one or more existing records from the table in the database
+    -: drops the complete table from the database
+    -: deletes all the rows from the existing table, leaving the row with the column names
+    3. Transition
+    -: We can restore any deleted row or multiple rows from the database using the ROLLBACK command
+    -: We cannot
+    -: We cannot
+    4. Memory Space
+    -: does not free the allocated space of the table from memory.
+    -: removes the space allocated for the table from memory
+    -: does not free the space allocated for the table from memory
+    5. Performance Speed
+    -: slower than the DROP command and TRUNCATE command as it deletes one or more rows based on a specific condition
+    -: faster performance than DELETE but slower than Truncate Command because the DROP command deletes the table from the database after deleting the rows
+    -: fastest because it deletes all the records from the table without any condition
+
+    
+    . 
+    
+
 Q. what are joins
 Q. what is subquery
 Q. sql injuctions preventions 
