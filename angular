@@ -94,6 +94,43 @@ Ans. Polyfills in basic language are extra lines of code which make your applica
    A. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
    B. Application imports. Files imported after ZoneJS should be loaded before your main file
 
+Q. what is directive in angular and ots types?
+A. In Angular, Directives are defined as classes that can add new behavior to the elements in the template or modify existing behavior.
+    The purpose of Directives in Angular is to maneuver the DOM, be it by adding new elements to DOM or 
+    removing elements and even changing the appearance of the DOM elements.
+    Directives are meant to be a function that executes when found in the DOM by the Angular compiler to extend the power of the HTML with new syntax. 
+    Directives have a name and can be predefined or custom-defined so that they can be called anything
+  Types of Directives in Angular
+  1. Component Directive : Special directives in Angular are called Components since this type of directive has a template or template URLs. 
+	In effect, it is a component directive that shows something in DOM.
+  2. Structural Directive : This type of directive is used to make changes in the layout of the DOM. 
+	Elements can be added or removed, hence changing the structure of the DOM.
+	ex: *ngIf, *ngFor
+  3. Attribute directive : This type of angular directive is used to make behavior or element changes in the appearance and behavior of an element. 
+	For example, ngStyle( applying styles) or ngClass(applying CSS classes).
+  Creating Our Own Attribute Directive : The purpose of the following attribute directive is to change the text color whenever the pointer hovers over it.
+	Custom Directive is very similar to creating the Angular component. 
+	The custom directive is created using the @Directive decorator to replace the @component decorator.
+  1. Create a class with @Directive
+  2. Create an Attribute directive with Element Ref
+  3. Listen to the Hover event with
+  4. HostListener
+  	By using handlers, the element is referenced, and the color of the text is changed.
+	import{Directive, ElementRef, HostListener} from '@angular/core';
+	@Directive({
+		selector:'[highlight]',
+	})
+
+export class HighlightDirective{
+constructor (private eleRef: ElementRef){ }
+@HostListerner ('mouseover') on MouseOver(){
+this.eleRef.nativeElement .style.color ='green';
+}
+@hostListener('mouseleave') onMouseLeave(){
+this.eleRef.nativeElement.style.color='black' ;
+}
+}] 
+
 Q. what is decorator in angular : Decorators are functions that are invoked with a prefixed @ symbol, and are immediately followed by a class, method or property. 
    They allow a service, directive or filter to be changed before being used. 
    Basically, a decorator provides configuration metadata that determines how the component, class or a function should be processed, instantiated and used at runtime.
