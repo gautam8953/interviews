@@ -157,7 +157,7 @@ A. "View state" is specific to a page in a session whereas "Session state" is sp
    that can be accessed across all pages in the web application.
 
 Q. Define closure.
-   In JavaScript, we need closures when a variable which is defined outside the scope in reference is accessed from some inner scope.
+   In JavaScript, we need closures when a variable which is defined outside the scope in reference, is accessed from some inner scope.
 	var num = 10;  
 	function sum()   
 	{  
