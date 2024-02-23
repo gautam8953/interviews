@@ -1,5 +1,5 @@
 Q. difference in angular js and angular 
-Ans. 
+A. 
    Architecture
    A. It supports the Model-View-Controller design. The view processes the information available in the model to generate the output. 	
    B. It uses components and directives. Components are the directives with a template.
@@ -47,8 +47,10 @@ A. Angular 13 on November 3, 2021
 	5. Forms : The forms package now includes the utility functions like, isFormControl, isFormGroup, isFormRecord, and isFormArray
 
 Q. angular project setup -> how code generate
-Ans. install nodejs. npm installed by default. Then install angular by command npm install -g @angular/cli
-      -g measn it will be installed globaly. for specific version npm install -g @angular/cli@8.3.19
+Ans. install nodejs. npm installed by default. 
+	Then install angular by command npm install -g @angular/cli
+    -g means it will be installed globaly. 
+	for specific version npm install -g @angular/cli@8.3.19
       
 Q. angular architecture 
 Ans. Here’s a list of the most important files on the root folder, created by Angular CLI:
@@ -72,6 +74,13 @@ in build following files generated :
    – styles.js – containing styles, defined by the application and from the third-party UX libraries (such as Bootstrap)
    – vendor.ts – the code that’s coming from the node_modules folder (ie. third-party libraries, including Angular itself).
 
+Q. command to generate application, component, model, module, service etc
+A. 	application : ng new newApp
+	component:
+	model: 
+	module: 
+	service: 
+
 Q. how many files generated in component and use of it
 Ans. 4 files are generated. CSS, HTML, SPEC, TS
       A. CSS -> for style 
@@ -83,7 +92,8 @@ Ans. 4 files are generated. CSS, HTML, SPEC, TS
 Q.  angular code execution flow 
 Ans. angular.json -> angular-cli configuration file main.ts -> Angular module bootstrap application file. 
    Set the entry module for your application. app.module.ts -> 
-   Based upon your entry module, it configures which component will load first from that module and what others dependency modules, components, pipes, services.
+   Based upon your entry module, it configures which component will load first from that module 
+   and what others dependency modules, components, pipes, services.
 
 Q. what is polyfil and why polyfil.ts is used?
 Ans. Polyfills in basic language are extra lines of code which make your application compatible for different browsers. 
@@ -94,7 +104,7 @@ Ans. Polyfills in basic language are extra lines of code which make your applica
    A. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
    B. Application imports. Files imported after ZoneJS should be loaded before your main file
 
-Q. what is directive in angular and ots types?
+Q. what is directive in angular and its types?
 A. In Angular, Directives are defined as classes that can add new behavior to the elements in the template or modify existing behavior.
     The purpose of Directives in Angular is to maneuver the DOM, be it by adding new elements to DOM or 
     removing elements and even changing the appearance of the DOM elements.
@@ -154,7 +164,7 @@ A. authentication : Authentication (AuthN) is a process that verifies that someo
    authorization : Authorization is the security process that determines a user or service's level of access.
    after login determine waht manager user have access and what employee user has access.
 
-Q. jit and eot 
+Q. jit and aot 
 A. The main differences between JIT and AOT in Angular are:
    Just-in-Time (JIT), compiles your app in the browser at runtime.
    1. laods application slower as it need to compile the application when running for the first time
@@ -452,6 +462,8 @@ A. 1. Parent to Child component:
         this.notifictnCount=dataShared;
     });
 
+Q. process to add a new url in a project 
+A. 
 
 Q. process to call a api in angular?
 A. Angular provides HttpClient Module that you can use to consume any API. 
@@ -539,5 +551,6 @@ logical
 4. version control in angular 
 5. three select options are there, two have common data and third one have that common data. when a valuse is selected in third select option,
    other select option automaticaly select the valuse that is selected in third select option
+6. real time chat application using angular 
 
 
