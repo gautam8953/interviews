@@ -13,6 +13,35 @@ A. javacript developed by Mocha in 1995. first ecma script edition come in June 
 Q. What is the difference between JavaScript and JScript?
    Netscape provided the JavaScript language. Microsoft changed the name and called it JScript to avoid the trademark issue. 
    In other words, you can say JScript is the same as JavaScript, but Microsoft provides it.
+   Difference with javascript  :
+  1. Type and Trademark	
+	It is a scripting language whose trademark is Oracle Corporation.
+	It is also a scripting language but owned by Microsoft.
+  2. Developed	
+	It was developed in 1995.
+	It was developed in 1996.
+  3. Active Content Creation
+	It does not support active content creation.
+	It can create active online content for WWW.
+  4. Browsers Compatibility
+	All modern browsers support JavaScript.
+	It’s only support is Microsoft Internet Explorer.
+  5. Compilation
+	It’s code can run in any web browser.
+	It’s code only run in Microsoft browser.
+  6. Object Access
+	It cannot access web browser objects
+	It can access objects of Microsoft browser
+  7. Popularity	
+	JavaScript is popular language because it is executed in any browser.
+	JScript is not popular language because it limited to internet explorer.
+  8. Based On	
+	It is based on ECMAScript.
+	It is based on Microsoft’s ECMAScript standard.
+  9. Scope of Execution	
+	It can execute in any browser.
+	It cannot execute in any browser and is limited to Internet explorer only.
+
    
 Q. Is JavaScript case sensitive language?  Yes
 
