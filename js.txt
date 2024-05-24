@@ -5,10 +5,26 @@ Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript
    
 Q. whats new is latest ecma script?
 A. javacript developed by Mocha in 1995. first ecma script edition come in June 1997. from 2015 every year edition released.
+   JavaScript's latest update, ECMAScript 2023 (ES14), released in June 2023.
+   new array method:
+   toSorted(). - toSorted has the same signature as Array.prototype.sort(), but it creates a new array instead of operating on the array itself
+   toReversed() -  is the duplicating cousin of reverse()
+   with()  - modify a single element based on its index, and get back a new array. it's copy of set() 
+	Replace the string "Walrus" with "Octopus".
+	const newArr4 = arr4.with(3, "Ape Man");
+   findLast() - it return final instance of a matching element from an array.
+	const arr = [54, 34, 55, 75, 98, 77];
+	const lastEvenIndex = arr.findLast((element) => {
+	  return element % 2 === 0;
+	});
+	console.log(lastEvenIndex); // 98
+   findLastIndex() - find the index of the last element matching 
+
    latest ECMAScript 2021. new changes :- 
    replaceAll  method for strings
    Promise.any 
    AggregateError
+	
 
 Q. What is the difference between JavaScript and JScript?
    Netscape provided the JavaScript language. Microsoft changed the name and called it JScript to avoid the trademark issue. 
