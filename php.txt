@@ -83,6 +83,7 @@ Request method  $_SERVER['REQUEST_METHOD']  -> (get, post,put,delete)
 C. $_GET:  limit 2000 characters, send via url, data can be seen, no security, files images can’t be sent, we can bookmark a page
 
 D. $_POST: all names/values are embedded within the body of the HTTP request, has no limit, secure, files images can be sent, variable are not seen show we can’t bookmark a page
+  Default : 2 MB for upload_max_filesize, and 8 MB for post_max_size
 
 E. $_FILES:  
 for upload file enctype="multipart/form-data" must be added to form and method will be post
