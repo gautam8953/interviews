@@ -295,6 +295,9 @@ Q. loop levels
 Q. difference in === and ==
 Q. what is ternory operator 
 Q. what is null coliision  
+A. The null coalescing operator is a binary operator which was introduced in PHP 7. 
+  It allows the programmers to shorten the code for checking variable values using isset function 
+  in conjunction with ternary operator or if-else statement.
 Q. null safe operator
 Q. mysql_fetch_aray and mysql_fetch_object
 Q. difference in fetch_associate and fetch_array
