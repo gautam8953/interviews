@@ -244,6 +244,15 @@ sort() Sorts an indexed array in ascending order
 
 Q. array.push, array.pop, how to insert an element in an array
 Q. Difference in array merge and combinbe
+A. 	1. this function merges the two or more arrays.
+	This array combine only two arrays.
+	2. This function merges  the arrays such that all the arrays have keys and values.
+	This function combine the one array containing keys and another array containing values.
+	3. The arrays are appended at the end of the first array.
+	The arrays are combined. 
+  In array combine It is required that both arrays should have equal number of elements.
+  If number of elements are not same on both arrays, the function returns FALSE
+
 Q. how you will check a variable is array or not, or string/number  -> echo gettype($value), "\n";
 •	ctype_digit() - Check for numeric character(s)
 •	is_bool() - Finds out whether a variable is a boolean
