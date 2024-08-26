@@ -15,8 +15,16 @@ A.  HTTP Headers are the meta-data associated with the API request and response.
     Headers are mostly classified as request headers and response headers, know the major request and response headers.
     like : Cache-Control, Content-Type, Accept-Charset, Authorization, WWW-Authenticate
     
-Q. what is rest api  (representational state transfer) (stateless/statefull)
-
+Q. what is rest api
+    full form - (representational state transfer) 
+     type - (stateless/statefull)
+    REST APIs are a common way to connect applications and components in microservices architectures
+    Here are some advantages of REST APIs - 
+    a. Lightweight - more lightweight than SOAP (Simple Object Access Protocol). create web APIs usually with Extensible Markup Language (XML)
+    b. Scalable, 
+    c. Flexible, 
+    d. Interoperable - can interact with many platforms and languages
+    e. Code on demand  -  This can simplify clients by reducing the number of features that need to be pre-implemented
 Q. knowledge of aws 
 
 
