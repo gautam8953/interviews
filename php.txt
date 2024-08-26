@@ -67,7 +67,8 @@ $_SERVER['REMOTE_ADDR'] : Returns the IP address from where the user is viewing 
 $_SERVER['REMOTE_HOST'] : Returns the Host name from where the user is viewing the current page
 $_SERVER['REMOTE_PORT'] : Returns the port being used on the user's machine to communicate with the web server
 $_SERVER['SCRIPT_FILENAME'] : Returns the absolute pathname of the currently executing script
-$_SERVER['SERVER_ADMIN'] : Returns the value given to the SERVER_ADMIN directive in the web server configuration file (if your script        runs on a virtual host, it will be the value defined for that virtual host) (such as someone@w3schools.com)
+$_SERVER['SERVER_ADMIN'] : Returns the value given to the SERVER_ADMIN directive in the web server configuration file 
+	(if your script runs on a virtual host, it will be the value defined for that virtual host) (such as someone@w3schools.com)
 $_SERVER['SERVER_PORT'] : Returns the port on the server machine being used by the web server for communication (such as 80)
 $_SERVER['SERVER_SIGNATURE'] : Returns the server version and virtual host name which are added to server-generated pages
 $_SERVER['PATH_TRANSLATED'] : Returns the file system based path to the current script
@@ -93,7 +94,8 @@ synatx to check file exist or not: file_exists(url)
 Synatx to set uplaod limit : if ($_FILES["fileToUpload"]["size"] > 500000) // 500KB
 Synatx to get extension of file: $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-F. $_COOKIE: A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values
+F. $_COOKIE: A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. 
+Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values
 Synatx: setcookie(name, value, expire, path, domain, secure, httponly);
 $cookie_name = "user";
 $cookie_value = "John Doe";
