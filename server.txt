@@ -33,4 +33,9 @@ Q. what is agile methodology
 Q. sprints methodology 
 
 Git hub : 
-Q. difference in pull and fetch 
+Q. difference in pull and fetch - both are used to update your local repository with changes from a remote repository.
+    git fetch: Only downloads new data from the remote repository. Does not alter your working directory.
+    git pull: Downloads new data from the remote repository and merges it into your current branch, potentially altering your working directory.
+
+Q. what is git rebase - it take the commits from your current branch and reapply them on top of another branch.
+    command -  1. git checkout feature-branch        2. git rebase main
