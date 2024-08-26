@@ -39,3 +39,10 @@ Q. difference in pull and fetch - both are used to update your local repository 
 
 Q. what is git rebase - it take the commits from your current branch and reapply them on top of another branch.
     command -  1. git checkout feature-branch        2. git rebase main
+    Common git rebase Commands
+    Start a rebase: git rebase [branch] — Start a rebase with the specified branch.
+    Abort a rebase: git rebase --abort — Stop the rebase and return to the previous state.
+    Continue after resolving conflicts: git rebase --continue — Continue the rebase process after resolving any conflicts.
+    Skip a commit: git rebase --skip — Skip the current commit during a rebase.
+
+
