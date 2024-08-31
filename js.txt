@@ -125,8 +125,8 @@ A. Scope stands for where our variable will be available to use inside our code 
 		Variable having Block-scope will only be available to use inside the block it declared
 
 Q. Hoisting of var Variable
-A. hoisting, it's a feature provided by javascript which moves variables and functions to the top of scope 
-	before code execution and gets assigned the value of undefined.
+A. Hoisting is the default behavior of JavaScript which moves variables and functions to the top of scope before code execution
+   and gets assigned the value of undefined.
 
 Q. differene in let, var and const?
 	VAR : 
@@ -247,9 +247,6 @@ Q. What are the falsy values in JavaScript, and how can we check if a value is f
 A. Those values which become false while converting to Boolean are called falsy values.
 	const falsyValues = ['', 0, null, undefined, NaN, false];   
 	We can check if a value is falsy by using the Boolean function or the Double NOT operator (!!).
-	
-Q. What do you understand by hoisting in JavaScript?
-A. Hoisting is the default behavior of JavaScript where all the variable and function declarations are moved on top.
 
 Q. What does the isNaN() function?
    The isNan() function returns true if the variable value is not a number.
