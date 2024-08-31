@@ -251,7 +251,9 @@ A. Those values which become false while converting to Boolean are called falsy 
 Q. What does the isNaN() function?
    The isNan() function returns true if the variable value is not a number.
    
-Q. explain foreach in javasccript   
+Q. explain foreach in javasccript
+A. forEach is a method available on arrays that allows you to iterate over each element in the array and perform a specified action on each element.
+   array.forEach(callbackFunction(element, index, array));
    
 Q. how to remove an element from an array?
 	JavaScript pop() function: This method is used to remove elements from the end of an array.
