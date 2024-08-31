@@ -360,6 +360,44 @@ document.writeln(wm.has(obj2));
 display();	
 	
 Q.  What is an observable?
+   An observable provides a way to emit multiple values over time, which can be processed using various operators, 
+   allowing for complex event handling and data transformation.
+
+   How Observables Work
+   A. Creating an Observable: You can create an observable using the Observable constructor or various creation operators provided by RxJS.
+   B. Subscribing: To use the values emitted by an observable, you need to subscribe to it. 
+     Subscribing means providing a function (observer) that defines how to handle each value emitted by the observable
+   C. Emitting Values: Once subscribed, the observable can start emitting values. 
+     This is done using the next method for normal values, error for errors, and complete to signal that the stream is finished
+   D. Unsubscribing: You can unsubscribe from an observable to stop receiving further values, which is useful for cleanup to avoid memory leaks.
+
+import { Observable } from 'rxjs';
+
+// Create an observable
+const myObservable = new Observable(subscriber => {
+  subscriber.next(1);    // Emit first value
+  subscriber.next(2);    // Emit second value
+  subscriber.next(3);    // Emit third value
+  subscriber.complete(); // Complete the observable
+});
+
+// Subscribe to the observable
+myObservable.subscribe({
+  next(value) {
+    console.log('Received value:', value);
+  },
+  error(err) {
+    console.error('Error occurred:', err);
+  },
+  complete() {
+    console.log('Observable completed');
+  }
+});
+output: 
+Received value: 1
+Received value: 2
+Received value: 3
+Observable completed
 
 Q. waht is promise and what are different states of promise?
 
