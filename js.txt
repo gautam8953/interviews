@@ -273,7 +273,12 @@ Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	Console.log('2')
 	},1000)
 	Console.lgo('3')
-	
+   using setTimeout with a delay of 0 milliseconds means that the callback function will be executed as soon as possible, 
+   but after the current execution stack has cleared.
+   When you pass 0 as the delay in setTimeout, it doesn't mean the callback will execute immediately. 
+   Instead, it is queued up to be executed after the current code execution completes, and any other queued tasks before it have been processed. 
+   This is because JavaScript is single-threaded and runs in an event-driven environment.
+
 Q. typeof(typeof(4+"7")) output : string 
 
 Q. What is the use of a Date object in JavaScript?
