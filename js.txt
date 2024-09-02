@@ -371,40 +371,87 @@ Q.  What is an observable?
      This is done using the next method for normal values, error for errors, and complete to signal that the stream is finished
    D. Unsubscribing: You can unsubscribe from an observable to stop receiving further values, which is useful for cleanup to avoid memory leaks.
 
-import { Observable } from 'rxjs';
-
-// Create an observable
-const myObservable = new Observable(subscriber => {
-  subscriber.next(1);    // Emit first value
-  subscriber.next(2);    // Emit second value
-  subscriber.next(3);    // Emit third value
-  subscriber.complete(); // Complete the observable
-});
-
-// Subscribe to the observable
-myObservable.subscribe({
-  next(value) {
-    console.log('Received value:', value);
-  },
-  error(err) {
-    console.error('Error occurred:', err);
-  },
-  complete() {
-    console.log('Observable completed');
-  }
-});
-output: 
-Received value: 1
-Received value: 2
-Received value: 3
-Observable completed
+	import { Observable } from 'rxjs';
+	
+	// Create an observable
+	const myObservable = new Observable(subscriber => {
+	  subscriber.next(1);    // Emit first value
+	  subscriber.next(2);    // Emit second value
+	  subscriber.next(3);    // Emit third value
+	  subscriber.complete(); // Complete the observable
+	});
+	
+	// Subscribe to the observable
+	myObservable.subscribe({
+	  next(value) {
+	    console.log('Received value:', value);
+	  },
+	  error(err) {
+	    console.error('Error occurred:', err);
+	  },
+	  complete() {
+	    console.log('Observable completed');
+	  }
+	});
+	output: 
+	Received value: 1
+	Received value: 2
+	Received value: 3
+	Observable completed
 
 Q. waht is promise and what are different states of promise?
+A. a Promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+   Different States of a Promise
+   A. Pending : This is the initial state of a promise when it is created. The promise is neither fulfilled nor rejected; 
+     it's waiting for the asynchronous operation to complete.
+   B. Fulfilled (Resolved) : when the asynchronous operation completes successfully.
+   C. Rejected : if the asynchronous operation fails.
+
+
+	const myPromise = new Promise((resolve, reject) => {
+	  const success = true; // This can be based on some condition
+	
+	  if (success) {
+	    resolve('Operation was successful!'); // Fulfill the promise
+	  } else {
+	    reject('Operation failed!'); // Reject the promise
+	  }
+	});
+	
+	myPromise
+	  .then(result => {
+	    console.log(result); // Output if fulfilled: Operation was successful!
+	  })
+	  .catch(error => {
+	    console.error(error); // Output if rejected: Operation failed!
+	  });
 
 Q. What is the difference between promise and observable?
-   Promise:
+   1. Single vs. Multiple Values :
+      Promise: Resolves or rejects with a single value.	
+      observable: Can emit multiple values over time.
+   2. Lazy vs. Eager Execution	
+      Promise: Eager: Starts executing immediately upon creation.	
+      observable: Lazy: Only starts executing when subscribed.
+   3. Cancellation	
+      Promise: Cannot be canceled once started.	
+      observable: Can be canceled by unsubscribing.
+   4. Operators	
+      Promise: Limited chaining and transformation (e.g., .then).	
+      observable: Extensive set of operators for transformation, filtering, etc.
+   5. Handling Events	
+      Promise: Not suitable for handling continuous event streams.	
+      observable: Ideal for handling continuous event streams.
+   6. Memory Consumption	
+      Promise: Might consume more memory due to holding state.	
+      observable: Can be more memory efficient with proper operators.
+   7. Error Handling	
+      Promise: Error handling via .catch().	
+      observable: Error handling via .catch() and other operators.
+
+  Promise:
    1. Execute immediately on creation
-   2. Provide only one
+   2. Provide only one value
    3. Push errors to the child promises
    4. Uses only .then() clause
    
@@ -415,6 +462,38 @@ Q. What is the difference between promise and observable?
     4. Provides chaining and subscription to handle complex applications	
     
  Q. What is the difference between promise and callback 
+A.  Callback: A callback is a function passed as an argument to another function, 
+   which is then executed inside the outer function to complete some kind of routine or action. 
+   In the context of asynchronous operations, a callback function is often called once the operation is complete.
+	function fetchData(callback) {
+	  setTimeout(() => {
+	    const data = "Data fetched";
+	    callback(data); // Callback function is called with the data
+	  }, 1000);
+	}
+	
+	fetchData(function(data) {
+	  console.log(data); // Output after 1 second: Data fetched
+	});
+
+Promise example : 
+	function fetchData() {
+	  return new Promise((resolve, reject) => {
+	    setTimeout(() => {
+	      const data = "Data fetched";
+	      resolve(data); // Resolve the promise with the data
+	    }, 1000);
+	  });
+	}
+	
+	fetchData()
+	  .then(data => {
+	    console.log(data); // Output after 1 second: Data fetched
+	  })
+	  .catch(error => {
+	    console.error(error); // Handle error
+	  });
+
  
  Q. what is async
  
