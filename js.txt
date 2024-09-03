@@ -495,9 +495,25 @@ Promise example :
 	  });
 
  
- Q. what is async
- 
-Q.  what is await
+Q. what is async
+A. async refers to a keyword that is used to declare an asynchronous function.
+   async Keyword : When you declare a function with the async keyword, it means that the function will always return a Promise. 
+     If the function body returns a value, JavaScript will automatically wrap that value in a resolved Promise. 
+     If the function throws an error, JavaScript will wrap the error in a rejected Promise.
+   await Keyword : async functions are often used together with the await keyword, which allows you to wait for a Promise to be resolved or rejected. 
+     The await keyword can only be used inside async functions, and it pauses the execution of the function 
+     until the Promise is settled (either resolved or rejected).
+	async function fetchData() {
+	    try {
+		let response = await fetch('https://api.example.com/data');
+		let data = await response.json();
+		console.log(data);
+	    } catch (error) {
+		console.error('Error fetching data:', error);
+	    }
+	}
+	
+	fetchData();
  
 Q. what is arrow function?
 
