@@ -516,12 +516,33 @@ A. async refers to a keyword that is used to declare an asynchronous function.
 	fetchData();
  
 Q. what is arrow function?
+A. Arrow functions provide a shorter syntax for writing functions and 
+   offer advantages in scenarios where maintaining the this context of the outer scope is important.
+   example 
+   basic : const add = (a, b) => a + b; console.log(add(2, 3)); // Output: 5
+   single parameter : const square = x => x * x; console.log(square(4)); // Output: 16
+   no parameter : const greet = () => console.log('Hello!'); greet(); // Output: Hello!
+   multiline : const multiply = (a, b) => {
+    let result = a * b;
+    return result;
+    };
+    console.log(multiply(2, 3)); // Output: 6
+
+   Differences from Traditional Functions
+   this Binding: Arrow functions do not have their own this context; they inherit this from the parent scope at the time they are defined
+   arguments Object: Arrow functions do not have their own arguments object. If you need to access arguments, you should use a traditional function expression.
+
+  parameter vs argument :  a parameter is a variable that defines the inputs a function can accept, 
+	while an argument is the value passed to the function when it is called
 
 Q. we can get value of a input box by both js and jquery but which one will give faster result.
-
-Q. How many data types are there in JavaScript? Can you name them?
+A. Plain JavaScript is faster than jQuery for retrieving the value of an input box because 
+   it accesses the DOM directly without the overhead of the jQuery library. 
+   However, the performance difference is usually minimal in most cases, 
+   and both methods are widely used depending on the project requirements and the presence of jQuery in the project.
 
 Q. what is operator in js 
+A.  an operator is a special symbol used to perform operations on operands (values or variables)
 
 Q. what is hoisting?
 
