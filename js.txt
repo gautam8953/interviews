@@ -573,13 +573,13 @@ Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchron
 Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
 Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
 
-Q. what are the selecters in jquery
+Q. map function in js
 
-Q. how to send ajax request by jquery and javascript?
+Q. compare two array by a single loop
 
-Q. what are stages of ajax request?
+Q. compare two object 
 
-Q. difference between windowload and document.ready() ?
+Q. pass by refrence
 
 Q. how to reload a page by JS?
 
@@ -606,6 +606,17 @@ Q. Write the point of difference between a web garden and a web farm?
 Ans. Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. 
 	At the same time,web-farm is a larger setup that uses more than one server.
 
+
+JQUERY : 
+
+Q. what are the selecters in jquery
+
+Q. how to send ajax request by jquery and javascript?
+
+Q. what are stages of ajax request?
+
+Q. difference between windowload and document.ready() ?
+
 Q. getting current url using js, jquery
 Ans. var currentURL = window.location.href;	
 	$(location).attr('href');      // http://www.refulz.com:8082/index.php#tab2
@@ -615,10 +626,4 @@ Q. what is document.ready()
 
 Q. what is $ in jquery
 
-Q. map function is js
 
-Q. compare two array by a single loop
-
-Q. compare two object 
-
-Q. pass by refrence
