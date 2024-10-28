@@ -538,13 +538,40 @@ A. Plain JavaScript is faster than jQuery for retrieving the value of an input b
 Q. what is operator in js 
 A.  an operator is a special symbol used to perform operations on operands (values or variables)
 
-Q. what is hoisting?
-
 Q. difference in settimeout and setinterval function 
+A. Execution	Runs once after the specified delay	Runs repeatedly at the specified interval
+   Usage	Delays a task				Repeats a task at regular intervals
+   Stopping	clearTimeout()				clearInterval()
+   Use Cases	Delayed execution, one-time tasks	Periodic updates, polling, animations
+
+let timer = setTimeout(() => {
+    console.log("This will not run");
+}, 2000);
+clearTimeout(timer); // Cancels the timeout
+
+setInterval(() => {
+    console.log("This runs every 2 seconds");
+}, 2000); // 2000 ms = 2 seconds
 
 Q. js annotation
+A. annotations (or comments) are used to add explanations, notes, or instructions within the code without affecting its execution
+   1. Single-line Comments : // 
+   2. Multi-line Comments : Use /* to start and */
+   3. Documentation Comments (JSDoc) : Use /** ... */
 
 Q. Difference between One-way Binding and Two-way Binding
+A. data binding refers to the technique of synchronizing data between the UI and the code
+   1. One-way Binding : data flows in a single direction — from the model (data) to the view (UI). 
+      Changes in the model automatically update the view, but changes in the view do not affect the model.
+   2. Two-way Binding : data flows in both directions. 
+      Any change in the model updates the view, and any change in the view automatically updates the model.
+
+Aspect			One-way Binding				Two-way Binding
+Data Flow		One direction (Model ➔ View)		Both directions (Model ⇄ View)
+Update Behavior		UI updates when the model changes	Model and UI update each other in sync
+Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchronization
+Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
+Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
 
 Q. what are the selecters in jquery
 
