@@ -39,24 +39,18 @@ Q. What is the difference between JavaScript and JScript?
   3. Active Content Creation
 	It does not support active content creation.
 	It can create active online content for WWW.
-  4. Browsers Compatibility
-	All modern browsers support JavaScript.
-	It’s only support is Microsoft Internet Explorer.
-  5. Compilation
-	It’s code can run in any web browser.
-	It’s code only run in Microsoft browser.
-  6. Object Access
-	It cannot access web browser objects
-	It can access objects of Microsoft browser
-  7. Popularity	
-	JavaScript is popular language because it is executed in any browser.
-	JScript is not popular language because it limited to internet explorer.
-  8. Based On	
-	It is based on ECMAScript.
-	It is based on Microsoft’s ECMAScript standard.
-  9. Scope of Execution	
+  4. Scope of Execution	
 	It can execute in any browser.
 	It cannot execute in any browser and is limited to Internet explorer only.
+  5. Object Access
+	It cannot access web browser objects
+	It can access objects of Microsoft browser
+  6. Popularity	
+	JavaScript is popular language because it is executed in any browser.
+	JScript is not popular language because it limited to internet explorer.
+  7. Based On	
+	It is based on ECMAScript.
+	It is based on Microsoft’s ECMAScript standard.
 
    
 Q. Is JavaScript case sensitive language?  Yes
