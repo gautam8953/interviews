@@ -239,6 +239,11 @@ A. component is basic building block of a UI in an Angular application.
 	}
 
 Q. Explain Event Binding? <button (click)="raiseVolume()"></button>
+   Commonly Used Events
+   1. Mouse Events: click, dblclick, mousedown, mouseup, mouseenter, mouseleave
+   2. Keyboard Events: keydown, keyup, keypress
+   3. Form Events: submit, focus, blur
+   4. Input Events: input, change
 
 Q. what is property binding 
 A. Property Binding is a one-way data-binding technique. 
@@ -463,8 +468,12 @@ A. 1. Parent to Child component:
     });
 
 Q. process to add a new url in a project 
-A. 
+A. 1. Define the Component for the New Route
+   2. Import the RouterModule in Your corresponding Module of the component
+   3. Define the Route in the Routing Module which is imported in above module
 
+   4. Add Router Outlet in the Template  - <router-outlet></router-outlet>
+   5. Add Links to Navigate to the New Route - <a routerLink="/new-page">Go to New Page</a>
 Q. process to call a api in angular?
 A. Angular provides HttpClient Module that you can use to consume any API. 
 	First, you need to import the module in the AppModule or any other parent module and add it in the imports array.
