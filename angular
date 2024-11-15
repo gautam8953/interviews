@@ -591,9 +591,24 @@ A. What is Dependency Injection :
 Components and Modules
 Q. What are the main differences between components and directives in Angular?
 Q. How do you organize your Angular modules in a large application?
+A. 1. Core Module : Contains services, single-instance components, and application-wide logic that needs to be shared.
+   2. Shared Module : Contains reusable components, directives, and pipes used across multiple modules.
+   3. Feature Modules : Encapsulate a specific feature or domain of the application.
+   4. Routing Module : Separate routing logic for each module to keep it clean.
+   5. Lazy-loaded Modules : Optimizes performance by loading modules only when they are needed.
+   6. Domain Modules : Organize features by domain or business area.
+   7. Utility Modules : Contain helpers or utilities that don't belong to a specific domain or feature.
+   8. Third-Party Modules : Wrap third-party libraries to encapsulate their integration and reduce coupling.
 
 Data Binding
 Q. Can you explain the different types of data binding in Angular?
+A. It is a mechanism that connects a component's data with its HTML template, ensuring synchronization between the model (component) and the view (template). 
+   Angular provides four main types of data binding to handle different interaction scenarios.
+   1. Interpolation (One-way Binding: Component to Template) : {{ expression }}
+   2. Property Binding (One-way Binding: Component to DOM) : [property]="expression"  - src, disabled, or class.
+   3. Event Binding (One-way Binding: DOM to Component) : (event)="expression"
+   4. Two-way Binding (Component to Template and Back) : [(ngModel)]="property"
+
 Q. How does Angular handle change detection?
 
 Services and Dependency Injection
@@ -612,6 +627,23 @@ Q. Can you explain how NgRx works and when you might use it?
 
 Performance Optimization
 Q. How do you optimize the performance of an Angular application?
+A. 1. Optimize Change Detection: Use OnPush Change Detection: 
+     Limit change detection to only when an input property changes - changeDetection: ChangeDetectionStrategy.OnPush
+     Detach Change Detection for Non-Interactive Components:  - constructor(private cdr: ChangeDetectorRef) {}  this.cdr.detach();
+   2. Lazy Loading of Modules
+   3. Use Ahead-of-Time (AOT) Compilation
+   4. Optimize Template Rendering
+   5. Use Angular CLI Build Optimizations - ng build --prod
+   6. Reduce Bundle Size - ng build --prod --source-map=false
+   7. Optimize Assets - Lazy Load Images, Cache Static Assets, Compress images
+   8. Optimize HTTP Requests - Cache HTTP responses : this.http.get('/api/data').pipe( shareReplay(1) // Cache the result for subscribers );
+   9. Use Web Workers for Heavy Computation
+   10. Optimize Styles and Animations - Minimize CSS, Avoid Complex Animations:
+   11. Monitor and Debug Performance
+   12. Optimize Forms
+   14. Use Content Delivery Network (CDN) - Serve assets like font, third party css from cdn 
+   15. Avoid Memory Leaks
+
 Q. What techniques do you use to reduce the bundle size of an Angular app?
 
 Testing
