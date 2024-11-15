@@ -569,10 +569,24 @@ chat GPT
 Angular Architecture
 Q. Can you explain the architecture of an Angular application?
 Q. How does Angular's dependency injection work?
-A. What is Dependency Injection?
+A. What is Dependency Injection : 
+   Dependency Injection (DI) in Angular is a design pattern that allows classes to be injected with dependencies rather than creating them directly.
    Dependency Injection is a design pattern in which an object receives its dependencies from an external source rather than creating them itself. 
    This means an object (e.g., a component or service) does not need to know how to create its dependencies—it only needs to know how to use them. 
-   This promotes modularity, testability, and maintainability in code
+   This promotes modularity, testability, and maintainability in code.
+   DI in Angular is managed by the Angular injector, which maintains a container of instances that can be used throughout the app.
+   
+   Key Concepts of Dependency Injection in Angular
+   1. Provider: A provider defines how an object (dependency) can be created. Angular uses providers to supply dependencies 
+     that need to be injected into components or services. Providers can be registered in different places (e.g., in a component, module, or root level).
+   2. Injector: The injector is responsible for creating the dependency instances based on the providers and injecting them where they are needed.
+   3. Token: Tokens are used to look up the providers in the DI system. When Angular tries to resolve dependencies, it looks for a matching provider based on the token.
+   4. Dependency Injection in Practice: When Angular creates an instance of a component or service, it looks at the constructor of that class. 
+     If it finds dependencies listed there, Angular injects them automatically from the DI system.
+
+   Benefits of Dependency Injection in Angular
+   1. Code Reusability: 2. Easier Testing:  3. Better Code Organization:
+   example :  calling a service into component construter 
 
 Components and Modules
 Q. What are the main differences between components and directives in Angular?
