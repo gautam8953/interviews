@@ -1,2 +1,837 @@
-Q. What is OOP?
-A. OOP is a programming paradigm based on objects that encapsulate data and behavior, promoting modularity, reuse, and maintainability.
+
+
+1. What is OOP?
+OOP organizes code into classes & objects to improve maintainability and scalability.
+OOP is a programming paradigm based on objects that encapsulate data and behavior, promoting modularity, reuse, and maintainability.
+OOP helps developers organize code into reusable and maintainable units called objects. It improves modularity, scalability, and readability.
+
+Q. why use oops?
+
+Q. Is PHP purely OOP? No. PHP is multi-paradigm (procedural + OOP).	
+Q. is php support class and object : yes
+Q. how to access class in php     $obj = new ChildClass();
+Q. have any project made using oops 
+
+2. What are the 4 pillars of OOP?
+Encapsulation
+Abstraction
+Inheritance
+Polymorphism
+
+3. What is Encapsulation?
+One-liner: Encapsulation is wrapping data and methods into a single unit and restricting direct access.
+Explanation: Encapsulation protects data from unauthorized access by restricting direct modification using private or protected access modifiers.
+
+4. What is Abstraction?
+Abstraction means hiding internal complexity and showing only required functionality. via interfaces/abstract classes.
+
+5. What is Inheritance?
+A mechanism where one class acquire properties and methods of another class.
+
+6. What is Polymorphism?
+Polymorphism allows same methods or objects to behave differently based on context.
+Ability of an object to take multiple forms (method overloading/overriding).
+
+7. Difference between abstraction & encapsulation?
+Abstraction → hiding complexity
+Encapsulation → hiding data
+
+8. What is a class?
+Blueprint/template for creating objects.
+
+9. What is an object?
+Instance of a class with state and behavior.
+
+10. What is a constructor?
+Special method used to initialize objects.
+
+11. Can constructor be overloaded?
+Yes.
+
+12. What is destructor?
+Method called when object is destroyed.
+
+13. What is access modifier?
+Controls visibility (public, private, protected).
+
+14. What is method overloading?
+Same method name, different parameters.
+
+15. What is method overriding?
+Child class redefining parent method.
+
+16. Static vs instance method?
+Static → class level (Method with static keyword) 
+Called using ClassName::method()
+No object needed
+Can only access static properties/methods
+Uses self:: inside the class
+<?php
+class Demo {
+    public static function show() {
+        echo "This is static method\n";
+    }
+}
+
+// Calling static method
+Demo::show();
+?>
+
+Instance → object level (Normal Method)
+Called using object ($obj->method())
+Object creation required
+Can access both static & instance properties
+Uses $this keyword
+<?php
+class Demo {
+    public function display() {
+        echo "This is instance method\n";
+    }
+}
+
+// Creating object
+$obj = new Demo();
+$obj->display();
+?>
+
+17. What is this keyword?
+Refers to current object.
+
+18. What is super keyword?
+Refers to parent class. PHP doesn't have "super" keyword, in php we use "parent" keyword.
+<?php
+class ParentClass {
+    public function __construct() {
+        echo "Parent constructor\n";
+    }
+}
+
+class ChildClass extends ParentClass {
+    public function __construct() {
+        parent::__construct(); // calling parent constructor
+        echo "Child constructor\n";
+    }
+}
+$obj = new ChildClass();
+output : 
+This is parent method
+This is child method
+?>
+
+19. What is binding?
+Linking method call to method body.
+Binding means how a method call is connected to its actual implementation at runtime or compile time.
+In simple, When you call a method, how does PHP decide which method to execute? That process is called binding.
+
+PHP mainly has 2 types:
+1. Early Binding (Static Binding)
+2. Late Binding (Dynamic Binding)
+
+Q. What is Late Static Binding?
+	static:: resolves method at runtime
+
+20. Static vs dynamic binding?
+Static → compile time , Early Binding
+Dynamic → runtime , Late Binding
+
+<?php
+class Test {
+    public static function show() {
+        echo "Static binding\n";
+    }
+
+    public static function callShow() {
+        self::show();  // early binding		output-> Static binding		
+		(Even though method is overridden, parent method is called, Because self:: binds to the class where it is defined)
+		static::show();  // late binding   	output-> Overridden method	(Here child class method is called)
+    }
+}
+
+class Demo extends Test {
+    public static function show() {
+        echo "Overridden method\n";
+    }
+}
+
+Demo::callShow();
+?>
+
+
+⚙️ SECTION 2: Advanced OOP Concepts (21–40)
+
+Abstract method: function only declare not defined in the class
+An abstract method is a method that is declared without implementation (no body) and must be implemented by the child class.
+if one method added as abstract method than class must be updated as abstract class. 
+means no object will be created of that class and that class will be used after extend.
+<?php
+abstract class Animal {
+    // Abstract method (no body)
+    abstract public function makeSound();
+	
+	 // Normal method
+    public function eat() {
+        echo "Animal is eating\n";
+    }
+}
+
+class Dog extends Animal {
+    // Must implement abstract method
+    public function makeSound() {
+        echo "Bark";
+    }
+}
+
+class Cat extends Animal {
+    public function makeSound() {
+        echo "Meow";
+    }
+}
+
+// Usage
+$dog = new Dog();
+$dog->makeSound();
+$dog->eat();
+echo "\n";
+
+$cat = new Cat();
+$cat->makeSound();
+
+output : 
+Bark
+Animal is eating
+Meow
+?>
+
+
+Q. use case of Abstract class?
+A. Classes defined as abstract may not be instantiated, 
+and any class that contains at least one abstract method must also be abstract. 
+Abstract classes may not be instantiated, and require subclasses to provide implementations for the abstract methods.
+An abstract class is a class that cannot be instantiated and is used as a base/template for other classes.
+Abstract classes are classes that contain one or more abstract methods.
+
+21. What is an interface?
+interfaces are abstract classes with no method defined. There are only abstract methods desclared.
+<?php
+interface Animal {
+    public function makeSound();
+}
+
+class Dog implements Animal {
+    public function makeSound() {
+        echo "Bark\n";
+    }
+}
+
+class Cat implements Animal {
+    public function makeSound() {
+        echo "Meow\n";
+    }
+}
+
+// Usage
+$dog = new Dog();
+$dog->makeSound();
+
+$cat = new Cat();
+$cat->makeSound();
+
+output : 
+Bark
+Meow
+?>
+
+
+22. Abstract class vs interface?
+Abstract → can have implementation
+Interface → only contract (mostly)
+
+23. Multiple inheritance possible?
+PHP: via interfaces
+Java: not via classes
+
+polymorphism allows you define one interface and have multiple implementations
+two types of polymorphism are in java
+1. method overloading also compile time: method difned several times by changing argument data type and number of argument
+2. method overriding also runtime : defined function in base class also defined in child class
+
+Abstract method: function only declare not defined in the class
+
+Abstract class: Classes defined as abstract may not be instantiated, and any class that contains at least one abstract method must also be abstract.
+Abstract classes are classes that contain one or more abstract methods. Abstract classes may not be instantiated, and require subclasses to provide implementations for the abstract methods.
+
+Q. use case of Abstract class?
+Q. how to abstarct property and function in classes?
+
+interfaces are abstract classes with no method defined. There are only abstract methods desclared.
+Default visibility public and only do not support multiple inheritance.
+Can implements many interface but can extend only one class
+
+Q. The static keyword is used to declare properties and methods of a class as static. 
+   Static properties and methods can be used without creating an instance of the class.
+   The static keyword is also used to declare variables in a function which keep their value after the function has ended.
+   <?php
+   class MyClass {
+     public static $str = "Hello World!";
+
+     public static function hello() {
+       echo MyClass::$str;
+     }
+   }
+   echo MyClass::$str;
+   echo "<br>";
+   echo MyClass::hello();
+   ?>
+Q. self and $this keyword in php 
+Ans. $this is used to access any member data and function in a class. 
+      self is used to acess static data nd member function in the class. 
+      <?php
+    class Person {
+        // first name of person
+        private $name;
+        
+        // public function to set value for name (setter method)
+        public function setName($name) {
+            $this->name = $name;
+        }
+        
+        // public function to get value of name (getter method)
+        public function getName() {
+            return $this->name;
+        }
+    }
+    
+    // creating class object
+    $john = new Person();    
+    // calling the public function to set fname
+    $john->setName("John Wick");    
+    // getting the value of the name variable
+    echo "My name is " . $john->getName();
+      ?>
+      
+      <?php
+          class Person {
+              // first name of person
+              public static $name;
+
+              // public function to get value of name (getter method)
+              public static function getName() {
+                  return self::$name;     // using self here
+              }
+          }
+      ?>
+Q. Member functions in PHP are those functions which are defined inside the class and are used to access the object data.   
+Q. final class and final method difference
+    if methode is final, it can’t be override and if a class is final it can’t be extended.
+
+Q. how to call parent class constructer -> parent::__construct()
+<?php
+class ParentClass {
+    public function __construct() {
+        echo "Parent constructor called\n";
+    }
+}
+
+class ChildClass extends ParentClass {
+    public function __construct() {
+        parent::__construct(); // calling parent constructor
+        echo "Child constructor called\n";
+    }
+}
+
+$obj = new ChildClass();
+output : 
+Parent constructor called
+Child constructor called
+?>
+
+Q. what is inheritance . how to inherit class 
+Q. how to use multiple inheritance in php 
+A. PHP does NOT support multiple inheritance using classes
+	PHP provides 2 alternatives:
+	Interfaces (multiple inheritance of type)
+	Traits (multiple inheritance of implementation)
+	
+Q. php support function overloading or not? 
+A. No, PHP does NOT support function/method overloading (like Java or C++)
+	because PHP identifies functions by name only, not by parameter list
+	Use __call() or default params
+	<?php
+class Calculator {
+    public function __call($name, $args) {
+        if ($name == "add") {
+            return array_sum($args);
+        }
+
+        if ($name == "multiply") {
+            return array_product($args);
+        }
+
+        return "Method not found";
+    }
+}
+
+$obj = new Calculator();
+
+echo $obj->add(2, 3, 4);       // 9
+echo "\n";
+echo $obj->multiply(2, 3, 4);  // 24
+?>
+ or pass muliple argument in function and based on argument write logics
+Q. how to use interface in php?
+Q. is php oop language? 
+	Yes, PHP supports OOP (Object-Oriented Programming)
+	But it is not purely OOP — it is a multi-paradigm language
+	reasone 1. You can write code without classes
+	reasone 2. Functions Exist Outside Classes
+	reasone 3. No Need to Use Objects
+	reasone 4. HP was originally created as a scripting language, not OOP-focused OOP features were added later (PHP 5+)
+
+
+Q. why we use oops for project development- OOP helps you manage complex projects easily
+
+Q. what is treat?
+	A Trait is a feature in PHP used to reuse code in multiple classes.
+	It helps achieve multiple inheritance
+	A Trait is a group of methods that can be included in multiple classes.
+	
+<?php
+trait Logger {
+    public function log($msg) {
+        echo "Log: $msg\n";
+    }
+}
+
+class UserService {
+    use Logger;
+}
+
+class OrderService {
+    use Logger;
+}
+
+$user = new UserService();
+$user->log("User created");
+
+$order = new OrderService();
+$order->log("Order placed");
+?>
+
+if both have same function then : 
+<?php
+trait A {
+    public function show() {
+        echo "A";
+    }
+}
+
+trait B {
+    public function show() {
+        echo "B";
+    }
+}
+
+class Demo {
+    use A, B {
+        A::show insteadof B; // choose A
+        B::show as showB;    // alias
+    }
+}
+?>
+Q. Why Traits instead of inheritance?
+	Avoid deep hierarchy + allow multiple reuse
+	Problem with Inheritance: Deep Hierarchy
+	class A {}
+	class B extends A {}
+	class C extends B {}
+	class D extends C {}
+
+	this becomes a deep hierarchy, which causes:
+	Hard to understand & maintain
+	Tight coupling (changes in A affect all children)
+
+	Limitation: No Multiple Inheritance in PHP, trait use where you want without inheritance
+
+24. What is composition?
+Composition is a design concept where one class contains another class as a property.
+means defining any other clas object inside a class.
+<?php
+class Engine {
+    public function start() {
+        echo "Engine started\n";
+    }
+}
+
+class Car {
+    private $engine;
+
+    public function __construct() {
+        $this->engine = new Engine(); // composition
+    }
+
+    public function startCar() {
+        $this->engine->start();
+        echo "Car started\n";
+    }
+}
+
+// Usage
+$car = new Car();
+$car->startCar();
+?>
+
+25. Aggregation vs composition?
+Composition → strong dependency, One class creates and owns another class  , If parent is destroyed → child is also destroyed
+Aggregation → weak relationship, One class uses another class, but does NOT create it
+<?php
+class Engine {
+    public function start() {
+        echo "Engine started\n";
+    }
+}
+
+class Car {
+    private $engine;
+
+    // Engine passed from outside → aggregation
+    public function __construct(Engine $engine) {
+        $this->engine = $engine;
+    }
+
+    public function startCar() {
+        $this->engine->start();
+        echo "Car started\n";
+    }
+}
+
+// Engine exists independently
+$engine = new Engine();
+$car = new Car($engine);
+$car->startCar();
+?>
+
+26. What is dependency injection?
+Providing dependencies externally instead of creating inside class.
+<?php
+class Logger {
+    public function log($msg) {
+        echo "Log: $msg\n";
+    }
+}
+
+class UserService {
+    private $logger;
+
+    // Dependency injected
+    public function __construct(Logger $logger) {
+        $this->logger = $logger;
+    }
+
+    public function createUser() {
+        $this->logger->log("User created");
+    }
+}
+
+// Inject dependency
+$logger = new Logger();
+$userService = new UserService($logger);
+$userService->createUser();
+?>
+
+
+27. What is tight coupling?
+Classes highly dependent on each other., composition example
+
+28. What is loose coupling?
+Minimal dependency → better flexibility.
+
+29. What is cohesion?
+How closely related class responsibilities are.
+in one class define related method of that class, for other work define another class.
+
+Coupling refers to how much one class depends on another class. 
+try not to define another class object in a class.
+
+30. High cohesion vs low cohesion?
+High → good design
+Low → bad design
+
+31. What is SOLID?
+5 design principles for maintainable code.
+S : Single Responsibility Principle
+O : Open/Closed Principle.
+L : Liskov Substitution Principle
+I : Interface Segregation Principle
+D : Dependency Inversion Principle
+
+32. S in SOLID?
+Single Responsibility Principle.
+define same type of related method in one class.
+
+33. O in SOLID?
+Open/Closed Principle.
+Open for extension & closed for medification .
+example define interfac payment and for each payment type define another class that extends payment interface.
+don't define one class in its method based on argumaent change payment type in method.
+
+34. L in SOLID?
+Liskov Substitution Principle.
+Child class should replace parent class without breaking code
+
+35. I in SOLID?
+Interface Segregation Principle.
+Don’t force classes to implement unnecessary methods
+
+36. D in SOLID?
+Dependency Inversion Principle.
+Depend on abstraction (interface), not concrete class
+
+37. What is LSP violation example?
+Child class changes expected behavior of parent.
+
+38. What is DIP?
+Depend on abstractions, not concrete classes.
+
+39. What is ISP?
+Don’t force classes to implement unused methods.
+
+40. Why prefer composition over inheritance?
+More flexible and avoids tight coupling.
+
+🧩 SECTION 3: Design Patterns (41–60)
+
+41. What is design pattern?
+Reusable solution to common problems.
+
+42. Types of patterns?
+1. Creational - Deal with object creation, Focus: How objects are created 
+	(Singleton, Factory, Abstract Factory, Builder)
+2. Structural - Deal with class structure and relationships, Focus: How classes are connected 
+	(Adapter, Decorator, Facade, Composite)
+3. Behavioral - Deal with communication between objects , Focus: How objects interact
+	(Observer, Strategy, Command, Iterator)
+
+43. Singleton pattern?
+Ensures only one instance exists.
+
+44. Factory pattern?
+Creates objects without exposing creation logic.
+
+45. Abstract factory?
+Factory of factories.
+
+46. Builder pattern?
+Construct complex objects step-by-step.
+
+47. Prototype pattern?
+Clone existing objects.
+
+48. Adapter pattern?
+Convert one interface to another.
+
+49. Decorator pattern?
+Add behavior dynamically.
+
+50. Facade pattern?
+Simplified interface to complex system.
+
+51. Observer pattern?
+Notify multiple objects of state change.
+
+52. Strategy pattern?
+Encapsulate interchangeable behaviors.
+
+53. Command pattern?
+Encapsulate request as object.
+
+54. Template method?
+Define skeleton, subclasses override steps.
+
+55. Dependency Injection pattern?
+Inject dependencies externally.
+
+56. Repository pattern?
+Abstract data access layer.
+
+57. MVC pattern?
+Model-View-Controller separation.
+
+58. What is anti-pattern?
+Bad design practice.
+
+59. God object?
+Class doing too much → bad design.
+
+60. Spaghetti code?
+Unstructured, hard-to-maintain code.
+
+🔥 SECTION 4: Real-World & Scenario-Based (61–80)
+
+61. How to design scalable system using OOP?
+Use abstraction, DI, microservices, modular design.
+
+62. How to reduce coupling?
+coupling meaning - how much one class depends on another class.
+Interfaces, DI, events.
+
+63. How to improve maintainability?
+Follow SOLID + clean architecture.
+
+64. How to handle large codebase?
+Modularization + layering.
+
+65. How to design API using OOP?
+Use service layer + DTO + controllers.
+
+66. What is service layer?
+Business logic layer.
+
+67. What is DTO?
+
+Data transfer object.
+
+68. Entity vs DTO?
+Entity → DB model
+DTO → data transport
+
+69. What is repository layer?
+Handles DB operations.
+
+70. Why use interfaces in services?
+Flexibility and testability.
+
+71. How to implement logging?
+Use decorator or middleware.
+
+72. How to handle exceptions?
+Centralized exception handling.
+
+73. How to design payment system?
+Strategy pattern for payment methods.
+
+74. How to implement caching?
+Decorator or service layer.
+
+75. How to design notification system?
+Observer pattern.
+
+76. How to ensure thread safety?
+Synchronization/locking.
+
+77. What is immutability?
+Objects cannot change after creation.
+
+78. Why immutability?
+Thread safety + predictability.
+
+79. How to design reusable components?
+Use interfaces + abstraction.
+
+80. What is clean architecture?
+Separation of concerns with layers.
+
+🎯 SECTION 5: Senior-Level Questions (81–100)
+
+81. How do you refactor legacy code?
+Incrementally + tests + modularization.
+
+82. What is hexagonal architecture?
+Ports & adapters architecture.
+
+83. What is domain-driven design (DDD)?
+Focus on business domain modeling.
+
+84. What is bounded context?
+Logical boundary in domain.
+
+85. What is anti-corruption layer?
+Protect system from external models.
+
+86. How to design microservices using OOP?
+Independent services with clear interfaces.
+
+87. How to handle versioning?
+API versioning (v1, v2).
+
+88. How to design multi-tenant system?
+Separate DB/schema or tenant-based logic.
+
+89. What is event-driven architecture?
+Use events for communication.
+
+90. How to design audit logging?
+Separate logging service.
+
+91. What is CQRS?
+Separate read/write operations.
+
+92. What is eventual consistency?
+Data consistency over time.
+
+93. How to design retry mechanism?
+Exponential backoff.
+
+94. What is circuit breaker?
+Prevent cascading failures.
+
+95. What is idempotency?
+Same request → same result.
+
+96. How to handle concurrency?
+Locks, queues.
+
+97. What is middleware?
+Layer between request and response.
+
+98. How to design plugin system?
+Use interfaces + dynamic loading.
+
+99. How to design scalable logging?
+Centralized logging system.
+
+100. What is your OOP design approach?
+Identify entities
+Define responsibilities
+Apply SOLID
+Use patterns
+Ensure scalability
+
+
+Coupling: how much one class depends on another class.
+Cohesion : How closely related class responsibilities are.
+Composition : means defining any other class's object inside a class.
+Aggregation : pass another class objects, while creating main class object 
+Inheritance : taking parent method and peroperties
+
+Q. What are Magic Methods? Special methods called automatically like:
+	__construct()
+	__call() : Handles undefined method calls
+	__get() : Handle inaccessible properties
+	__set() : Handle inaccessible properties
+	
+Q. What is Service Container?
+	A Service Container is a central place that manages dependency injection automatically.
+	It creates objects, resolves their dependencies, and injects them wherever needed.
+What is Repository Layer?	What is Repository Layer?
+	
+Q. What is Repository Pattern? Abstract data access layer
+Q. What is Factory Pattern? Creates objects dynamically
+Q. What is Singleton? Only one instance of class
+What is Strategy Pattern? What is Strategy Pattern?
+What is Observer Pattern? Event-based communication
+What is Facade Pattern?	Simplified interface for complex system
+What is immutability? Object state cannot change
+Difference between Service & Repository? 
+👉 Service = business logic
+👉 Repository = data access
+
+How to reduce code duplication? Traits, inheritance, composition
+What is method chaining? $obj->setName()->setAge();
+What is fluent interface?	Same as fluent interface
+What is object cloning? Creating copy using clone
+	$copy = clone $obj;
+What is shallow vs deep copy?
+👉 Shallow → reference copied
+👉 Deep → full object copy
+What is __clone()? Magic method triggered during cloning
+What is __invoke()? Allows object to be used as function
