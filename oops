@@ -283,8 +283,8 @@ Q. The static keyword is used to declare properties and methods of a class as st
    echo MyClass::hello();
    ?>
 Q. self and $this keyword in php 
-Ans. $this is used to access any member data and function in a class. 
-      self is used to acess static data nd member function in the class. 
+Ans. $this points to the current object. $this is used to access any member data and function in a class. 
+     self points to the current class. self is used to acess static data nd member function in the class. 
       <?php
     class Person {
         // first name of person
@@ -613,6 +613,19 @@ Reusable solution to common problems.
 
 43. Singleton pattern?
 Ensures only one instance exists.
+class Database {
+    private static $instance = null;
+     
+    private function __construct() {}
+     
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+}
+
 
 44. Factory pattern?
 Creates objects without exposing creation logic.
@@ -805,9 +818,21 @@ Inheritance : taking parent method and peroperties
 
 Q. What are Magic Methods? Special methods called automatically like:
 	__construct()
+	__destruct()
 	__call() : Handles undefined method calls
+	__callStatic()
 	__get() : Handle inaccessible properties
 	__set() : Handle inaccessible properties
+	__clone()
+	__toString()
+	__autoload() : used to load class files automatically
+	
+Modern PHP uses spl_autoload_register()
+spl_autoload_register(function ($className) {
+    include $className . '.php';
+});
+
+
 	
 Q. What is Service Container?
 	A Service Container is a central place that manages dependency injection automatically.
