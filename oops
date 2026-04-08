@@ -860,3 +860,58 @@ What is shallow vs deep copy?
 👉 Deep → full object copy
 What is __clone()? Magic method triggered during cloning
 What is __invoke()? Allows object to be used as function
+
+What is namespace in PHP?
+Namespaces prevent name problems. They group classes, functions, and constants together.
+
+file1: 
+namespace App;
+
+class User {
+    public function sayHello() {
+        echo "Hello from App User";
+    }
+}
+
+file 2 : 
+namespace Admin;
+
+class User {
+    public function sayHello() {
+        echo "Hello from Admin User";
+    }
+}
+
+php file : 
+use App\User;
+use Admin\User as AdminUser;
+
+$user1 = new User();
+$user1->sayHello(); // App User
+
+$user2 = new AdminUser();
+$user2->sayHello(); // Admin User
+
+
+Q. What is the instanceof operator?
+A.  instanceof checks if an object is from a specific class or implements an interface.
+if ($object instanceof User) {
+    // $object is a User instance
+}
+
+What is reflection in PHP?
+Reflection lets you look at and change classes, methods, and properties while the program runs.
+
+$reflection = new ReflectionClass('User');
+$methods = $reflection->getMethods();
+
+
+What are generators in PHP OOP context?
+Generators are special functions. They can stop and start again. Good for big data sets. Saves memory.
+class DataProcessor {
+    public function processLargeDataset() {
+        for ($i = 0; $i &lt; 1000000; $i++) {
+            yield $this->processItem($i);
+        }
+    }
+}
