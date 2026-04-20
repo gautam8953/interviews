@@ -842,26 +842,26 @@ What is Repository Layer?	What is Repository Layer?
 Q. What is Repository Pattern? Abstract data access layer
 Q. What is Factory Pattern? Creates objects dynamically
 Q. What is Singleton? Only one instance of class
-What is Strategy Pattern? What is Strategy Pattern?
-What is Observer Pattern? Event-based communication
-What is Facade Pattern?	Simplified interface for complex system
-What is immutability? Object state cannot change
+Q. What is Strategy Pattern? 
+Q. What is Observer Pattern? Event-based communication
+Q. What is Facade Pattern?	Simplified interface for complex system
+Q. What is immutability? Object state cannot change
 Difference between Service & Repository? 
 👉 Service = business logic
 👉 Repository = data access
 
-How to reduce code duplication? Traits, inheritance, composition
-What is method chaining? $obj->setName()->setAge();
-What is fluent interface?	Same as fluent interface
-What is object cloning? Creating copy using clone
+Q. How to reduce code duplication? Traits, inheritance, composition
+Q. What is method chaining? $obj->setName()->setAge();
+Q. What is fluent interface?	Same as method chaining
+Q. What is object cloning? Creating copy using clone
 	$copy = clone $obj;
-What is shallow vs deep copy?
-👉 Shallow → reference copied
-👉 Deep → full object copy
-What is __clone()? Magic method triggered during cloning
-What is __invoke()? Allows object to be used as function
+Q. What is shallow vs deep copy?
+	👉 Shallow → reference copied
+	👉 Deep → full object copy
+Q. What is __clone()? Magic method triggered during cloning
+Q. What is __invoke()? Allows object to be used as function
 
-What is namespace in PHP?
+Q. What is namespace in PHP?
 Namespaces prevent name problems. They group classes, functions, and constants together.
 
 file1: 
