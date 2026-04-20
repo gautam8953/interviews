@@ -744,25 +744,131 @@ A. Goal:
 Q. Explain the differences between Exception and Error in PHP 7+. How do you handle exceptions in a large-scale application?
 	Error → system level
 	Exception → application level (can be handled)
-try {
-    throw new Exception("Error");
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
+	try {
+		throw new Exception("Error");
+	} catch (Exception $e) {
+		echo $e->getMessage();
+	}
 Q. What is set_error_handler()?	Custom error handling
+	function myErrorHandler($errno, $errstr) {
+		echo "Custom Error: [$errno] $errstr";
+	}
+	set_error_handler("myErrorHandler");
+	echo $undefinedVar; // triggers error
+	output : Custom Error: [8] Undefined variable: undefinedVar
+	
+
 Q. What is error_reporting()?	Controls error visibility
 Q. What is logging in PHP?	Store errors/logs in file
 Q. How to debug slow PHP code? Logs, Xdebug, Profiling
 Q. What is stack trace?	Execution path of error
+	A stack trace is a detailed report of function calls that were executed before an error or exception occurred.
+function a() {
+    b();
+}
+
+function b() {
+    c();
+}
+
+function c() {
+    throw new Exception("Something went wrong");
+}
+
+a();
+
+Output (Stack Trace) : 
+Exception: Something went wrong
+#0 c()
+#1 b()
+#2 a()
+#3 {main}
 
 
-Describe the process of debugging a PHP application. What tools and techniques do you use?
-Performance and Optimization
-What strategies do you use to optimize the performance of a PHP application? Discuss caching, database optimization, and code profiling.
-How would you handle memory leaks in a long-running PHP script?
-Database Interaction
-Compare and contrast PDO and MySQLi. When would you use one over the other?
-Explain the concept of prepared statements and how they help prevent SQL injection.
+Q. Performance and Optimization
+	Performance = how fast your application responds
+	Optimization = improving speed, memory usage, and scalability
+	1. Code Optimization: Write Efficient Code, Use Built-in Functions, Avoid Unnecessary Loops
+	2. Database Optimization : Use Indexing, Limit Data, Avoid N+1 Query Problem
+		N+1 problem : 
+		// ❌ Multiple queries
+		foreach ($users as $user) {
+			getOrders($user->id);
+		}
+
+		// ✅ Use JOIN
+		SELECT * FROM users JOIN orders ...
+	3. Caching (Very Important)
+	Types of Caching
+	Opcode Cache (OPcache) : opcache.enable=1
+	Data Cache (Redis, Memcached)
+		$data = $redis->get("users");
+		if (!$data) {
+			$data = getUsersFromDB();
+			$redis->set("users", $data);
+		}
+	File Cache
+	4. Reduce File Includes :  Use Composer autoloading
+	5. Optimize Loops & Memory
+	6. Use Proper Data Structures
+	7. HTTP & Frontend Optimization
+	8. Session Optimization
+	9. Avoid Blocking Operations
+	10. Profiling & Debugging Tools
+	11. Use Latest PHP Version
+	12. Framework Optimization
+	
+Q. What strategies do you use to optimize the performance of a PHP application? Discuss caching, database optimization, and code profiling.
+Q. How would you handle memory leaks in a long-running PHP script?
+A. What is a Memory Leak?
+	👉 Memory that is allocated but not released, even when no longer needed.
+	
+	Common Causes in PHP
+	Large arrays not unset
+	Circular references
+	Static/global variables
+	ORM objects (Doctrine, Eloquent)
+	Not clearing cache/data in loops
+
+	How to Handle Memory Leaks
+	1. Unset Variables (Free Memory)
+	2. Use gc_collect_cycles() (Garbage Collection)
+		gc_enable();
+		while (true) {
+			// your logic
+			gc_collect_cycles(); // clean circular references
+		}
+	3. Avoid Loading Huge Data at Once
+	4. Use Generators (Memory Efficient)
+	5. Clear ORM / Framework Cache
+	6. Restart Long-Running Scripts
+	7. Monitor Memory Usage
+	8. Avoid Static / Global Growth
+	9. Close Resources Properly
+	10. Use CLI Limits
+	
+
+Q. Compare and contrast PDO and MySQLi. When would you use one over the other?
+Feature					PDO							MySQLi
+Database support		Multiple DBs ✅				MySQL only ❌
+API style				Object-oriented				Procedural + OOP
+Prepared statements		Named + positional params	Positional only
+Flexibility				High						Limited
+Portability				Easy to switch DB			Not portable
+Learning curve			Slightly higher				Easier
+
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+$stmt->execute(['id' => 1]);
+
+$stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+$stmt->bind_param("i", $id);
+
+Q. Explain the concept of prepared statements and how they help prevent SQL injection.
+	How Prepared Statements Prevent SQL injection
+	1. Query and data are handled separately
+	2. Even if input is treated as plain string, NOT SQL
+	
+
 Advanced Features
 How do you work with Composer in PHP? Explain the benefits of using Composer for dependency management.
 Describe the use of reflection in PHP. Provide an example of when it might be useful.
