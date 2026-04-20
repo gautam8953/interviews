@@ -1,5 +1,6 @@
 Q. default execution time of php : 30 seconds,  ini_set('max_execution_time', 120);
 Q. default path of ini file : in linus where apache is present. (/etc/php/7.4/apache2/php.ini)
+Q. what is php.ini?		php configuration file
 Q. Difference  in echo and print?
 A.	Speed - There is a difference between the two, but speed-wise it should be irrelevant which one you use. 
    echo is marginally faster since it doesn't set a return value if you really want to get down to the nitty gritty.
@@ -43,12 +44,26 @@ A. $GLOBALS is a PHP super global variable which is used to access global variab
    $y = 25;
    function addition() { 
        $GLOBALS['z'] = $GLOBALS['x'] + $GLOBALS['y']; 
+	   // global $x;  can also write like this
    } 
    addition(); 
    echo $z; 
    ?>
 
-B. $_SERVER is a PHP super global variable which holds information about headers, paths, and script locations.
+B. $_GET:  limit 2000 characters, send via url, data can be seen, no security, files images can’t be sent, we can bookmark a page
+
+C. $_POST: all names/values are embedded within the body of the HTTP request, has no limit, secure, files images can be sent, variable are not seen show we can’t bookmark a page
+  Default : 2 MB for upload_max_filesize, and 8 MB for post_max_size
+
+D. $_FILES:  
+for upload file enctype="multipart/form-data" must be added to form and method will be post
+syntax to uplaod files: move_uploaded_file($_FILES['photo']['tmp_name'],"uploads/candidate/photo/".$photo)
+synatx to get uploading image height and width: Getimagesize()
+synatx to check file exist or not: file_exists(url)
+Synatx to set uplaod limit : if ($_FILES["fileToUpload"]["size"] > 500000) // 500KB
+Synatx to get extension of file: $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+E. $_SERVER is a PHP super global variable which holds information about headers, paths, and script locations.
 $_SERVER['PHP_SELF'] : Returns the filename of the currently executing script
 $_SERVER['GATEWAY_INTERFACE'] : Returns the version of the Common Gateway Interface (CGI) the server is using
 $_SERVER['SERVER_ADDR'] : Returns the IP address of the host server
@@ -81,18 +96,7 @@ Q. how to get browser name
 Current url-  <?php echo $_SERVER['REQUEST_URI']; ?>
 Request method  $_SERVER['REQUEST_METHOD']  -> (get, post,put,delete)
 
-C. $_GET:  limit 2000 characters, send via url, data can be seen, no security, files images can’t be sent, we can bookmark a page
 
-D. $_POST: all names/values are embedded within the body of the HTTP request, has no limit, secure, files images can be sent, variable are not seen show we can’t bookmark a page
-  Default : 2 MB for upload_max_filesize, and 8 MB for post_max_size
-
-E. $_FILES:  
-for upload file enctype="multipart/form-data" must be added to form and method will be post
-syntax to uplaod files: move_uploaded_file($_FILES['photo']['tmp_name'],"uploads/candidate/photo/".$photo)
-synatx to get uploading image height and width: Getimagesize()
-synatx to check file exist or not: file_exists(url)
-Synatx to set uplaod limit : if ($_FILES["fileToUpload"]["size"] > 500000) // 500KB
-Synatx to get extension of file: $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 F. $_COOKIE: A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user's computer. 
 Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values
@@ -135,6 +139,11 @@ To change session path: ini_set(session.save_path, '/path/to/your/folder')
 ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
 Syntax to Get session id : session_start(); $a = session_id();
       echo "SID: ".SID."<br>session_id(): ".session_id()."<br>COOKIE: ".$_COOKIE["PHPSESSID"];
+What is session fixation?	Security attack
+How to prevent session hijacking?	HTTPS, regenerate ID
+Where session stored?	File / Redis / DB
+Redis stands for Remote Dictionary Server.
+Redis = super fast storage that keeps data in RAM instead of disk
 
 Q. Headers in php: 
 A. The header() function sends a raw HTTP header to a client. It is important to notice that header() must be called before any actual output is sent (In PHP 4 and later, you can use output buffering to solve this problem)
@@ -162,16 +171,16 @@ trim($string, 'ld'): Hello Wor
 str_replace() replaces all instances of a given character with another. To strip out all ‘l’s from our string, use
 echo str_replace('l', '', $string);
 This returns “Heo Word”.
- strtolower() transforms a string into all lower-case letters.
-Strtoupper(),strtotime(time), ucfirst($str), ucwords($str)
-echo strlen($string);
+strtolower() transforms a string into all lower-case letters.
+Strtoupper(), 
+ucfirst($str), 
+ucwords($str)
 substr($string, 3);: lo World,  after 3rd all charcter
 echo substr($string, -1); d from last 1 character
 strpos($string, 'l'); :2, position of a character in a string
 chop() Removes whitespace or other characters from the right end of a string
-addcslashes()
-Returns a string with backslashes in front of the specified characters
-addslashes() Returns a string with backslashes in front of predefined characters
+addcslashes(): Returns a string with backslashes in front of the specified characters addcslashes($str, "W"); // Hello \World!
+addslashes() Returns a string with backslashes in front of special characters  addslashes($str);  // Hello World\!
 echo() Outputs one or more strings
 print() Outputs one or more strings
 printf() Outputs a formatted string
@@ -183,11 +192,17 @@ str_split() Splits a string into an array
 strchr() Finds the first occurrence of a string inside another string (alias of strstr())
 strcmp() Compares two strings (case-sensitive)
 strip_tags() Strips HTML and PHP tags from a string
-strlen() Returns the length of a string
 strncmp() String comparison of the first n characters (case-sensitive)
 strpos() Returns the position of the first occurrence of a string inside another string (case-sensitive)
 strstr()  returns a pointer to the beginning of the first occurrence of string2 in string1.
 in PHP8 strpos() & strstr() are deprecated. str_contains($haystack, 'needle')
+strlen($string) Returns the length of a string, Returns number of bytes, not characters
+mb_strlen()	Returns actual number of characters, Works with multibyte encodings (UTF-8, etc.)
+$str = "Gautam😊";
+echo strlen($str);      // 11 (bytes)
+echo mb_strlen($str);   // 7 (characters)
+strtotime(time),
+Q. strstr vs strpos 
 
 Q. PHP array
 1. Indexed array	2. Associative array	3. Multidimensional array
@@ -244,7 +259,7 @@ ksort() Sorts an associative array in ascending order, according to the key
 rsort() Sorts an indexed array in descending order
 sort() Sorts an indexed array in ascending order
 
-Q. array.push, array.pop, how to insert an element in an array
+
 Q. Difference in array merge and combinbe
 A. 	1. this function merges the two or more arrays.
 	This array combine only two arrays.
@@ -254,6 +269,53 @@ A. 	1. this function merges the two or more arrays.
 	The arrays are combined. 
   In array combine It is required that both arrays should have equal number of elements.
   If number of elements are not same on both arrays, the function returns FALSE
+  
+Q. array_merge vs +
+Feature					array_merge()					+ (Union)
+Duplicate string keys	Overwritten (right wins)		Preserved (left wins)
+Numeric keys			Reindexed						Preserved
+Data loss				No								Possible (ignores duplicates)
+Use case				Combine & overwrite				Combine without overwriting
+
+Q. array_push, array_pop, how to insert an element in an array
+$fruits = ["Apple"];
+array_push($fruits, "Banana", "Mango", "Orange"); 
+print_r($fruits);	// Array ( [0] => Apple [1] => Banana [2] => Mango [3] => Orange )
+
+$last = array_pop($fruits);
+echo $last; // Orange
+array_pop : Removes last element
+	Returns the removed value
+	Modifies the original array
+
+
+What is explode()? 	String → array
+What is implode()?	Array → string
+What is array_map()?	Apply function to each element
+example : $numbers = [1, 2, 3, 4];
+$result = array_map(function($n) {
+    return $n * 2;
+}, $numbers);
+
+print_r($result);
+What is array_filter()?		
+A. filter elements of an array using a callback function.
+  It returns a new array containing only the elements that pass the condition
+  
+$numbers = [1, 2, 3, 4, 5, 6];
+$result = array_filter($numbers, function($n) {
+    return $n % 2 == 0; // keep even numbers
+});
+print_r($result);	// Array ( [1] => 2 [3] => 4 [5] => 6 )
+
+Q. What is array_reduce()?	
+A. reduce an array to a single value by applying a callback function repeatedly
+
+$numbers = [1, 2, 3, 4];
+$sum = array_reduce($numbers, function($carry, $item) {
+    return $carry + $item;
+}, 0);
+echo $sum; // 10
 
 Q. how you will check a variable is array or not, or string/number  -> echo gettype($value), "\n";
 •	ctype_digit() - Check for numeric character(s)
@@ -287,27 +349,156 @@ Q. urlencode() -> The urlencode() function is an inbuilt function in PHP which i
    and replace by the percent (%) sign followed by two hex digits and spaces encoded as plus (+) signs.
    urldecode() -> decode string encoded by encode()
 
-Q. waht is magic methods and sme examle 
+Q. what is magic methods and show some examle 
+A. Magic methods are special methods in PHP that start with __ (double underscore).
+	They are automatically called by PHP when certain actions happen on an object
+	
+_construct()	When object is created
+__destruct()	When object is destroyed
+__get()	Access inaccessible property
+__set()	Set inaccessible property
+__call()	Call undefined method
+__toString()	Convert object to string
+
+class User {
+    public function __construct() {
+        echo "Object created";
+    }
+}
+
+$obj = new User();
+
+class Person {
+    private $data = [];
+
+    public function __set($name, $value) {
+        $this->data[$name] = $value;
+    }
+
+    public function __get($name) {
+        return $this->data[$name] ?? null;
+    }
+}
+
+$p = new Person();
+$p->name = "Gautam";   // calls __set
+echo $p->name;         // calls __get
+
+class Demo {
+    public function __call($method, $args) {
+        echo "Method $method not found";
+    }
+}
+
+$obj = new Demo();
+$obj->test(); // method not defined
+
+
 Q. what is magic constants and some example
+A. Magic constants are predefined constants in PHP that start and end with __ (double underscore).
+	Their value changes depending on where they are used (context).
+__LINE__	Current line number
+__FILE__	Full path of file		echo __FILE__;  // /var/www/html/index.php
+__DIR__	Directory of file			echo __DIR__;	// /var/www/html
+__FUNCTION__	Function name
+__CLASS__	Class name
+__METHOD__	Class method name		echo __METHOD__; // Demo::show
+__TRAIT__	Trait name
+__NAMESPACE__	Current namespace
+
+
 Q. difference in include and require
-Q. strstr vs strops 
+A. include : If file is not found, it gives a warning and script continues execution
+   require : If file is not found, it gives a fatal error and script stops execution
+
 Q. what is output buffering  and related topics
+A. Output buffering means PHP does not send output (echo/print) directly to the browser.
+	Instead, it stores the output in memory (buffer) and sends it later.
+	Why Use Output Buffering?
+	1. Prevent "Headers already sent" error
+		ob_start();
+		echo "Hello";
+		header("Location: test.php"); // Works fine
+		ob_end_flush();
+	2. Modify Output Before Sending
+		ob_start();
+		echo "Hello World";
+		$content = ob_get_contents();
+		ob_end_clean();
+		echo strtoupper($content); // HELLO WORLD
+	3. Capture Output as Variable
+		ob_start();
+		echo "This is captured";
+		$data = ob_get_clean();
+		echo $data;
+		
+	Important functions : 
+		ob_start()	Start buffering
+		ob_get_contents()	Get buffer content
+		ob_get_clean()	Get + clean buffer
+		ob_end_flush()	Send output and end buffer
+		ob_end_clean()	Discard buffer
+		ob_flush()	Flush buffer
+
+	Output Buffer Flow
+	ob_start();      // Start
+	echo "Data";     // Stored in buffer
+	$content = ob_get_contents(); // Get buffer
+	ob_end_clean(); // Clear buffer
+	
+Buffer Levels (Advanced)
+ob_start();
+ob_start();
+echo ob_get_level(); // 2
+
+
 Q. if vs switch
+if Statement : Used when conditions are complex or multiple types
+switch Statement : Used when comparing one variable with multiple fixed values
+
+Feature	if	switch
+Condition type	Any expression	Only equality check
+Multiple variables	✅ Yes	❌ No (single variable only)
+Complex logic	✅ Yes	❌ Limited
+Readability	Good for few conditions	Better for many fixed values
+Performance	Slightly slower (many checks)	Faster in many cases
+
 Q. loop levels
+A. Loop levels refer to how many loops are nested inside each other.
+
 Q. difference in === and ==
+A. == Compares values only, type is ignored
+	=== Compares value + type
 Q. what is ternory operator 
-Q. what is null coliision  
+A. The ternary operator is a short form of if-else used to write conditions in one line.
+	echo $result = ($age >= 18) ? "Adult" : "Minor";
+	
+Q. what is null Coalescing(??)
+A. The null coalescing operator (??) is used to check if a variable exists and is not null.
+	If it is null or not set, it returns a default value.
+	$value = $var ?? "default";
+	If $var is set and not null → use $var , Else → use "default"
+ 
 A. The null coalescing operator is a binary operator which was introduced in PHP 7. 
   It allows the programmers to shorten the code for checking variable values using isset function 
   in conjunction with ternary operator or if-else statement.
+  
 Q. null safe operator
+A. The null safe operator (?->) is used to safely access properties or methods of an object that may be null.
+	which was introduced in PHP 8. 
+	$user = null;
+	echo $user?->name; // ✅ No error, returns null
+
 Q. mysql_fetch_aray and mysql_fetch_object
+	mysql_fetch_aray : Fetches a row as an array, Associative array (['name']) + Numeric array ([0])
+	mysql_fetch_object : Fetches a row as an object
+
 Q. difference in fetch_associate and fetch_array
    fetch_array() returns two arrays, one with numeric keys and other with associative strings (column names), 
    so here you can either use $row['column_name'] or $row[0]
    fetch_assoc() will return string indexed key array and no numeric array so you won't have an option here of using numeric keys like $row[0].
    So the latter one is better in performance compared to fetch_array() and obviously using named indexes is far better compared to numeric indexes.
-Q. what is namespace in php 
+
 Q. Types of PHP Encryption
 Ans A. Hashing 
       The Hashing Algorithm of the PHP Programming Language usually takes one input value and then transforms it into one message digest. can not be decoded. 
@@ -316,6 +507,11 @@ Ans A. Hashing
    C. Envelope Encryption
 
 Q. print table without using loop
+$numbers = [1, 2, 3, 4];
+$result = array_map(function($n) {
+    return $n * 2;
+}, $numbers);
+
 Q. swap two number without uing third variable a=5,b=6; b=5+6; a=b-a; b=b-a;
 Q. reverse a string without using predefined function 
 Ans.  $string = "ZEESHAN";
@@ -329,35 +525,237 @@ Ans.  $string = "ZEESHAN";
       }
       echo $reverse;
 Q. Print equiletral triangle or similar patterns 
-Q. Q. what is 016/2 output 
-
-
-
-
+Q. what is 016/2 output = 14/2=7
 
 Q. what is MVC
-Q. SOLID Principles of Object-Oriented Programming
+A. MVC (Model-View-Controller) is a software design pattern used to organize code in applications (especially web apps).
+	It divides the application into 3 parts:
+
+	1. Model : Handles data + business logic
+		Database interaction (CRUD), Validation, Data processing
+	2. View : Responsible for UI (what user sees
+	3. Controller : Acts as middleman between Model & View
+		Receives request, Calls Model, Sends data to View
+
 Q. php good features 
+A. PHP is one of the most popular server-side languages because it’s simple, fast, and practical for web development.
+	PHP is easy to learn, open-source, fast, supports multiple databases, and has strong community and framework support.
+	Simple + Fast + Web-focused
+	🔹 When PHP is Best
+	Web applications
+	APIs
+	CMS (WordPress)
+	E-commerce
+
+	1. Easy to Learn & Use
+	2. Open Source (Free)
+	3. Platform Independent
+	4. Fast Performance
+	5. Database Support
+	6. Embedded in HTML
+	7. Large Ecosystem & Frameworks
+	8. Built-in Functions
+	9. Strong Community Support
+	10. Security Features
+	11. Supports OOP & MVC
+	12. Session Management
+	13. Scalability
+	
 Q. is php safe language
+A. Yes ✅ — PHP is safe, but only if you write secure code.
+	1. Built-in Security Functions
+	2. Prepared Statements (Prevents SQL Injection)
+	3. Input Filtering
+	4. Session Security
+	5. Regular Updates
+	
 Q. PSR standerds in php
+A. PSR (PHP Standards Recommendation) are coding standards created by
+	Why PSR is Important?
+	Standard coding style
+	Better team collaboration
+	Easy to maintain large projects
+	Works across frameworks (Laravel, Symfony, etc.)
+	Standards : 
+	1. PSR-1 (Basic Coding Standard)
+	2. PSR-12 (Coding Style - Updated PSR-2)
+	3. PSR-4 (Autoloading Standard)
+	4. PSR-3 (Logger Interface)
+	5. PSR-7 (HTTP Message Interface)
+	6. PSR-11 (Container Interface)
+	
+
 Q. test case in php 
+A. A test case is a piece of code used to verify that your application works correctly.
+	Why Use Test Cases?
+	Catch bugs early 🐞
+	Ensure code works after changes
+	Improve code quality
+	Essential in large projects
+	
+	Types of Testing in PHP
+	Unit Testing (most common)
+	Integration Testing
+	Functional Testing
+	
+	PHPUnit (Most Popular Tool)
+	Step 1: Install PHPUnit : composer require --dev phpunit/phpunit
+	Step 2: Create Class
+	class Calculator {
+		public function add($a, $b) {
+			return $a + $b;
+		}
+	}
+	Step 3: Create Test Case
+	use PHPUnit\Framework\TestCase;
+	class CalculatorTest extends TestCase {
+
+		public function testAdd() {
+			$calc = new Calculator();
+			$this->assertEquals(5, $calc->add(2, 3));
+		}
+	}
+	Step 4: Run Test
+	vendor/bin/phpunit
+	OK (1 test, 1 assertion)
+	
+	Common Assertions
+	Method			Purpose
+	assertEquals()	Check equal values
+	assertTrue()	Check true
+	assertFalse()	Check false
+	assertNull()	Check null
+
 Q. write unit test case in php
 Q. how to write sceniors in php
+A. A scenario is a real-life use case / flow that describes:
+
+	What user does
+	What system should do
+	Expected result
+
+Q. Explain the PHP request lifecycle. What happens from the moment a request is made to the moment a response is sent?
+	omplete Flow (Short) : 
+👉 Browser → DNS → Server → PHP → Controller → Model → View → Response → Browser
+
+	1. User Sends Request
+	2. DNS Resolution
+	3. Web Server Receives Request
+	4. PHP Engine Starts (PHP-FPM / mod_php)
+	5. Bootstrap / Framework Initialization (if used)
+	6. Routing
+	7. Controller Execution
+	8. Model Interaction (if needed)
+	9. View Rendering
+	10. Response Generated
+	11. Web Server Sends Response
+	12. Browser Renders Output
+	
+Q. How does PHP handle sessions, and what are the best practices for managing session security?
+A. 1) Session Flow (What happens internally)
+	Step-by-step:
+	Start session, 	session_start();
+	PHP checks for a session ID (usually via cookie PHPSESSID)
+	If not found → creates new session ID
+	Session data is stored on server (files by default)
+	PHP sends session ID back to browser (cookie)
+	On next request, browser sends cookie → PHP loads session data
+	
+	2) Storing & Accessing Data
+	3) Default Storage	: /tmp/sess_abc123
+	
+	Session Security Best Practices
+	1. Regenerate Session ID (Prevent Fixation)
+		session_start();
+		session_regenerate_id(true);
+	2. Use Secure Cookies
+	3. Destroy Session on Logout
+	4. Set Session Timeout
+	5. Avoid Storing Sensitive Data
+	6. Use HTTPS Always
+	7. Validate User Agent / IP (Optional)
+	8. Disable URL-based Session IDs
+	9. Proper Session Storage
+	
+	Common Attacks on Sessions
+	Attack				Description
+	Session Hijacking	Stealing session ID
+	Session Fixation	Forcing known session ID
+	XSS					JS steals cookies
+	
+Q. Discuss the differences between include, require, include_once, and require_once. When would you use each?
+Feature				include		require		include_once	require_once
+File missing		Warning ⚠️	Fatal ❌	Warning ⚠️		Fatal ❌
+Script execution	Continues	Stops		Continues		Stops
+Include only once	❌			❌			✅				✅
+Use case			Optional	Mandatory	Optional+safe	Mandatory+safe
 
 
-chat GPT questions : 
+Q. Error Handling and Debugging
+A. Goal:
+	Catch errors properly
+	Show useful messages (for dev)
+	Hide sensitive info (for production)
+	
+	1. Types of Errors in PHP
+	Type			Description
+	Notice			Minor issues (undefined variable)
+	Warning			Non-fatal error (file not found)
+	Fatal Error		Script stops execution
+	Parse Error		Syntax error
+	Exception		Object-based error handling
+	
+	2. Basic Error Handling : Using try-catch
+	try {
+		throw new Exception("Something went wrong");
+	} catch (Exception $e) {
+		echo $e->getMessage();
+	}
+	
+	Multiple Catch (PHP 7+)
+	Finally Block
+	try {
+		echo "Try block";
+	} catch (Exception $e) {
+		echo "Error";
+	} finally {
+		echo "Always runs";
+	}
 
-General PHP Knowledge
-Explain the PHP request lifecycle. What happens from the moment a request is made to the moment a response is sent?
-How does PHP handle sessions, and what are the best practices for managing session security?
-Discuss the differences between include, require, include_once, and require_once. When would you use each?
-Explain the use of namespaces in PHP. How do they help in code organization and avoiding conflicts?
-Object-Oriented Programming (OOP)
-Describe the concepts of inheritance, encapsulation, and polymorphism in PHP. Provide examples for each.
-How do you implement design patterns such as Singleton, Factory, and Dependency Injection in PHP? Provide code examples.
-What are traits in PHP? How do they differ from classes and interfaces, and when would you use them?
-Error Handling and Debugging
-Explain the differences between Exception and Error in PHP 7+. How do you handle exceptions in a large-scale application?
+	3. Custom Error Handling
+	4. Throwing Exceptions
+	function divide($a, $b) {
+		if ($b == 0) {
+			throw new Exception("Division by zero");
+		}
+		return $a / $b;
+	}
+	5. Debugging Techniques
+	var_dump(), print_r(), die() / exit(), 
+	Error Reporting 	error_reporting(E_ALL); ini_set('display_errors', 1);
+	Logging Errors	error_log("Something went wrong");
+	
+	6. Production vs Development
+	Setting				Development		Production
+	display_errors		ON				OFF ❌
+	error_reporting		E_ALL			Limited
+	logging				Optional		Required✅
+	
+Q. Explain the differences between Exception and Error in PHP 7+. How do you handle exceptions in a large-scale application?
+	Error → system level
+	Exception → application level (can be handled)
+try {
+    throw new Exception("Error");
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+Q. What is set_error_handler()?	Custom error handling
+Q. What is error_reporting()?	Controls error visibility
+Q. What is logging in PHP?	Store errors/logs in file
+Q. How to debug slow PHP code? Logs, Xdebug, Profiling
+Q. What is stack trace?	Execution path of error
+
+
 Describe the process of debugging a PHP application. What tools and techniques do you use?
 Performance and Optimization
 What strategies do you use to optimize the performance of a PHP application? Discuss caching, database optimization, and code profiling.
@@ -381,7 +779,9 @@ Describe your approach to continuous integration and deployment (CI/CD) for PHP 
 Miscellaneous
 How do you ensure code quality and maintainability in a large PHP project? Discuss code reviews, coding standards, and documentation.
 Explain the concept of dependency injection and how it is implemented in PHP. Provide an example.
-
-
-
-
+What is XSS?	Inject JS into page, 
+How to prevent XSS? 	htmlspecialchars($data);
+What is CSRF?	Unauthorized request attack
+What is data sanitization?	Clean input
+What is rate limiting?	Limit API usage
+What is webhook?	Event-based API call
