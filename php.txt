@@ -870,24 +870,344 @@ Q. Explain the concept of prepared statements and how they help prevent SQL inje
 	
 
 Advanced Features
-How do you work with Composer in PHP? Explain the benefits of using Composer for dependency management.
-Describe the use of reflection in PHP. Provide an example of when it might be useful.
-How do you handle asynchronous processing in PHP? Discuss approaches such as Gearman, RabbitMQ, or native solutions.
+Q. How do you work with Composer in PHP? Explain the benefits of using Composer for dependency management.
+A. Composer is a dependency manager for PHP.
+	👉 It helps you install, update, and autoload libraries in your project.
+	
+	1. Install Composer		composer --version
+		Check installation
+	2. Initialize Project	composer init
+		Creates composer.json
+	3. composer.json File
+		{
+			"require": {
+				"monolog/monolog": "^2.0"
+			}
+		}
+
+		✔ Defines dependencies
+	4. Install Packages		composer install
+		Creates:
+		vendor/ folder
+		composer.lock
+	5. Autoloading (Important 🔥)
+		require 'vendor/autoload.php';
+		✔ Automatically loads classes (PSR-4)
+	6. Use Package
+		use Monolog\Logger;
+		use Monolog\Handler\StreamHandler;
+
+		$log = new Logger('app');
+		$log->pushHandler(new StreamHandler('app.log'));
+		$log->info('Hello')
+
+	Common Commands
+	Command					Purpose
+	composer install		Install dependencies
+	composer update			Update packages
+	composer require		Add new package
+	composer remove			Remove package
+	composer dump-autoload	Refresh autoload
+	
+	Benefits of Composer
+	1. Dependency Management
+	2. Autoloading (PSR-4)
+	3. Version Control
+	4. Huge Ecosystem
+	5. Saves Time
+	6. Standardization
+	7. Easy Updates
+
+Q. Describe the use of reflection in PHP. Provide an example of when it might be useful.
+A. Reflection in PHP allows you to inspect and interact with classes, methods, properties, and functions at runtime.
+	basic example : 
+	class User {
+		private $name = "Gautam";
+
+		public function getName() {
+			return $this->name;
+		}
+	}
+	$reflection = new ReflectionClass('User');
+	echo $reflection->getName(); // User
+
+	Access Private Property (Important)
+	class User {
+		private $name = "Gautam";
+	}
+
+	$user = new User();
+
+	$ref = new ReflectionClass($user);
+	$prop = $ref->getProperty('name');
+
+	$prop->setAccessible(true); // allow access
+
+	echo $prop->getValue($user);
+
+
+Q. How do you handle asynchronous processing in PHP? Discuss approaches such as Gearman, RabbitMQ, or native solutions.
+A. Asynchronous processing means running tasks in the background (non-blocking) so the main request can respond quickly.
+	👉 Example:
+	Send email after signup
+	Process image upload
+	Generate reports
+	
+	1. Message Queues (Most Popular 🚀)
+		RabbitMQ : A message broker used for async jobs
+		Gearman : Distributed job system
+		
+	2. Redis Queue (Very Common with Laravel)
+	3. Native PHP Approaches
+		exec() / shell_exec() 	exec("php send_email.php > /dev/null &");
+		pcntl_fork() (Advanced)
+			$pid = pcntl_fork();
+			if ($pid == 0) {
+				// child process
+				processTask();
+			}
+		fastcgi_finish_request(), Use framework CSRF middleware
+	4. Cron Jobs	
+	
+Method			Use Case			Pros			Cons
+RabbitMQ		Large systems		Scalable		Setup complex
+Gearman			Background jobs		Fast			Less popular
+Redis Queue		Laravel apps		Easy + fast		Needs Redis
+exec()			Simple tasks		Easy			Not scalable
+pcntl_fork		CLI parallel		Powerful		Complex
+Cron			Scheduled jobs		Simple			Not real-time
+
+	
 Security
-What are the common security vulnerabilities in PHP applications? How do you mitigate them?
-Explain how you would implement secure password storage in PHP. Discuss hashing algorithms and their best practices.
+Q. What are the common security vulnerabilities in PHP applications? How do you mitigate them?
+A. Modern PHP is secure by design, but most vulnerabilities come from unsafe coding patterns
+	1) SQL Injection
+	2) Cross-Site Scripting (XSS)  use - echo htmlspecialchars($_GET['name'], ENT_QUOTES, 'UTF-8');
+	3) Cross-Site Request Forgery (CSRF)
+		// Generate
+		$_SESSION['csrf'] = bin2hex(random_bytes(32));
+
+		// Validate
+		if ($_POST['csrf'] !== $_SESSION['csrf']) {
+			die('Invalid CSRF token');
+		}
+	4) File Inclusion (LFI/RFI)
+		Problem: Including files based on user input.
+	5) File Upload Vulnerabilities
+		Problem: Uploading executable/malicious files.
+	6) Session Hijacking / Fixation
+		Problem: Stolen or fixed session IDs.
+	7) Weak Password Storage
+		Problem: Using MD5/SHA1.
+	8) Command Injection
+		Problem: Passing user input to shell.
+	9) Insecure Deserialization
+		$obj = unserialize($_POST['data']); // NO 
+		
+		Fix:
+		Avoid unserialize on user input
+		Use JSON instead (json_decode)
+		If needed, use allowed classes
+	10) Information Disclosure
+		Problem: Showing errors/stack traces to users.
+	11) Improper Access Control
+	12) Clickjacking
+	
+	Security Best Practices (Checklist)
+	✅ Validate input (type, length, whitelist)
+	✅ Escape output (HTML, JS, URL contexts)
+	✅ Use prepared statements
+	✅ Use HTTPS everywhere
+	✅ Harden sessions (secure, httponly, samesite)
+	✅ Use password_hash()
+	✅ Limit file uploads (type, size, location)
+	✅ Use security headers (CSP, HSTS, X-Frame-Options)
+	✅ Keep PHP & dependencies updated (Composer)
+	✅ Least privilege (DB, filesystem)
+	✅ Log errors, don’t display
+	🔥 Interview Answer (Concise)
+
+“Common PHP vulnerabilities include SQL injection, XSS, CSRF, file inclusion, insecure uploads, session hijacking, and weak password storage. 
+They are mitigated using prepared statements, output escaping, CSRF tokens, strict file handling, secure session configuration, strong hashing, and proper validation along with security headers and HTTPS.”
+
+🧠 Easy Way to Remember
+
+👉 Input → Validate
+👉 Output → Escape
+👉 DB → Prepare
+👉 Session → Secure
+
+
+		
+Q. Explain how you would implement secure password storage in PHP. Discuss hashing algorithms and their best practices.
+A. Storing passwords securely means never saving plain text, but instead storing a strong, salted hash using modern algorithms.
+	User enters password → Hash it → Save hash
+	Login → Verify password against hash
+	
+	Recommended Way in PHP : Use built-in functions:
+	password_hash()
+	password_verify()
+
+	$password = "mySecurePassword";
+	$hash = password_hash($password, PASSWORD_DEFAULT);
+	echo $hash;
+	
+	$input = "mySecurePassword";
+	if (password_verify($input, $hash)) {
+		echo "Login successful";
+	} else {
+		echo "Invalid password";
+	}
+	
+	Hashing Algorithms : 
+	1. Bcrypt (Default) : password_hash($password, PASSWORD_BCRYPT);
+	2. Argon2 (Best Modern Option 🚀) : password_hash($password, PASSWORD_ARGON2ID);
+	
+	Algorithm	Security		Speed		Recommended
+	MD5			❌ Weak			Fast		❌ Never use
+	SHA1		❌ Weak			Fast		❌ Avoid
+	Bcrypt		✅ Strong		Medium		✅ Yes
+	Argon2		🔥 Strongest		Slower		✅ Best
+
+	Best Practices
+	1. Never Store Plain Passwords
+	2. Never Use MD5/SHA1
+	3. Use password_hash()
+	4. Use password_verify()
+	5. Rehash When Needed	: 
+		if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
+			$hash = password_hash($password, PASSWORD_DEFAULT);
+		}
+	6. Use Strong Password Policy : Minimum length (8–12+), Mix of characters, Avoid common passwords
+	7. Use HTTPS	: Prevent password sniffing
+	8. Add Rate Limiting : Prevent brute force attacks
+	
+	
 Frameworks and Tools
-Discuss your experience with PHP frameworks such as Laravel, Symfony, or Zend. What are the key features and benefits of the framework you prefer?
-How do you handle RESTful API development in PHP? Provide an example of a well-structured API.
+
+Q. Discuss your experience with PHP frameworks such as Laravel, Symfony, or Zend. What are the key features and benefits of the framework you prefer?
+A. I prefer Laravel because it provides a clean architecture, rapid development, and built-in features that reduce boilerplate code.
+	Key Features of Laravel
+	1. MVC Architecture
+	2. Eloquent ORM : $user = User::where('id', 1)->first();
+	3. Blade Templating Engine
+	4. Routing System
+	5. Built-in Authentication
+	6. Queue System (Async Processing)
+	7. Dependency Injection (Service Container) : public function __construct(Logger $logger) {}
+	8. Security Features : CSRF protection, XSS protection, Password hashing
+	9. Artisan CLI
+	10. Composer Integration
+	
+	Basic Comparison
+	Feature				Laravel			CodeIgniter		CakePHP
+	Type				Full-stack		Lightweight		Full-stack
+	Architecture		Strict MVC		Loose MVC		MVC
+	Learning Curve		Medium			Easy			Medium
+	Performance			Moderate		Fast 🚀			Moderate
+	Built-in Features	Rich			Minimal			Moderate
+
+Laravel : Most popular modern framework
+	✅ Strengths
+		Eloquent ORM
+		Blade templating
+		Built-in auth & security
+		Queue system
+		Artisan CLI
+		Strong ecosystem
+	❌ Weakness
+		Slightly heavy
+		Slower than lightweight frameworks
+
+
+CodeIgniter : Lightweight & simple
+	✅ Strengths
+		Very fast
+		Easy to learn
+		Minimal configuration
+		Small footprint
+	❌ Weakness
+		Limited built-in features
+		Less modern compared to Laravel
+		Manual work required
+
+CakePHP: Convention-based framework
+	✅ Strengths
+		“Convention over configuration”
+		Built-in ORM
+		Rapid development
+		Security features
+	❌ Weakness
+		Less flexible
+		Smaller community than Laravel
+
+
+Q. How do you handle RESTful API development in PHP? Provide an example of a well-structured API.
+A.	Best Practices
+	1. Use Proper HTTP Methods
+		GET → fetch
+		POST → create
+		PUT/PATCH → update
+		DELETE → remove
+	2. Validation
+	3. Authentication  : JWT, OAuth, API keys
+	4. Versioning	: /api/v1/users
+	5. Pagination
+	6. Consistent Response Format
+	7. Error Handling
+	
+	HTTP status : 
+	Range	Type				Meaning
+	1xx		Informational		Request received
+	2xx		Success	Request 	successful
+	3xx		Redirection			Further action needed
+	4xx		Client Error		Client made mistake
+	5xx		Server Error		Server failed
+	
+	Code	Meaning
+	100		Continue				: Request thik hai, continue sending body	: Used in large uploads
+	101		Switching Protocols		: erver is switching protocol (e.g., HTTP → WebSocket)
+	200		OK						: Request successful
+	201		Created					: creating new user 
+	202		Accepted				: Request accepted but not processed yet : async request 
+	204		No Content				: Success but no response body, delete api
+	301		Moved Permanently		: Resource permanently moved to new URL, seo friendly
+	302		Found (Temporary redirect): Temporary redirect , Old URL may be used again
+	304		Not Modified			: Data not changed → use cached version
+	400		Bad Request				: Invalid request (missing/invalid data)
+	401		Unauthorized			: Authentication required or failed
+	403		Forbidden				: Access denied (even if logged in)
+	404		Not Found				: Resource does not exist
+	405		Method Not Allowed		: HTTP method not allowed
+	409		Conflict				: Conflict with current state example : duplicate mail 
+	422		Unprocessable Entity	: Validation failed, ✔ Example: invalid form data
+	500		Internal Server Error	: Generic server error, ✔ Something broke in backend
+	502		Bad Gateway				: Server received invalid response from another server
+	503		Service Unavailable		: Server temporarily down, ✔ Maintenance / overload
+	504		Gateway Timeout			: Upstream server didn’t respond in time
+	
 Testing and Quality Assurance
-Explain the importance of unit testing and how you implement it in PHP using PHPUnit or other testing frameworks.
-Describe your approach to continuous integration and deployment (CI/CD) for PHP applications. What tools and processes do you use?
+
+Q. Describe your approach to continuous integration and deployment (CI/CD) for PHP applications. What tools and processes do you use?
+A.	Flow:
+	Commit → Build → Test → Quality Checks → Package → Deploy → Monitor
+
 Miscellaneous
-How do you ensure code quality and maintainability in a large PHP project? Discuss code reviews, coding standards, and documentation.
-Explain the concept of dependency injection and how it is implemented in PHP. Provide an example.
-What is XSS?	Inject JS into page, 
-How to prevent XSS? 	htmlspecialchars($data);
-What is CSRF?	Unauthorized request attack
-What is data sanitization?	Clean input
-What is rate limiting?	Limit API usage
-What is webhook?	Event-based API call
+Q. How do you ensure code quality and maintainability in a large PHP project? Discuss code reviews, coding standards, and documentation.
+A. 1) Coding Standards (Consistency First)
+	2) Static Analysis (Catch Issues Early) : Detects type issues, dead code, wrong calls, Increase strictness level over time
+	3) Code Reviews (Core Practice)
+	4) Automated Testing
+	6) Architecture & Design : use clean architecture 
+	7) Documentation (Very Important)
+	8) Versioning & Git Practices
+	9) Security Practices
+	10) Refactoring & Tech Debt
+	
+
+Q. What is XSS?	Inject JS into page, 
+Q. How to prevent XSS? 	htmlspecialchars($data);
+Q. What is CSRF?	Unauthorized request attack
+Q. What is data sanitization?	Clean input
+Q. What is rate limiting?	Limit API usage
+Q. What is webhook?	Event-based API call
