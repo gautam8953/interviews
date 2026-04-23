@@ -1,28 +1,565 @@
-laravell install 
-web page create 
-web form and validations
-form array
-angular or react in laravell page 
-api create 
-api validations
-login authentication 
-query different types 
-test - write test cases
+
+Q. bind() vs singleton()
+A. bind() → new instance every time
+	singleton() → same instance reused
 
 Q. what is Illuminate in laravell?
-
-Q. what is hashing and encyption? 
-
+A. Illuminate is basically the core set of components (libraries) that power the entire framework.
+	Simple meaning : Illuminate = Laravel’s internal libraries / building blocks
+	example : use Illuminate\Http\Request;  You are using the Request class from Laravel's core (Illuminate).
+	
+	Illuminate\Http → Handles HTTP requests & responses
+	Illuminate\Database → Eloquent ORM & query builder
+	Illuminate\Routing → Routing system
+	Illuminate\Auth → Authentication
+	Illuminate\Validation → Form validation
+	Illuminate\Support → Helper functions & utilities
+	
 Q. how to prevent sql injection in laravell?
-
-Q. what is service container in laravell?
+A. 1. Use Eloquent ORM		: User::where('email', $email)->first();
+	2. Use Query Builder	
+		DB::table('users')
+		->where('email', $email)
+		->get();
+	3. NEVER use raw queries with direct variables
+			DB::select("SELECT * FROM users WHERE email = '$email'");
+	4. If using RAW, use bindings (safe way)
+			DB::select("SELECT * FROM users WHERE email = ?", [$email]);
+	5. Validate & sanitize input
+		$request->validate([
+			'email' => 'required|email',
+		]);
+	6. Avoid dynamic column/table names from user input
+		$allowed = ['name', 'email'];
+		$orderBy = in_array($orderBy, $allowed) ? $orderBy : 'name';
+		User::orderBy($orderBy)->get();
+	7. Use Laravel’s built-in features  : Eloquent, Query Builder, CSRF protection (for forms)
+	8. Avoid concatenation in LIKE queries
+		->where('name', 'LIKE', "%{$name}%")
+		
+Q. what is service container in laravell?		
 A. Service container is a tool used for performing dependency injection in Laravel.
+	Service Container = Laravel’s dependency injection container (IoC container)
+	It is responsible for managing class dependencies and automatically resolving them.
+	example with service container  : 
+	
+	class UserController {
+		protected $service;
 
+		public function __construct(UserService $service) {
+			$this->service = $service;
+		}
+
+		public function index() {
+			return $this->service->getUsers();
+		}
+	}
+	
 Q. what is quese and jobs in laravell
+A. Queues and Jobs are used to handle time-consuming tasks in the background, so your application stays fast and responsive.
+	without queue : Mail::to($user)->send(new WelcomeMail());
+	with queue : Mail::to($user)->queue(new WelcomeMail());
+	
+	What is a Job?
+👉 A Job is a class that represents a task to be executed in the queue.
+	Example Job
+	php artisan make:job SendEmailJob
+	
+	class SendEmailJob implements ShouldQueue
+	{
+		public function handle()
+		{
+			// heavy task
+			Mail::to($this->user)->send(new WelcomeMail());
+		}
+	}
+	SendEmailJob::dispatch($user);
+	
+Q. what is laravel collections?
+A. Collections are one of the most powerful and elegant features—especially for handling arrays and data sets.
+	Laravel Collections = A wrapper around arrays that provides powerful methods to manipulate data easily and fluently
+	
+	Why use Collections?
+	Instead of writing complex loops (foreach, if), you can write clean, readable, chainable code.
 
-Q. what is laravel collections 
+	Without Collection : 
+	$numbers = [1, 2, 3, 4, 5];
+	$result = [];
+
+	foreach ($numbers as $num) {
+		if ($num % 2 == 0) {
+			$result[] = $num * 2;
+		}
+	}
+	
+	With Collection : 
+	$numbers = collect([1, 2, 3, 4, 5]);
+
+	$result = $numbers
+		->filter(fn($n) => $n % 2 == 0)
+		->map(fn($n) => $n * 2);
+		
+	Common Methods
+	filter() : $users->filter(fn($user) => $user->age > 18);
+	map()	: $users->map(fn($user) => $user->name);
+	where()	: $users->where('status', 'active');
+	pluck()	: $users->pluck('email');
+	sort()	: $users->sortBy('name');
+	first()	; $users->first();
+	
+	Chaining (Best Feature)
+	$emails = User::all()
+    ->where('status', 'active')
+    ->pluck('email')
+    ->sort();
+	
+	Difference from array : 
+	Feature				Array			Collection
+	Methods				❌ Limited		✅ Rich methods
+	Readability			❌ Low			✅ High
+	Chaining			❌ No			✅ Yes
+	Functional style	❌ No			✅ Yes
+	
 Q. find method in laravel. what it returns after quering database
+A. the find() method is used to retrieve a record by its primary key (usually id).
+	$user = User::find(1);
+	Returns: An Eloquent Model instance (e.g., User object)		$user->name; // accessible
+	
+	Record NOT found  : it returns 'null'
+	
+	findOrFail() : $user = User::findOrFail(1);
+	return : Model if found,  Throws exception (ModelNotFoundException) if not found
+	
+	findMany() : $users = User::find([1, 2, 3]);
+
 Q. database migration in laravell
+A. Migrations = PHP files that define database structure
+	They allow you to create, modify, and share database schema in a structured way.
+	
+	Why use Migrations : 
+	No need to manually write SQL every time
+	Easy to manage schema changes
+	Version control for DB
+	Team collaboration becomes simple
+	
+	Create Migration  : php artisan make:migration create_users_table
+	Migration File Structure  : 
+		up() → Run migration (create/modify table)
+		down() → Rollback (undo changes)
+	Run Migration : php artisan migrate
+	Rollback Migration	: php artisan migrate:rollback
+	
 Q. how to protect url from unauthorise access in laravell 
-Q. what is dependency injection 
+A . mainly use Authentication + Middleware + Authorization.
+	1. Use Authentication Middleware
+	Route::get('/dashboard', function () {
+		return view('dashboard');
+	})->middleware('auth');
+	Only logged-in users can access /dashboard
+	
 Q. redis in laravell 
+A. Redis is used as a fast in-memory data store for caching, queues, sessions, and real-time features.
+	Redis in Laravel = a high-speed key-value store used to improve performance
+	
+	integrate via : Illuminate\Support\Facades\Redis
+	
+	Why use Redis?
+	⚡ Very fast (in-memory)
+	🔁 Used for caching
+	📬 Queue management
+	🧠 Session storage
+	🔔 Real-time broadcasting
+
+Q. What are Service Providers?
+A. Central place to register bindings, events, middleware, and bootstrapping logic.
+
+Q. Explain Middleware
+A. Filters HTTP requests (auth, logging, roles) before reaching controllers.
+
+Q. What is Facade?
+A. Static interface to service container bindings (e.g., Cache, DB).
+
+Q. Difference between helper and facade?
+A. Helpers = global functions
+	Facades = class-based access via container
+	
+Q. What is Eloquent ORM?
+A. ActiveRecord implementation for interacting with DB using models.
+
+Q. What is Mass Assignment?
+A. Bulk assigning attributes; controlled via $fillable or $guarded.
+
+Q. What is CSRF protection?
+A. Token-based request validation to prevent cross-site request forgery.
+
+Q. What is route model binding?
+A. Automatically injects model instance based on route parameter.
+
+🔥 11–20: Database & Eloquent
+
+11. find() vs first()?
+
+find() → by primary key
+first() → first matching record
+
+12. get() vs first()?
+
+get() → collection
+first() → single model/null
+
+13. What is eager loading?
+Loading relationships using with() to avoid N+1 queries.
+
+14. What is lazy loading?
+Loading relations when accessed (can cause N+1 issue).
+
+15. What is N+1 problem?
+Multiple queries due to repeated relation fetching.
+
+16. What are accessors & mutators?
+Transform data when retrieving or saving model attributes.
+
+17. What is soft delete?
+Marks record deleted using deleted_at without removing it.
+
+18. What is chunking?
+Processing large datasets in parts using chunk().
+
+19. What is cursor()?
+Lazy iteration over large datasets (memory efficient).
+
+20. Raw query vs Query Builder?
+Query Builder is safer (prevents SQL injection via binding).
+
+🔥 21–30: Advanced Concepts
+
+21. What are Jobs & Queues?
+Background task processing using workers.
+
+22. sync vs async queue?
+
+sync → immediate
+async → background worker
+
+23. What is Laravel Horizon?
+Dashboard for monitoring Redis queues.
+
+24. What are Events & Listeners?
+Decouple logic using event-driven architecture.
+
+25. What is broadcasting?
+Real-time events using WebSockets (Pusher, Laravel Echo).
+
+26. What is caching?
+Storing frequently used data for faster access.
+
+27. Cache::remember()?
+Fetch from cache or store result if not exists.
+
+28. What is Redis used for?
+Cache, queues, sessions, pub/sub.
+
+29. What is rate limiting?
+Limit requests using middleware (throttle).
+
+30. What is API Resource?
+Transforms model data into structured JSON response.
+
+🔥 31–40: Security & Performance
+
+31. How to prevent SQL Injection?
+Use Eloquent/Query Builder with parameter binding.
+
+32. How to protect routes?
+Use auth middleware + roles/permissions.
+
+33. What is XSS protection?
+Escape output using Blade {{ }}.
+
+34. What is hashing?
+Secure password storage using bcrypt/argon2.
+
+35. What is encryption?
+Secure data using Laravel Crypt.
+
+36. How to optimize Laravel app?
+
+config:cache
+route:cache
+query optimization
+caching
+
+37. What is opcache?
+PHP bytecode caching for performance.
+
+38. What is eager loading optimization?
+Load only required columns (select() + with()).
+
+39. What is indexing in DB?
+Improves query performance.
+
+40. What is queue retry mechanism?
+Retries failed jobs using attempts/backoff.
+
+🔥 41–50: Architecture & Best Practices
+
+41. What is Repository Pattern?
+Abstract DB logic from business logic.
+
+42. What is SOLID in Laravel?
+Principles for maintainable, scalable code.
+
+43. What is Dependency Injection?
+Inject dependencies instead of creating them.
+
+44. What is MVC?
+Model-View-Controller architecture.
+
+45. What is API authentication?
+Use Laravel Sanctum or Passport.
+
+46. Sanctum vs Passport?
+
+Sanctum → simple APIs
+Passport → OAuth2
+
+47. What is form request validation?
+Custom request classes for validation.
+
+48. What is policy?
+Authorization logic per model.
+
+49. What is observer?
+Listen to model events (created, updated).
+
+50. What is Laravel lifecycle?
+Request → Middleware → Controller → Response
+
+
+1. 🔴 Slow API (2–3 sec response)
+
+Q: API fetching orders is slow. What will you check?
+Answer approach:
+
+Check N+1 queries → use with()
+Add indexes
+Use pagination
+Cache (Cache::remember)
+Profile with Laravel Debugbar / Telescope
+2. 🔴 High DB load (100k users)
+
+Q: DB CPU is high.
+Answer:
+
+Move reads to Redis cache
+Add read replicas
+Optimize queries
+Use queue for heavy tasks
+3. 🔴 Job running twice (duplicate payments)
+
+Q: Queue job executed twice
+Answer:
+
+Use idempotency key
+Use uniqueId() in job (Laravel 8+)
+DB lock (SELECT FOR UPDATE)
+Retry handling carefully
+4. 🔴 N+1 problem in production
+
+Q: Too many queries
+Answer:
+
+User::with('orders')->get();
+
+Also:
+
+loadMissing()
+Debug using query logs
+5. 🔴 File upload large (500MB)
+
+Answer:
+
+Use chunk upload
+Store in S3
+Process via queue
+6. 🔴 Need real-time notifications
+
+Answer:
+
+Use Laravel Echo + WebSockets / Pusher
+Broadcast events
+7. 🔴 API rate limiting per user
+
+Answer:
+
+Route::middleware('throttle:60,1');
+
+Or custom rate limit using Redis
+
+8. 🔴 Multi-tenant application
+
+Answer:
+
+Separate DB per tenant OR
+Single DB with tenant_id
+Use middleware to resolve tenant
+9. 🔴 Data consistency in transactions
+
+Answer:
+
+DB::transaction(function () {
+    // multiple queries
+});
+10. 🔴 Prevent unauthorized access (admin panel)
+
+Answer:
+
+Middleware + Policy + Role system
+11. 🔴 Huge dataset export (1M rows)
+
+Answer:
+
+Use chunk() / cursor()
+Queue export
+Stream response
+12. 🔴 Session scaling issue
+
+Answer:
+
+Move sessions to Redis
+13. 🔴 Cache invalidation problem
+
+Answer:
+
+Use tags
+Clear cache on update
+14. 🔴 API timeout (3rd party)
+
+Answer:
+
+Use queue
+Retry with backoff
+Circuit breaker pattern
+15. 🔴 Deployment without downtime
+
+Answer:
+
+Use:
+php artisan config:cache
+queue:restart
+Env-based deployment
+Load balancer
+16. 🔴 Logging issue in production
+
+Answer:
+
+Use daily logs
+Centralized logging (ELK)
+17. 🔴 Memory issue in script
+
+Answer:
+
+Use cursor() instead of get()
+18. 🔴 Payment failure handling
+
+Answer:
+
+Use webhooks
+Idempotency
+Queue retry
+19. 🔴 Need audit logs
+
+Answer:
+
+Use model observers
+Store history table
+20. 🔴 Scaling Laravel app
+
+Answer:
+
+Load balancer
+Redis cache
+Queue workers
+DB optimization
+💻 LIVE CODING QUESTIONS
+1. Remove duplicates from collection
+collect([1,1,2,3,3])->unique();
+2. Group users by role
+$users->groupBy('role');
+3. Get top 5 highest orders
+Order::orderBy('amount', 'desc')->limit(5)->get();
+4. Count active users
+User::where('status', 'active')->count();
+5. Relationship query
+User::with('orders')->whereHas('orders')->get();
+6. API response format
+return response()->json([
+    'status' => true,
+    'data' => $data
+]);
+7. Custom helper function
+function formatPrice($amount) {
+    return number_format($amount, 2);
+}
+8. Validate request
+$request->validate([
+    'email' => 'required|email'
+]);
+9. Create middleware check role
+if (auth()->user()->role !== 'admin') {
+    abort(403);
+}
+10. Queue job dispatch
+SendEmailJob::dispatch($user);
+🐞 DEBUGGING QUESTIONS (VERY IMPORTANT)
+1. ❌ “Call to member function on null”
+
+👉 Cause:
+
+$user = User::find($id);
+$user->name;
+
+✔ Fix:
+
+if ($user) { ... }
+2. ❌ Too many queries
+
+👉 Cause: Lazy loading
+✔ Fix: with()
+
+3. ❌ SQLSTATE error
+
+👉 Check:
+
+DB config
+migration
+column type mismatch
+4. ❌ 419 Page Expired
+
+👉 Missing CSRF token
+
+5. ❌ Queue not working
+
+👉 Check:
+
+QUEUE_CONNECTION
+worker running
+6. ❌ Cache not updating
+
+👉 Clear cache:
+
+php artisan cache:clear
+7. ❌ Class not found
+
+👉 Run:
+
+composer dump-autoload
+8. ❌ Route not working
+
+👉 Check:
+
+php artisan route:list
+9. ❌ Permission denied (storage)
+chmod -R 775 storage
+10. ❌ Env not updating
+php artisan config:clear
