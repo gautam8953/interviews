@@ -8,6 +8,11 @@ OOP helps developers organize code into reusable and maintainable units called o
 Q. why use oops?
 
 Q. Is PHP purely OOP? No. PHP is multi-paradigm (procedural + OOP).	
+A. 	It was originally procedural
+	It allows multiple coding styles
+	Not everything is an object
+	You can write programs without classes	
+	
 Q. is php support class and object : yes
 Q. how to access class in php     $obj = new ChildClass();
 Q. have any project made using oops 
@@ -37,25 +42,25 @@ Abstraction → hiding complexity
 Encapsulation → hiding data
 
 8. What is a class?
-Blueprint/template for creating objects.
+A. container in which we kept data and methods . Blueprint/template for creating objects.
 
 9. What is an object?
 Instance of a class with state and behavior.
 
 10. What is a constructor?
-Special method used to initialize objects.
+A. Special method used to initialize objects.
 
 11. Can constructor be overloaded?
-Yes.
+A. Yes in Java or C++: but not in php.
 
 12. What is destructor?
 Method called when object is destroyed.
 
 13. What is access modifier?
-Controls visibility (public, private, protected).
+CA. ontrols visibility (public, private, protected).
 
 14. What is method overloading?
-Same method name, different parameters.
+A. Same method name, different parameters.
 
 15. What is method overriding?
 Child class redefining parent method.
@@ -98,7 +103,7 @@ $obj->display();
 Refers to current object.
 
 18. What is super keyword?
-Refers to parent class. PHP doesn't have "super" keyword, in php we use "parent" keyword.
+A. Refers to parent class. PHP doesn't have "super" keyword, in php we use "parent" keyword.
 <?php
 class ParentClass {
     public function __construct() {
@@ -119,16 +124,13 @@ This is child method
 ?>
 
 19. What is binding?
+In simple, When you call a method, how does PHP decide which method to execute? That process is called binding.
 Linking method call to method body.
 Binding means how a method call is connected to its actual implementation at runtime or compile time.
-In simple, When you call a method, how does PHP decide which method to execute? That process is called binding.
 
 PHP mainly has 2 types:
 1. Early Binding (Static Binding)
 2. Late Binding (Dynamic Binding)
-
-Q. What is Late Static Binding?
-	static:: resolves method at runtime
 
 20. Static vs dynamic binding?
 Static → compile time , Early Binding
@@ -156,6 +158,9 @@ class Demo extends Test {
 Demo::callShow();
 ?>
 
+Q. What is Late Static Binding?
+A. It lets you reference the called class at runtime, instead of the class where the method is originally defined.
+	static:: resolves method at runtime
 
 ⚙️ SECTION 2: Advanced OOP Concepts (21–40)
 
@@ -203,6 +208,10 @@ Meow
 ?>
 
 
+Q. how to abstarct property and function in classes?
+A. PHP allows abstract methods, but not abstract properties. 
+	So you can force child classes to implement functions—but not directly force them to declare properties.
+
 Q. use case of Abstract class?
 A. Classes defined as abstract may not be instantiated, 
 and any class that contains at least one abstract method must also be abstract. 
@@ -246,6 +255,10 @@ Meow
 Abstract → can have implementation
 Interface → only contract (mostly)
 
+
+Default visibility public and only do not support multiple inheritance.
+Can implements many interface but can extend only one class
+
 23. Multiple inheritance possible?
 PHP: via interfaces
 Java: not via classes
@@ -255,17 +268,6 @@ two types of polymorphism are in java
 1. method overloading also compile time: method difned several times by changing argument data type and number of argument
 2. method overriding also runtime : defined function in base class also defined in child class
 
-Abstract method: function only declare not defined in the class
-
-Abstract class: Classes defined as abstract may not be instantiated, and any class that contains at least one abstract method must also be abstract.
-Abstract classes are classes that contain one or more abstract methods. Abstract classes may not be instantiated, and require subclasses to provide implementations for the abstract methods.
-
-Q. use case of Abstract class?
-Q. how to abstarct property and function in classes?
-
-interfaces are abstract classes with no method defined. There are only abstract methods desclared.
-Default visibility public and only do not support multiple inheritance.
-Can implements many interface but can extend only one class
 
 Q. The static keyword is used to declare properties and methods of a class as static. 
    Static properties and methods can be used without creating an instance of the class.
@@ -378,14 +380,16 @@ echo "\n";
 echo $obj->multiply(2, 3, 4);  // 24
 ?>
  or pass muliple argument in function and based on argument write logics
-Q. how to use interface in php?
+ 
+Q. how to use interface in php? by implementing interface
+
 Q. is php oop language? 
 	Yes, PHP supports OOP (Object-Oriented Programming)
 	But it is not purely OOP — it is a multi-paradigm language
 	reasone 1. You can write code without classes
 	reasone 2. Functions Exist Outside Classes
 	reasone 3. No Need to Use Objects
-	reasone 4. HP was originally created as a scripting language, not OOP-focused OOP features were added later (PHP 5+)
+	reasone 4. PHP was originally created as a scripting language, not OOP-focused OOP features were added later (PHP 5+)
 
 
 Q. why we use oops for project development- OOP helps you manage complex projects easily
@@ -591,6 +595,7 @@ Child class changes expected behavior of parent.
 
 38. What is DIP?
 Depend on abstractions, not concrete classes.
+do not tightly coupled. do not define another object in a class. 
 
 39. What is ISP?
 Don’t force classes to implement unused methods.
@@ -682,6 +687,9 @@ Unstructured, hard-to-maintain code.
 
 61. How to design scalable system using OOP?
 Use abstraction, DI, microservices, modular design.
+
+Q. what is microservices? 
+A. Instead of one big application (monolith), you build many small, independent services, each responsible for a specific business function
 
 62. How to reduce coupling?
 coupling meaning - how much one class depends on another class.
@@ -837,7 +845,9 @@ spl_autoload_register(function ($className) {
 Q. What is Service Container?
 	A Service Container is a central place that manages dependency injection automatically.
 	It creates objects, resolves their dependencies, and injects them wherever needed.
-What is Repository Layer?	What is Repository Layer?
+	
+Q. What is Repository Layer?
+A. The Repository Layer is a design pattern used in OOP to separate business logic from data access logic.
 	
 Q. What is Repository Pattern? Abstract data access layer
 Q. What is Factory Pattern? Creates objects dynamically
@@ -923,6 +933,7 @@ Q. How do you optimize the performance of PHP applications using OOP principles?
 	Optimize database queries when using ORM.
 	
 Q. What is the purpose of the yield keyword in PHP?
+A. The yield keyword in PHP is used to create a Generator—a function that can pause and resume execution, returning values one at a time instead of all at once.
 function getNumbers() {
     yield 1;
     yield 2;
