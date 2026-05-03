@@ -109,9 +109,9 @@ A. MyISAM and InnoDB are the most commonly used engines.
     5.	InnoDB supports transaction. You can commit and rollback with InnoDB
     6.  support ACID property of database
 
-query to get table list uing MyISAM engine : SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ‘database_name’ AND ENGINE = ‘MyISAM’;
-query to change engine : ALTER TABLE `table_name` ENGINE = InnoDB; 
-
+Q. query to get table list using MyISAM engine : 
+	SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ‘database_name’ AND ENGINE = ‘MyISAM’;
+Q. query to change engine : ALTER TABLE `table_name` ENGINE = InnoDB; 
 
 Q. explain acid property
 A. In order to maintain consistency in a database, before and after the transaction, certain properties are followed. These are called ACID properties
@@ -151,12 +151,66 @@ A. 1. Language -
     -: faster performance than DELETE but slower than Truncate Command because the DROP command deletes the table from the database after deleting the rows
     -: fastest because it deletes all the records from the table without any condition
 
-    
-    . 
-    
-
 Q. what are joins
+A. joins are used to combine data from two or more tables based on a related column (usually a foreign key)
+	1. INNER JOIN (most used) : Returns only matching records from both tables
+	2. LEFT JOIN : Returns ALL records from left table + matching from right If no match → NULL
+	3. RIGHT JOIN : Opposite of LEFT JOIN, Returns all records from right table
+	4. FULL JOIN (not directly supported in MySQL) /; Combines LEFT + RIGHT JOIN
+		can use union to do this in mysql 
+		SELECT * FROM A
+		LEFT JOIN B ON ...
+		UNION
+		SELECT * FROM A
+		RIGHT JOIN B ON ...
+	5. SELF JOIN : Join a table with itself
+			SELECT e.name, m.name AS manager
+			FROM employees e
+			JOIN employees m 
+			ON e.manager_id = m.id;
+	
 Q. what is subquery
+A. subquery is a query written inside another query.
+	SELECT name 
+		FROM users
+		WHERE id = (
+			SELECT user_id 
+			FROM orders 
+			WHERE product = 'Laptop'
+		);
+	1. Single-row subquery
+		SELECT name
+		FROM employees
+		WHERE salary > (
+			SELECT AVG(salary) FROM employees
+		);
+	2. Multi-row subquery : IN, ANY, ALL
+		SELECT name
+		FROM users
+		WHERE id IN (
+			SELECT user_id FROM orders
+		);	
+	3. Correlated subquery (important)
+		SELECT name
+		FROM employees e
+		WHERE salary > (
+			SELECT AVG(salary)
+			FROM employees
+			WHERE department_id = e.department_id
+		);		
+	4. Subquery in SELECT (scalar subquery)
+		SELECT name,
+			   (SELECT COUNT(*) 
+				FROM orders 
+				WHERE orders.user_id = users.id) AS total_orders
+		FROM users;
+	5. Subquery in FROM (derived table)
+		SELECT avg_salary
+		FROM (
+			SELECT AVG(salary) AS avg_salary
+			FROM employees
+		) AS temp;
+	
 Q. sql injuctions preventions 
 Q. What is heap tables?
 Q. Explain Heap and temporary table
@@ -255,9 +309,3 @@ Q. How to get latest record in group by query
 A. SELECT id, branchId, roleId FROM mapping WHERE id IN ( SELECT MAX(id) FROM mapping GROUP BY branchId )
 Q. Write Query to change type of database engine in mysql?  ALTER TABLE t ENGINE = MYISAM;
 Q. how to get version of mysql : select version();
-
-
- 
-
-
-
