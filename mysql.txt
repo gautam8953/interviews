@@ -1,3 +1,32 @@
+Q. Difference between rdbms and dbms
+A. Both are systems to store and manage data, but the difference is in structure, relationships, and capabilities.
+	DBMS : Focus: data storage & retrieval
+	A DBMS stores data in a simple format (files or tables) without enforcing relationships between them.
+	No strict relationship between tables
+	Supports single-user or small systems
+	Less complex
+	No or limited constraints
+	example : Microsoft Access, dBase, FoxPro
+	
+	RDBMS : Based on relational model (tables + relations)
+	An RDBMS stores data in tables (rows & columns) and enforces relationships between tables using keys.
+	Data stored in multiple related tables
+	Uses Primary Key & Foreign Key
+	Supports constraints (ACID properties)
+	Multi-user, scalable, secure
+	Uses SQL (Structured Query Language)
+	example : MySQL, Oracle Database, Microsoft SQL Server, PostgreSQL
+	
+	Feature				DBMS						RDBMS
+	Data Structure		File-based / simple tables	Relational tables
+	Relationships		❌ Not supported			✅ Supported (via keys)
+	Normalization		❌ Limited					✅ Supported
+	Constraints			❌ Minimal					✅ Strong (PK, FK, UNIQUE)
+	Multi-user			Limited						Fully supported
+	Security			Low							High
+	Transactions		❌ Not fully supported		✅ ACID compliant
+	Scalability			Small systems				Large enterprise systems
+	
 Q. name different type of indexes in mysql
 A. A database index is a data structure that improves the speed of operations in a table. 
     Practically, indexes are also a type of tables, which keep primary key or index field and a pointer to each record into the actual table.
@@ -212,45 +241,549 @@ A. subquery is a query written inside another query.
 		) AS temp;
 	
 Q. sql injuctions preventions 
-Q. What is heap tables?
-Q. Explain Heap and temporary table
-Q. WWhat is default default port of mysql : 3306
-Q. compare enum and sets
+A. 	mainly do at php side. but can do some in mysql like 
+	Least Privilege : Create restricted MySQL user:
+	Disable Multiple Statements like SELECT * FROM users; DROP TABLE users;
+	Hide Errors : MySQL errors should NOT be exposed
 
+Q. What is heap tables?
+A. heap tables usually refer to MEMORY storage engine tables
+	A heap table is a table stored entirely in RAM (memory) instead of disk.
+	CREATE TABLE temp_data (
+		id INT,
+		name VARCHAR(50)
+	) ENGINE = MEMORY;
+	1. Stored in RAM
+	2. Data is lost on restart
+	3. Indexing : Supports: HASH, BTREE
+	4. Fixed-length rows
+	
+Q. Explain Heap and temporary table
+A. Heap tables (MEMORY engine) and Temporary tables are related but not the same
+	A temporary table is a table that exists only for the current session/connection.
+		CREATE TEMPORARY TABLE temp_users (
+		id INT,
+		name VARCHAR(50)
+	);
+	1. Exists only during session
+	2. Automatically deleted when connection closes
+	3. Can be stored: In memory, Or on disk (InnoDB)
+	4. Same name can be used by multiple users (no conflict)
+	
+Q. What is default default port of mysql : 3306
+	
+Q. compare enum and sets
+A. ENUM allows only one value from a predefined list.
+	CREATE TABLE users (
+		status ENUM('active', 'inactive', 'blocked')
+	);
+	A row can have only one value like active or inactive. 'active,blocked' is wrong 
+	
+	SET allows multiple values from a predefined list.
+	CREATE TABLE user_permissions (
+		permissions SET('read', 'write', 'execute')
+	);
+	'write,execute' can be saved 
+	
 Q. compare char and varchar
-A. Char vs varchar: 255 - 4000 charcters; fixed size - variable; 50% faster is char than varchar; static memory allocation used -  dyanamic used
+A. CHAR(n) stores fixed-length strings
+	name CHAR(10)
+	u store "Ram" → MySQL stores : "Ram " (padded with spaces)
+	
+	VARCHAR(n) stores variable-length strings
+	name VARCHAR(10)
+	If you store "Ram" → stores only "Ram" (no padding)
+	
+ 	Char vs varchar: 255 - 4000 charcters; 
+	fixed size - variable; 
+	50% faster is char than varchar; 
+	static memory allocation used -  dyanamic used
+	
+	char is usedfull when data is  of fixed length like country code . 
+	its fast because of fixed length no length calculation and 
+	can update fase but i varchar if new data is li=ong than have to relocate data 
+	
 
 Q. Explain parimary key & candidate key
+A. A candidate key is any column (or combination of columns) that can uniquely identify each row in a table.
+	There can be multiple cadidate keys in a table 
+	
+	A primary key is the one candidate key selected as the main identifier of the table.
+	
 Q. Primary vs unique
+A. A primary key uniquely identifies each row in a table.
+	Only ONE per table
+	No NULL allowed
+	Automatically UNIQUE + NOT NULL
+	Used as the main identifier
+	
+	A UNIQUE constraint ensures all values in a column are different.
+	Can have multiple UNIQUE columns
+	Allows NULL (in MySQL, multiple NULLs are allowed)
+	Used for alternate unique fields
 
 Q. what are federated tables?
 A. which allow access to the tables located on other database on another servers
 
+	A FEDERATED table in MySQL is a table that does not store data locally.
+	Instead, it acts like a link/connection to a table in another MySQL server.
+	👉 Think of it as a remote table pointer.
+
 Q. Explain autoincrement in mysql?
 A. it automatically increased value. When maximum value reached it stops and error flashed
+	Starts from 1 by default
+	Increases by 1 each time
+	Guarantees unique values
+	Works only on numeric columns (INT, BIGINT, etc.)
+	Usually used with PRIMARY KEY
+	NULL value triggers auto-generation in insert query or leave that column in insert query
+	
+	ALTER TABLE users AUTO_INCREMENT = 100;	next auto incremetn value will be 100
+	SELECT LAST_INSERT_ID();	get last inserted id
+	SET SESSION auto_increment_increment = 5;   increase auto increament value by 5 at each increment
+	
+	maximum value depends on data type signed or unsigned. 2,147,483,647 for signed
+	if max value acheived then insertion closed in table with error.
+	
 
-Q. Explain % and _ and like uery
+Q. Explain % and _ and like query
+A. These are used for pattern matching in SQL queries—mainly with the WHERE clause.
+	
+	LIKE Operator : LIKE is used to search for a specific pattern in a column.
+		SELECT * FROM users WHERE name LIKE 'pattern';
+	
+	% (Percent Wildcard) : Represents zero, one, or multiple character
+		SELECT * FROM users WHERE name LIKE 'A%';	-- Names starting with 'A'
+	
+	_ (Underscore Wildcard) : Represents exactly one character
+		SELECT * FROM users WHERE name LIKE 'R___';		-- Names with exactly 4 letters starting with 'R'
+	
+	Escape Special Characters : If your data contains % or _, use ESCAPE
+		SELECT * FROM products WHERE name LIKE '100\%' ESCAPE '\';
+		this query will ignore \ and search for 100% in name column 
+
 Q. Difference in like and regrex operators
+A.	REGEXP (or RLIKE) uses regular expressions for complex matching.
+		SELECT * FROM users WHERE name REGEXP '^A';		-- starts with A
+		SELECT * FROM users WHERE name REGEXP 'n$'; 	-- ends with n
+		SELECT * FROM users WHERE name REGEXP 'mit';	-- contains 'mit'
+		
 Q. Difference in blob and text field
+A. Both BLOB and TEXT are used to store large data, but the key difference is what kind of data they store and how MySQL treats it.
+	BLOB (Binary Large Object) : Used to store binary data (raw bytes).
+	like : Images (JPG, PNG), pdf, Files etc 
+	
+	TEXT (Character Data) : Used to store large text strings.
+	liek : JSON strings, Logs, Articles etc 
+	
 Q. Use of create statement in sql
 A. By using create statement we can create database, event, function, index, procedure, table, trigger, user, view
 
 Q. Does COUNT(*) includes nulls. - yes also consider null in distict but not in count(columnName)
 
 Q. name some Common sql function
-Q. Difference between rdbms and dbms
+A. Numeric Functions : Used for calculations and number handling.
+	SELECT ABS(-10);        -- 10
+	SELECT ROUND(10.567,2); -- 10.57
+	SELECT CEIL(4.2);       -- 5
+	SELECT FLOOR(4.8);      -- 4
+	SELECT MOD(10,3);       -- 1
+	SELECT POW(2,3);        -- 8
+	
+	String Functions : Used for text manipulation.
+	SELECT UPPER('hello');        -- HELLO
+	SELECT LOWER('HELLO');        -- hello
+	SELECT LENGTH('mysql');       -- 5
+	SELECT CONCAT('Hello',' ','World'); -- Hello World
+	SELECT SUBSTRING('MySQL',1,3); -- MyS
+	SELECT REPLACE('abcabc','a','x'); -- xbcxbc
+	SELECT TRIM('  hello  ');     -- hello
+	
+	Date & Time Functions : 
+	SELECT NOW();             -- current datetime
+	SELECT CURDATE();         -- current date
+	SELECT CURTIME();         -- current time
+	SELECT DATE_ADD(NOW(), INTERVAL 5 DAY);
+	SELECT DATEDIFF('2025-01-10','2025-01-01'); -- 9
+	SELECT YEAR(NOW());       -- current year
+	SELECT MONTH(NOW());      -- current month
+	
+	Aggregate Functions: Used with GROUP BY.
+	SELECT COUNT(*) FROM users;
+	SELECT SUM(price) FROM products;
+	SELECT AVG(price) FROM products;
+	SELECT MAX(price) FROM products;
+	SELECT MIN(price) FROM products;
+	
+	Conditional Functions :
+	SELECT IF(10>5, 'Yes', 'No');  -- Yes
+
+	SELECT CASE 
+		WHEN price > 1000 THEN 'Expensive'
+		ELSE 'Cheap'
+	END
+	FROM products;
+	
+	NULL Handling Functions :
+	SELECT IFNULL(NULL, 'Default');  -- Default
+	SELECT COALESCE(NULL, NULL, 'First Value'); -- First Value
+	SELECT NULLIF(10,10); -- NULL
+	
+	Conversion Functions :
+	SELECT CAST('123' AS SIGNED);  
+	SELECT CONVERT('123', SIGNED);
+	
+	Other Useful Functions :
+	SELECT LAST_INSERT_ID();
+	SELECT DATABASE();
+	SELECT USER();
+	SELECT VERSION();
+	
+	COALESCE() : COALESCE() returns the first NON-NULL value from a list of expressions.
+	
+	SELECT name, COALESCE(phone, email, 'No Contact') AS contact FROM users;
+	If phone is NULL → use email
+	If both NULL → show 'No Contact'
+	
+
 Q. What Data mining means?
-Q. How many columns can be updated by a single query : Maximum 64 colums can be updated in a single query, 64 chars length name can be create
+A. Data mining is the process of analyzing large datasets to discover hidden patterns, relationships, trends, and useful insights.
+	It turns raw data into meaningful information that helps in decision-making.
+
+Q. How many columns can be updated by a single query : 
+A. Maximum 64 colums can be updated in a single query, 64 chars length name can be create
 
 Q. compare ddl, dml, dcl
-Q. Delete vs truncate
+A. 
+	DDL : Used to create or modify database objects
+		CREATE TABLE users (...);
+		ALTER TABLE users ADD column age INT;
+		DROP TABLE users;
+		TRUNCATE TABLE users;
+	
+	DML : Used to manipulate data inside tables
+		INSERT INTO users VALUES (...);
+		UPDATE users SET name = 'Amit' WHERE id = 1;
+		DELETE FROM users WHERE id = 1;
+		SELECT * FROM users;
+	DCL : Used to control access
+		GRANT SELECT, INSERT ON users TO 'user1';
+		REVOKE INSERT ON users FROM 'user1';
+
+	Purpose
+		Define/modify database structure
+		Work with actual data
+		Control access & permissions
+	Works on
+		Tables, schema, indexes
+		Rows (records)
+		Users & privileges
+	Auto-commit
+		✅ Yes (usually auto-commit)
+		❌ No (can rollback)
+		✅ Yes
+	Rollback
+		❌ Not possible
+		✅ Possible
+		❌ Not possible
+	Usage type
+		Structural changes
+		Data operations
+		Security
+
 Q. Float vs doubles
+A. 	FLOAT → lower precision, 4 bytes, ~6–7 decimal digits, faster
+	DOUBLE → higher precision, 8 bytes, ~15–16 decimal digits, comparable slower
+	
 Q. Mysql connect and mysql p connect
+A. mysql_connect(): Normal connection, Closes after script ends, Slower (new connection each time), low resource use 
+	mysql_pconnect() : Persistent connection, Stays open for reuse, Faster (reuses connection, Higher (can exhaust connections)
+	
 Q. Mysql pdo conection and query
+A. PDO : PHP Data Objects 
+	We use PDO to connect to MySQL using a DSN string. Queries are executed using query() for simple cases or prepare() and execute() for prepared statements, which prevent SQL injection. PDO also supports transactions and multiple database drivers.
+	
+	<?php
+	$host = "localhost";
+	$db   = "test_db";
+	$user = "root";
+	$pass = "password";
+	$charset = "utf8mb4";
+
+	$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+	$options = [
+		PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // throw exceptions
+		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // fetch as assoc array
+		PDO::ATTR_EMULATE_PREPARES   => false,                  // use real prepared stmts
+	];
+
+	try {
+		$pdo = new PDO($dsn, $user, $pass, $options);
+		echo "Connected successfully";
+	} catch (PDOException $e) {
+		die("Connection failed: " . $e->getMessage());
+	}
+	
+	2) SELECT Query (Fetch Data)
+	$stmt = $pdo->query("SELECT id, name FROM users");
+
+	$users = $stmt->fetchAll();
+
+	foreach ($users as $user) {
+		echo $user['id'] . " - " . $user['name'] . "<br>";
+	}
+	3) Prepared Statement (Recommended) : Prevents SQL injection
+	$stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+	$stmt->execute([1]);
+
+	$user = $stmt->fetch();
+	print_r($user);
+	
+	4) INSERT Query
+	$stmt = $pdo->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+	$stmt->execute(["Amit", "amit@example.com"]);
+
+	echo "Inserted ID: " . $pdo->lastInsertId();
+	
+	5) UPDATE Query
+	$stmt = $pdo->prepare("UPDATE users SET name = ? WHERE id = ?");
+	$stmt->execute(["Rahul", 1]);
+	
+	6) DELETE Query
+	$stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
+	$stmt->execute([1]);
+	
+	7) Transactions (Very Important)
+	try {
+		$pdo->beginTransaction();
+
+		$pdo->exec("INSERT INTO users (name) VALUES ('User1')");
+		$pdo->exec("INSERT INTO users (name) VALUES ('User2')");
+
+		$pdo->commit();
+	} catch (Exception $e) {
+		$pdo->rollBack();
+		echo "Failed: " . $e->getMessage();
+	}
+	8) Named Parameters (Cleaner)
+	$stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+	$stmt->execute(['email' => 'amit@example.com']);
+
+	$user = $stmt->fetch();
+	
 Q. mysql what is cursor 
-Q. function and procedure 
+A. cursor is a database object used to process query results row-by-row instead of all at once.
+	with curdor : 
+	You process each row individually
+	Useful in stored procedures
+	
+	Steps of using a cursor
+		DECLARE cursor
+		OPEN cursor
+		FETCH rows
+		PROCESS logic
+		CLOSE cursor
+
+	example : 
+	DECLARE done INT DEFAULT FALSE;
+	DECLARE user_name VARCHAR(100);
+
+	DECLARE cur CURSOR FOR 
+		SELECT name FROM users;
+
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+	OPEN cur;
+
+	read_loop: LOOP
+		FETCH cur INTO user_name;
+
+		IF done THEN
+			LEAVE read_loop;
+		END IF;
+
+		-- Process each row
+		SELECT user_name;
+
+	END LOOP;
+
+	CLOSE cur;
+Q. what function and procedure in mysql. explain with example
+A. Function : A function is a reusable program (like a small block of logic) that takes input, processes it, and returns a single value.
+
+	There are two types of functions in MySQL:
+	Built-in functions (already available)
+	User-defined functions (UDFs) (created by you)
+	
+	1. Built-in Functions (Most Common) : These are already provided by MySQL.
+	example : SELECT UPPER('gautam');
+		SELECT ROUND(12.567, 2);
+		SELECT NOW();
+		
+	2. User-Defined Function (Custom Function) : You can create your own function using CREATE FUNCTION.
+	DELIMITER //
+
+	CREATE FUNCTION add_numbers(a INT, b INT)
+	RETURNS INT
+	DETERMINISTIC
+	BEGIN
+	   RETURN a + b;
+	END //
+
+	DELIMITER ;
+	
+	call function : SELECT add_numbers(5, 10);
+	
+	Points : 
+	Function always returns a single value
+	Used inside queries (SELECT, WHERE, etc.)
+	Cannot return multiple rows (use stored procedure for that)
+	Improves code reuse and readability
+
+	procedure : a stored procedure is a saved block of SQL code that you can execute whenever needed. It’s used to perform operations like insert, update, validation, loops, etc.
+	
+	A stored procedure:
+	Can take input parameters
+	Can return output values
+	Can execute multiple SQL statements
+	may or may not have to return a value
+	
+	Example 1: Simple Procedure
+	DELIMITER //
+
+	CREATE PROCEDURE get_users()
+	BEGIN
+	   SELECT * FROM users;
+	END //
+
+	DELIMITER ;
+	
+	CALL get_users();
+	
+	Example 2: Procedure with Input Parameter
+	DELIMITER //
+
+	CREATE PROCEDURE get_user_by_id(IN user_id INT)
+	BEGIN
+	   SELECT * FROM users WHERE id = user_id;
+	END //
+
+	DELIMITER ;
+	
+	CALL get_user_by_id(5);
+	
+	Example 3: Procedure with Output Parameter
+	DELIMITER //
+
+	CREATE PROCEDURE get_total_users(OUT total INT)
+	BEGIN
+	   SELECT COUNT(*) INTO total FROM users;
+	END //
+
+	DELIMITER ;
+	
+	CALL get_total_users(@count);
+	SELECT @count;
+	
+	Example 4: Insert Data using Procedure
+	DELIMITER //
+
+	CREATE PROCEDURE add_user(
+	   IN name VARCHAR(50),
+	   IN email VARCHAR(50)
+	)
+	BEGIN
+	   INSERT INTO users(name, email)
+	   VALUES(name, email);
+	END //
+
+	DELIMITER ;
+	
+	CALL add_user('Gautam', 'gautam@gmail.com');
+	
+	Example 5: Procedure with IF condition
+	DELIMITER //
+
+	CREATE PROCEDURE check_salary(IN salary INT)
+	BEGIN
+	   IF salary > 50000 THEN
+		  SELECT 'High Salary';
+	   ELSE
+		  SELECT 'Low Salary';
+	   END IF;
+	END //
+
+	DELIMITER ;
+	
+Q.	Stored Procedure with Cursor
+A. DELIMITER //
+
+	CREATE PROCEDURE update_bonus()
+	BEGIN
+	   DECLARE done INT DEFAULT 0;
+	   DECLARE emp_id INT;
+	   DECLARE emp_salary INT;
+
+	   -- Cursor declaration
+	   DECLARE emp_cursor CURSOR FOR
+		  SELECT id, salary FROM employees;
+
+	   -- Handler for end of rows
+	   DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+	   -- Open cursor
+	   OPEN emp_cursor;
+
+	   read_loop: LOOP
+		  -- Fetch row
+		  FETCH emp_cursor INTO emp_id, emp_salary;
+
+		  IF done = 1 THEN
+			 LEAVE read_loop;
+		  END IF;
+
+		  -- Apply logic
+		  IF emp_salary > 50000 THEN
+			 UPDATE employees 
+			 SET bonus = emp_salary * 0.10
+			 WHERE id = emp_id;
+		  ELSE
+			 UPDATE employees 
+			 SET bonus = emp_salary * 0.05
+			 WHERE id = emp_id;
+		  END IF;
+
+	   END LOOP;
+
+	   -- Close cursor
+	   CLOSE emp_cursor;
+
+	END //
+
+	DELIMITER ;	
+	
 Q. what is triger?
 A. Trigerss allowed insert, update,delete on before or after each, means 6 combination of 2 each
+	a trigger is a special kind of stored program that automatically executes when a specific event happens on a table.
+	
+	ou don’t call a trigger manually — it runs automatically when:
+	INSERT
+	UPDATE
+	DELETE
+
+	DELIMITER //
+
+	CREATE TRIGGER before_insert_employee
+	BEFORE INSERT ON employees
+	FOR EACH ROW
+	BEGIN
+	   IF NEW.salary < 0 THEN
+		  SET NEW.salary = 0;
+	   END IF;
+	END //
+
+	DELIMITER ;
 
 Q. what is the difference between group by and  having clause?
     Having Clause is basically like the aggregate function with the GROUP BY clause. 
@@ -262,7 +795,9 @@ Q. what is the difference between group by and  having clause?
     HAVING COUNT(SALARIES) > 1; 
 
 Q. what is indexing and how to achieve it
-A. maximum 16 index can be defined in  a table
+A. maximum 64 index can be defined in  a table in InnoDB.
+	Max 16 columns in a composite index
+	
     CREATE TABLE tableName (
     ID int,
     LName varchar(255),
@@ -275,14 +810,15 @@ A. maximum 16 index can be defined in  a table
     CREATE UNIQUE INDEX indexName ON tableName (ID, LName, FName, LOC);
     DROP INDEX indexName ON tableName;
 
-Q. how to see indexes defind for a table? show index from tablename
-Q. how to check number result obtained by mysql : $num_rows = mysqli_num_rows($result);
+Q. how to see indexes defind for a table? 
+A. Query : show index from tablename
 
-
-
+Q. how to check number result obtained by mysql?
+A. query : $num_rows = mysqli_num_rows($result);
 
 Q. write a query to find the age of an employee from his dob stored
     SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),'2010-11-25')), '%Y')+0 AS Age;    
+	
 Q. write diffrent query to find the 2nd, 3rd, 4th highest/lowest salary and fetching all records containing these salries
 A. SELECT DISTINCT(column name) FROM table ORDER BY (column name) desc LIMIT n-1,1
     SELECT * FROM Employee Emp1 
@@ -297,15 +833,237 @@ A. select * from sallary where sallary = (select distinct sallary from sallary o
    
 Q. fetch record of all employee have 4th highest sallery
 A. first query select first element from top and it is in ascending means lowest at top and 
-second query selects top “n” query from table and it is descending means if we want 3rd highest first we select 3 hightest sallery in descending order than will arrange it to ascending and select first that is desire 3rd highest.
-SELECT MIN(EmpSalary) from (
-SELECT EmpSalary from Employee ORDER BY EmpSalary DESC LIMIT 3
-);
-SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n-1,1;
+	second query selects top “n” query from table and it is descending means if we want 3rd highest first we select 3 hightest sallery in descending order than will arrange it to ascending and select first that is desire 3rd highest.
+	
+	SELECT MIN(EmpSalary) from (
+	SELECT EmpSalary from Employee ORDER BY EmpSalary DESC LIMIT 3
+	);
+	SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n-1,1;
 
 Q. query for getting all vote to a candidate from two table(one has voter name, one has parties and other has vote)
+A. SELECT 
+		c.candidate_id,
+		c.candidate_name,
+		c.party,
+		COUNT(v.vote_id) AS total_votes
+	FROM candidates c
+	LEFT JOIN votes v ON c.candidate_id = v.candidate_id
+	GROUP BY c.candidate_id, c.candidate_name, c.party;
 
 Q. How to get latest record in group by query
 A. SELECT id, branchId, roleId FROM mapping WHERE id IN ( SELECT MAX(id) FROM mapping GROUP BY branchId )
+
 Q. Write Query to change type of database engine in mysql?  ALTER TABLE t ENGINE = MYISAM;
+
 Q. how to get version of mysql : select version();
+
+Q. is bouderies included in between query in mysql or not 
+A. yes bousdries included in mysql between query. if doesn't want ot include it then use > and < with where clause 
+	SELECT * FROM employees WHERE salary BETWEEN 30000 AND 60000;
+	equivalent to 
+	SELECT * FROM employees WHERE salary >= 30000 AND salary <= 60000;
+	
+Q. In query 
+A. SELECT * FROM employees WHERE department IN ('HR', 'IT');
+
+Q. GROUP BY
+A. SELECT department, COUNT(*) FROM employees GROUP BY department;
+
+Q. having 
+A. SELECT department, COUNT(*) 
+	FROM employees 
+	GROUP BY department 
+	HAVING COUNT(*) > 5;
+
+Q. Second highest salary
+A. SELECT MAX(salary) 
+	FROM employees 
+	WHERE salary < (SELECT MAX(salary) FROM employees);
+	
+Q. get N highest salary
+A. SELECT DISTINCT salary 
+	FROM employees 
+	ORDER BY salary DESC 
+	LIMIT 1 OFFSET 2;
+	
+	mysql 8+ 
+	SELECT price
+	FROM (
+		SELECT price, DENSE_RANK() OVER (ORDER BY price DESC) AS rnk
+		FROM products
+	) t
+	WHERE rnk = 3;
+	
+Q. exlain offset
+A.	LIMIT and OFFSET are used to control how many rows you get and from where to start.
+	LIMIT → how many rows to return
+	OFFSET → how many rows to skip first
+	
+	example : LIMIT 1 OFFSET 2;
+	Means: Skip first 2 rows, Then return 1 row
+	
+Q. Delete duplicate rows
+A. DELETE e1 FROM employees e1
+	JOIN employees e2 
+	ON e1.name = e2.name AND e1.id > e2.id;
+
+Q. EXISTS :  in MySQL it is used to check whether a subquery returns any rows.
+A. SELECT name
+	FROM customers c
+	WHERE EXISTS (
+		SELECT 1 
+		FROM orders o 
+		WHERE o.customer_id = c.id
+	);
+	
+Feature			EXISTS						IN
+Checks			Row existence				Value match
+Performance		Faster for large data		Slower in some cases
+Stops early		✅ Yes (on first match)		❌ No
+
+Q. UNION
+A. (SELECT product_name AS email FROM products
+	UNION
+	SELECT email from users)
+	ORDER BY email ASC;
+	
+	both query have equal number of column and name. 
+	if column name is different then rename col by using as 
+	order by can't be applied in individual query
+	
+Q. COALESCE
+A. SELECT name, COALESCE(phone, 'N/A') FROM employees;
+
+26. Window function (ROW_NUMBER)
+	SELECT name, salary,
+	ROW_NUMBER() OVER (ORDER BY salary DESC) AS rank_no
+	FROM employees;
+	
+27. RANK()
+	SELECT name, salary,
+	RANK() OVER (ORDER BY salary DESC) AS rank_no
+	FROM employees;
+	
+28. DENSE_RANK()
+	SELECT name, salary,
+	DENSE_RANK() OVER (ORDER BY salary DESC) AS rank_no
+	FROM employees;
+	
+29. Top 3 salaries per department
+	SELECT * FROM (
+		SELECT name, department, salary,
+		ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS rn
+		FROM employees
+	) t WHERE rn <= 3;
+	
+30. Find duplicates
+	SELECT name, COUNT(*) 
+	FROM employees 
+	GROUP BY name 
+	HAVING COUNT(*) > 1;
+	
+31. Pagination
+	SELECT * FROM employees LIMIT 10 OFFSET 20;
+	
+32. Running total
+	SELECT name, salary,
+	SUM(salary) OVER (ORDER BY id) AS running_total
+	FROM employees;
+	
+33. Difference between current and previous row
+	SELECT name, salary,
+	salary - LAG(salary) OVER (ORDER BY id) AS diff
+	FROM employees;
+	
+34. CTE (Common Table Expression)
+	WITH avg_salary AS (
+		SELECT AVG(salary) AS avg_sal FROM employees
+	)
+	SELECT * FROM employees WHERE salary > (SELECT avg_sal FROM avg_salary);
+	
+35. Recursive CTE (Hierarchy)
+	WITH RECURSIVE emp_hierarchy AS (
+		SELECT id, name, manager_id FROM employees WHERE manager_id IS NULL
+		UNION ALL
+		SELECT e.id, e.name, e.manager_id
+		FROM employees e
+		JOIN emp_hierarchy eh ON e.manager_id = eh.id
+	)
+	SELECT * FROM emp_hierarchy;
+	
+36. Pivot-like query
+	SELECT 
+	SUM(CASE WHEN department = 'HR' THEN salary END) AS HR,
+	SUM(CASE WHEN department = 'IT' THEN salary END) AS IT
+	FROM employees;
+	
+37. JSON query
+	SELECT JSON_EXTRACT(details, '$.name') FROM users;
+
+38. Index usage check
+	EXPLAIN SELECT * FROM employees WHERE salary = 50000;
+	
+39. Create index
+	CREATE INDEX idx_salary ON employees(salary);
+	
+40. Composite index
+	CREATE INDEX idx_name_dept ON employees(name, department);
+	
+41. Employees earning more than department average
+	SELECT e.*
+	FROM employees e
+	JOIN (
+		SELECT department, AVG(salary) avg_sal
+		FROM employees GROUP BY department
+	) d
+	ON e.department = d.department
+	WHERE e.salary > d.avg_sal;
+	
+42. Find missing numbers
+	SELECT t1.id + 1 AS missing_id
+	FROM table1 t1
+	LEFT JOIN table1 t2 ON t1.id + 1 = t2.id
+	WHERE t2.id IS NULL;
+	
+43. Consecutive records
+	SELECT id FROM logs 
+	WHERE id - LAG(id) OVER (ORDER BY id) = 1;
+	
+44. Highest salary per department
+	SELECT department, MAX(salary)
+	FROM employees
+	GROUP BY department;
+	
+45. Last record per group
+	SELECT *
+	FROM employees e
+	WHERE id = (
+		SELECT MAX(id) FROM employees WHERE department = e.department
+	);
+	
+46. Find employees without department
+	SELECT * FROM employees e
+	LEFT JOIN departments d ON e.dept_id = d.id
+	WHERE d.id IS NULL;
+	
+47. Swap values
+	UPDATE employees
+	SET gender = CASE 
+		WHEN gender = 'M' THEN 'F'
+		ELSE 'M'
+	END;
+	
+48. Get nth highest salary
+	SELECT salary FROM employees
+	ORDER BY salary DESC
+	LIMIT 1 OFFSET 2;
+	
+49. Find gaps in dates
+	SELECT date_col + INTERVAL 1 DAY AS missing_date
+	FROM table1 t1
+	LEFT JOIN table1 t2 ON t1.date_col + INTERVAL 1 DAY = t2.date_col
+	WHERE t2.date_col IS NULL;
+	
+50. Delete records older than 30 days
+	DELETE FROM logs
+	WHERE created_at < NOW() - INTERVAL 30 DAY;
