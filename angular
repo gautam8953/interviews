@@ -16,6 +16,19 @@ A. A. Excellent Material Design Library
    C. More Lightweight Web Applications
    D. Readable and Testable Code
    E. Faster Development Process
+
+	Complete Framework (Not Just a Library like react ) : No need to install many third-party libraries
+	Two-Way Data Binding : <input [(ngModel)]="name">
+	Dependency Injection (DI) : constructor(private userService: UserService) {}
+	TypeScript by Default
+	Better for Large-Scale Applications
+	Ahead-of-Time (AOT) Compilation
+	Built-in CLI (Command Line Interface)
+	Modular Architecture
+	Strong Security (XSS Protection)
+	Built-in Testing Support
+	RxJS for Reactive Programming
+	Strong Community & Google Support
    
 Q. latest angular version -> whats new in it -> latest angular worked on 
 A. Angular 13 on November 3, 2021
