@@ -79,7 +79,7 @@ A. When we use the event.defaultPrevent() method in the event object returns a B
 Q. What are the different data types present in JavaScript?
    There are two types of data types in JavaScript:
 	1. Primitive data types  - String, Number, Boolean, BigInt, Undefined, Null, typeof
-	2. Non- Primitive data types  - Object, Array,
+	2. Non- Primitive data types  - Object, Array, function
 	
 Q. Name the types of functions in JS?
 	1. named function  : Named function is the function that we define it in the code and then call it 
