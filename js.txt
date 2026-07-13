@@ -204,6 +204,23 @@ Q. Define closure.
 	}   
 	sum();
 
+function outer() {
+    let count = 0;
+
+    function inner() {
+        count++;
+        console.log(count);
+    }
+
+    return inner;
+}
+
+const counter = outer();
+
+counter(); // 1
+counter(); // 2
+counter(); // 3
+
 Q. How can we detect OS of the client machine using JavaScript?  navigator.appVersion
 
 Q. What is this keyword in JavaScript?
