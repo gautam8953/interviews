@@ -252,7 +252,7 @@ Q. What is the role of a strict mode in JavaScript?
 A. JavaScript's strict mode, introduced in ECMAScript 5. This expression can only be placed as the first statement in a script or a function.
    It is not a statement, but a literal expression, ignored by earlier versions of JavaScript.
    The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
-   With strict mode, you can not, for example, use undeclared variables.
+   With strict mode, you can not use undeclared variables.
    
 Q. What are the falsy values in JavaScript, and how can we check if a value is falsy?
 A. Those values which become false while converting to Boolean are called falsy values.
