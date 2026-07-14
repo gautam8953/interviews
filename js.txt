@@ -265,6 +265,11 @@ Q. What does the isNaN() function?
 Q. explain foreach in javasccript
 A. forEach is a method available on arrays that allows you to iterate over each element in the array and perform a specified action on each element.
    array.forEach(callbackFunction(element, index, array));
+
+	let numbers = [10, 20, 30, 40];
+	numbers.forEach(function(value) {
+	    console.log(value);
+	});
    
 Q. how to remove an element from an array?
 	JavaScript pop() function: This method is used to remove elements from the end of an array.
