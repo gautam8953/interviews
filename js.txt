@@ -613,14 +613,76 @@ Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-wa
 Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
 
 Q. map function in js
+A. The map() function in JavaScript is used to iterate over an array and create a new array by transforming each element.
+	it Does not change original array.
+	let a = [1,2,3,4];
+	let b = a.map(val=>{
+	    return val*val;
+	})
+	console.log(a)	[ 1, 2, 3, 4 ]
+	console.log(b)	[ 1, 4, 9, 16 ]
 
 Q. compare two array by a single loop
+A. 
+	let arr1 = [1, 2, 3, 4];
+	let arr2 = [1, 2, 3, 4];	
+	let isEqual = true;
+	
+	if (arr1.length !== arr2.length) {
+	    isEqual = false;
+	} else {
+	    for (let i = 0; i < arr1.length; i++) {
+	        if (arr1[i] !== arr2[i]) {
+	            isEqual = false;
+	            break;
+	        }
+	    }
+	}
+	console.log(isEqual);
 
 Q. compare two object 
+A. can be checked by === or == but it gives false because it has diffrent refrence. it does not compare values. 
+	1. stringify obejct then compare : JSON.stringify(obj1) === JSON.stringify(obj2)
+	if object key sequnce different then it will return false
+	2. compare each object by keys. 
 
-Q. pass by refrence
+	let obj1 = {
+	    name: "Gautam",
+	    age: 36
+	};
+	let obj2 = {
+	    name: "Gautam",
+	    age: 36
+	};	
+	let isEqual = true;
+	
+	let keys1 = Object.keys(obj1);
+	let keys2 = Object.keys(obj2);
+	
+	if (keys1.length !== keys2.length) {
+	    isEqual = false;
+	} else {
+	    for (let key of keys1) {
+	        if (obj1[key] !== obj2[key]) {
+	            isEqual = false;
+	            break;
+	        }
+	    }
+	}
+	console.log(isEqual);
 
-Q. how to reload a page by JS?
+Q. pass by reference
+A. 	
+	let person = {
+	    name: "Gautam"
+	};	
+	function changeName(user) {
+	    user.name = "Rahul";
+	}
+	changeName(person);
+	console.log(person.name);  output : Rahul
+
+Q. how to reload a page by JS? window.location.reload();
 
 Q. What is negative Infinity? - Negative Infinity is a number in JavaScript which can be derived by dividing negative number by zero.
 
