@@ -272,7 +272,9 @@ A. forEach is a method available on arrays that allows you to iterate over each 
 	});
    
 Q. how to remove an element from an array?
-	JavaScript pop() function: This method is used to remove elements from the end of an array.
+	let fruits = ["Apple", "Banana", "Mango"];
+
+	JavaScript pop() function: This method is used to remove elements from the end of an array.	fruits.pop();
 	JavaScript shift() function: This method is used to remove elements from the start of an array.
 	JavaScript splice() function: This method is used to remove elements from the specific index of an array.
 	JavaScript filter() function: This method is used to remove elements in a programmatic way.
@@ -392,7 +394,7 @@ Q.  What is an observable?
 	// Create an observable
 	const myObservable = new Observable(subscriber => {
 	  subscriber.next(1);    // Emit first value
-	  subscriber.next(2);    // Emit second value
+	  subscriber.error(2);    // Emit error in second value
 	  subscriber.next(3);    // Emit third value
 	  subscriber.complete(); // Complete the observable
 	});
@@ -411,12 +413,14 @@ Q.  What is an observable?
 	});
 	output: 
 	Received value: 1
-	Received value: 2
+	Error occurred: 2
 	Received value: 3
 	Observable completed
 
-Q. waht is promise and what are different states of promise?
-A. a Promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+Q. what is promise and what are different states of promise?
+A. A Promise in JavaScript is an object that represents the future result of an asynchronous operation.
+	Promise says: "I don't have the result now, but I will give you either a result or an error later."
+
    Different States of a Promise
    A. Pending : This is the initial state of a promise when it is created. The promise is neither fulfilled nor rejected; 
      it's waiting for the asynchronous operation to complete.
