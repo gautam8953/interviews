@@ -417,10 +417,13 @@ A: 	A big part of Angular is its compiler: it takes all your HTML and generates 
 	unlock new potential features (metaprogramming or higher order components, lazy loading of component instead of modules, a new change detection system not based on zone.js…)
 	
 Q. What is Bazel?
-	Google open sourced the software responsible for building most of its projects under the name Bazel. Bazel is a powerful tool which can keep track of the dependencies between different packages and build targets.
+	Google open sourced the software responsible for building most of its projects under the name Bazel. 
+	Bazel is a powerful tool which can keep track of the dependencies between different packages and build targets.
 	Some of the features of Bazel are:
-	1. It has a smart algorithm for determining the build dependencies - based on the dependency graph of a project, Bazel determines which targets it can build in parallel
-	2. Bazel is independent of the tech stack. We can build anything we want with it using the same interface. For example, there are plugins for Java, Go, TypeScript, JavaScript, and more
+	1. It has a smart algorithm for determining the build dependencies - 
+		based on the dependency graph of a project, Bazel determines which targets it can build in parallel
+	2. Bazel is independent of the tech stack. We can build anything we want with it using the same interface. 
+		For example, there are plugins for Java, Go, TypeScript, JavaScript, and more
 
 Q. how to share data between two independent component
 A. 1. Parent to Child component: 
