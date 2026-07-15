@@ -367,7 +367,8 @@ Q. pristine VS dirty VS touched
 
 
 Q. What is the purpose of Wildcard route?
-	If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. In this case, you can use wildcard route. A wildcard route has a path consisting of two asterisks to match every URL.
+	If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. 
+	In this case, you can use wildcard route. A wildcard route has a path consisting of two asterisks to match every URL.
 	{ path: '**', component: PageNotFoundComponent }
 	
 Q. subject and BehaviorSubject  difference
