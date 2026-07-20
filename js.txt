@@ -897,7 +897,12 @@ Q. const names=['alice','bob','charlie','gautam','deepak'];
 	g:['gautam'],
 	d:['deepak']
 	}
-
+Q. what is set and map;
+Q. if i want to check in a object a particular property exist or not? how to do it?
+Q. flatten an array in JavaScript?
+Q. what is flatmap method?
+Q. differecne in flat and flatmap?
+Q. what is array.reduce() method?
 JQUERY : 
 
 Q. what are the selecters in jquery
