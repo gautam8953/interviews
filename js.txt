@@ -887,6 +887,17 @@ Q. what is context and how can we change the context of the function?
 A. Context is the value of this inside a function.
 	The value of this depends on how the function is called, not where it is defined (except for arrow functions).
 
+Q. const names=['alice','bob','charlie','gautam','deepak'];
+	const groupFirstLetter= Object.groupBy(names,name=>name[0]);
+	console.log(groupFirstLetter);
+	output : {
+	a:[alice],
+	b:['bob'],
+	c: ['charlie'],
+	g:['gautam'],
+	d:['deepak']
+	}
+
 JQUERY : 
 
 Q. what are the selecters in jquery
