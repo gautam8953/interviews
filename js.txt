@@ -883,6 +883,9 @@ const name = "John";
 console.log(!name); // false
 console.log(!!name);  // true
 
+Q. what is context and how can we change the context of the function?
+A. Context is the value of this inside a function.
+	The value of this depends on how the function is called, not where it is defined (except for arrow functions).
 
 JQUERY : 
 
