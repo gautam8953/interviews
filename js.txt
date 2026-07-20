@@ -876,7 +876,12 @@ A. Object methods are built-in methods provided by the Object class to create, i
 	dog.sound();
 	
 	Output : Animal Sound
-	
+
+Q. what is !! operator
+A. The double NOT operator (!!) is a JavaScript trick used to convert any value into a boolean (true or false)
+const name = "John";
+console.log(!name); // false
+console.log(!!name);  // true
 
 
 JQUERY : 
