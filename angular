@@ -575,6 +575,27 @@ A. Tree shaking is a build optimization technique that removes unused (dead) cod
 	Tree shaking became possible with ES6 so it was part of angular since angular2 
 	but as introduction with new ivy compiler introduced in angular 9 it become more effective and highly optimised with angular 17-22.
 	ivy - Ivy is a complete rewrite of the compiler for better build size and time.
+Q. when inject) was intoduced. how to inject a router or service?
+A. inject() was introcduced in angular 14 and became more poular in angular 16 with signals.
+	to inject a service or router first import it then inject.
+	private router = inject(Router);
+	private commonService = inject(CommonService);
+Q. what is signal how to use it?
+Q. what are the benefit of signals?
+Q. what is set, update, calculate in signal
+Q. if i have to show one website in another website then how can we do it?
+Q. how to create a dynamic component in angular?
+A. with the help of mat dialogue. see in details.
+Q. how to show multiple components dynamically.
+A. with the help of service. we pas component in servcie and with dialogue.open method we can show it.
+	if we have to pass data then with data parameter we pass the data.
+Q. in authguard example canactivate,  can we pass multiple functions and if first one will fail then how another will call.
+	in which oerder functions will be called?
+Q. what is @differ @loader.  whats is its use and benefit. searrch for new @ other
+Q. what is use of @viewport?
+Q. what is test cases. how to write it, example test case. what is its benefit?
+Q what are the frameworks to write test cases in angular. 
+A. jasmine and jest
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
