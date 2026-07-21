@@ -596,6 +596,81 @@ Q. what is use of @viewport?
 Q. what is test cases. how to write it, example test case. what is its benefit?
 Q what are the frameworks to write test cases in angular. 
 A. jasmine and jest
+Q. whenever we add a route, we can add a resolver over there? what is its use?
+A. you can add a resolver to any route where you need data before the component is created. 
+	However, you don't need to use a resolver for every route—only when it provides a benefit.
+	A Resolver is an Angular service that fetches or prepares data before the route is activated.
+
+	User clicks Dashboard
+	        │
+	        ▼
+	Router starts navigation
+	        │
+	        ▼
+	Resolver executes
+	        │
+	        ▼
+	API Call
+	        │
+	        ▼
+	Data received
+	        │
+	        ▼
+	Dashboard Component created
+
+		resolver creation : 
+	import { ResolveFn } from '@angular/router';
+	import { inject } from '@angular/core';
+	import { UserService } from './user.service';
+	
+	export const userResolver: ResolveFn<any> = () => {
+	  return inject(UserService).getUser();
+	};
+
+	add to url : 
+	import { Routes } from '@angular/router';	
+	export const routes: Routes = [
+	  {
+	    path: 'dashboard',
+	    loadComponent: () =>
+	      import('./dashboard.component').then(c => c.DashboardComponent),
+	    resolve: {
+	      user: userResolver
+	    }
+	  }
+	];
+	The key user is the name under which the resolved data will be available.
+
+	access the data : 
+	import { ActivatedRoute } from '@angular/router';
+	import { inject } from '@angular/core';
+	
+	export class DashboardComponent {
+	
+	  private route = inject(ActivatedRoute);
+	
+	  user = this.route.snapshot.data['user'];
+	}
+
+	it is used when we need data before component is loaded. like data which is necesarry to show component.
+	if we don't use resolver then at first component will be created then we get data.
+	so user may get view a blank html page, as data will be loaded or we have to show loader.
+
+	we can use multiple resolver in a route.
+	{
+	  path: 'dashboard',
+	  component: DashboardComponent,
+	  resolve: {
+	    user: userResolver,
+	    notifications: notificationResolver,
+	    settings: settingsResolver
+	  }
+	}
+	Resolver									ngOnInit
+	Runs before component creation				Runs after component creation
+	Route waits for data						Component renders immediately
+	Good for essential initial data				Good for optional or secondary data
+	Data available immediately in the component		Often requires loading indicators
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
@@ -605,6 +680,7 @@ logical
 5. three select options are there, two have common data and third one have that common data. when a valuse is selected in third select option,
    other select option automaticaly select the valuse that is selected in third select option
 6. real time chat application using angular 
+
 
 
 chat GPT 
