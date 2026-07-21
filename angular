@@ -570,6 +570,12 @@ A. NgRx/store is a library for managing state in your Angular applications, it i
    Similar to Redux, this library can be used to manage the flow of data throughout your application, 
    when actions are dispatched, reducers act on them and mutate the store.
 
+Q. what is tree shaking?
+A. Tree shaking is a build optimization technique that removes unused (dead) code from your application's final bundle, making it smaller and faster to load.
+	Tree shaking became possible with ES6 so it was part of angular since angular2 
+	but as introduction with new ivy compiler introduced in angular 9 it become more effective and highly optimised with angular 17-22.
+	ivy - Ivy is a complete rewrite of the compiler for better build size and time.
+
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
 2. how to implement lazy loading 
