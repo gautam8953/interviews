@@ -1,8 +1,38 @@
 Q. Types of CSS -> 1. Inline CSS, 2.Internal or Embedded CSS, 3.External CSS
 Q. have you use SCSS. what is different in css and scss
 Q. what are per-processors do we have in css?
+Q. in angular wich pre-processor we use?
+A. scss is pre-processor of css in angular.
+Q. what are features of scss?
 Q. different kind of selector in css
-Q. can you make responsive? what is responsive web designing?
+Q. what is box model in css?
+Q. What is CSS Specificity?
+A. CSS Specificity is the set of rules the browser uses to determine 
+    which CSS rule should be applied when multiple rules target the same element.
+    suppose : <p id="title" class="text">Hello World</p>
+    p {
+      color: blue;
+    }    
+    .text {
+      color: green;
+    }    
+    #title {
+      color: red;
+    }
+    here 3 color is present but id has higher Specificity, so color will be red.
+    | Selector                                                             |                                  Specificity |
+    | -------------------------------------------------------------------- | -------------------------------------------: |
+    | Universal `*`                                                        |                                            0 |
+    | Element (`p`, `div`, `h1`)                                           |                                            1 |
+    | Class (`.box`), Attribute (`[type="text"]`), Pseudo-class (`:hover`) |                                           10 |
+    | ID (`#header`)                                                       |                                          100 |
+    | Inline style (`style=""`)                                            |                                         1000 |
+    | `!important`                                                         | Overrides normal specificity (use sparingly) |
+Q. what are different type of positions we have in css?
+Q. difference in relative and absolute?
+Q. what are different type of types in css?
+Q. what is flexbox?
+Q. can you make responsive? what is responsive web designing? how to achieve it.
 A. page that look good on all screen and resolution
 Q. have you used media query 
 Q. What is the advantage of collapsing white space?
