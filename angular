@@ -372,7 +372,13 @@ Q. What is the purpose of Wildcard route?
 	{ path: '**', component: PageNotFoundComponent }
 	
 Q. subject and BehaviorSubject  difference
-A. A BehaviorSubject holds one value. When it is subscribed it emits the value immediately. 
+A. there are four types of Subjects in RxJS (commonly used in Angular).
+	Subject
+	BehaviorSubject
+	ReplaySubject
+	AsyncSubject
+
+	A BehaviorSubject holds one value. When it is subscribed it emits the value immediately. 
 	BehaviorSubject should be created with an initial value: new Rx.BehaviorSubject(1)
 	
 	A Subject doesn't hold a value.
@@ -393,6 +399,12 @@ A. A BehaviorSubject holds one value. When it is subscribed it emits the value i
 	subject.next(1);
 	subject.subscribe(x => console.log(x));
 	Console output: 1	
+
+	AsyncSubject : An AsyncSubject emits only the last value, and only after the Observable is completed.
+	No subscriber receives any value until complete() is called.
+
+
+
 
 Q. How to detect a route change in Angular?
 A. import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
@@ -686,7 +698,14 @@ Q. what is memory leaks?
 Q change detection in angular
 Q what is track by in angular 
 Q what is content projection in angular 
-
+Q. what is async pipe
+A. It automatically subscribes to an Observable or Promise, displays the latest emitted value in the template, 
+	and automatically unsubscribes when the component is destroyed.
+	{{ users$ | async }}
+Q. diference in eggar loading and lazy loading? which one is default.
+Q. what is view encapsulation in angular?
+Q. waht is content projection in angular 
+Q. different auth guards present in angular
 
 
 
