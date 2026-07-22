@@ -144,6 +144,14 @@ Q. Hoisting of var Variable
 A. Hoisting is the default behavior of JavaScript which moves variables and functions to the top of scope before code execution
    and gets assigned the value of undefined.
 
+	var is stored in the Variable Environment and is initialized with undefined during the creation phase.
+	let and const are stored in the Lexical Environment and 
+	remain uninitialized (Temporal Dead Zone) until execution reaches their declaration.
+	let and const declarations are also processed during the creation phase.
+
+	console.log(a); var a = 10; // undefined
+	console.log(a); let a = 10; // ReferenceError: Cannot access 'a' before initialization
+
 Q. differene in let, var and const?
 	VAR : 
 		var has the function or global scope.
@@ -214,8 +222,8 @@ Q. What are the pop-up boxes available in JavaScript?
 		let person = prompt("Please enter your name", "Harry Potter");
 	
 Q. What is the difference between 'View state' and 'Session state'?
-A. "View state" is specific to a page in a session whereas "Session state" is specific to a user or browser 
-   that can be accessed across all pages in the web application.
+A. "View state" is specific to a page in a session whereas 
+	"Session state" is specific to a user or browser that can be accessed across all pages in the web application.
 
 Q. Define closure.
    In JavaScript, we need closures when a variable which is defined outside the scope in reference, is accessed from some inner scope.
