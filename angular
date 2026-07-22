@@ -594,6 +594,8 @@ Q. in authguard example canactivate,  can we pass multiple functions and if firs
 Q. what is @differ @loader.  whats is its use and benefit. searrch for new @ other
 Q. what is use of @viewport?
 Q. what is test cases. how to write it, example test case. what is its benefit?
+Q. how to get/run coverage report?
+Q. when i run ng test then how it runs. how it knows which command it need to run?
 Q what are the frameworks to write test cases in angular. 
 A. jasmine and jest
 Q. whenever we add a route, we can add a resolver over there? what is its use?
@@ -671,6 +673,21 @@ A. you can add a resolver to any route where you need data before the component 
 	Route waits for data						Component renders immediately
 	Good for essential initial data				Good for optional or secondary data
 	Data available immediately in the component		Often requires loading indicators
+Q. how to make @input parameter mendetory or optional in a component?
+A. mendetory : by use of required method
+	message = input.required<string>();
+	@Input({ required: true }) message!: string;
+
+	optional : 
+	@Input() message?: string;
+	@Input() message = 'Default Message';
+Q. what is view-childe and view-children and what is its use?
+Q. what is memory leaks?
+Q change detection in angular
+Q what is track by in angular 
+Q what is content projection in angular 
+
+
 
 logical
 1. create a page architecture for listing of multiple student and form also for mmultiple student.
