@@ -702,6 +702,8 @@ Q.What a pop()method in JavaScript is?
 Q. What is event bubbling? 
 Ans. JavaScript allows DOM elements to be nested inside each other. In such a case, if the handler of the child is clicked, 
 	the handler of the parent will also work as if it were clicked too.
+Q. what is event capturing?
+A. 
 	
 Q. Write the point of difference between a web garden and a web farm?
 Ans. Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. 
@@ -901,8 +903,34 @@ Q. what is set and map;
 Q. if i want to check in a object a particular property exist or not? how to do it?
 Q. flatten an array in JavaScript?
 Q. what is flatmap method?
-Q. differecne in flat and flatmap?
+Q. differecne in flat and flatmap? 
 Q. what is array.reduce() method?
+Q, what is de-structuring 
+Q. event bubbling and event capturing
+Q. what isdebounce=ing and throutlling
+Q. what is hoisting, and waht actually done in background in hoisting. does it move vvariables?
+Q. difference in arrow and normal function?
+Q.rest and spread operator
+Q difference in local and session storage
+Q what is web wrokers? 
+A. Web Workers are a browser feature that allows JavaScript to run code in a separate background thread, 
+	so heavy computations don't block the main UI thread.
+	JavaScript is single-threaded, meaning it can execute only one task at a time. 
+	If a long-running task is executed on the main thread, the UI freezes until that task finishes.
+	Web Workers cannot access the DOM.
+	Workers also cannot directly use Angular components or services.
+	In Angular, a Web Worker can be generated using ng generate web-worker, 
+	and communication between the main thread and the worker happens through postMessage() and onmessage.
+
+	What can Web Workers be used for : 
+	✅ Large mathematical calculations
+	✅ Processing large JSON or CSV files
+	✅ Image processing
+	✅ Data compression
+	✅ Encryption/decryption
+	✅ PDF generation
+	✅ AI/ML inference in the browser
+
 JQUERY : 
 
 Q. what are the selecters in jquery
