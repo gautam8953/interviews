@@ -2,6 +2,15 @@ Q. What’s the difference between JavaScript and ECMAScript?
 Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript, etc. It is a trademark scripting language specification. 
    JavaScript is a language based on ECMAScript. A standard for scripting languages like JavaScript, JScript is ECMAScript. 
    JavaScript is considered as one of the most popular implementations of ECMAScript
+
+	latest ecmaScript : july 2026, 17th version 
+	new features 
+	1. Map.getOrInsert()
+		const map = new Map();
+		const value = map.getOrInsert('count', 0);	
+		console.log(value); // 0
+	2. Array.fromAsync() : Convert an async iterable into an array.
+	3. Error.isError() : A reliable way to check whether a value is an Error.
    
 Q. whats new is latest ecma script?
 A. javacript developed by Mocha in 1995. first ecma script edition come in June 1997. from 2015 every year edition released.
