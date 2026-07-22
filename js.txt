@@ -108,6 +108,19 @@ Q. Name the types of functions in JS?
 		})();
 		// imeediatly creates output 
 		result; // gautam
+		Function Type				Description
+		Function Declaration		Named function, hoisted
+		Function Expression			Function assigned to a variable
+		Anonymous Function			Function without a name
+		Arrow Function				Short ES6 syntax, lexical this
+		IIFE						Executes immediately
+		Callback Function			Passed as an argument
+		Higher-Order Function		Accepts or returns functions
+		Constructor Function		Creates objects with new
+		Generator Function			Uses yield to pause execution
+		Async Function				Uses async/await, returns a Promise
+		Method	Function 			defined on an object
+		Recursive Function			Calls itself
 
 Q. Tell something about the undeclared and undefined variables? 
 Ans.  undeclared -> not exist, not declared
