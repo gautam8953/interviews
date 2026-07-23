@@ -995,6 +995,49 @@ console.log(!!name);  // true
 Q. what is context and how can we change the context of the function?
 A. Context is the value of this inside a function.
 	The value of this depends on how the function is called, not where it is defined (except for arrow functions).
+	const person = {
+	    name: "Gautam",	
+	    greet() {
+	        console.log(this.name);
+	    }
+	};	
+	person.greet();  // gautam
+
+Q. How to Change Function Context? 
+A. JavaScript provides three methods:call() , apply(), bind()
+	1. call() : Changes the context and executes immediately.
+		function greet() {
+		    console.log(this.name);
+		}
+		const person = {
+		    name: "Gautam"
+		};
+		greet.call(person);
+	passing arguments : 
+		function greet(city, country) {
+		    console.log(this.name, city, country);
+		}	
+		const person = {
+		    name: "Gautam"
+		};	
+		greet.call(person, "Noida", "India");
+	2. apply() : same as call() but Arguments are passed as an array
+			function greet(city, country) {
+			    console.log(this.name, city, country);
+			}			
+			const person = {
+			    name: "Gautam"
+			};			
+			greet.apply(person, ["Noida", "India"]);
+	3. bind() : does not execute immediately. It returns a new function with the specified context.
+		function greet() {
+		    console.log(this.name);
+		}		
+		const person = {
+		    name: "Gautam"
+		};		
+		const fn = greet.bind(person);		
+		fn();
 
 Q. const names=['alice','bob','charlie','gautam','deepak'];
 	const groupFirstLetter= Object.groupBy(names,name=>name[0]);
