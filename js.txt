@@ -1253,7 +1253,70 @@ A. A prototype is an object that JavaScript uses to share properties and methods
 	__proto__ : Belongs to objects.
 
 Q.rest and spread operator
-Q difference in local and session storage
+A. Although they use the same syntax (...), they perform different operations depending on where they are used.
+	Spread → Expands (unpacks) values.
+	Rest → Collects (packs) values.
+	1. Spread Operator (...) : The spread operator expands an iterable (array, string, etc.) into individual elements.
+	Copy an Array : const arr2 = [...arr1];
+	2. Merge Arrays : const arr3 = [...arr1, ...arr2];
+	3. Function Arguments : 
+		function add(a, b, c) {
+		    return a + b + c;
+		}
+		const numbers = [10, 20, 30];
+		console.log(add(...numbers));
+	4. copy an object : 
+		const user = {
+		    name: "Gautam",
+		    age: 36
+		};		
+		const copy = {
+		    ...user
+		};		
+		console.log(copy);
+	5. merge objects : 
+		const address = {
+		    city: "Noida"
+		};
+		const user = {
+		    name: "Gautam"
+		};		
+		const result = {
+		    ...user,
+		    ...address
+		};		
+		console.log(result);
+
+	Rest Operator (...) : 
+	The rest operator collects multiple values into a single array.
+	1. Function Parameters :
+		function sum(...numbers) {
+		    console.log(numbers);
+		}
+		sum(10, 20, 30, 40);
+	2. Sum All Numbers :
+		function sum(...numbers) {
+		    return numbers.reduce((total, num) => total + num, 0);
+		}
+		console.log(sum(10, 20, 30));
+	3. Array Destructuring :
+		const numbers = [10, 20, 30, 40];		
+		const [first, ...remaining] = numbers;		
+		console.log(first);
+		console.log(remaining);
+	4. Object Destructuring : 
+		const user = {
+		    name: "Gautam",
+		    age: 36,
+		    city: "Noida"
+		};		
+		const { name, ...others } = user;		
+		console.log(name);
+		console.log(others);
+
+Q difference in local and session storage?
+A. 
+
 Q what is web wrokers? 
 A. Web Workers are a browser feature that allows JavaScript to run code in a separate background thread, 
 	so heavy computations don't block the main UI thread.
