@@ -143,6 +143,7 @@ A. Scope stands for where our variable will be available to use inside our code 
 Q. Hoisting of var Variable
 A. Hoisting is the default behavior of JavaScript which moves variables and functions to the top of scope before code execution
    and gets assigned the value of undefined.
+	does it move variables? : no, it only creates it in memory.
 
 	var is stored in the Variable Environment and is initialized with undefined during the creation phase.
 	let and const are stored in the Lexical Environment and 
@@ -1049,17 +1050,208 @@ Q. const names=['alice','bob','charlie','gautam','deepak'];
 	g:['gautam'],
 	d:['deepak']
 	}
-Q. what is set and map;
+
 Q. if i want to check in a object a particular property exist or not? how to do it?
+A. 1. hasOwnProperty() 
+	const user = {
+	    name: "Gautam",
+	    age: 36
+	};
+	console.log(user.hasOwnProperty("name"));
+	2. hasOwn() : 
+		const user = {
+		    name: "Gautam",
+		    age: 36
+		};		
+		console.log(Object.hasOwn(user, "name"));
+		console.log(Object.hasOwn(user, "city"));
+	3. in
+		const user = {
+		    name: "Gautam"
+		};		
+		console.log("name" in user);  // true
+		console.log("city" in user);  // false 
+		console.log("toString" in user);  // true  toString is inherited from Object.prototype. so its true here
+		console.log(user.hasOwnProperty("toString"));  // false  
+
+	hasOwnProperty() checks only the object's own properties
+	in checks both own and inherited properties
+	4. Direct Comparison : if (user.name !== undefined) { console.log("Exists"); }
+	5. Optional Chaining (Only for Safe Access) : console.log(user?.address?.city);
+
 Q. flatten an array in JavaScript?
+A. Flattening an array means converting a nested array into a single-level array.
+	1. flat() : by default flates 1 level, else pass number of level you want to flattern.
+		if its one level and you pass more than one, no error get, it will flattern one level.
+		pass Infinity if you dont know level or want all to flattern. 
+			
+		const arr = [1, [2, 3], [4, 5]];
+		console.log(arr.flat());
+		console.log(arr.flat(Infinity));
+	2. concat() (One Level Only) : 
+		const arr = [[1, 2], [3, 4], [5, 6]];
+		console.log([].concat(...arr));  // [1,2,3,4,5,6]
+	3. Using toString() 
+		const arr = [1, [2, [3, 4]]];		
+		const result = arr.toString().split(",");		
+		console.log(result);  // ["1", "2", "3", "4"]
+	4. using reduce()
+		function flatten(arr) {
+		    return arr.reduce((result, item) => {
+		        if (Array.isArray(item)) {
+		            return result.concat(flatten(item));
+		        }
+		        return result.concat(item);
+		    }, []);
+		}
+		const arr = [1, [2, [3, 4]], 5];
+		console.log(flatten(arr));
+
 Q. what is flatmap method?
+A. flatMap() maps each element and then flattens only one level.
+		const arr = [1, 2, 3];
+		const result = arr.flatMap(x => [x, x * 2]);
+		console.log(result);  // [1, 2, 2, 4, 3, 6]
+
 Q. differecne in flat and flatmap? 
+A. flat same as above and flatmap= map+flat().
+	flatmap() first map each element then apply flat.
+
 Q. what is array.reduce() method?
-Q, what is de-structuring 
-Q. event bubbling and event capturing
-Q. what isdebounce=ing and throutlling
-Q. what is hoisting, and waht actually done in background in hoisting. does it move vvariables?
+A. It reduces an array to a single value by executing a callback function for each element
+	array.reduce((accumulator, currentValue, currentIndex, array) => {
+	    // logic
+	}, initialValue);
+	Parameter	Description
+	accumulator	Stores the accumulated result from previous iterations
+	currentValue	Current array element
+	currentIndex	Current index (optional)
+	array	Original array (optional)
+	initialValue	Initial value of the accumulator
+
+	const numbers = [10, 20, 30, 40];
+	const sum = numbers.reduce((acc, current) => {
+	    return acc + current;
+	}, 0);
+	console.log(sum);   // 100
+
+Q. what is de-structuring?
+A. Destructuring is an ES6 (ECMAScript 2015) feature that allows you to 
+	extract values from arrays or properties from objects and assign them to variables in a concise way
+
+	const numbers = [10, 20, 30, 40];
+
+	var [first, second] = numbers;
+	console.log(first, second);   // 10 20
+
+	var [first, , third] = numbers;
+	console.log(first, third);  // 10 30
+
+	var [first, ...rest] = numbers;
+	console.log(first); 	// 10
+	console.log(rest); 		// [20,30,40]
+
+	var [first, second,,,,,fifth=60] = numbers;
+	console.log(first, fifth) 	// 10 60
+
+	const user = {
+	    name: "Gautam",
+	    age: 36
+	};
+	const { name, age } = user;
+	console.log(name, age);  // gautam 36
+
+	const { name: fullName, age: userAge } = user;
+	console.log(fullName, userAge);   // gautam 36
+
+	nested : 
+		const employee = {
+		    name: "John",
+		    address: {
+		        city: "Delhi",
+		        state: "Delhi"
+		    }
+		};
+		const {
+		    address: { city }
+		} = employee;
+		
+		console.log(city);   // delhi
+
+	destructing function parameter : 
+		function printUser({ name, age }) {
+		    console.log(name);
+		    console.log(age);
+		}	
+		printUser({
+		    name: "Gautam",
+		    age: 36
+		});
+	swap variables: with temp variable 
+		let a = 10;
+		let b = 20;		
+		[a, b] = [b, a];		
+		console.log(a, b); 	// 20 10
+	with map()
+		const users = [
+		    { name: "John", age: 30 },
+		    { name: "David", age: 28 }
+		];		
+		users.forEach(({ name }) => {
+		    console.log(name);
+		});
+
+Q. what isdebounceing and throutlling?
+A. Debouncing : Debouncing delays the execution of a function until a specified amount of time has passed since the last event.
+	Suppose a user types:
+	Without debouncing: on each key press api calls
+	with debouncing : api call when user type there is a hold of specified time 
+		this.searchControl.valueChanges.pipe(
+		  debounceTime(300)
+		).subscribe(value => {
+		  console.log(value);
+		});
+
+	Throttling: Throttling ensures that a function executes at most once during a specified time interval, no matter how many events occur.
+	Suppose the scroll event fires 100 times in one second.
+	Without throttling: 100 function calls
+	With 1-second throttle:
+		this.scrollEvents.pipe(
+		  throttleTime(1000)
+		).subscribe(() => {
+		  console.log("Scroll");
+		});
+
 Q. difference in arrow and normal function?
+A. Arrow functions were introduced in ES6. 
+	The main difference is that arrow functions do not have their own this; 
+	they inherit it from the surrounding lexical scope, 
+	Arrow functions also do not have their own arguments object, 
+	cannot be used as constructors with new, 
+	and do not have a prototype.
+
+	whereas normal functions get their own this based on how they are called. 
+	Normal functions are preferred for object methods and constructors, 
+	while arrow functions are ideal for callbacks and short utility functions.
+
+	normal Function					Arrow Function
+	Own this						Lexical this
+	Can use new						Cannot use new
+	Has arguments					Use rest (...args) instead
+	Good for object methods	Good 	for callbacks
+	Has prototype					No prototype
+Q. What is a Prototype?
+A. A prototype is an object that JavaScript uses to share properties and methods between objects.
+	Instead of copying the same method into every object, 
+	JavaScript stores it once on the prototype, and all instances can use it.
+
+	Why Do We Need Prototype? : Suppose you create 1,000 users.
+	without prototype : every object gets its own copy of sayHello()
+	with prototype : only one sayHello() function in memory.
+
+	prototype : Belongs to functions.
+	__proto__ : Belongs to objects.
+
 Q.rest and spread operator
 Q difference in local and session storage
 Q what is web wrokers? 
