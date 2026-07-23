@@ -304,10 +304,37 @@ A. forEach is a method available on arrays that allows you to iterate over each 
 Q. how to remove an element from an array?
 	let fruits = ["Apple", "Banana", "Mango"];
 
-	JavaScript pop() function: This method is used to remove elements from the end of an array.	fruits.pop();
+	JavaScript pop() function: This method is used to remove elements from the end of an array.	
+		let a=fruits.pop(); console.log(a);
 	JavaScript shift() function: This method is used to remove elements from the start of an array.
+		let a=fruits.shift(); console.log(a);
 	JavaScript splice() function: This method is used to remove elements from the specific index of an array.
+		Adds, removes, or replaces elements in the original array.
+		syntax: array.splice(start, deleteCount, item1, item2...)
+
+		let removed = arr.splice(1, 2);
+		console.log(removed);
+		console.log(fruits);
+		if deleteCount is zero it add elements
+		if its greater than zero and no further parameter then it removes
+		if its greater than zero and further parameter then it replace
+		
 	JavaScript filter() function: This method is used to remove elements in a programmatic way.
+
+Q.What a pop()method in JavaScript is?
+	The pop() method is similar to the shift() method, but the difference is that the Shift method works at the array’s start. 
+	The pop() method takes the last element off of the given array and returns it. The array on which it is called is then altered
+
+Q. explain slice() ?
+A. it Returns a new array without modifying the original array.
+	array.slice(start, end)
+	start → Inclusive
+	end → Exclusive
+
+	const arr = [10, 20, 30, 40, 50];	
+	const result = arr.slice(1, 4);	
+	console.log(result);	// [20, 30, 40]
+	console.log(arr);	// [10, 20, 30, 40, 50]
 
 Q. If we want to return the character from a specific index which method is used?
 	var str="Javatpoint";    
@@ -343,22 +370,54 @@ A. The JavaScript date object can be used to get a year, month and day. You can 
 	display();
 	
 Q. What is the use of a Set object in JavaScript?
-A.  The JavaScript Set object is used to store the elements with unique values. The values can be of any type i.e. whether primitive values or object references. 
+A.  The JavaScript Set object is used to store the elements with unique values. 
+	The values can be of any type i.e. whether primitive values or object references. 
+	if we add duplicate values than it simply ignores it without any error. 
 	For example:
 	function display()  
 	{  
-	var set = new Set();    
-	set.add("jQuery");    
-	set.add("AngularJS");    
-	set.add("Bootstrap");    
-	for (let elements of set) {    
+	var setVar = new Set();    
+	setVar.add("jQuery");    
+	setVar.add("AngularJS");    
+	setVar.add("Bootstrap");    
+	for (let elements of setVar) {    
 	 document.writeln(elements+"<br>");    
 	}     
 	}  
 	display();
+	setVar.delete('AngularJS');  // delete element, return true if find and deleted else return false
+	console.log(setVar.has('AngularJS'));  return true if find
+	setVar.clear();  // Removes all elements.
+	setVar.size		// return number of elements
+	setVar.values()  // returns iterator of values
+		for (const value of set.values()) { console.log(value); }
+	setVar.keys()		// as values it return keys
+	setVar.entries() 	//Returns [value, value] pairs.
+
+	const setNew = new Set([10, 20]);
+	for (const item of setNew.entries()) {
+	    console.log(item);
+	}
+
+	Output:
+	[10, 10]
+	[20, 20]
+
+	Convert Set to Array : const arr = [...setVar]; console.log(arr);
+	Convert Array to Set : const arr = [10, 20, 20, 30, 30]; const set = new Set(arr); console.log(set);
+	Remove Duplicates from an Array : const arr = [1, 2, 2, 3, 3, 4]; const unique = [...new Set(arr)]; console.log(unique);
+
+	setVar.union()
+	setVar.intersection()
+	setVar.difference()
+	setVar.symmetricDifference()
+	setVar.isSubsetOf()
+	setVar.isSupersetOf()
+	setVar.isDisjointFrom()
 	
 Q. What is the use of a WeakSet object in JavaScript?
-A. The JavaScript WeakSet object is the type of collection that allows us to store weakly held objects. Unlike Set, the WeakSet are the collections of objects only. 
+A. The JavaScript WeakSet object is the type of collection that allows us to store weakly held objects. 
+	Unlike Set, the WeakSet are the collections of objects only. 
 	It doesn't contain the arbitrary values. For example:
 
 	function display()  
@@ -406,6 +465,19 @@ wm.set(obj3,"Bootstrap");
 document.writeln(wm.has(obj2));     
 }     
 display();	
+
+Q. map vs weakMap
+A. Both Map and WeakMap store key-value pairs, but they differ in the types of keys they allow 
+	and how they interact with the JavaScript garbage collector.
+
+Feature			Map															WeakMap
+Key types		Any value (object, string, number, boolean, symbol, etc.)	Objects only
+Value types		Any value													Any value
+Iterable		✅ Yes														❌ No
+size property	✅ Yes														❌ No
+clear()			✅ Yes														❌ No	
+keys(), values(), entries()		✅ Yes										❌ No
+Garbage Collection	Holds strong references to keys	Holds weak references to keys
 	
 Q.  What is an observable?
    An observable provides a way to emit multiple values over time, which can be processed using various operators, 
@@ -724,16 +796,21 @@ Q.Differene between innerText and innerHTML
 	We can not insert the HTML tags.				We can insert the HTML tags.
 	It ignores the spaces.						It considers the spaces.
 	It returns text without an inner element tag.			It returns a tag with an inner element tag.
-	
-Q.What a pop()method in JavaScript is?
-	The pop() method is similar to the shift() method, but the difference is that the Shift method works at the array’s start. 
-	The pop() method takes the last element off of the given array and returns it. The array on which it is called is then altered
-	
+
 Q. What is event bubbling? 
 Ans. JavaScript allows DOM elements to be nested inside each other. In such a case, if the handler of the child is clicked, 
 	the handler of the parent will also work as if it were clicked too.
+	By Default JavaScript Uses Bubbling.
 Q. what is event capturing?
-A. 
+A. Its opposite of Event Bubbling. Event propogates from document to traget element.
+	Enable Capturing : 
+	parent.addEventListener(
+	    "click",
+	    () => {
+	        console.log("Parent");
+	    },
+	    true
+	);
 	
 Q. Write the point of difference between a web garden and a web farm?
 Ans. Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. 
