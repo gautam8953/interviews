@@ -59,6 +59,13 @@ A. Angular 13 on November 3, 2021
 		simplifying the router even more and reducing boilerplate.
 	5. Forms : The forms package now includes the utility functions like, isFormControl, isFormGroup, isFormRecord, and isFormArray
 
+Feature					Angular 20			Angular 21			Angular 22
+Signals					✅ Stable			✅ Improved	✅ 		Default ecosystem
+Signal Forms			Preview	Developer 	Preview				✅ Stable
+Zoneless				Stable (20.2)		Improved			✅ Default
+Route-level Rendering	✅ Stable			Improved			Improved
+
+
 Q. angular project setup -> how code generate
 Ans. install nodejs. npm installed by default. 
 	Then install angular by command npm install -g @angular/cli
