@@ -1019,9 +1019,57 @@ A. Eager loading is Angular's default loading strategy where all required module
 	Best For					Small apps or always-used features		Large enterprise apps
 
 Q. what is view encapsulation in angular?
-A. 
+A. View Encapsulation in Angular is a mechanism that controls how a component's CSS is applied.
+	It determines whether the styles written for one component:
+	affect only that component, or	can affect other components in the application.
+
+	Angular provides 3 types:
+
+	1. Emulated (Default)
+		@Component({
+		  selector: 'app-employee',
+		  templateUrl: './employee.component.html',
+		  styleUrls: ['./employee.component.css'],
+		  encapsulation: ViewEncapsulation.Emulated
+		})
+		Only the styled component gets the style.
+	2. None : encapsulation: ViewEncapsulation.None
+			The CSS becomes global.
+
+		When should you use None?
+		Global theme styles
+		Third-party library overrides (e.g., Angular Material or PrimeNG)
+		Shared typography
+		Use it carefully because styles can unintentionally affect unrelated components.
+
+	3. ShadowDom : encapsulation: ViewEncapsulation.ShadowDom
+		ShadowDom uses the browser's native Shadow DOM to provide complete style and DOM isolation.
+		global css does not apply, only component css applies for overrides.
+
+Feature				Emulated			None			ShadowDom
+Default				✅ Yes				❌ No			❌ No
+CSS Scoped			✅ Yes				❌ No			✅ Yes
+Browser Shadow DOM	❌ No				❌ No			✅ Yes
+CSS Leakage			No					Yes				No
+Best Choice			Most applications	Global styles	Web Components / strict isolation
 
 Q. different auth guards present in angular
+A. Route Guards are used to control navigation between routes
+	Guard				Purpose
+	CanActivate			Controls whether a route can be activated
+	CanActivateChild	Controls whether child routes can be activated
+	CanDeactivate		Prevents leaving a route
+	CanMatch			Controls whether a route matches during routing (modern replacement for many CanLoad scenarios)
+	CanLoad				Prevents loading a lazy-loaded module (legacy, still available)
+	Resolve (Resolver)	Loads required data before route activation
+
+	CanMatch vs CanLoad
+	CanMatch									CanLoad
+	Modern and recommended						Older approach
+	Controls whether a route matches			Controls whether a lazy module is loaded
+	Works well with standalone components 		Mainly for lazy-loaded modules
+	and lazy loading
+
 Q. what is test cases. how to write it, example test case. what is its benefit?
 Q. how to get/run coverage report?
 Q. when i run ng test then how it runs. how it knows which command it need to run?
