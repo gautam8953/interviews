@@ -920,9 +920,51 @@ A. mendetory : by use of required method
 	@Input() message = 'Default Message';
 
 Q. what is view-child and view-children and what is its use?
+A. @ViewChild is a decorator used to get a reference to a single child component, directive, or DOM element from the current component's template. 
+	It's commonly used to call child component methods, access properties, or interact with DOM elements after the view has been initialized.
+
+	@ViewChildren is similar to @ViewChild, but it retrieves all matching child components or elements and returns them as a QueryList. 
+	It's useful when there are multiple child instances, such as several tables, forms, or input fields that need to be managed together.
+
 Q. what is memory leaks?
+A. Memory leak means that memory is allocated but never released, even though your application no longer needs it.
+	As the application keeps running, memory usage keeps increasing, making the app slower and sometimes causing it to crash.
+	resons: 
+	Example 1: Observable Subscription (Most Common) : use .pipe(takeUntilDestroyed()) 
+		or a varible and at ngdestroy .unsubscribe(); it
+	Example 2: setInterval() : started but not clearInterval() it at ngdestory.
+	Example 3: Event Listener : add event listner but not window.removeEventListener() at destroy.
+	Example 4: WebSocket : shocket open but not closed it.
+	Example 5: Timers : clearTimeout() at destory
+
 Q change detection in angular
+A. Change Detection is the mechanism Angular uses to detect changes in your application's data 
+	(variables, signals, inputs, etc.) and update the DOM automatically.
+	When something happens:
+		Button click
+		API response
+		Timer
+		Input event
+	Angular starts a Change Detection Cycle. and check all components for changes and update changed DOM.
+
+	What Triggers Change Detection?
+	1. Button Click
+	2. HTTP Response
+	3. Timer
+	4. Promise
+	5. Observable
+	6. Zone.js : Before Angular's newer zoneless capabilities, Angular primarily relied on Zone.js.
+	It intercepts things like:
+	Click events, Timers, HTTP, Promise, XHR, Keyboard, Mouse
+	Then it tells Angular "Something happened." Angular then runs Change Detection.
+
+	1. Default Strategy : By default every component uses
+		changeDetection: ChangeDetectionStrategy.Default
+	2. OnPush Strategy : changeDetection: ChangeDetectionStrategy.OnPush
+		markForCheck() or detectChanges() is called
+
 Q what is track by in angular 
+
 Q what is content projection in angular 
 Q. what is async pipe
 A. It automatically subscribes to an Observable or Promise, displays the latest emitted value in the template, 
