@@ -594,29 +594,246 @@ A. Tree shaking is a build optimization technique that removes unused (dead) cod
 	Tree shaking became possible with ES6 so it was part of angular since angular2 
 	but as introduction with new ivy compiler introduced in angular 9 it become more effective and highly optimised with angular 17-22.
 	ivy - Ivy is a complete rewrite of the compiler for better build size and time.
-Q. when inject) was intoduced. how to inject a router or service?
+
+Q. when inject() was intoduced. how to inject a router or service?
 A. inject() was introcduced in angular 14 and became more poular in angular 16 with signals.
 	to inject a service or router first import it then inject.
 	private router = inject(Router);
 	private commonService = inject(CommonService);
+
 Q. what is signal how to use it?
+A. Signal is a reactive state container introduced in Angular 16 and improved in Angular 17–20
+	It stores a value and automatically updates any code (template, computed value, or effect) that depends on it whenever the value changes
+
+	import { signal } from '@angular/core';
+	count = signal(0);
+	increment() {
+	  this.count.update(value => value + 1);
+	}
+	<h2>{{ count() }}</h2>	
+	<button (click)="increment()">
+	  Increment
+	</button>
+
+	Read value → count()
+	Set value → count.set()
+	Update value → count.update()
+
+	Computed Signal : A computed signal derives its value from one or more signals. You don't update it directly.
+
+	import { signal, computed } from '@angular/core';
+	price = signal(100);
+	quantity = signal(2);
+	total = computed(() => this.price() * this.quantity());
+
+	Price : {{ price() }}	
+	Quantity : {{ quantity() }}	
+	Total : {{ total() }}
+
+	When this.quantity.set(5); Total automatically becomes 500
+	No need to update it manually.
+
+	Effect : An effect runs automatically whenever any signal it reads changes.
+
+	import { effect } from '@angular/core';	
+	count = signal(0);	
+	constructor(){	
+	    effect(() => {
+	        console.log("Count Changed :", this.count());
+	    });	
+	}
+	whenever count chnage then offect will run and console shows. 
+	Count Changed : 0	
+	Count Changed : 1	
+	Count Changed : 2
+
+	If there is 2 signal and in effect only one signal1 value read then effect will run only,
+	when there is a value change in signal1.
+	if value change in signal2 then effect will not run.
+	effect run only when any signal value read in it and there is value chnage in that signal.
+	multiple effect can be written and one signal can appear in more than 1 effect.
+
 Q. what are the benefit of signals?
+A. Signals were introduced to make state management simpler, faster, and more predictable in Angular. 
+	Before Signals, Angular relied heavily on Zone.js and RxJS even for simple component state. 
+	Signals reduce that complexity.
+	1. Automatic UI Updates - When a signal changes, Angular updates only the parts of the UI that depend on it.
+	2. Better Performance - no need to check all component, only particular component updated
+	3. No Manual Subscription - No subscription or cleanup is needed for reading signals like rxjs subject, behaviourSubject.
+	4. Less Boilerplate - less coding
+	5. Computed Values - dependent value automatic updates
+	6. Automatic Dependency Tracking : by use of effect
+	7. Easier State Management
+	8. Excellent for Forms and UI State	
+	9. Works Well with Angular 20 Features
+	10. Shared State Without NgRx (for Small Apps)
+
 Q. what is set, update, calculate in signal
+A. set() → Replace the value.
+	update() → Modify the value based on the previous value.
+	computed() (not "calculate") → Create a read-only value calculated from other signals.
+
 Q. if i have to show one website in another website then how can we do it?
+A. Option 1: Use an <iframe> (Simplest)
+		Advantages
+			Very easy
+			Applications remain completely independent
+			Separate deployments
+		Disadvantages
+			Parent cannot directly access child variables or components.
+			Communication requires window.postMessage().
+			Some websites block embedding using X-Frame-Options or Content-Security-Policy.
+
+	Option 2: Angular Module Federation (Recommended) : Each module can be its own Angular application.
+		The shell application loads the others dynamically.
+		Advantages
+		Shared login
+		Shared routing
+		Shared Angular runtime
+		Independent deployment
+		Very fast loading
+	Option 3: Reverse Proxy (Same Domain) : install another angular app in url like abc.com/login , abc.com/sanction
+		as they share same domain so data can be shared via localstorage and cookie
+
+
 Q. how to create a dynamic component in angular?
 A. with the help of mat dialogue. see in details.
+	A dynamic component means creating and displaying a component at runtime 
+	instead of declaring it directly in the HTML template.
+	instead of writing: <app-user></app-user> you decide in TypeScript which component to create and when.
+	Angular provides the ViewContainerRef.createComponent() API for this.
+
+	user.component.ts
+	
+	import { Component } from '@angular/core';	
+	@Component({
+	  selector: 'app-user',
+	  standalone: true,
+	  template: `
+	    <h2>User Component</h2>
+	    <p>This component is loaded dynamically.</p>
+	  `
+	})
+	export class UserComponent {}
+
+	Parent Component :
+	import {
+	  Component,
+	  ViewChild,
+	  ViewContainerRef
+	} from '@angular/core';	
+	import { UserComponent } from './user.component';	
+	@Component({
+	  selector: 'app-root',
+	  standalone: true,
+	  template: `
+	      <button (click)="loadComponent()">
+	          Load Component
+	      </button>	
+	      <ng-container #container></ng-container>	  `
+	})
+	export class AppComponent {	
+	  @ViewChild('container', {
+	      read: ViewContainerRef
+	  })
+	  container!: ViewContainerRef;	
+	  loadComponent() {	
+	      this.container.clear();	
+	      this.container.createComponent(UserComponent);	
+	  }	
+	}
+
+	Pass Data to Dynamic Component : Suppose the child component has an input.
+	 export class UserComponent {
+	  name = input('');
+	}
+	in parent component :
+	loadComponent() {
+	    this.container.clear();
+	    const ref =this.container.createComponent(UserComponent);
+	    ref.setInput('name', 'Gautam');
+	}
+
 Q. how to show multiple components dynamically.
 A. with the help of service. we pas component in servcie and with dialogue.open method we can show it.
 	if we have to pass data then with data parameter we pass the data.
-Q. in authguard example canactivate,  can we pass multiple functions and if first one will fail then how another will call.
+
+Q. in authguard for example canactivate,  can we pass multiple functions and if first one will fail then how another will call.
 	in which oerder functions will be called?
-Q. what is @differ @loader.  whats is its use and benefit. searrch for new @ other
-Q. what is use of @viewport?
-Q. what is test cases. how to write it, example test case. what is its benefit?
-Q. how to get/run coverage report?
-Q. when i run ng test then how it runs. how it knows which command it need to run?
-Q what are the frameworks to write test cases in angular. 
-A. jasmine and jest
+A. 	Yes. In Angular, you can pass multiple guards in canActivate. 
+	They are executed in the order they appear in the array.
+
+		import { Routes } from '@angular/router';
+		import { authGuard } from './guards/auth.guard';
+		import { roleGuard } from './guards/role.guard';
+		import { profileGuard } from './guards/profile.guard';
+		
+		export const routes: Routes = [
+		  {
+		    path: 'admin',
+		    component: AdminComponent,
+		    canActivate: [
+		      authGuard,
+		      roleGuard,
+		      profileGuard
+		    ]
+		  }
+		];
+		
+		The execution order is:
+		1. authGuard
+		2. roleGuard
+		3. profileGuard
+	If any how any guard returns false or redirect to another url then next guard will not be read and executed.
+
+Q. what is @defer @loading.  whats is its use and benefit.
+A. Imagine your dashboard contains: 
+	Header, Sidebar, Employee List, Reports Chart (heavy), Google Maps (heavy), PDF Viewer (heavy)
+	Without @defer, Angular downloads everything immediately.
+	With @defer, Angular downloads only what's needed initially.
+	This reduces the initial bundle size and improves metrics like Largest Contentful Paint
+
+	Basic Syntax : 
+	@defer {
+	    <app-report-chart />	
+	}
+	@placeholder : Shows content before the deferred component starts loading.
+	@loading : Displayed while Angular is downloading the deferred component.
+		@loading also supports minimum and after options to avoid flickering if loading is very fast. 
+		minimum and after is optional to add, add only when required.
+	@error : If Angular fails to download the deferred component the error block is shown.
+			(for example, a lazy-loaded JavaScript chunk cannot be fetched),
+	@defer {	
+	    <app-google-map />	
+	}
+	@placeholder {	
+	    <img src="map-placeholder.png">	
+	}
+	@loading(after 500ms; minimum 1s) {
+	    <app-spinner />
+	}
+	@error {	
+	    <p>Unable to load map.</p>	
+	}
+
+	Angular lets you choose when to load the deferred content
+	1. Default (idle) : Angular waits until the browser is idle, then loads it. @defer {  <app-report /> }
+	2. viewport : Load when the component scrolls into view. @defer(on viewport) { <app-report /> }
+	3. hover : Load when the mouse hovers. @defer(on hover) { <app-report /> }
+	4. interaction : Load when the user clicks or presses a key. @defer(on interaction) { <app-report /> }
+	5. timer : Load after a delay. @defer(on timer(5s)) { <app-report /> }
+	6. immediate : Load immediately after the initial non-deferred content finishes rendering. @defer(on immediate) { <app-report /> }
+	7. when : Load based on a condition.
+
+		showChart = signal(false);
+
+		<button (click)="showChart.set(true)">
+		    Show Chart
+		</button>		
+		@defer(when showChart()){		
+		    <app-chart/>		
+		}
+
 Q. whenever we add a route, we can add a resolver over there? what is its use?
 A. you can add a resolver to any route where you need data before the component is created. 
 	However, you don't need to use a resolver for every route—only when it provides a benefit.
@@ -692,6 +909,7 @@ A. you can add a resolver to any route where you need data before the component 
 	Route waits for data						Component renders immediately
 	Good for essential initial data				Good for optional or secondary data
 	Data available immediately in the component		Often requires loading indicators
+
 Q. how to make @input parameter mendetory or optional in a component?
 A. mendetory : by use of required method
 	message = input.required<string>();
@@ -700,7 +918,8 @@ A. mendetory : by use of required method
 	optional : 
 	@Input() message?: string;
 	@Input() message = 'Default Message';
-Q. what is view-childe and view-children and what is its use?
+
+Q. what is view-child and view-children and what is its use?
 Q. what is memory leaks?
 Q change detection in angular
 Q what is track by in angular 
@@ -713,7 +932,11 @@ Q. diference in eggar loading and lazy loading? which one is default.
 Q. what is view encapsulation in angular?
 Q. waht is content projection in angular 
 Q. different auth guards present in angular
-
+Q. what is test cases. how to write it, example test case. what is its benefit?
+Q. how to get/run coverage report?
+Q. when i run ng test then how it runs. how it knows which command it need to run?
+Q what are the frameworks to write test cases in angular. 
+A. jasmine and jest
 
 
 logical
