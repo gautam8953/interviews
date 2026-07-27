@@ -964,15 +964,63 @@ A. Change Detection is the mechanism Angular uses to detect changes in your appl
 		markForCheck() or detectChanges() is called
 
 Q what is track by in angular 
+A. trackBy is an Angular feature used with loops to help Angular identify which items have actually changed in a list.
+	It improves performance by preventing Angular from recreating DOM elements unnecessarily.
+	without trackby if any changes will be done in array list then whole list will be created and updated in DOM.
+	with trackby only changed list will be added or updated in list.
 
 Q what is content projection in angular 
+A. Content Projection in Angular is a way to pass HTML (or components) from a parent component into a child component using <ng-content>.
+	It's similar to slots in Web Components or children props in React.
+	Instead of hardcoding content inside the child component, you let the parent decide what content should appear.
+
+	Why do we need Content Projection?
+	Suppose you create a reusable Card component.If you want to display:
+		Loan Details
+		Customer Details
+		Product Details
+	You would have to create multiple card components.
+	Instead, create one reusable Card component and let the parent supply the content.
+
+	Content Projection vs Input
+	Using @Input() : Limited to passing data.
+	Using Content Projection : Can pass: HTML, Components, Forms, Buttons, Tables, Images etc Much more flexible.
+
+	ContentChild : Sometimes the child component needs access to the projected content.
+		<app-card>		
+			<button #saveBtn> Save </button>
+		</app-card>
+		@ContentChild('saveBtn') saveButton!: ElementRef;
+		This is different from @ViewChild.
+
+	ViewChild													ContentChild
+	Accesses elements inside the component's own template		Accesses projected content from the parent
+	Uses @ViewChild												Uses @ContentChild
+	Works with the component's view								Works with <ng-content>
+
 Q. what is async pipe
 A. It automatically subscribes to an Observable or Promise, displays the latest emitted value in the template, 
 	and automatically unsubscribes when the component is destroyed.
 	{{ users$ | async }}
+
 Q. diference in eggar loading and lazy loading? which one is default.
+A. Eager loading is Angular's default loading strategy where all required modules and 
+	components are bundled and loaded when the application starts.
+
+	Lazy loading delays downloading a feature module or standalone component until the user navigates to it. 
+	This reduces the initial bundle size and improves startup performance.
+
+	Feature	Eager 				Loading			Lazy Loading
+	Default in Angular			✅ Yes			❌ No
+	Load Time					App startup		On demand
+	Initial Bundle Size			Large			Small
+	Initial App Speed			Slower			Faster
+	Navigation to Loaded Page	Instant			First visit may download code
+	Best For					Small apps or always-used features		Large enterprise apps
+
 Q. what is view encapsulation in angular?
-Q. waht is content projection in angular 
+A. 
+
 Q. different auth guards present in angular
 Q. what is test cases. how to write it, example test case. what is its benefit?
 Q. how to get/run coverage report?
