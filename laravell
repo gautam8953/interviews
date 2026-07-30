@@ -1,3 +1,88 @@
+laravel install 
+themse implement - or use larvel ui package
+custom these - 
+	copy all css,js,images folder in public directory like public/css, pulic/js
+	main html in resource/view/layouts/app.blade.php
+	other in their respective location. 
+	in app.blade.php import css and js like <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+	image like <img src="{{ asset('images/logo.png') }}">
+
+app.blade.php	
+<body>
+
+@include('layouts.header')
+
+@include('layouts.sidebar')
+
+<div class="content">
+
+    @yield('content')
+
+</div>
+
+@include('layouts.footer')
+
+</body>
+
+page.blade.php 
+@extends('layouts.app')
+
+@section('content')
+
+<h2>Dashboard</h2>
+
+@endsection
+	
+	
+
+Have you built and deployed REST APIs with middleware (API handlers in PHP) in production applications? *
+Have you directly worked on AI, GenAI, or NLP integrations within a Laravel or PHP-based project? *
+Do you have hands-on experience deploying applications on AWS services (S3, EC2, RDS, SES)? *
+
+Q. latest laravle version and its requirement?
+A. laravel 13, 
+	PHP	8.3+ (8.4/8.5 recommended)
+	Composer	Latest stable (2.x), latest : v2.10.1
+	Database	MySQL 8+, PostgreSQL, SQLite, SQL Server, MariaDB
+	Node.js	Latest LTS (recommended for Vite/frontend)
+	Web Server	Apache, Nginx, Caddy
+
+Q. show laravel install process and commands 
+A. install php and sever and database 
+	install conposer
+	gloabl laravel command : composer global require laravel/installer
+	laravel install : laravel new my-project
+	
+	direct command : composer create-project laravel/laravel my-project
+	
+Q. specific laravle install 
+	composer create-project laravel/laravel:^12.0 my-app
+	or 
+	laravel new my-app --using="^12.0"
+	
+Q. whats new in laravel 13
+A. 1. Laravel AI SDK
+	2. Better Upgrade Experience
+	3. Symfony 8 Components
+	4. Better Authentication
+	5. Updated Starter Kits
+
+
+version check all - php , laravel, composer 
+how to check laravel version 
+laravel lifecycle 
+how middleware works 
+how to create cutome middleware 
+
+what is eloquent orm 
+how to query laravel DB
+what is n+1 problem 
+revrse routing 
+what is broadcasting in laravel 
+
+what is ques and jobs 
+if i to read a csv file of having lacs of record. then how to do it. scripts stops after showing timout issue
+
 
 Q. bind() vs singleton()
 A. bind() → new instance every time
