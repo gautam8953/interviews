@@ -1,3 +1,38 @@
+Q. php latest version -> 8.5
+Q. whats new in php 8.5
+A. 	Pipe Operator (|>) for cleaner function chaining.
+	Built-in URI extension for parsing and manipulating URLs.
+	array_first() and array_last() helper functions.
+	Better CLI debugging (php --ini=diff).
+	
+	in php 8.5 can write 
+	$result = $name
+    |> trim(...)
+    |> strtolower(...)
+    |> ucfirst(...);
+	
+	instead of 
+	$result = ucfirst(strtolower(trim($name)));
+
+Q. Biggest changes from PHP 7 to PHP 8
+	1. JIT (Just-In-Time Compiler)
+	2. Named Arguments  -> setcookie(name: "user",value: "John",expires_or_options: time()+3600);
+	3. Constructor Property Promotion
+		class User
+		{
+			public function __construct(
+				private string $name
+			) {}
+		}
+	4. Match Expression
+		return match($status) {
+			1 => "Pending",
+			2 => "Approved",
+			default => "Unknown"
+		};
+	5. Nullsafe Operator  -> echo $user?->address?->city;
+	6. String Functions  -> str_contains() str_starts_with() str_ends_with()
+
 Q. default execution time of php : 30 seconds,  ini_set('max_execution_time', 120);
 Q. default path of ini file : in linus where apache is present. (/etc/php/7.4/apache2/php.ini)
 Q. what is php.ini?		php configuration file
@@ -486,6 +521,15 @@ A. The null coalescing operator is a binary operator which was introduced in PHP
 Q. null safe operator
 A. The null safe operator (?->) is used to safely access properties or methods of an object that may be null.
 	which was introduced in PHP 8. 
+	
+	const user = null;
+
+	// ❌ Without null safe operator (ERROR)
+	console.log(user.name);
+
+	// ✅ With null safe operator
+	console.log(user?.name); // undefined (no error)
+
 	$user = null;
 	echo $user?->name; // ✅ No error, returns null
 
