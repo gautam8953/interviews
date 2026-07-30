@@ -622,19 +622,24 @@ A. Function : A function is a reusable program (like a small block of logic) tha
 		SELECT NOW();
 		
 	2. User-Defined Function (Custom Function) : You can create your own function using CREATE FUNCTION.
-	DELIMITER //
+	USE `company_db`;
+	DROP function IF EXISTS `add_num`;
 
-	CREATE FUNCTION add_numbers(a INT, b INT)
-	RETURNS INT
+	DELIMITER $$
+	USE `company_db`$$
+	CREATE FUNCTION `add_num` (a int, b int)
+	RETURNS INTEGER
 	DETERMINISTIC
 	BEGIN
-	   RETURN a + b;
-	END //
+		declare result int;
+		set result = a+b;
+	RETURN result;
+	END$$
 
 	DELIMITER ;
-	
+
 	call function : SELECT add_numbers(5, 10);
-	
+
 	Points : 
 	Function always returns a single value
 	Used inside queries (SELECT, WHERE, etc.)
@@ -650,28 +655,45 @@ A. Function : A function is a reusable program (like a small block of logic) tha
 	may or may not have to return a value
 	
 	Example 1: Simple Procedure
-	DELIMITER //
 
-	CREATE PROCEDURE get_users()
+	USE `company_db`;
+	DROP procedure IF EXISTS `company_db`.`emp_sal`;
+	;
+
+	DELIMITER $$
+	USE `company_db`$$
+	CREATE DEFINER=`root`@`localhost` PROCEDURE `emp_sal`()
 	BEGIN
-	   SELECT * FROM users;
-	END //
+		select concat(e.first_name,' ', e.last_name),s.salary_amount,bonus, (salary_amount+bonus) as pay
+		from employees e
+		inner join salaries s on e.employee_id=s.employee_id;
+	END$$
 
 	DELIMITER ;
+	;
 	
 	CALL get_users();
 	
 	Example 2: Procedure with Input Parameter
-	DELIMITER //
 
-	CREATE PROCEDURE get_user_by_id(IN user_id INT)
+	USE `company_db`;
+	DROP procedure IF EXISTS `company_db`.`emp_sal`;
+	;
+
+	DELIMITER $$
+	USE `company_db`$$
+	CREATE DEFINER=`root`@`localhost` PROCEDURE `emp_sal`(empid int)
 	BEGIN
-	   SELECT * FROM users WHERE id = user_id;
-	END //
+		select e.employee_id,concat(e.first_name,' ', e.last_name),s.salary_amount,bonus, (salary_amount+bonus) as pay
+		from employees e
+		inner join salaries s on e.employee_id=s.employee_id 
+		where e.employee_id = empid OR empid IS NULL;
+	END$$
 
 	DELIMITER ;
+	;
 	
-	CALL get_user_by_id(5);
+	CALL emp_sal(5);   CALL emp_sal(NULL);
 	
 	Example 3: Procedure with Output Parameter
 	DELIMITER //
@@ -787,7 +809,10 @@ A. Trigerss allowed insert, update,delete on before or after each, means 6 combi
 
 Q. what is the difference between group by and  having clause?
     Having Clause is basically like the aggregate function with the GROUP BY clause. 
-    The HAVING clause is used instead of WHERE with aggregate functions. While the GROUP BY Clause groups rows that have the same values into summary rows. The having clause is used with the where clause in order to find rows with certain conditions. The having clause is always used after the group By clause.
+    The HAVING clause is used instead of WHERE with aggregate functions. 
+	While the GROUP BY Clause groups rows that have the same values into summary rows. 
+	The having clause is used with the where clause in order to find rows with certain conditions. 
+	The having clause is always used after the group By clause.
 
     SELECT COUNT (SALARIES) AS COUNT_SALARIES, EMPLOYEES
     FROM EMPLOYEES
@@ -1067,3 +1092,5 @@ A. SELECT name, COALESCE(phone, 'N/A') FROM employees;
 50. Delete records older than 30 days
 	DELETE FROM logs
 	WHERE created_at < NOW() - INTERVAL 30 DAY;
+
+51. what is partitioning in mysql. how to do it?
