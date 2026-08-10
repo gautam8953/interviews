@@ -1,1 +1,1832 @@
 
+
+1. Database Management 
+
+Create database : CREATE DATABASE hrms;
+
+Create database with owner : 
+
+CREATE DATABASE hrms
+WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    TEMPLATE = template0;
+List databases : 
+
+\l or: SELECT datname FROM pg_database;
+
+
+Connect to database
+
+From psql: \c hrms
+
+Rename database : ALTER DATABASE hrms RENAME TO hrms_db;
+
+Delete database : DROP DATABASE hrms_db;
+
+You cannot drop a database while connected to it.
+
+
+2. User / Role Management
+
+PostgreSQL uses roles. A role can behave like a user, group, or both.
+
+Create user : 
+CREATE USER app_user
+WITH PASSWORD 'StrongPassword123';
+
+Equivalent:
+
+CREATE ROLE app_user
+LOGIN
+PASSWORD 'StrongPassword123';
+
+Create user with expiry : 
+
+CREATE USER app_user
+WITH
+    PASSWORD 'StrongPassword123'
+    VALID UNTIL '2027-12-31';
+	
+Create admin-like user : 
+
+CREATE USER admin_user
+WITH
+    LOGIN
+    SUPERUSER
+    CREATEDB
+    CREATEROLE
+    PASSWORD 'StrongPassword123';
+
+For application users, do not normally make them SUPERUSER.
+
+3. Change User Password : ALTER USER app_user WITH PASSWORD 'NewPassword123';
+
+4. List Users / Roles : \du
+
+SQL:
+
+SELECT
+    rolname,
+    rolsuper,
+    rolcreatedb,
+    rolcreaterole,
+    rolcanlogin
+FROM pg_roles;
+
+5. Create Role / Group : CREATE ROLE hrms_readonly;
+Give login capability: ALTER ROLE hrms_readonly LOGIN;
+Usually, for permission groups: CREATE ROLE hrms_readonly NOLOGIN;
+Then assign users to the group: GRANT hrms_readonly TO app_user;
+
+
+6. Database Permissions :
+Give database access :GRANT CONNECT ON DATABASE hrms TO app_user;
+Remove permission : REVOKE CONNECT ON DATABASE hrms FROM app_user;
+Allow user to create schema : GRANT CREATE ON DATABASE hrms TO app_user;
+
+7. Schema : Connect to hrms first.
+
+Create schema : CREATE SCHEMA hrms;
+
+Create schema owned by user :
+CREATE SCHEMA hrms
+AUTHORIZATION app_user;
+
+List schemas :\dn
+
+or: SELECT schema_name FROM information_schema.schemata;
+
+Set default schema : SET search_path TO hrms;
+
+Then:
+
+SELECT * FROM employees;
+
+instead of:
+
+SELECT * FROM hrms.employees;
+
+8. Create Table
+Department
+CREATE TABLE hrms.departments (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+Employee
+CREATE TABLE hrms.employees (
+    id BIGSERIAL PRIMARY KEY,
+    department_id BIGINT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    salary NUMERIC(12,2),
+    age INT,
+    status BOOLEAN DEFAULT TRUE,
+    joining_date DATE DEFAULT CURRENT_DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_employee_department
+        FOREIGN KEY (department_id)
+        REFERENCES hrms.departments(id)
+);
+
+9. Constraints
+Primary key
+id BIGSERIAL PRIMARY KEY
+Unique
+email VARCHAR(150) UNIQUE
+NOT NULL
+name VARCHAR(100) NOT NULL
+CHECK
+salary NUMERIC(12,2)
+CHECK (salary >= 0)
+Default
+status BOOLEAN DEFAULT TRUE
+Foreign key
+FOREIGN KEY (department_id)
+REFERENCES departments(id)
+
+10. ALTER TABLE
+Add column
+ALTER TABLE hrms.employees
+ADD COLUMN phone VARCHAR(20);
+Remove column
+ALTER TABLE hrms.employees
+DROP COLUMN phone;
+Rename column
+ALTER TABLE hrms.employees
+RENAME COLUMN name TO full_name;
+Change datatype
+ALTER TABLE hrms.employees
+ALTER COLUMN age TYPE BIGINT;
+Add constraint
+ALTER TABLE hrms.employees
+ADD CONSTRAINT chk_salary
+CHECK (salary >= 0);
+Rename table
+ALTER TABLE hrms.employees
+RENAME TO employee;
+
+11. INSERT
+Single record
+INSERT INTO hrms.departments (name)
+VALUES ('IT');
+Multiple records
+INSERT INTO hrms.departments (name)
+VALUES
+    ('IT'),
+    ('HR'),
+    ('Finance'),
+    ('Sales');
+Insert employee
+INSERT INTO hrms.employees
+(
+    department_id,
+    name,
+    email,
+    salary,
+    age
+)
+VALUES
+(
+    1,
+    'Gautam',
+    'gautam@example.com',
+    80000,
+    35
+);
+
+12. INSERT and Get Inserted ID
+
+This is very important.
+
+INSERT INTO hrms.employees
+(
+    department_id,
+    name,
+    email,
+    salary,
+    age
+)
+VALUES
+(
+    1,
+    'Rahul',
+    'rahul@example.com',
+    70000,
+    30
+)
+RETURNING id;
+
+You can return multiple columns:
+
+INSERT INTO hrms.employees
+(
+    name,
+    email,
+    salary
+)
+VALUES
+(
+    'Amit',
+    'amit@example.com',
+    60000
+)
+RETURNING id, name, email;
+
+13. SELECT
+All records
+SELECT *
+FROM hrms.employees;
+Specific columns
+SELECT
+    id,
+    name,
+    salary
+FROM hrms.employees;
+Alias
+SELECT
+    name AS employee_name,
+    salary AS monthly_salary
+FROM hrms.employees;
+
+14. WHERE
+SELECT *
+FROM hrms.employees
+WHERE salary > 50000;
+
+Multiple conditions:
+
+SELECT *
+FROM hrms.employees
+WHERE salary > 50000
+AND age > 30;
+
+OR:
+
+SELECT *
+FROM hrms.employees
+WHERE department_id = 1
+OR department_id = 2;
+
+15. BETWEEN
+SELECT *
+FROM hrms.employees
+WHERE salary BETWEEN 50000 AND 100000;
+
+16. IN
+SELECT *
+FROM hrms.employees
+WHERE department_id IN (1, 2, 3);
+
+17. NOT IN
+SELECT *
+FROM hrms.employees
+WHERE department_id NOT IN (1, 2);
+
+18. LIKE / ILIKE
+Case-sensitive
+SELECT *
+FROM hrms.employees
+WHERE name LIKE 'G%';
+Case-insensitive
+
+PostgreSQL provides ILIKE:
+
+SELECT *
+FROM hrms.employees
+WHERE name ILIKE 'g%';
+
+Contains:
+
+SELECT *
+FROM hrms.employees
+WHERE name ILIKE '%gaut%';
+
+19. IS NULL
+SELECT *
+FROM hrms.employees
+WHERE department_id IS NULL;
+
+Not null:
+
+SELECT *
+FROM hrms.employees
+WHERE department_id IS NOT NULL;
+
+20. ORDER BY
+
+Ascending:
+
+SELECT *
+FROM hrms.employees
+ORDER BY salary ASC;
+
+Descending:
+
+SELECT *
+FROM hrms.employees
+ORDER BY salary DESC;
+
+Multiple columns:
+
+SELECT *
+FROM hrms.employees
+ORDER BY department_id ASC, salary DESC;
+21. LIMIT / OFFSET
+SELECT *
+FROM hrms.employees
+LIMIT 10;
+
+Pagination:
+
+SELECT *
+FROM hrms.employees
+ORDER BY id
+LIMIT 10 OFFSET 20;
+
+This gives approximately page 3 when page size = 10.
+
+22. DISTINCT
+SELECT DISTINCT department_id
+FROM hrms.employees;
+
+Multiple columns:
+
+SELECT DISTINCT department_id, status
+FROM hrms.employees;
+23. UPDATE
+UPDATE hrms.employees
+SET salary = 90000
+WHERE id = 1;
+
+Multiple columns:
+
+UPDATE hrms.employees
+SET
+    salary = 90000,
+    age = 36
+WHERE id = 1;
+Very important
+
+Never accidentally do:
+
+UPDATE hrms.employees
+SET salary = 90000;
+
+This updates every employee.
+
+24. UPDATE and RETURNING
+
+PostgreSQL's RETURNING is very useful:
+
+UPDATE hrms.employees
+SET salary = salary + 5000
+WHERE id = 1
+RETURNING id, name, salary;
+25. DELETE
+DELETE FROM hrms.employees
+WHERE id = 10;
+
+Delete multiple:
+
+DELETE FROM hrms.employees
+WHERE status = false;
+
+Delete all:
+
+DELETE FROM hrms.employees;
+26. DELETE and RETURNING
+DELETE FROM hrms.employees
+WHERE id = 10
+RETURNING *;
+27. Aggregate Functions
+COUNT
+SELECT COUNT(*)
+FROM hrms.employees;
+SUM
+SELECT SUM(salary)
+FROM hrms.employees;
+AVG
+SELECT AVG(salary)
+FROM hrms.employees;
+MIN
+SELECT MIN(salary)
+FROM hrms.employees;
+MAX
+SELECT MAX(salary)
+FROM hrms.employees;
+28. GROUP BY
+
+Employees by department:
+
+SELECT
+    department_id,
+    COUNT(*) AS employee_count
+FROM hrms.employees
+GROUP BY department_id;
+
+Average salary:
+
+SELECT
+    department_id,
+    AVG(salary) AS avg_salary
+FROM hrms.employees
+GROUP BY department_id;
+29. HAVING
+
+WHERE filters rows before grouping.
+
+HAVING filters groups after grouping.
+
+SELECT
+    department_id,
+    COUNT(*) AS employee_count
+FROM hrms.employees
+GROUP BY department_id
+HAVING COUNT(*) > 5;
+
+Another example:
+
+SELECT
+    department_id,
+    AVG(salary) AS avg_salary
+FROM hrms.employees
+GROUP BY department_id
+HAVING AVG(salary) > 70000;
+30. JOIN
+INNER JOIN
+SELECT
+    e.id,
+    e.name,
+    d.name AS department
+FROM hrms.employees e
+INNER JOIN hrms.departments d
+    ON e.department_id = d.id;
+31. LEFT JOIN
+
+Show all departments even if they don't have employees:
+
+SELECT
+    d.name AS department,
+    e.name AS employee
+FROM hrms.departments d
+LEFT JOIN hrms.employees e
+    ON e.department_id = d.id;
+32. RIGHT JOIN
+SELECT
+    d.name,
+    e.name
+FROM hrms.employees e
+RIGHT JOIN hrms.departments d
+    ON e.department_id = d.id;
+33. FULL OUTER JOIN
+SELECT
+    d.name,
+    e.name
+FROM hrms.departments d
+FULL OUTER JOIN hrms.employees e
+    ON e.department_id = d.id;
+34. CROSS JOIN
+SELECT
+    e.name,
+    d.name
+FROM hrms.employees e
+CROSS JOIN hrms.departments d;
+
+Creates every possible combination.
+
+35. SELF JOIN
+
+Example: employee-manager relationship.
+
+SELECT
+    e.name AS employee,
+    m.name AS manager
+FROM employees e
+LEFT JOIN employees m
+    ON e.manager_id = m.id;
+36. CASE
+SELECT
+    name,
+    salary,
+    CASE
+        WHEN salary >= 100000 THEN 'High'
+        WHEN salary >= 50000 THEN 'Medium'
+        ELSE 'Low'
+    END AS salary_category
+FROM hrms.employees;
+37. COALESCE
+
+Return default value if NULL:
+
+SELECT
+    name,
+    COALESCE(phone, 'Not Available') AS phone
+FROM hrms.employees;
+
+Very useful in PostgreSQL.
+
+38. NULLIF
+SELECT NULLIF(10, 10);
+
+Result:
+
+NULL
+
+Useful for avoiding division by zero:
+
+SELECT salary / NULLIF(age, 0)
+FROM hrms.employees;
+39. Subquery
+
+Employees earning more than average salary:
+
+SELECT *
+FROM hrms.employees
+WHERE salary >
+(
+    SELECT AVG(salary)
+    FROM hrms.employees
+);
+40. EXISTS
+SELECT *
+FROM hrms.departments d
+WHERE EXISTS
+(
+    SELECT 1
+    FROM hrms.employees e
+    WHERE e.department_id = d.id
+);
+41. NOT EXISTS
+
+Departments without employees:
+
+SELECT *
+FROM hrms.departments d
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM hrms.employees e
+    WHERE e.department_id = d.id
+);
+42. UNION
+SELECT name
+FROM hrms.employees
+
+UNION
+
+SELECT name
+FROM hrms.departments;
+
+UNION removes duplicates.
+
+43. UNION ALL
+SELECT name
+FROM hrms.employees
+
+UNION ALL
+
+SELECT name
+FROM hrms.departments;
+
+Keeps duplicates.
+
+44. INTERSECT
+SELECT department_id
+FROM hrms.employees
+
+INTERSECT
+
+SELECT id
+FROM hrms.departments;
+45. EXCEPT
+SELECT id
+FROM hrms.departments
+
+EXCEPT
+
+SELECT department_id
+FROM hrms.employees;
+46. Common Table Expression – CTE
+WITH high_salary AS
+(
+    SELECT *
+    FROM hrms.employees
+    WHERE salary > 80000
+)
+SELECT *
+FROM high_salary;
+47. CTE with JOIN
+WITH employee_data AS
+(
+    SELECT
+        e.name,
+        e.salary,
+        d.name AS department
+    FROM hrms.employees e
+    JOIN hrms.departments d
+        ON e.department_id = d.id
+)
+SELECT *
+FROM employee_data
+WHERE salary > 70000;
+48. Recursive CTE
+
+Useful for hierarchy/tree structures.
+
+WITH RECURSIVE employee_tree AS
+(
+    SELECT
+        id,
+        name,
+        manager_id,
+        1 AS level
+    FROM employees
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    SELECT
+        e.id,
+        e.name,
+        e.manager_id,
+        et.level + 1
+    FROM employees e
+    JOIN employee_tree et
+        ON e.manager_id = et.id
+)
+SELECT *
+FROM employee_tree;
+49. Window Function
+ROW_NUMBER
+SELECT
+    name,
+    salary,
+    ROW_NUMBER() OVER (
+        ORDER BY salary DESC
+    ) AS row_number
+FROM employees;
+50. RANK
+SELECT
+    name,
+    salary,
+    RANK() OVER (
+        ORDER BY salary DESC
+    ) AS salary_rank
+FROM employees;
+
+Difference:
+
+Salary    RANK
+100000     1
+100000     1
+90000      3
+80000      4
+51. DENSE_RANK
+SELECT
+    name,
+    salary,
+    DENSE_RANK() OVER (
+        ORDER BY salary DESC
+    ) AS salary_rank
+FROM employees;
+
+Result:
+
+100000    1
+100000    1
+90000     2
+80000     3
+52. Partition Window Function
+
+Find employee ranking within each department:
+
+SELECT
+    name,
+    department_id,
+    salary,
+    RANK() OVER (
+        PARTITION BY department_id
+        ORDER BY salary DESC
+    ) AS department_rank
+FROM employees;
+
+Very important interview query.
+
+53. Running Total
+SELECT
+    id,
+    salary,
+    SUM(salary) OVER (
+        ORDER BY id
+    ) AS running_total
+FROM employees;
+54. LAG
+
+Get previous employee's salary:
+
+SELECT
+    name,
+    salary,
+    LAG(salary) OVER (
+        ORDER BY id
+    ) AS previous_salary
+FROM employees;
+55. LEAD
+SELECT
+    name,
+    salary,
+    LEAD(salary) OVER (
+        ORDER BY id
+    ) AS next_salary
+FROM employees;
+56. VIEW
+Create view
+CREATE VIEW hrms.employee_details AS
+SELECT
+    e.id,
+    e.name,
+    e.email,
+    e.salary,
+    d.name AS department
+FROM hrms.employees e
+JOIN hrms.departments d
+    ON e.department_id = d.id;
+
+Use it:
+
+SELECT *
+FROM hrms.employee_details;
+57. Replace View
+CREATE OR REPLACE VIEW hrms.employee_details AS
+SELECT
+    e.id,
+    e.name,
+    e.email,
+    d.name AS department
+FROM hrms.employees e
+JOIN hrms.departments d
+    ON e.department_id = d.id;
+58. Drop View
+DROP VIEW hrms.employee_details;
+59. MATERIALIZED VIEW
+
+A materialized view stores the query result.
+
+CREATE MATERIALIZED VIEW hrms.department_salary_summary AS
+SELECT
+    department_id,
+    COUNT(*) AS employee_count,
+    AVG(salary) AS average_salary
+FROM hrms.employees
+GROUP BY department_id;
+
+Refresh:
+
+REFRESH MATERIALIZED VIEW hrms.department_salary_summary;
+
+Useful for reporting/heavy queries.
+
+60. INDEX
+Create index
+CREATE INDEX idx_employee_email
+ON hrms.employees(email);
+Multiple-column index
+CREATE INDEX idx_employee_department_salary
+ON hrms.employees(department_id, salary);
+Unique index
+CREATE UNIQUE INDEX idx_employee_email_unique
+ON hrms.employees(email);
+Drop index
+DROP INDEX hrms.idx_employee_email;
+61. Partial Index
+
+Very useful for large tables.
+
+CREATE INDEX idx_active_employee
+ON hrms.employees(department_id)
+WHERE status = TRUE;
+
+Only active employee rows are indexed.
+
+62. EXPLAIN
+
+Check query execution plan:
+
+EXPLAIN
+SELECT *
+FROM hrms.employees
+WHERE email = 'abc@example.com';
+
+Detailed:
+
+EXPLAIN ANALYZE
+SELECT *
+FROM hrms.employees
+WHERE email = 'abc@example.com';
+
+For performance optimization, EXPLAIN ANALYZE is extremely important.
+
+63. Transaction
+BEGIN;
+
+UPDATE employees
+SET salary = salary + 5000
+WHERE id = 1;
+
+UPDATE employees
+SET salary = salary + 5000
+WHERE id = 2;
+
+COMMIT;
+64. ROLLBACK
+BEGIN;
+
+UPDATE employees
+SET salary = 100000
+WHERE id = 1;
+
+ROLLBACK;
+
+The update is undone.
+
+65. SAVEPOINT
+BEGIN;
+
+UPDATE employees
+SET salary = 100000
+WHERE id = 1;
+
+SAVEPOINT salary_update;
+
+DELETE FROM employees
+WHERE id = 2;
+
+ROLLBACK TO SAVEPOINT salary_update;
+
+COMMIT;
+
+The salary update remains, while the delete is rolled back.
+
+66. PostgreSQL Function
+
+Now the important part you specifically asked for.
+
+Create a custom function that calculates annual salary.
+
+CREATE OR REPLACE FUNCTION hrms.calculate_annual_salary(
+    monthly_salary NUMERIC
+)
+RETURNS NUMERIC
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN monthly_salary * 12;
+END;
+$$;
+67. Call Custom Function
+SELECT hrms.calculate_annual_salary(50000);
+
+Result:
+
+600000
+68. Call Custom Function in SELECT Query
+
+This is exactly what you asked for:
+
+SELECT
+    name,
+    salary,
+    hrms.calculate_annual_salary(salary) AS annual_salary
+FROM hrms.employees;
+
+Example:
+
+name       salary       annual_salary
+-------------------------------------
+Gautam     50000        600000
+Rahul      70000        840000
+Amit       80000        960000
+69. Custom Function with Multiple Parameters
+CREATE OR REPLACE FUNCTION hrms.calculate_bonus(
+    salary NUMERIC,
+    percentage NUMERIC
+)
+RETURNS NUMERIC
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN salary * percentage / 100;
+END;
+$$;
+
+Call:
+
+SELECT hrms.calculate_bonus(50000, 10);
+
+Result:
+
+5000
+
+Call inside query:
+
+SELECT
+    name,
+    salary,
+    hrms.calculate_bonus(salary, 10) AS bonus
+FROM hrms.employees;
+70. Function Returning Table
+
+You can create a function that behaves like a table/query.
+
+CREATE OR REPLACE FUNCTION hrms.get_high_salary_employees(
+    minimum_salary NUMERIC
+)
+RETURNS TABLE (
+    employee_id BIGINT,
+    employee_name VARCHAR,
+    employee_salary NUMERIC
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        id,
+        name,
+        salary
+    FROM hrms.employees
+    WHERE salary >= minimum_salary;
+END;
+$$;
+
+Call:
+
+SELECT *
+FROM hrms.get_high_salary_employees(70000);
+71. Function with IF/ELSE
+CREATE OR REPLACE FUNCTION hrms.salary_category(
+    salary NUMERIC
+)
+RETURNS VARCHAR
+LANGUAGE plpgsql
+AS $$
+BEGIN
+
+    IF salary >= 100000 THEN
+        RETURN 'HIGH';
+
+    ELSIF salary >= 50000 THEN
+        RETURN 'MEDIUM';
+
+    ELSE
+        RETURN 'LOW';
+
+    END IF;
+
+END;
+$$;
+
+Call:
+
+SELECT
+    name,
+    salary,
+    hrms.salary_category(salary) AS category
+FROM hrms.employees;
+72. Function with Query
+CREATE OR REPLACE FUNCTION hrms.get_employee_count()
+RETURNS BIGINT
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    total_employees BIGINT;
+BEGIN
+
+    SELECT COUNT(*)
+    INTO total_employees
+    FROM hrms.employees;
+
+    RETURN total_employees;
+
+END;
+$$;
+
+Call:
+
+SELECT hrms.get_employee_count();
+73. PostgreSQL Procedure
+
+A procedure is different from a function.
+
+Create:
+
+CREATE OR REPLACE PROCEDURE hrms.increase_salary(
+    employee_id BIGINT,
+    increment NUMERIC
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+
+    UPDATE hrms.employees
+    SET salary = salary + increment
+    WHERE id = employee_id;
+
+END;
+$$;
+
+Call:
+
+CALL hrms.increase_salary(1, 5000);
+Key difference
+
+Function:
+
+SELECT hrms.calculate_annual_salary(50000);
+
+Procedure:
+
+CALL hrms.increase_salary(1, 5000);
+
+A function is normally used to return a value/result and can be used inside SQL expressions. A procedure is invoked with CALL and is suited to performing operations.
+
+74. Trigger
+
+Create audit table:
+
+CREATE TABLE hrms.employee_audit (
+    id BIGSERIAL PRIMARY KEY,
+    employee_id BIGINT,
+    old_salary NUMERIC,
+    new_salary NUMERIC,
+    changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Create trigger function:
+
+CREATE OR REPLACE FUNCTION hrms.log_salary_change()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+
+    IF OLD.salary IS DISTINCT FROM NEW.salary THEN
+
+        INSERT INTO hrms.employee_audit
+        (
+            employee_id,
+            old_salary,
+            new_salary
+        )
+        VALUES
+        (
+            OLD.id,
+            OLD.salary,
+            NEW.salary
+        );
+
+    END IF;
+
+    RETURN NEW;
+
+END;
+$$;
+
+Create trigger:
+
+CREATE TRIGGER employee_salary_audit
+AFTER UPDATE OF salary
+ON hrms.employees
+FOR EACH ROW
+EXECUTE FUNCTION hrms.log_salary_change();
+
+Now:
+
+UPDATE hrms.employees
+SET salary = salary + 5000
+WHERE id = 1;
+
+Automatically creates an audit record.
+
+75. GRANT Table Permissions
+
+Give SELECT:
+
+GRANT SELECT
+ON hrms.employees
+TO app_user;
+
+Give INSERT:
+
+GRANT INSERT
+ON hrms.employees
+TO app_user;
+
+Give UPDATE:
+
+GRANT UPDATE
+ON hrms.employees
+TO app_user;
+
+Give DELETE:
+
+GRANT DELETE
+ON hrms.employees
+TO app_user;
+76. Give All Table Permissions
+GRANT ALL PRIVILEGES
+ON TABLE hrms.employees
+TO app_user;
+77. Give Permissions on All Existing Tables
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON ALL TABLES IN SCHEMA hrms
+TO app_user;
+78. Give Sequence Permission
+
+This is important when using SERIAL/BIGSERIAL.
+
+GRANT USAGE, SELECT
+ON ALL SEQUENCES IN SCHEMA hrms
+TO app_user;
+79. Give Schema Permission
+GRANT USAGE
+ON SCHEMA hrms
+TO app_user;
+
+Without schema access, table permissions alone may not be sufficient.
+
+80. Default Privileges
+
+Suppose new tables will continuously be created.
+
+You can configure permissions for future tables:
+
+ALTER DEFAULT PRIVILEGES
+IN SCHEMA hrms
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON TABLES
+TO app_user;
+
+For future sequences:
+
+ALTER DEFAULT PRIVILEGES
+IN SCHEMA hrms
+GRANT USAGE, SELECT
+ON SEQUENCES
+TO app_user;
+81. REVOKE
+
+Remove SELECT:
+
+REVOKE SELECT
+ON hrms.employees
+FROM app_user;
+
+Remove all:
+
+REVOKE ALL PRIVILEGES
+ON hrms.employees
+FROM app_user;
+82. Role-Based Permissions
+
+This is a better approach for enterprise applications.
+
+Create roles:
+
+CREATE ROLE hrms_readonly NOLOGIN;
+CREATE ROLE hrms_editor NOLOGIN;
+
+Give permissions:
+
+GRANT SELECT
+ON ALL TABLES IN SCHEMA hrms
+TO hrms_readonly;
+GRANT SELECT, INSERT, UPDATE, DELETE
+ON ALL TABLES IN SCHEMA hrms
+TO hrms_editor;
+
+Assign:
+
+GRANT hrms_readonly TO app_user;
+
+or:
+
+GRANT hrms_editor TO hrms_user;
+
+This is much easier to maintain than individually granting permissions to every user.
+
+83. UPSERT – INSERT or UPDATE
+
+One of PostgreSQL's most useful features.
+
+INSERT INTO hrms.employees
+(
+    email,
+    name,
+    salary
+)
+VALUES
+(
+    'gautam@example.com',
+    'Gautam',
+    80000
+)
+ON CONFLICT (email)
+DO UPDATE
+SET
+    name = EXCLUDED.name,
+    salary = EXCLUDED.salary;
+
+EXCLUDED represents the value you attempted to insert.
+
+84. ON CONFLICT DO NOTHING
+INSERT INTO hrms.employees
+(
+    email,
+    name
+)
+VALUES
+(
+    'gautam@example.com',
+    'Gautam'
+)
+ON CONFLICT (email)
+DO NOTHING;
+85. RETURNING with UPSERT
+INSERT INTO hrms.employees
+(
+    email,
+    name,
+    salary
+)
+VALUES
+(
+    'gautam@example.com',
+    'Gautam',
+    90000
+)
+ON CONFLICT (email)
+DO UPDATE
+SET salary = EXCLUDED.salary
+RETURNING *;
+86. JSON / JSONB
+
+PostgreSQL has excellent JSONB support.
+
+CREATE TABLE hrms.employee_metadata (
+    id BIGSERIAL PRIMARY KEY,
+    employee_id BIGINT,
+    data JSONB
+);
+
+Insert:
+
+INSERT INTO hrms.employee_metadata
+(
+    employee_id,
+    data
+)
+VALUES
+(
+    1,
+    '{"skills":["PHP","Laravel","Angular"],"experience":11}'
+);
+
+Get JSON:
+
+SELECT data
+FROM hrms.employee_metadata;
+
+Get property:
+
+SELECT data->>'experience'
+FROM hrms.employee_metadata;
+
+Get nested/array value:
+
+SELECT data->'skills'
+FROM hrms.employee_metadata;
+
+Search JSON:
+
+SELECT *
+FROM hrms.employee_metadata
+WHERE data @> '{"experience":11}';
+87. JSONB Index
+CREATE INDEX idx_employee_metadata
+ON hrms.employee_metadata
+USING GIN (data);
+
+Very useful for JSONB search.
+
+88. Date Queries
+
+Today:
+
+SELECT CURRENT_DATE;
+
+Current timestamp:
+
+SELECT CURRENT_TIMESTAMP;
+
+Employees joined today:
+
+SELECT *
+FROM hrms.employees
+WHERE joining_date = CURRENT_DATE;
+
+Last 30 days:
+
+SELECT *
+FROM hrms.employees
+WHERE joining_date >= CURRENT_DATE - INTERVAL '30 days';
+
+Last year:
+
+SELECT *
+FROM hrms.employees
+WHERE joining_date >= CURRENT_DATE - INTERVAL '1 year';
+89. String Functions
+
+Uppercase:
+
+SELECT UPPER(name)
+FROM employees;
+
+Lowercase:
+
+SELECT LOWER(name)
+FROM employees;
+
+Length:
+
+SELECT LENGTH(name)
+FROM employees;
+
+Concatenation:
+
+SELECT
+    name || ' - ' || email AS employee
+FROM employees;
+
+Alternative:
+
+SELECT CONCAT(name, ' - ', email)
+FROM employees;
+90. CAST
+SELECT CAST(salary AS INTEGER)
+FROM employees;
+
+PostgreSQL shorthand:
+
+SELECT salary::INTEGER
+FROM employees;
+
+String to date:
+
+SELECT '2026-08-10'::DATE;
+91. DELETE Duplicate Records
+
+Example: duplicate emails.
+
+Find duplicates:
+
+SELECT
+    email,
+    COUNT(*)
+FROM employees
+GROUP BY email
+HAVING COUNT(*) > 1;
+
+Delete duplicates while keeping the smallest ID:
+
+DELETE FROM employees e
+WHERE e.id NOT IN
+(
+    SELECT MIN(id)
+    FROM employees
+    GROUP BY email
+);
+
+For production data, use a safer strategy after verifying the affected rows.
+
+92. Find Second Highest Salary
+SELECT MAX(salary)
+FROM employees
+WHERE salary <
+(
+    SELECT MAX(salary)
+    FROM employees
+);
+
+Using DENSE_RANK:
+
+SELECT *
+FROM
+(
+    SELECT
+        e.*,
+        DENSE_RANK() OVER (
+            ORDER BY salary DESC
+        ) AS rank
+    FROM employees e
+) x
+WHERE rank = 2;
+93. Top 3 Salaries per Department
+SELECT *
+FROM
+(
+    SELECT
+        e.*,
+        DENSE_RANK() OVER (
+            PARTITION BY department_id
+            ORDER BY salary DESC
+        ) AS salary_rank
+    FROM employees e
+) x
+WHERE salary_rank <= 3;
+94. Find Employees Earning More Than Their Department Average
+SELECT *
+FROM
+(
+    SELECT
+        e.*,
+        AVG(salary) OVER (
+            PARTITION BY department_id
+        ) AS department_average
+    FROM employees e
+) x
+WHERE salary > department_average;
+95. DELETE vs TRUNCATE vs DROP
+DELETE
+DELETE FROM employees;
+
+Deletes rows.
+
+Can use:
+
+WHERE
+
+and can be rolled back inside a transaction.
+
+TRUNCATE
+TRUNCATE TABLE employees;
+
+Removes all rows efficiently.
+
+Can also reset identity:
+
+TRUNCATE TABLE employees
+RESTART IDENTITY;
+DROP
+DROP TABLE employees;
+
+Removes the table itself.
+
+Think:
+
+DELETE   → remove rows
+TRUNCATE → remove all rows quickly
+DROP     → remove table
+96. Schema/Table Information
+
+List tables:
+
+\dt
+
+Specific schema:
+
+\dt hrms.*
+
+Describe table:
+
+\d hrms.employees
+
+Detailed:
+
+\d+ hrms.employees
+97. Find Table Columns
+SELECT
+    column_name,
+    data_type,
+    is_nullable
+FROM information_schema.columns
+WHERE table_schema = 'hrms'
+AND table_name = 'employees';
+98. Find Foreign Keys
+SELECT
+    tc.table_name,
+    kcu.column_name,
+    ccu.table_name AS foreign_table,
+    ccu.column_name AS foreign_column
+FROM information_schema.table_constraints AS tc
+JOIN information_schema.key_column_usage AS kcu
+    ON tc.constraint_name = kcu.constraint_name
+JOIN information_schema.constraint_column_usage AS ccu
+    ON ccu.constraint_name = tc.constraint_name
+WHERE tc.constraint_type = 'FOREIGN KEY';
+99. Sequence
+
+PostgreSQL sequence:
+
+CREATE SEQUENCE employee_seq
+START 1
+INCREMENT 1;
+
+Get next value:
+
+SELECT nextval('employee_seq');
+
+Get current value:
+
+SELECT currval('employee_seq');
+100. Identity Column – Modern PostgreSQL
+
+Instead of SERIAL, modern PostgreSQL can use:
+
+CREATE TABLE employees (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+Or:
+
+id BIGINT GENERATED BY DEFAULT AS IDENTITY
+
+For new projects, identity columns are generally preferable to SERIAL.
+
+101. String Aggregation
+
+Get employees as comma-separated names:
+
+SELECT
+    department_id,
+    STRING_AGG(name, ', ') AS employees
+FROM employees
+GROUP BY department_id;
+
+Example:
+
+IT       Gautam, Rahul, Amit
+HR       Ravi, Sumit
+102. Array
+
+Create array:
+
+SELECT ARRAY['PHP', 'Laravel', 'Angular'];
+
+Array column:
+
+CREATE TABLE employee_skills (
+    employee_id BIGINT,
+    skills TEXT[]
+);
+
+Insert:
+
+INSERT INTO employee_skills
+VALUES
+(
+    1,
+    ARRAY['PHP', 'Laravel', 'Angular']
+);
+
+Search:
+
+SELECT *
+FROM employee_skills
+WHERE 'Laravel' = ANY(skills);
+103. Locking
+
+Row-level lock:
+
+SELECT *
+FROM employees
+WHERE id = 1
+FOR UPDATE;
+
+This is important when implementing concurrent operations such as:
+
+Bank balance
+Loan processing
+Inventory
+Order processing
+Task assignment
+104. Isolation Example
+BEGIN;
+
+SELECT *
+FROM employees
+WHERE id = 1
+FOR UPDATE;
+
+UPDATE employees
+SET salary = salary + 5000
+WHERE id = 1;
+
+COMMIT;
+105. Permission Check
+
+Check table privileges:
+
+SELECT *
+FROM information_schema.role_table_grants
+WHERE grantee = 'app_user';
+106. Current User
+SELECT CURRENT_USER;
+SELECT SESSION_USER;
+107. Current Database
+SELECT current_database();
+108. Current Schema
+SELECT current_schema();
+109. Useful PostgreSQL System Information
+
+PostgreSQL version:
+
+SELECT version();
+
+or:
+
+SHOW server_version;
+110. Complete Mini Project Example
+
+Here is a compact sequence you can actually run to practice.
+
+Step 1 – Database
+CREATE DATABASE hrms;
+
+Connect:
+
+\c hrms
+Step 2 – Schema
+CREATE SCHEMA hrms;
+Step 3 – Department
+CREATE TABLE hrms.departments (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+Step 4 – Employee
+CREATE TABLE hrms.employees (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    department_id BIGINT REFERENCES hrms.departments(id),
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE NOT NULL,
+    salary NUMERIC(12,2) CHECK (salary >= 0),
+    joining_date DATE DEFAULT CURRENT_DATE,
+    status BOOLEAN DEFAULT TRUE
+);
+Step 5 – Data
+INSERT INTO hrms.departments (name)
+VALUES
+('IT'),
+('HR'),
+('Finance');
+INSERT INTO hrms.employees
+(department_id, name, email, salary)
+VALUES
+(1, 'Gautam', 'gautam@example.com', 80000),
+(1, 'Rahul', 'rahul@example.com', 70000),
+(2, 'Amit', 'amit@example.com', 60000),
+(3, 'Ravi', 'ravi@example.com', 90000);
+Step 6 – Join
+SELECT
+    e.id,
+    e.name,
+    e.salary,
+    d.name AS department
+FROM hrms.employees e
+JOIN hrms.departments d
+    ON e.department_id = d.id;
+Step 7 – Group
+SELECT
+    d.name AS department,
+    COUNT(e.id) AS employee_count,
+    AVG(e.salary) AS average_salary
+FROM hrms.departments d
+LEFT JOIN hrms.employees e
+    ON e.department_id = d.id
+GROUP BY d.id, d.name
+HAVING COUNT(e.id) > 0;
+Step 8 – Custom Function
+CREATE OR REPLACE FUNCTION hrms.annual_salary(
+    monthly_salary NUMERIC
+)
+RETURNS NUMERIC
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN monthly_salary * 12;
+END;
+$$;
+Step 9 – Use Custom Function
+SELECT
+    e.name,
+    e.salary AS monthly_salary,
+    hrms.annual_salary(e.salary) AS annual_salary
+FROM hrms.employees e;
+Step 10 – Function with CASE
+CREATE OR REPLACE FUNCTION hrms.salary_level(
+    salary NUMERIC
+)
+RETURNS TEXT
+LANGUAGE plpgsql
+AS $$
+BEGIN
+
+    IF salary >= 80000 THEN
+        RETURN 'HIGH';
+    ELSIF salary >= 60000 THEN
+        RETURN 'MEDIUM';
+    ELSE
+        RETURN 'LOW';
+    END IF;
+
+END;
+$$;
+
+Call:
+
+SELECT
+    name,
+    salary,
+    hrms.salary_level(salary) AS salary_level
+FROM hrms.employees;
+PostgreSQL Query Categories You Should Know
+
+For your PHP/Laravel + Angular full-stack interviews, I would prioritize these:
+
+Category	Must Know
+Database	CREATE, ALTER, DROP
+Schema	CREATE SCHEMA, SET search_path
+Users	CREATE USER, ALTER USER
+Roles	CREATE ROLE, GRANT ROLE
+Permissions	GRANT, REVOKE
+Tables	CREATE TABLE, ALTER TABLE
+Constraints	PK, FK, UNIQUE, CHECK, NOT NULL
+CRUD	INSERT, SELECT, UPDATE, DELETE
+Returning	RETURNING
+Filtering	WHERE, IN, BETWEEN, LIKE, ILIKE
+Aggregation	COUNT, SUM, AVG, MIN, MAX
+Grouping	GROUP BY, HAVING
+Joins	INNER, LEFT, RIGHT, FULL, CROSS, SELF
+Subquery	Correlated/non-correlated
+CTE	WITH
+Recursive	WITH RECURSIVE
+Window	ROW_NUMBER, RANK, DENSE_RANK, LAG, LEAD
+Views	CREATE VIEW
+Materialized View	CREATE MATERIALIZED VIEW
+Functions	CREATE FUNCTION
+Procedures	CREATE PROCEDURE, CALL
+Triggers	CREATE TRIGGER
+Transactions	BEGIN, COMMIT, ROLLBACK
+Savepoints	SAVEPOINT
+Indexes	B-tree, composite, partial, GIN
+Performance	EXPLAIN ANALYZE
+Upsert	ON CONFLICT
+JSON	JSON, JSONB, JSON operators
+Arrays	ARRAY, ANY
+Security	Roles, privileges, default privileges
+Sequences	nextval, currval
+Identity	GENERATED ... AS IDENTITY
+One particularly important concept
+
+For PostgreSQL, remember this distinction:
+
+-- Function: returns a value and can be used inside SQL
+SELECT hrms.annual_salary(salary)
+FROM hrms.employees;
+
+versus:
+
+-- Procedure: execute an operation
+CALL hrms.increase_salary(10, 5000);
+
+And for a real Laravel application, a common permission structure would be:
+
+PostgreSQL
+   │
+   ├── Database: hrms
+   │
+   ├── Schema: hrms
+   │
+   ├── Roles
+   │     ├── hrms_readonly
+   │     ├── hrms_editor
+   │     └── hrms_admin
+   │
+   ├── Tables
+   │     ├── employees
+   │     ├── departments
+   │     └── employee_audit
+   │
+   ├── Views
+   ├── Materialized Views
+   ├── Functions
+   ├── Procedures
+   ├── Triggers
+   └── Indexes
+
+This is a good structure to understand for mid-to-large enterprise PostgreSQL applications.
