@@ -47,6 +47,14 @@ Q. Define Semantic elements in HTML
 A. A semantic element clearly describes its meaning to both the browser and the developer.
     Examples of non-semantic elements: <div> and <span> - Tells nothing about its content.
     Examples of semantic elements: <form>, <table>, and <article> - Clearly defines its content.
+    <header>,<nav>,<main>,<section>,<article>,<footer>
+
+    Benefits:
+    Accessibility
+    SEO
+    Maintainability
+    Better document structure
+
     
 Q. Why do we need the MathML element in HTML5 -> 
 A. MathML stands for Mathematical Markup Language. 
