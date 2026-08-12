@@ -1338,6 +1338,20 @@ A. Web Workers are a browser feature that allows JavaScript to run code in a sep
 	✅ PDF generation
 	✅ AI/ML inference in the browser
 
+Q. Interface vs Type?
+A. Both can describe types.
+	interface is commonly used for object contracts.
+	
+	interface User {
+	  id: number;
+	  name: string;
+	}
+	
+	type can represent unions and intersections.	
+	type Status = 'active' | 'inactive';
+
+
+
 JQUERY : 
 
 Q. what are the selecters in jquery
