@@ -427,7 +427,22 @@ A. there are four types of Subjects in RxJS (commonly used in Angular).
 	AsyncSubject : An AsyncSubject emits only the last value, and only after the Observable is completed.
 	No subscriber receives any value until complete() is called.
 
+Q. Explain RxJS Operators switchMap, mergeMap, concatMap, exhaustMap.
+A.
+	switchMap: Cancels/unsubscribes from the previous inner observable when a new value arrives.
+		Good for: Search/autocomplete.
+		search$.pipe(
+		  switchMap(term => this.api.search(term))
+		);
 
+	mergeMap: Runs multiple inner observables concurrently.
+	Good when: Requests can run independently.
+	
+	concatMap: Processes requests sequentially.
+	Good when:Order matters.
+	
+	exhaustMap: Ignores new emissions while the current observable is running.
+	Excellent for:Preventing multiple button submissions.
 
 
 Q. How to detect a route change in Angular?
