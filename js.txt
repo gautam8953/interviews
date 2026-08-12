@@ -1350,6 +1350,13 @@ A. Both can describe types.
 	type can represent unions and intersections.	
 	type Status = 'active' | 'inactive';
 
+Q. What are generics?
+A. Generics allow reusable strongly typed code.
+
+	function getFirst<T>(items: T[]): T {
+	  return items[0];
+	}
+
 
 
 JQUERY : 
