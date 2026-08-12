@@ -65,6 +65,23 @@ Signal Forms			Preview	Developer 	Preview				✅ Stable
 Zoneless				Stable (20.2)		Improved			✅ Default
 Route-level Rendering	✅ Stable			Improved			Improved
 
+Q. What are the important changes introduced in modern Angular?
+A. Important modern Angular concepts include:
+	Standalone components
+	Signals
+	New control flow syntax
+	@if
+	@for
+	@switch
+	Improved dependency injection
+	Functional guards
+	Functional interceptors
+	Improved lazy loading
+	Deferrable views using @defer
+	Better SSR/hydration capabilities
+	Improved build system
+	Modern Angular template syntax
+	Zoneless possibilities in newer Angular versions
 
 Q. angular project setup -> how code generate
 Ans. install nodejs. npm installed by default. 
