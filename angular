@@ -1102,6 +1102,20 @@ A. Route Guards are used to control navigation between routes
 	Works well with standalone components 		Mainly for lazy-loaded modules
 	and lazy loading
 
+Q. How do you prevent RxJS memory leaks?
+A. Modern Angular provides: takeUntilDestroyed()
+	this.service.data$
+	  .pipe(takeUntilDestroyed(this.destroyRef))
+	  .subscribe(data => {
+	    this.data = data;
+	  });
+
+	Other approaches include:
+	async pipe
+	Completing subscriptions
+	takeUntil
+	Properly destroying subscriptions
+
 Q. what is test cases. how to write it, example test case. what is its benefit?
 Q. how to get/run coverage report?
 Q. when i run ng test then how it runs. how it knows which command it need to run?
@@ -1234,6 +1248,47 @@ Q. Can you describe a time when you had to mentor a junior developer in Angular?
 Problem-Solving
 Q. Describe a time when you encountered a significant bug in an Angular application. How did you diagnose and fix it?
 Q. How do you approach debugging Angular applications?
+Q. How would you prevent duplicate API calls from a search box?
+A.
+	this.searchControl.valueChanges.pipe(
+	  debounceTime(300),
+	  distinctUntilChanged(),
+	  switchMap(value => this.api.search(value))
+	);
+	debounceTime avoids calling API for every keystroke.
+	distinctUntilChanged avoids duplicate searches.
+	switchMap cancels the previous request when a new search comes.
+Q. How would you improve Angular application performance?
+A. I approach performance from multiple levels.
+
+	Application level
+		Lazy loading
+		Code splitting
+		@defer
+		Bundle optimization
+		Tree shaking
+	Component level
+		OnPush
+		Avoid unnecessary function calls in templates
+		Track items correctly
+		Signals where appropriate
+		Reduce unnecessary change detection
+	API level
+		Pagination
+		Debouncing
+		Caching
+		Avoid duplicate requests
+		Parallelize independent requests
+	Rendering
+		Virtual scrolling
+		Lazy images
+		Efficient lists
+	Architecture
+		Feature-based architecture
+		Reusable components
+		Avoid unnecessary dependencies
+
+Your CV explicitly mentions code splitting, lazy loading, tree shaking, bundle optimization and frontend performance optimization.
 
 Future and Trends
 
