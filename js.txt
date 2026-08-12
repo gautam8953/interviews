@@ -196,8 +196,7 @@ Q. differene in let, var and const?
 		It can't be re-declared.
 		It's also a new way to declare a variable, which introduces in ES6.
 		
-		
-		const declarations are block-scoped. cann't be redclared and re-intialised
+		let and const are hoisted but remain in the Temporal Dead Zone until initialization.
 	
 Q. what is cursor in js?
 A. JavaScript cursor is a thing used as a mouse cursor whenever it’s going to point on specific elements. 
@@ -812,7 +811,10 @@ A. Its opposite of Event Bubbling. Event propogates from document to traget elem
 	    },
 	    true
 	);
-	
+
+Q. Explain JavaScript event loop?
+A. 
+
 Q. Write the point of difference between a web garden and a web farm?
 Ans. Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. 
 	At the same time,web-farm is a larger setup that uses more than one server.
