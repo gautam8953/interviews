@@ -132,6 +132,53 @@ Ans. angular.json -> angular-cli configuration file main.ts -> Angular module bo
    Based upon your entry module, it configures which component will load first from that module 
    and what others dependency modules, components, pipes, services.
 
+	point to remember : angular.json, package.json, tsconfig.json do not executes by browser when application runs. 
+	it is used by Angular CLI/build tools at build/dev-server time before the application is served/built.
+
+
+ 				YOU
+                 │
+                 │ ng serve
+                 ▼
+            Angular CLI
+                 │
+                 ▼
+          angular.json
+          package.json
+          tsconfig.json
+                 │
+                 ▼
+          Angular Build
+                 │
+                 ▼
+          Compile / Bundle
+                 │
+                 ▼
+              Browser
+                 │
+                 ▼
+            index.html
+                 │
+                 ▼
+       JavaScript application
+                 │
+                 ▼
+             main.ts
+        (compiled/bundled JS)
+                 │
+                 ▼
+       bootstrapApplication()
+                 │
+                 ▼
+           AppComponent
+                 │
+                 ▼
+        Component tree
+                 │
+                 ▼
+          Angular application
+
+
 Q. what is polyfil and why polyfil.ts is used?
 Ans. Polyfills in basic language are extra lines of code which make your application compatible for different browsers. 
    The code we write is mostly in ES6(New Features: Overview and Comparison) and is not compatible with IE or firefox 
