@@ -64,6 +64,49 @@ Q. What is the difference between JavaScript and JScript?
    
 Q. Is JavaScript case sensitive language?  Yes
 
+q. show steps how Javascript code runs.
+A. JavaScript source (Code)  → parsing (Syntax check) → bytecode (code change to machine code) → execution
+	When JavaScript starts executing, it creates an Execution Context.
+	In JavaScript, there are three commonly discussed types of Execution Context:
+	1. Global Execution Context (GEC) - when code runs synchronously
+	2. Function Execution Context (FEC) - when function get
+	3. Eval Executi/on Context — created when eval() executes code.
+
+	JavaScript is single-threaded from the perspective of its main execution thread.
+
+	as js code start executing, it executes in call stacks line by line
+	as asynchronus code, settimeout, setinterval get, its move to web api
+	when timer finished then code moved to task queue
+		promise/callback move to micro taskQueue (High priority)
+		setinterval/settimeout move to macro taskQueue (less priority)
+	then event loops continuously check if callStack empty
+	if callStack empty then event loop move one task to callStack as per priority
+	again event loop check for callStack empty & whne empty move task
+	this process continues till all task finished
+
+                    Browser
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+        ▼              ▼              ▼
+    JavaScript      Web APIs        Rendering
+      Engine
+        │
+        ├── Parser (syntax check)
+        │
+        ├── Ignition (byte code)
+        │
+        ├── TurboFan (optimize code)
+        │
+        └── Call Stack
+                       │
+                       ▼
+                Event Loop
+                       │
+            ┌──────────┴──────────┐
+            ▼                     ▼
+       Task Queue           Microtask Queue
+
 Q. What is BOM?
    BOM stands for Browser Object Model. It provides interaction with the browser. The default object of a browser is a window. 
    So, you can call all the functions of the window by specifying the window or directly. 
