@@ -150,6 +150,33 @@ Q. Name the types of functions in JS?
 			let name = 'gauam'; return name;
 		})();
 		// imeediatly creates output 
+	4. Arrow Function : arrow function do not have their own this.
+		const add = (a, b) => {
+		  return a + b;
+		};
+	5. Callback Function
+	6. higher order function
+	7. Generator function : A generator can pause and resume execution using yield.
+		function* numbers() {
+		  yield 1;
+		  yield 2;
+		  yield 3;
+		}		
+		const generator = numbers();		
+		console.log(generator.next());
+		console.log(generator.next());
+		console.log(generator.next());
+	8. Async Function : Used for asynchronous operations and always returns a Promise.
+		You can use await inside an async function.
+
+		async function getData() {
+		  const response = await fetch("/api/users");
+		  const data = await response.json();
+		  return data;
+		}
+
+
+
 		result; // gautam
 		Function Type				Description
 		Function Declaration		Named function, hoisted
