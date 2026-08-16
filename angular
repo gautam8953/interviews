@@ -397,9 +397,9 @@ A. In Angular, each component is channeled through 8 different phases in its lif
 		OnInit is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive
 	4. ngDoCheck : Developer’s custom change detection
 		DoCheck is a callback method that performs change detection, invoked after the default change detector runs.
-	4.1. ngAfterContentInit : Called when the component’s content ngContent is initialized
+	4.1. ngAfterContentInit : Called when the component’s content ngContent,@ContentChild, @ContentChildren is initialized
 	4.2  ngAfterContentChecked : Called when the component’s content is updated or checked for updates
-	4.3  ngAfterViewInit : Called when the component’s projected view has been initialized
+	4.3  ngAfterViewInit : Called when the component’s projected view has been initialized, means html tags
 	4.4  ngAfterViewChecked : Called after the projected view has been checked
 	5.   ngOnDestroy : Called before the component is destroyed
 		OnDestroy is a lifecycle hook that is called when a directive, pipe, or service is destroyed. 
