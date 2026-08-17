@@ -456,6 +456,17 @@ A. there are four types of Subjects in RxJS (commonly used in Angular).
 	
 	ReplaySubject is a variant of a Subject which keeps a cache of previous values emitted by a source observable 
 	and sends them to all new observers immediately on subscription. 
+
+	AsyncSubject : An AsyncSubject emits only the last value, and only after the Observable is completed.
+	No subscriber receives any value until complete() is called.
+
+	shareReplay() allows multiple subscribers to share the same observable execution and replay the latest emitted value.
+	It's useful when multiple components need the same API result and I don't want every subscriber to trigger another API request.
+	For example:
+	users$ = this.http.get<User[]>('/api/users').pipe(
+	  shareReplay(1)
+	);
+	Here multiple subscribers can share the result.
 	
 	const subject = new Rx.Subject();
 	subject.next(1);
@@ -471,8 +482,7 @@ A. there are four types of Subjects in RxJS (commonly used in Angular).
 	subject.subscribe(x => console.log(x));
 	Console output: 1	
 
-	AsyncSubject : An AsyncSubject emits only the last value, and only after the Observable is completed.
-	No subscriber receives any value until complete() is called.
+
 
 Q. Explain RxJS Operators switchMap, mergeMap, concatMap, exhaustMap.
 A.
