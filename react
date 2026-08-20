@@ -1,3 +1,20 @@
+What is the difference between props and state in React? Explain default props in React.
+How do you pass data from parent to child in React?
+How do you pass data from child to parent in React?
+What is a Fragment in React?
+What is the difference between functional and class components?
+What is the difference between useDeferredValue and useTransition?
+How would you render 50,000 records efficiently in React?
+How do you make a GET API call in React?
+How do you make a POST API call in React?
+Explain basic CSS vs SCSS.
+Create an HTML form with:
+Name
+Password
+Button
+Display entered details when the submit button is clicked with validation using js.
+Implement .Net Api to retrieve list of employee data using a .NET GET API and display it in a React table.
+
 redux,
 React Hooks,
 Redux Store
