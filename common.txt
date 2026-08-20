@@ -1,3 +1,17 @@
+team member - designer- manshi, tester- vinay, developer- kunal, neeraj, rahul, 
+my manager : adish jain sir
+los role- development  project lead 
+
+MOHFW (Ministry of Health & Family Welfare)
+NHP - National health Portal
+CHI - Centre for Health Informatics
+NIHFW - National Institute of Health & Family Welfare
+
+NHP - 
+Gaurav Sharma - it head 
+raushna - for sms project 
+vijay krishnan - for DB and hoisting
+
 Q. Tell me something about yourself?
 A. I’m Gautam Kumar. I am born and brought up in Ranchi, Jharkhand, and I also completed my education there.
 
@@ -16,16 +30,7 @@ I also do code reviews.
 My last project was a LOS application build for a NBFC company. client wanted a in house solution for their daily work. This application covers coplete life cycle of loan from lead to post disbursal of loan with reports and dashboards. It consist 2 more application , one customer portal and other vendor portal.
 I had lead this project and apart from development i also involved in requirement discussion and screen flow design.
 
-team member - designer- manshi, tester- vinay, developer- kunal, neeraj, rahul, 
-my manager : adish jain sir
-los role- development  project lead 
+Q. Difficult problem : payment status update form  : 
+api had search, filter and all but user searches for 1 month or more than 1 
 
-MOHFW (Ministry of Health & Family Welfare)
-NHP - National health Portal
-CHI - Centre for Health Informatics
-NIHFW - National Institute of Health & Family Welfare
 
-NHP - 
-Gaurav Sharma - it head 
-raushna - for sms project 
-vijay krishnan - for DB and hoisting
