@@ -20,4 +20,12 @@ team member - designer- manshi, tester- vinay, developer- kunal, neeraj, rahul,
 my manager : adish jain sir
 los role- development  project lead 
 
+MOHFW (Ministry of Health & Family Welfare)
+NHP - National health Portal
+CHI - Centre for Health Informatics
+NIHFW - National Institute of Health & Family Welfare
 
+NHP - 
+Gaurav Sharma - it head 
+raushna - for sms project 
+vijay krishnan - for DB and hoisting
