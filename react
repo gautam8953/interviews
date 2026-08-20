@@ -1,6 +1,90 @@
-What is the difference between props and state in React? Explain default props in React.
-How do you pass data from parent to child in React?
-How do you pass data from child to parent in React?
+Q. What is React?
+A. React is a JavaScript library for building component-based user interfaces.
+  Its major concepts are:
+  Components
+  Props
+  State
+  Hooks
+  Virtual DOM
+  Unidirectional data flow
+  Reusable component architecture
+  Redux/Redux Toolkit or React Query
+
+Q. What is JSX?
+A. JSX is a syntax extension that allows us to write HTML-like code inside JavaScript.
+    const element = <h1>Hello {name}</h1>;
+    JSX is transformed into JavaScript calls during compilation.
+    Important: JSX is not HTML. It follows JavaScript/React rules, such as className instead of class.
+
+Q. What is the Virtual DOM?
+A. The Virtual DOM is an in-memory representation of the UI.
+    When state or props change:
+    React creates a new virtual representation.
+    React compares it with the previous representation.
+    It determines what changed.
+    React updates the required parts of the real DOM.
+
+    This comparison process is part of reconciliation.
+
+Q. What is the difference between props and state in React? Explain default props in React?
+A. Props are inputs passed from a parent component to a child and should be treated as read-only.
+    State is data managed by the component itself and can change over time.
+
+    Props → passed by parent
+    State → managed by component
+
+    default props are fallback values used when a component does not receive a particular prop.
+    function User({ name = "Guest", age = 18 }) {
+      return (
+        <div>
+          <h2>{name}</h2>
+          <p>Age: {age}</p>
+        </div>
+      );
+    }
+
+  Props	                        State
+  Passed from parent	          Managed by component
+  Read-only	                    Can change
+  Used to configure component	  Used for dynamic data
+  Parent controls them	        Component controls them
+
+Q. What is prop drilling?
+A. Prop drilling occurs when data is passed through multiple intermediate components just to reach a deeply nested component.
+  Even if Parent, Child, and GrandChild don't need the data, they have to pass it.
+  Solutions include:
+  Context API
+  Redux/Zustand
+  Component composition
+  Custom hooks
+  Server-state libraries where appropriate
+
+Q. What is component composition?
+A. Composition means building complex components by combining smaller components rather than creating a large inheritance hierarchy.
+    Example:
+    <Card>
+      <UserProfile />
+    </Card>    
+    The Card component doesn't need to know what is inside it.
+    Strong point: React generally favors composition over inheritance.
+
+Q. What are controlled and uncontrolled components?
+A. Controlled : React controls the input value.
+
+  const [name, setName] = useState("");
+  <input
+    value={name}
+    onChange={e => setName(e.target.value)}
+  />
+
+  Uncontrolled : The DOM maintains the value.
+
+  const inputRef = useRef();
+  <input ref={inputRef} />
+  Controlled components are commonly preferred for complex forms because React has full control over the form state.
+
+Q. How do you pass data from parent to child in React?
+Q. How do you pass data from child to parent in React?
 What is a Fragment in React?
 What is the difference between functional and class components?
 What is the difference between useDeferredValue and useTransition?
