@@ -1,1 +1,23 @@
+Q. Tell me something about yourself?
+A. I’m Gautam Kumar. I am born and brought up in Ranchi, Jharkhand, and I also completed my education there.
+
+I have around 12 years of experience in IT, with approximately 8 years of experience with frontend technologies like Angular, JavaScript, TypeScript. 
+During my career, I have worked on multiple domains, including websites, application portals, e-commerce applications, e-governance projects and enterprise applications.
+I have also worked with 2 international client projects.
+If i talk about my key projects then hmis, cadre hrms, covid-19 vaccination sms & LOS app these are my some major projects done by me.
+
+I also got the opportunity to work with a product-based company, ACG Infotech, where I worked on HMIS and ERP applications. 
+This gave me good exposure to developing enterprise-level applications and understanding business processes. I also worked with internation client there for erp project.
+
+Currently, I had been working as an Assistant Manager at RV Solutions, where i lead a team of 6 team member. 
+Apart from development, I took daily work and project update of colleges and further update it to delivery manager. 
+I also do code reviews. 
+
+My last project was a LOS application build for a NBFC company. client wanted a in house solution for their daily work. This application covers coplete life cycle of loan from lead to post disbursal of loan with reports and dashboards. It consist 2 more application , one customer portal and other vendor portal.
+I had lead this project and apart from development i also involved in requirement discussion and screen flow design.
+
+team member - designer- manshi, tester- vinay, developer- kunal, neeraj, rahul, 
+my manager : adish jain sir
+los role- development  project lead 
+
 
