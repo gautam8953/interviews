@@ -1426,7 +1426,10 @@ A. Generics allow reusable strongly typed code.
 	function getFirst<T>(items: T[]): T {
 	  return items[0];
 	}
-
+Q write a program to replace string with number and number with string
+	const a=["a",1,"s",2]; output : [1,"a",2,"s"]
+Q. write code to implement switchmap, mermap etc 
+Q. write code to call search api after 500ms
 
 
 JQUERY : 
