@@ -83,6 +83,102 @@ A. Controlled : React controls the input value.
   <input ref={inputRef} />
   Controlled components are commonly preferred for complex forms because React has full control over the form state.
 
+Q. What are React Hooks?
+A. Hooks allow functional components to use React features such as state, context, refs, and effects.
+  Common hooks:
+    useState
+    useEffect
+    useContext
+    useReducer
+    useRef
+    useMemo
+    useCallback
+    useLayoutEffect
+
+  useState adds local state to a functional component.
+    const [count, setCount] = useState(0);
+    setCount(count + 1);  // calling 
+
+  React schedules a state update and may re-render the component.
+  For updates based on previous state, I prefer the functional form:
+    setCount(prev => prev + 1);
+  This avoids relying on a potentially stale value.
+
+  useEffect is used to synchronize a component with external systems such as:
+    API calls
+    subscriptions
+    timers
+    browser APIs
+    event listeners
+
+    useEffect(() => {
+      fetchUsers();
+    }, []);
+  The empty dependency array means the effect doesn't depend on changing reactive values.
+  Important interview point: 
+  useEffect should not be treated as a general-purpose place for every piece of component logic. 
+  If something can be calculated during rendering, an effect may be unnecessary.
+
+Q. What are the rules of Hooks?
+A. Two major rules:
+    Call Hooks only at the top level.
+    Call Hooks only from React components or custom Hooks.
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      // logic
+    }
+  }, [isLoggedIn]);
+
+Q. What is the dependency array in useEffect?
+A. useEffect(() => {
+    console.log(userId);
+  }, [userId]);
+  The effect runs when userId changes.
+
+  Three common forms:
+  useEffect(() => {});  // Runs after every relevant render.
+  useEffect(() => {}, []);  // Runs after initial mount, subject to development Strict Mode behavior.
+  useEffect(() => {}, [userId]);  // Runs when userId changes.
+
+Q. What is cleanup in useEffect?
+A. Cleanup is used to remove subscriptions, timers, listeners, etc.
+  useEffect(() => {
+    const timer = setInterval(() => {
+      console.log("Running");
+    }, 1000);
+  
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+  Without cleanup, we can create memory leaks or duplicate subscriptions.
+
+Q. How do you cancel an API request in React?
+A. I use AbortController
+  useEffect(() => {
+    const controller = new AbortController();  
+    fetch("/api/users", {
+      signal: controller.signal
+    });  
+    return () => controller.abort();
+  }, []);
+  This is especially useful when a component unmounts or the request becomes obsolete
+
+Q. What is a stale closure?
+A. A stale closure happens when a callback captures an old value from a previous render.
+  useEffect(() => {
+    const timer = setInterval(() => {
+      console.log(count);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+  Here the callback can keep referring to the initial count.
+  Possible solutions include:
+    Correct dependencies
+    Functional state updates
+    useRef when appropriate
+
 Q. How do you pass data from parent to child in React?
 Q. How do you pass data from child to parent in React?
 What is a Fragment in React?
