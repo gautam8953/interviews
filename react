@@ -135,6 +135,17 @@ A. Hooks allow functional components to use React features such as state, contex
   }, []);
   It's particularly useful when passing callbacks to memoized child components or when function identity matters.
 
+  useRef provides a mutable value that persists between renders without causing a re-render when it changes.
+    Common uses:
+    
+    DOM references
+    Timers
+    Previous values
+    Mutable instance-like values
+
+    Example:
+    const inputRef = useRef();
+    inputRef.current.focus();
 
 Q. What are the rules of Hooks?
 A. Two major rules:
@@ -150,6 +161,12 @@ A. Two major rules:
 Q. Difference between useMemo and useCallback.
 A.   useMemo     → memoizes a calculated value
       useCallback → memoizes a function
+
+Q. Difference between useState & useRef?
+A.   useState	                            useRef
+    Updating causes render	            Updating doesn't cause render
+    Used for UI state	                  Used for mutable values/DOM references
+    Value managed by React rendering	  current is mutable
 
 Q. When should you NOT use useMemo or useCallback?
 A. I don't use them by default.
@@ -190,6 +207,38 @@ A. I use AbortController
     return () => controller.abort();
   }, []);
   This is especially useful when a component unmounts or the request becomes obsolete
+
+Q. How do you handle API calls in React?
+A. useEffect + fetch/axios
+    For production applications with significant server state, I prefer a server-state solution such as TanStack Query.
+    Typical requirements include:
+    
+    Loading state
+    Error state
+    Retry
+    Cancellation
+    Caching
+    Pagination
+    Refetching
+    Authentication
+    Error handling
+
+Q. How do you prevent race conditions in API calls?
+A. Suppose the user searches:
+
+  React
+  React developer
+  React developer India
+  
+  Responses may arrive out of order. I can solve this using:
+  
+  AbortController
+  Request IDs
+  Query libraries
+  Debouncing
+  Ignoring stale responses
+  
+  For example, aborting the previous request when a new search begins prevents obsolete results from being applied.
 
 Q. What is a stale closure?
 A. A stale closure happens when a callback captures an old value from a previous render.
@@ -238,6 +287,277 @@ A. I generally follow this process:
     Analyze bundle size.
     
     I would avoid premature optimization.
+
+Q. Context API vs Redux?
+A. Context : Good for relatively stable/global values such as:
+    Theme
+    Locale
+    Authentication information
+
+  Redux : Useful when application state is complex and needs:
+    Predictable updates
+    Centralized state
+    Middleware
+    DevTools
+    Complex cross-component workflows
+
+I choose based on application requirements rather than automatically using Redux.
+
+Q. What is Redux?
+A. Redux is a predictable state management library.
+
+    Typical flow:
+    
+    Component
+       ↓
+    dispatch(action)
+       ↓
+    Reducer
+       ↓
+    Store updated
+       ↓
+    Component receives updated state
+
+Modern Redux applications generally use Redux Toolkit rather than writing Redux boilerplate manually.
+
+Q. What is Redux Toolkit?
+A. Redux Toolkit is the recommended way to write Redux logic. It provides:
+  configureStore
+  createSlice
+  createAsyncThunk
+  Immer integration
+  Simplified Redux configuration
+
+  Example:
+  const counterSlice = createSlice({
+    name: "counter",
+    initialState: { value: 0 },
+    reducers: {
+      increment: state => {
+        state.value++;
+      }
+    }
+  });
+
+Q. Redux vs React Query?
+A. They solve different problems. Redux is commonly used for client/application state.
+  React Query/TanStack Query is designed primarily for server state:
+
+  API caching
+  Refetching
+  Retry
+  Loading/error states
+  Cache invalidation
+  Background updates
+For a modern application, I wouldn't automatically put all API data into Redux.
+
+Q. How do you implement lazy loading in React?
+A. Using dynamic imports: const Dashboard = lazy(() => import("./Dashboard"));
+    <Suspense fallback={<Loader />}>
+      <Dashboard />
+    </Suspense>
+
+This allows the application to split the bundle and load the component when needed.
+
+Q. What is Suspense?
+A. Suspense allows React to display a fallback while a child is waiting for something that supports Suspense.
+    A common use is lazy-loaded components:
+    
+    <Suspense fallback={<Loading />}>
+      <Dashboard />
+    </Suspense>
+    
+    It can also participate in other React-supported async rendering patterns.
+
+Q. How do you handle large forms in React?
+A. For large forms, I consider:
+
+    Controlled vs uncontrolled inputs
+    React Hook Form
+    Schema validation with Zod/Yup
+    Field-level validation
+    Avoiding unnecessary re-renders
+    Dynamic fields
+    Server-side validation
+    Error handling
+
+  For a very large form, I generally avoid putting every field into a parent component's state if it causes unnecessary rendering.
+
+Q. How do you prevent XSS in React?
+A. React escapes values rendered normally:
+
+  <div>{userInput}</div>
+  
+  The major risk is intentionally injecting raw HTML:
+  
+  dangerouslySetInnerHTML
+  
+  If raw HTML is required, I sanitize it using a trusted sanitizer and follow a strict content security policy.
+  
+  I never assume client-side validation is sufficient for security.
+
+Q. What is reconciliation?
+A. Reconciliation is React's process of comparing the previous rendered tree with the new one and determining the minimal changes needed for the UI.
+  Keys are especially important because they help React identify elements across renders.
+
+Q. What is Fiber?
+A. Fiber is React's internal architecture for representing and processing work on the component tree.
+  It enables React to:
+  
+  Break rendering work into units
+  Prioritize work
+  Pause/resume certain rendering work
+  Support concurrent rendering capabilities
+  
+  For an experienced React developer, understanding Fiber conceptually is more important than knowing its internal implementation details.
+
+Q. What is concurrent rendering?
+A. Concurrent rendering allows React to work on rendering without necessarily blocking everything else until the entire update is complete.
+  React can prioritize more important updates and defer less important work.
+  
+  For example, startTransition can mark an update as non-urgent.
+  
+  startTransition(() => {
+    setSearchResults(results);
+  });
+  
+  This can help keep interactions responsive
+
+Q. useTransition lets us mark some state updates as non-urgent.
+A. useTransition lets us mark some state updates as non-urgent.
+    const [isPending, startTransition] = useTransition();
+    
+    startTransition(() => {
+      setSearchResults(data);
+    });
+    
+    React can prioritize urgent interactions over the transition update.
+
+Q .What is the difference between useEffect and useLayoutEffect?
+A. useEffect runs after the browser has generally had a chance to paint.
+  useLayoutEffect runs synchronously after DOM mutations but before the browser paints.  
+  Use useLayoutEffect when you need to measure or synchronously adjust DOM layout to avoid visible flicker.
+  
+  Example:
+  
+  useLayoutEffect(() => {
+    const width = elementRef.current.offsetWidth;
+  }, []);
+  
+  For normal API calls and subscriptions, useEffect is usually preferable.
+
+Q. What is a custom Hook?
+A. A custom Hook is a reusable function whose name starts with use and which can use other Hooks.
+  Example:
+  
+  function useDebounce(value, delay) {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+      return () => clearTimeout(timer);
+    }, [value, delay]);
+    return debouncedValue;
+  }
+  
+  This allows reusable stateful logic without duplicating component code.
+
+Q. What are Error Boundaries?
+A. Error boundaries catch errors during rendering and certain lifecycle operations in their child component tree and show a fallback UI instead of crashing the entire UI tree.
+Traditionally they are implemented using class components.
+
+  Conceptually:
+  
+  Application
+     ↓
+  Error Boundary
+     ↓
+  Feature
+  
+  For production applications, I typically place boundaries around meaningful feature areas rather than relying on one giant boundary.
+
+Q. How do you test React applications?
+A. I generally use:
+
+  Vitest/Jest for unit tests
+  React Testing Library for component behavior
+  Playwright/Cypress for end-to-end testing
+  
+  I focus tests on user behavior rather than implementation details.
+  
+  For example, instead of testing an internal state variable, I test:
+  
+  User clicks Login
+         ↓
+  Loading appears
+         ↓
+  API succeeds
+         ↓
+  Dashboard appears
+
+Q. How would you structure a large React application?
+A. For a large application, I prefer feature-oriented organization.
+
+  For example:
+  
+  src/
+   ├── app/
+   ├── features/
+   │    ├── auth/
+   │    ├── users/
+   │    ├── orders/
+   │    └── dashboard/
+   ├── components/
+   ├── hooks/
+   ├── services/
+   ├── utils/
+   ├── routes/
+   └── types/
+  
+  I keep business logic close to the feature that owns it and avoid creating a giant global components or utils folder containing unrelated code.
+
+Q. How would you improve the performance of a React page containing 10,000 records?
+A. I would not render all 10,000 DOM nodes at once. I'd use:
+  1. Virtualization : Only visible rows are rendered.
+        Libraries such as: react-window, TanStack Virtual
+  2. Pagination : Load a limited number of records.
+  3. Memoization : Use React.memo for expensive row components when appropriate.
+  4. Stable callbacks : Use useCallback where function identity is causing unnecessary renders.
+  5. Server-side filtering/sorting : Don't load unnecessary data to the browser.
+  6. Profiling : Use React DevTools Profiler to identify the actual bottleneck.
+
+Q. A child component is re-rendering unnecessarily. How would you debug it?
+A. First, I wouldn't immediately add useMemo.
+  I'd:
+  
+  Use React DevTools Profiler.
+  Identify why the child renders.
+  Check whether parent renders.
+  Check whether props changed.
+  Check object/array references.
+  Check callback references.
+  Check context updates.
+  Apply React.memo if appropriate.
+  Stabilize props with useMemo/useCallback only where beneficial.
+  Profile again.
+
+  Example problem:
+  
+  <Child options={{ page: 1 }} />
+  
+  A new object is created on every parent render.
+  
+  Potential solution:
+  
+  const options = useMemo(() => ({
+    page: 1
+  }), []);
+
+
+<Child options={options} />
+
+But I'd only do this if profiling shows it matters.
 
 
 Q. How do you pass data from parent to child in React?
