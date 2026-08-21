@@ -104,6 +104,7 @@ A. Hooks allow functional components to use React features such as state, contex
     setCount(prev => prev + 1);
   This avoids relying on a potentially stale value.
 
+
   useEffect is used to synchronize a component with external systems such as:
     API calls
     subscriptions
@@ -119,6 +120,22 @@ A. Hooks allow functional components to use React features such as state, contex
   useEffect should not be treated as a general-purpose place for every piece of component logic. 
   If something can be calculated during rendering, an effect may be unnecessary.
 
+
+  useMemo memoizes the result of an expensive calculation.
+  const filteredUsers = useMemo(() => {
+    return users.filter(user => user.active);
+  }, [users]);
+  The calculation is recomputed when dependencies change.
+  Important: I don't use useMemo everywhere. It has its own overhead and should be used when memoization actually helps.
+
+
+  useCallback memoizes a function reference.
+  const handleClick = useCallback(() => {
+    console.log("clicked");
+  }, []);
+  It's particularly useful when passing callbacks to memoized child components or when function identity matters.
+
+
 Q. What are the rules of Hooks?
 A. Two major rules:
     Call Hooks only at the top level.
@@ -129,6 +146,15 @@ A. Two major rules:
       // logic
     }
   }, [isLoggedIn]);
+
+Q. Difference between useMemo and useCallback.
+A.   useMemo     → memoizes a calculated value
+      useCallback → memoizes a function
+
+Q. When should you NOT use useMemo or useCallback?
+A. I don't use them by default.
+  If the calculation is cheap or the child isn't sensitive to function identity, memoization can make the code more complex without providing meaningful benefit.
+  I first identify an actual performance issue using profiling, then optimize.
 
 Q. What is the dependency array in useEffect?
 A. useEffect(() => {
@@ -178,6 +204,41 @@ A. A stale closure happens when a callback captures an old value from a previous
     Correct dependencies
     Functional state updates
     useRef when appropriate
+
+Q. What is React.memo?
+A. React.memo prevents a functional component from re-rendering when its props are considered unchanged.
+    const User = React.memo(({ name }) => {
+      return <div>{name}</div>;
+    });
+  However, if an object/function is recreated every render, shallow comparison can still detect a different reference.
+  That's where stable references from useMemo or useCallback may help.
+
+Q. What causes a React component to re-render?
+A. Common causes include:
+    Its state changes
+    Its parent re-renders
+    Its context value changes
+    Its subscribed external store changes
+    Its props change
+    A parent re-render doesn't necessarily mean the DOM will be changed. React still performs reconciliation.
+
+Q. How do you optimize a slow React application?
+A. I generally follow this process:
+    Profile the application.
+    Identify unnecessary renders.
+    Split large components.
+    Use React.memo where appropriate.
+    Use useMemo/useCallback selectively.
+    Virtualize large lists.
+    Lazy-load large components.
+    Optimize API calls.
+    Cache server state.
+    Reduce unnecessary context updates.
+    Optimize images/assets.
+    Analyze bundle size.
+    
+    I would avoid premature optimization.
+
 
 Q. How do you pass data from parent to child in React?
 Q. How do you pass data from child to parent in React?
