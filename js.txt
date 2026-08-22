@@ -34,6 +34,16 @@ A. javacript developed by Mocha in 1995. first ecma script edition come in June 
    Promise.any 
    AggregateError
 	
+Q. What is difference between js and TS?
+A. 	TS: supperset of JS
+		Adds static type
+		Catches error before running 
+		better for large applications
+
+	JS : ts converted into js
+		No type checking
+		errors found at runtime
+		faster to start
 
 Q. What is the difference between JavaScript and JScript?
    Netscape provided the JavaScript language. Microsoft changed the name and called it JScript to avoid the trademark issue. 
@@ -223,7 +233,11 @@ A. Hoisting is the default behavior of JavaScript which moves variables and func
 	console.log(a); var a = 10; // undefined
 	console.log(a); let a = 10; // ReferenceError: Cannot access 'a' before initialization
 
-Q. differene in let, var and const?
+q. what is temporal dead zone?
+A. Temporal Dead Zone (TDZ) is the period between when a let or const variable is created and 
+	when it is initialized. During this period, accessing the variable causes a ReferenceError
+
+Q. difference in let, var and const?
 	VAR : 
 		var has the function or global scope.
 		It gets hoisted to the top of its scope 
@@ -297,34 +311,28 @@ A. "View state" is specific to a page in a session whereas
 
 Q. Define closure.
    In JavaScript, we need closures when a variable which is defined outside the scope in reference, is accessed from some inner scope.
-	var num = 10;  
-	function sum()   
-	{  
-	document.writeln(num+num);  
-	}   
-	sum();
 
-function outer() {
-    let count = 0;
-
-    function inner() {
-        count++;
-        console.log(count);
-    }
-
-    return inner;
-}
-
-const counter = outer();
-
-counter(); // 1
-counter(); // 2
-counter(); // 3
+	function outer() {
+	    let count = 0;	
+	    function inner() {
+	        count++;
+	        console.log(count);
+	    }	
+	    return inner;
+	}
+	const counter = outer();
+	
+	counter(); // 1
+	counter(); // 2
+	counter(); // 3
 
 Q. How can we detect OS of the client machine using JavaScript?  navigator.appVersion
 
 Q. What is this keyword in JavaScript?
 A. The this keyword is a reference variable that refers to the current object.
+	this is a special keyword whose value depends on the execution context. 
+	In regular functions, it is determined by how the function is called. 
+	Arrow functions don't have their own this; they inherit it from the surrounding lexical scope.
 	
 Q. How to handle exceptions in JavaScript?
 A.  By the help of try/catch block, we can handle exceptions in JavaScript. 
@@ -686,6 +694,21 @@ Promise example :
 	    console.error(error); // Handle error
 	  });
 
+Q. How does Promise.all() work?
+A. Promise.all() is used when you want to run multiple asynchronous operations concurrently and wait for all of them to complete.
+
+	const p1 = Promise.resolve("User");
+	const p2 = Promise.resolve("Orders");
+	const p3 = Promise.resolve("Products");
+	
+	Promise.all([p1, p2, p3])
+	  .then((results) => {
+	    console.log(results);
+	  });
+	output : ["User", "Orders", "Products"]
+
+	Promise.all() uses fail-fast behavior:	
+	If any promise rejects, the returned promise rejects immediately with that rejection reason.
  
 Q. what is async
 A. async refers to a keyword that is used to declare an asynchronous function.
@@ -719,7 +742,36 @@ A. async refers to a keyword that is used to declare an asynchronous function.
 	    console.log(result);
 	}
 	showData();
- 
+
+Q. what is difference between promise and async/await?
+A. 
+	Promise .then()						async/await
+	Uses .then() / .catch()				Uses await / try...catch
+	Can become nested/chained			Usually easier to read
+	Good for chaining					Looks like synchronous code
+	Promise-based						Still Promise-based
+	Doesn't require async function		await normally requires an async function
+
+	promise chaining : 
+	getUser()
+	  .then(user => getOrders(user.id))
+	  .then(orders => getPayments(orders))
+	  .then(payments => console.log(payments))
+	  .catch(error => console.log(error));
+
+	async await chaining : 
+		async function getData() {
+		  try {
+		    const user = await getUser();
+		    const orders = await getOrders(user.id);
+		    const payments = await getPayments(orders);
+		
+		    console.log(payments);
+		  } catch (error) {
+		    console.log(error);
+		  }
+		}
+
 Q. what is arrow function?
 A. Arrow functions provide a shorter syntax for writing functions and 
    offer advantages in scenarios where maintaining the this context of the outer scope is important.
@@ -1323,6 +1375,37 @@ A. A prototype is an object that JavaScript uses to share properties and methods
 
 	prototype : Belongs to functions.
 	__proto__ : Belongs to objects.
+
+Q. what is prototype chaining?
+A. Prototype chaining is JavaScript's mechanism for property and method lookup. 
+	If a property isn't found on an object, JavaScript searches its prototype, 
+	then the prototype's prototype, continuing until it finds the property or reaches null
+	const animal = {
+	  eat() {
+	    console.log("Eating");
+	  }
+	};
+	
+	const dog = Object.create(animal);
+	
+	dog.bark = function () {
+	  console.log("Barking");
+	};
+	
+	dog.bark(); // Barking
+	dog.eat();  // Eating
+
+	function Person(name) {
+	  this.name = name;
+	}
+	
+	Person.prototype.sayHello = function () {
+	  console.log("Hello " + this.name);
+	};
+	
+	const p1 = new Person("Gautam");
+	
+	p1.sayHello();  // Hello Gautam
 
 Q.rest and spread operator
 A. Although they use the same syntax (...), they perform different operations depending on where they are used.
