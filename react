@@ -559,6 +559,12 @@ A. First, I wouldn't immediately add useMemo.
 
 But I'd only do this if profiling shows it matters.
 
+Q. how to check and remove unnecessay re-render in react
+Q. 
+
+program : 
+1. call a api to bin dand show data in component 
+2. 
 
 Q. How do you pass data from parent to child in React?
 Q. How do you pass data from child to parent in React?
