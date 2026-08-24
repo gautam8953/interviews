@@ -709,7 +709,32 @@ A. Promise.all() is used when you want to run multiple asynchronous operations c
 
 	Promise.all() uses fail-fast behavior:	
 	If any promise rejects, the returned promise rejects immediately with that rejection reason.
- 
+
+Q. Difference between Promise.all() and Promise.allSettled()
+A. Promise.all()
+	Resolves only if all promises succeed.
+	Rejects immediately when any promise rejects.
+	Returns an array of resolved values.
+
+	const p1 = Promise.resolve("A");
+	const p2 = Promise.resolve("B");
+	const p3 = Promise.reject("Error");
+	
+	Promise.all([p1, p2, p3])
+	  .then(result => console.log(result))
+	  .catch(error => console.log(error));
+
+	Promise.allSettled()
+	Waits until all promises have either fulfilled or rejected.
+	Never rejects.
+	Returns an array of objects describing each promise's outcome.
+	const p1 = Promise.resolve("A");
+	const p2 = Promise.resolve("B");
+	const p3 = Promise.reject("Error");
+	
+	Promise.allSettled([p1, p2, p3])
+	  .then(result => console.log(result));
+
 Q. what is async
 A. async refers to a keyword that is used to declare an asynchronous function.
    async Keyword : When you declare a function with the async keyword, it means that the function will always return a Promise. 
