@@ -304,7 +304,8 @@ A. Context : Good for relatively stable/global values such as:
 I choose based on application requirements rather than automatically using Redux.
 
 Q. What is Redux?
-A. Redux is a predictable state management library.
+A. Redux is a predictable state management library. 
+  Modern Redux applications generally use Redux Toolkit rather than writing Redux boilerplate manually.
 
     Typical flow:
     
@@ -318,7 +319,19 @@ A. Redux is a predictable state management library.
        ↓
     Component receives updated state
 
-Modern Redux applications generally use Redux Toolkit rather than writing Redux boilerplate manually.
+  
+  Advantages of Redux
+  1. Centralized state management
+  2. Predictable state updates
+  3. Avoids prop drilling
+  4. Easy debugging
+  5. Predictable data flow
+  6. Good for large applications
+  7. State can be shared across unrelated components
+
+  Don't say: "Redux is always better than useState/useContext."
+  Redux is more valuable when you have complex global state, many components sharing state, 
+  frequent state transitions, or a need for predictable/debuggable state management.
 
 Q. What is Redux Toolkit?
 A. Redux Toolkit is the recommended way to write Redux logic. It provides:
@@ -560,10 +573,10 @@ A. First, I wouldn't immediately add useMemo.
 But I'd only do this if profiling shows it matters.
 
 Q. how to check and remove unnecessay re-render in react
-Q. 
+Q. What is Snapshot Testing?
 
 program : 
-1. call a api to bin dand show data in component 
+1. call a api to bind and show data in component 
 2. 
 
 Q. How do you pass data from parent to child in React?
