@@ -1361,3 +1361,19 @@ Q. Where do you see the future of Angular going?
 Q. Are there any new features or changes in the Angular ecosystem that you are particularly excited about?
 
 
+What are Standalone Components in Angular?
+What are Signals in Angular and how are they different from RxJS?
+Explain Change Detection in Angular and how OnPush works.
+When would you use OnPush Change Detection?
+How does the async pipe work?
+What is the difference between ngOnInit and constructor?
+How do you prevent memory leaks in Angular?
+What are Angular Lifecycle Hooks? Give use cases.
+How does Dependency Injection work in Angular?
+What is the difference between providers: [] and viewProviders: []?
+How do you implement Route Guards in Angular?
+What is Lazy Loading in Angular and how do you implement it?
+How do you handle errors globally in Angular?
+What are Interceptors in Angular and how are they used?
+How do you optimize the performance of an Angular app?
+
