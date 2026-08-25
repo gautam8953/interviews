@@ -31,6 +31,17 @@ Q. what is rest api
 Q. knowledge of aws 
 
 
+Explain your project in detail.
+What was the most challenging part of your project?
+How did you optimize the performance of your application?
+How did you handle a critical bug in production?
+Debug this JavaScript code and find the issue.
+How would you find memory leaks in an Angular application?
+How would you test an Angular application?
+How do you manage state in a large Angular application?
+Describe a time you had a conflict with a teammate.
+Why Mastercard? What excites you about this role?
+
 project development : 
 Q. what is agile methodology 
 Q. sprints methodology 
