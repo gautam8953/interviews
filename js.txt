@@ -1534,11 +1534,62 @@ A. Generics allow reusable strongly typed code.
 	function getFirst<T>(items: T[]): T {
 	  return items[0];
 	}
+
+What is the difference between var, let and const?
+Explain Hoisting in JavaScript.
+What is the Temporal Dead Zone?
+What is a Closure in JavaScript? Give an example.
+Explain the Event Loop in JavaScript.
+What are Microtasks and Macrotasks?
+What is the difference between == and ===?
+How does the this keyword work?
+What is Prototype and Prototype Chaining?
+What are Map, Set, WeakMap and WeakSet?
+How does Promise.all() work?
+What is the difference between Promise and async/await?
+How do you deep clone an object in JavaScript?
+What is Debouncing and Throttling?
+What is Event Delegation?
+
+Programs : 
 Q write a program to replace string with number and number with string
 	const a=["a",1,"s",2]; output : [1,"a",2,"s"]
 Q. write code to implement switchmap, mermap etc 
 Q. write code to call search api after 500ms
 
+Two Sum
+Valid Parentheses
+Longest Substring Without Repeating Characters
+Merge Intervals
+Group Anagrams
+Maximum Subarray
+Container With Most Water
+Best Time to Buy and Sell Stock
+Product of Array Except Self
+Find Minimum in Rotated Sorted Array
+Linked List Cycle
+Reverse Linked List
+Binary Tree Inorder Traversal
+Number of Islands (DFS)
+Course Schedule (Topological Sort)
+
+
+TypeScript  :
+What are the differences between interface and type?
+What is Type Inference in TypeScript?
+What are Union and Intersection Types? Give examples.
+What is the difference between any, unknown and never?
+What are Generics in TypeScript? Give an example.
+What is Type Narrowing?
+What are Utility Types? Name some commonly used.
+What is the difference between as and <T> type assertion?
+What are Enums in TypeScript?
+How do you create a readonly property?
+What are Decorators in TypeScript?
+What is the difference between class and interface?
+How does Optional Chaining (?.) work?
+How does Nullish Coalescing (??) work?
+What is the use of Partial<T>, Pick<T,K> and Omit<T,K>?
 
 JQUERY : 
 
