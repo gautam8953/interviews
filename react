@@ -1,3 +1,9 @@
+Q. react command to create app? 
+A. npm create vite@latest my-react-app
+    npx create-react-app my-app
+    by both command can create app, for version change after creation run commnd : 
+    npm install react@18 react-dom@18
+
 Q. What is React?
 A. React is a JavaScript library for building component-based user interfaces.
   Its major concepts are:
