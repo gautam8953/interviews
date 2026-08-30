@@ -1377,3 +1377,139 @@ How do you handle errors globally in Angular?
 What are Interceptors in Angular and how are they used?
 How do you optimize the performance of an Angular app?
 
+
+TypeScript  :
+Q. Interface vs Type?
+A. Both can describe types.
+	interface is commonly used for object contracts.
+	
+	interface User {
+	  id: number;
+	  name: string;
+	}
+	
+	type can represent unions and intersections.	
+	type Status = 'active' | 'inactive';
+	
+
+Q. What is Type Inference in TypeScript?
+A. Type inference is a feature of TypeScript where TypeScript automatically determines 
+	the type of a variable, parameter, or expression based on the value or context, 
+	so you don't always need to explicitly specify the type.
+
+	Simple example
+	let name = "Gautam";
+	let age = 30;
+	let isActive = true;
+
+Q. What are Union and Intersection Types? Give examples.
+A. Union and Intersection types are used to combine multiple types, but they work in opposite ways
+	
+	Union Type (|) A Union Type means a value can be one of several types.
+		Think: OR
+
+		let id: string | number;
+
+		id = 101;       // ✅
+		id = "EMP101";  // ✅
+
+		id = true;      // ❌ Error
+	
+	Intersection Type (&) An Intersection Type combines multiple types into one type that must have all their properties.
+		Think: AND
+
+		type Person = {
+			name: string;
+		};
+		type Employee = {
+			employeeId: number;
+		};
+		type EmployeePerson = Person & Employee;
+		
+		const employee: EmployeePerson = {
+			name: "Gautam",
+			employeeId: 101
+		};
+
+Q. What is the difference between any, unknown and never?
+A. 
+
+	any : "I don't care about the type."
+	unknown : "I don't know the type yet, so check it first."
+	never : "This situation/value can never happen."
+
+
+	any - any essentially tells TypeScript:"Don't perform type checking on this value."
+
+	let value: any = "Hello";
+	value = 100;       // ✅
+	value = true;      // ✅
+	value.foo();       // ✅ TypeScript allows it
+	value.bar.baz();   // ✅ TypeScript allows it
+
+	The problem is that you lose TypeScript's type safety. so
+
+	let data: any = "Hello";
+	console.log(data.toUpperCase()); // ✅
+	console.log(data.toFixed());     // No compile-time error
+	
+	In above coe we didn't get compile time error but in runtime code will show error.
+
+
+	unknown means: "I don't know what type this value is yet."
+	Unlike any, TypeScript doesn't allow you to use the value until you verify its type.
+
+		let value: unknown = "Hello";
+
+		value = 100;       // ✅
+		value = true;      // ✅
+
+		But:
+
+		value.toUpperCase(); // ❌ Error
+
+		You first need to check the type:
+
+		let value: unknown = "Hello";
+
+		if (typeof value === "string") {
+			console.log(value.toUpperCase()); // ✅
+		}
+		This makes unknown much safer than any
+
+
+	never : "This value will never exist."
+	It's commonly used for functions that never successfully return.
+
+		Example: Function that always throws
+		function throwError(message: string): never {
+			throw new Error(message);
+		}
+		This function doesn't return a value. It always throws an error.
+
+Q. What are Generics in TypeScript? Give an example.
+A. Generics allow us to write reusable and type-safe code 
+	that can work with different data types without losing type information.
+	Instead of specifying a fixed type, we use a type parameter, commonly represented by <T>
+
+		function identity<T>(value: T): T {
+			return value;
+		}
+
+		const num = identity<number>(10);
+		const str = identity<string>("Hello");
+
+		console.log(num); // 10
+		console.log(str); // Hello		
+
+
+What is Type Narrowing?
+What are Utility Types? Name some commonly used.
+What is the difference between as and <T> type assertion?
+What are Enums in TypeScript?
+How do you create a readonly property?
+What are Decorators in TypeScript?
+What is the difference between class and interface?
+How does Optional Chaining (?.) work?
+How does Nullish Coalescing (??) work?
+What is the use of Partial<T>, Pick<T,K> and Omit<T,K>?
