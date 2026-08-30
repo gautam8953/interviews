@@ -1,7 +1,33 @@
 Q. What’s the difference between JavaScript and ECMAScript?
-Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript, etc. It is a trademark scripting language specification. 
-   JavaScript is a language based on ECMAScript. A standard for scripting languages like JavaScript, JScript is ECMAScript. 
+A. A standard for scripting languages like JavaScript, JScript is ECMAScript.
+	It is a trademark scripting language specification. 
+   JavaScript is a language based on ECMAScript.  
    JavaScript is considered as one of the most popular implementations of ECMAScript
+
+
+   
+Q. whats new is latest ecma script?
+A. javacript developed by Mocha in 1995. first ecma script edition come in June 1997.
+	in 2015 ECMAScript 6 (ES6) was released. 
+	It was later renamed ECMAScript 2015 (ES2015) 
+	From 2015 every year edition released.
+	
+	Feature				Example					Why important
+	let / const			let x = 10;				Block-scoped variables
+	Arrow functions		const add=(a,b)=>a+b	Shorter functions + lexical this
+	Classes				class User {}			Cleaner OOP syntax
+	Template literals	Hello ${name}`			String interpolation
+	Destructuring		const {name} = user		Easy extraction of values
+	Default parameters	function f(x = 10)		Default argument values
+	Rest parameter		function f(...args)		Collect arguments into an array
+	Spread operator		[...arr1, ...arr2]		Expand/copy arrays and objects
+	Modules				import / export			Code organization
+	Promises			new Promise(...)		Better asynchronous programming
+	Map / Set			new Map(), new Set()	New collection types
+	for...of			for (const x of arr)	Easy iteration
+	Generators			function* gen()			Advanced iteration/control flow
+	Symbols				Symbol()				Unique identifiers
+	Proxy				new Proxy()				Metaprogramming
 
 	latest ecmaScript : july 2026, 17th version 
 	new features 
@@ -11,28 +37,6 @@ Ans ECMAScript is a Standard for scripting languages such as JavaScript, JScript
 		console.log(value); // 0
 	2. Array.fromAsync() : Convert an async iterable into an array.
 	3. Error.isError() : A reliable way to check whether a value is an Error.
-   
-Q. whats new is latest ecma script?
-A. javacript developed by Mocha in 1995. first ecma script edition come in June 1997. from 2015 every year edition released.
-   JavaScript's latest update, ECMAScript 2023 (ES14), released in June 2023.
-   new array method:
-   toSorted(). - toSorted has the same signature as Array.prototype.sort(), but it creates a new array instead of operating on the array itself
-   toReversed() -  is the duplicating cousin of reverse()
-   with()  - modify a single element based on its index, and get back a new array. it's copy of set() 
-	Replace the string "Walrus" with "Octopus".
-	const newArr4 = arr4.with(3, "Ape Man");
-   findLast() - it return final instance of a matching element from an array.
-	const arr = [54, 34, 55, 75, 98, 77];
-	const lastEvenIndex = arr.findLast((element) => {
-	  return element % 2 === 0;
-	});
-	console.log(lastEvenIndex); // 98
-   findLastIndex() - find the index of the last element matching 
-
-   latest ECMAScript 2021. new changes :- 
-   replaceAll  method for strings
-   Promise.any 
-   AggregateError
 	
 Q. What is difference between js and TS?
 A. 	TS: supperset of JS
@@ -77,7 +81,7 @@ Q. Is JavaScript case sensitive language?  Yes
 q. show steps how Javascript code runs.
 A. JavaScript source (Code)  → parsing (Syntax check) → bytecode (code change to machine code) → execution
 	When JavaScript starts executing, it creates an Execution Context.
-	In JavaScript, there are three commonly discussed types of Execution Context:
+	In JavaScript, there are 3 commonly discussed types of Execution Context:
 	1. Global Execution Context (GEC) - when code runs synchronously
 	2. Function Execution Context (FEC) - when function get
 	3. Eval Executi/on Context — created when eval() executes code.
@@ -85,7 +89,7 @@ A. JavaScript source (Code)  → parsing (Syntax check) → bytecode (code chang
 	JavaScript is single-threaded from the perspective of its main execution thread.
 
 	as js code start executing, it executes in call stacks line by line
-	as asynchronus code, settimeout, setinterval get, its move to web api
+	as asynchronus code get like settimeout, setinterval, await etc then next code move to task queue via web api
 	when timer finished then code moved to task queue
 		promise/callback move to micro taskQueue (High priority)
 		setinterval/settimeout move to macro taskQueue (less priority)
@@ -117,6 +121,13 @@ A. JavaScript source (Code)  → parsing (Syntax check) → bytecode (code chang
             ▼                     ▼
        Task Queue           Microtask Queue
 
+Q. Explain JavaScript event loop?
+A. The Event Loop continuously checks whether the Call Stack is empty and 
+	then moves eligible callbacks from the appropriate task/microtask queues to the Call Stack for execution.
+	It is the mechanism that allows JavaScript to handle asynchronous operations 
+		even though JavaScript's main execution is single-threaded
+
+
 Q. What is BOM?
    BOM stands for Browser Object Model. It provides interaction with the browser. The default object of a browser is a window. 
    So, you can call all the functions of the window by specifying the window or directly. 
@@ -142,6 +153,209 @@ Q. What are the different data types present in JavaScript?
    There are two types of data types in JavaScript:
 	1. Primitive data types  - String, Number, Boolean, BigInt, Undefined, Null, typeof
 	2. Non- Primitive data types  - Object, Array, function
+	
+Q. we can get value of a input box by both js and jquery but which one will give faster result.
+A. Plain JavaScript is faster than jQuery for retrieving the value of an input box because 
+   it accesses the DOM directly without the overhead of the jQuery library. 
+   However, the performance difference is usually minimal in most cases, 
+   and both methods are widely used depending on the project requirements and the presence of jQuery in the project.
+
+Q. what is "operator" in js 
+A.  "an operator" is a special symbol used to perform operations on operands (values or variables)
+
+Q. difference in settimeout and setinterval function 
+A. Execution	Runs once after the specified delay	Runs repeatedly at the specified interval
+   Usage	Delays a task				Repeats a task at regular intervals
+   Stopping	clearTimeout()				clearInterval()
+   Use Cases	Delayed execution, one-time tasks	Periodic updates, polling, animations
+
+let timer = setTimeout(() => {
+    console.log("This will not run");
+}, 2000);
+clearTimeout(timer); // Cancels the timeout
+
+setInterval(() => {
+    console.log("This runs every 2 seconds");
+}, 2000); // 2000 ms = 2 seconds
+
+Q. js annotation
+A. annotations (or comments) are used to add explanations, notes, or instructions within the code without affecting its execution
+   1. Single-line Comments : // 
+   2. Multi-line Comments : Use /* to start and */
+   3. Documentation Comments (JSDoc) : Use /** ... */
+
+Q. Difference between One-way Binding and Two-way Binding
+A. data binding refers to the technique of synchronizing data between the UI and the code
+   1. One-way Binding : data flows in a single direction — from the model (data) to the view (UI). 
+      Changes in the model automatically update the view, but changes in the view do not affect the model.
+   2. Two-way Binding : data flows in both directions. 
+      Any change in the model updates the view, and any change in the view automatically updates the model.
+
+Aspect			One-way Binding				Two-way Binding
+Data Flow		One direction (Model ➔ View)		Both directions (Model ⇄ View)
+Update Behavior		UI updates when the model changes	Model and UI update each other in sync
+Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchronization
+Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
+Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
+
+Q. Tell something about the undeclared and undefined variables? 
+Ans.  undeclared -> not exist, not declared
+      undefined -> exist, defined but value not assigned
+
+Q. Variable Declaration vs. Initialization
+A. For storing any value, we need a variable, so first, we will declare a var variable 
+	and then initialize the value into the variable.
+	var myName;  //   declaration
+	myName = "my name";  //   initialization
+	var myName = "my name";  //   declaration and initialization at the same time
+	
+Q. what does Scope means?
+A. Scope stands for where our variable will be available to use inside our code and where it will not.  
+	Function scope : means variable will only be available to use inside the function where it is declared, 
+		will not be accessible outside of function
+	Block-scope : Block means a pair of curly brackets, a block can be anything that contains an opening and closing curly bracket.
+		Variable having Block-scope will only be available to use inside the block it declared
+
+Q. Hoisting of var Variable
+A. Hoisting is the default behavior of JavaScript which moves variables and functions to the top of scope before code execution
+   and gets assigned the value of undefined.
+	does it move variables? : no, it only creates it in memory.
+
+	var is stored in the Variable Environment and is initialized with undefined during the creation phase.
+	let and const are stored in the Lexical Environment and 
+	remain uninitialized (Temporal Dead Zone) until execution reaches their declaration.
+	let and const declarations are also processed during the creation phase.
+
+	console.log(a); var a = 10; // undefined
+	console.log(a); let a = 10; // ReferenceError: Cannot access 'a' before initialization
+
+Q. What is the Temporal Dead Zone?
+A. The Temporal Dead Zone is the period between when a let/const variable is created (binding is established) 
+	and when its declaration is executed/initialized. During this period, accessing the variable causes a ReferenceError.
+
+q. what is temporal dead zone?
+A. Temporal Dead Zone (TDZ) is the period between when a let or const variable is created and 
+	when it is initialized. During this period, accessing the variable causes a ReferenceError
+
+Q. difference in let, var and const?
+	VAR : 
+		var has the function or global scope.
+		It gets hoisted to the top of its scope 
+		it is initialized undefined by default
+		It can be updated 
+		It can be re-declared.
+		It's an old way to declare a variable.
+	
+		Var variable is the old way to declare a variable in javascript; 
+		var variable has the function scope, 
+		But global scope when it is declared outside the function.
+		var variable can be re-declared and updated. 
+		re-declaration allows declaring more than one variable with the same name, 
+		because of this reason, if we declare a new variable by mistake, it will override the original variable value
+		
+		var name = "my name";
+		var myAge = 22;
+		if(myAge > 18) {
+			var name = "another person name";
+		}
+		console.log(name); //output => "another person name"
+		
+	LET : 
+		let's have the block scope.
+		It also got hoisted to the top of its scope 
+		but didn't initialize.
+		It can only be updated 
+		and can't be re-declared.
+		It's a new way to declare variables introduced in ES6.
+	
+		Let variable introduce a special feature that does not allow re-declaration of variables.
+		The let variable has block scope. let variable also get hoisted to the top of the scope But does not get assigned any value.
+		
+		let myName = "my name";
+		let myName = "my new name";
+		console.log(myName); //output => SyntaxError: redeclaration of let myName
+		
+	CONST : 
+		const variable has the block scope.
+		It also got hoisted to the top of its scope 
+		but didn't initialize.
+		It can't be updated 
+		It can't be re-declared.
+		It's also a new way to declare a variable, which introduces in ES6.
+		
+		let and const are hoisted but remain in the Temporal Dead Zone until initialization.
+Q. why can we change element of const array, but const is unchangable
+A. const prevents reassignment of the variable, not modification of the object/array that the variable refers to.
+	beacuase we are not changing what arr refers to. We are changing the contents of the array.
+	
+Q. what is cursor in js?
+A. JavaScript cursor is a thing used as a mouse cursor whenever it’s going to point on specific elements. 
+   There are various types of cursor available those are like wait, help, move, pointer, crosshair, cell, not allowed, zoom-in, zoom-out, etc. 
+   This cursor can be changed by assigning value to document.body.style.cursor.
+   
+Q. How to set the cursor to wait in JavaScript?
+A. The cursor can be set to wait in JavaScript by using the property "cursor". The following example illustrates the usage:
+	<script>  
+	window.document.body.style.cursor = "wait";   
+	</script>
+
+Q. how to reload a page by JS? window.location.reload();
+
+Q. What is negative Infinity? - Negative Infinity is a number in JavaScript which can be derived by dividing negative number by zero.
+
+Q. In JavaScript, it is possible for the programmers to convert the string to an integer? 
+  Ans. parseInt()
+
+Q.Differene between innerText and innerHTML
+	Retrieves and sets the content in plain text.			Retrieves and sets the content in HTML format.
+	We can not insert the HTML tags.				We can insert the HTML tags.
+	It ignores the spaces.						It considers the spaces.
+	It returns text without an inner element tag.			It returns a tag with an inner element tag.
+
+Q. What is event bubbling? 
+Ans. JavaScript allows DOM elements to be nested inside each other. In such a case, if the handler of the child is clicked, 
+	the handler of the parent will also work as if it were clicked too.
+	By Default JavaScript Uses Bubbling.
+Q. what is event capturing?
+A. Its opposite of Event Bubbling. Event propogates from document to traget element.
+	Enable Capturing : 
+	parent.addEventListener(
+	    "click",
+	    () => {
+	        console.log("Parent");
+	    },
+	    true
+	);
+
+Q. what is optional chain or chaining operator?
+A. It allows you to safely access properties, methods, or array elements without throwing an error if an intermediate value is null or undefined.
+const user = {
+    name: "John",
+    address: {
+        city: "Delhi"
+    }
+};
+console.log(user.company.name); // TypeError: Cannot read properties of undefined (reading 'name')
+but can use console.log(user.company?.name); // undefined
+
+Q. what is !! operator
+A. The double NOT operator (!!) is a JavaScript trick used to convert any value into a boolean (true or false)
+const name = "John";
+console.log(!name); // false
+console.log(!!name);  // true
+
+Q. What is the use of a Date object in JavaScript?
+A. The JavaScript date object can be used to get a year, month and day. You can display a timer on the webpage by the help of JavaScript date object.
+
+	function display()  
+	{  
+	  var date=new Date();    
+	var day=date.getDate();    
+	var month=date.getMonth()+1;    
+	var year=date.getFullYear();    
+	document.write("<br>Date is: "+day+"/"+month+"/"+year);    
+	}  
+	display();
 	
 Q. Name the types of functions in JS?
 	1. named function  : Named function is the function that we define it in the code and then call it 
@@ -184,10 +398,8 @@ Q. Name the types of functions in JS?
 		  const data = await response.json();
 		  return data;
 		}
-
-
-
 		result; // gautam
+		
 		Function Type				Description
 		Function Declaration		Named function, hoisted
 		Function Expression			Function assigned to a variable
@@ -201,98 +413,141 @@ Q. Name the types of functions in JS?
 		Async Function				Uses async/await, returns a Promise
 		Method	Function 			defined on an object
 		Recursive Function			Calls itself
-
-Q. Tell something about the undeclared and undefined variables? 
-Ans.  undeclared -> not exist, not declared
-      undefined -> exist, defined but value not assigned
-
-Q. Variable Declaration vs. Initialization
-A. For storing any value, we need a variable, so first, we will declare a var variable 
-	and then initialize the value into the variable.
-	var myName;  //   declaration
-	myName = "my name";  //   initialization
-	var myName = "my name";  //   declaration and initialization at the same time
-	
-Q. what does Scope means?
-A. Scope stands for where our variable will be available to use inside our code and where it will not.  
-	Function scope : means variable will only be available to use inside the function where it is declared, 
-		will not be accessible outside of function
-	Block-scope : Block means a pair of curly brackets, a block can be anything that contains an opening and closing curly bracket.
-		Variable having Block-scope will only be available to use inside the block it declared
-
-Q. Hoisting of var Variable
-A. Hoisting is the default behavior of JavaScript which moves variables and functions to the top of scope before code execution
-   and gets assigned the value of undefined.
-	does it move variables? : no, it only creates it in memory.
-
-	var is stored in the Variable Environment and is initialized with undefined during the creation phase.
-	let and const are stored in the Lexical Environment and 
-	remain uninitialized (Temporal Dead Zone) until execution reaches their declaration.
-	let and const declarations are also processed during the creation phase.
-
-	console.log(a); var a = 10; // undefined
-	console.log(a); let a = 10; // ReferenceError: Cannot access 'a' before initialization
-
-q. what is temporal dead zone?
-A. Temporal Dead Zone (TDZ) is the period between when a let or const variable is created and 
-	when it is initialized. During this period, accessing the variable causes a ReferenceError
-
-Q. difference in let, var and const?
-	VAR : 
-		var has the function or global scope.
-		It gets hoisted to the top of its scope 
-		it is initialized undefined by default
-		It can be updated 
-		It can be re-declared.
-		It's an old way to declare a variable.
-	
-		Var variable is the old way to declare a variable in javascript; var variable has the function scope, 
-		But global scope when it is declared outside the function.
-		var variable can be re-declared and updated. re-declaration allows declaring more than one variable with the same name, 
-		because of this reason, if we declare a new variable by mistake, it will override the original variable value
 		
-		var name = "my name";
-		var myAge = 22;
-		if(myAge > 18) {
-			var name = "another person name";
+Q. what is arrow function?
+A. Arrow functions provide a shorter syntax for writing functions and 
+   offer advantages in scenarios where maintaining the this context of the outer scope is important.
+   example 
+   basic : const add = (a, b) => a + b; console.log(add(2, 3)); // Output: 5
+   single parameter : const square = x => x * x; console.log(square(4)); // Output: 16
+   no parameter : const greet = () => console.log('Hello!'); greet(); // Output: Hello!
+   multiline : const multiply = (a, b) => {
+    let result = a * b;
+    return result;
+    };
+    console.log(multiply(2, 3)); // Output: 6
+
+   Differences from Traditional Functions
+   this Binding: Arrow functions do not have their own this context; they inherit this from the parent scope at the time they are defined
+   arguments Object: Arrow functions do not have their own arguments object. If you need to access arguments, you should use a traditional function expression.
+
+  parameter vs argument :  a parameter is a variable that defines the inputs a function can accept, 
+	while an argument is the value passed to the function when it is called
+
+Q. difference in arrow and normal function?
+A. Arrow functions were introduced in ES6. 
+	The main difference is that arrow functions do not have their own this; 
+	they inherit it from the surrounding lexical scope, 
+	Arrow functions also do not have their own arguments object, 
+	cannot be used as constructors with new, 
+	and do not have a prototype.
+
+	whereas normal functions get their own this based on how they are called. 
+	Normal functions are preferred for object methods and constructors, 
+	while arrow functions are ideal for callbacks and short utility functions.
+
+	normal Function					Arrow Function
+	Own this						Lexical this
+	Can use new						Cannot use new
+	Has arguments					Use rest (...args) instead
+	Good for object methods	Good 	for callbacks
+	Has prototype					No prototype
+	
+Q. what are the type of loops in JS?
+A. 	for			Anything you control with a counter		Known iterations			
+	while		Condition								Unknown iterations			
+	do...while	Condition								Must execute at least once
+	for...of	Values									Arrays, strings, Set, Map
+	for...in	Keys/properties							Objects
+	forEach()	Array values							Simple array iteration
+
+	for : 
+		for (let i = 0; i < 5; i++) {
+			console.log(i);
 		}
-		console.log(name); //output => "another person name"
-	LET : 
-		let's have the block scope.
-		It also got hoisted to the top of its scope 
-		but didn't initialize.
-		It can only be updated 
-		and can't be re-declared.
-		It's a new way to declare variables introduced in ES6.
 	
-		Let variable introduce a special feature that does not allow re-declaration of variables.
-		The let variable has block scope. let variable also get hoisted to the top of the scope But does not get assigned any value.
-		
-		let myName = "my name";
-		let myName = "my new name";
-		console.log(myName); //output => SyntaxError: redeclaration of let myName
-		
-	CONST : 
-		const variable has the block scope.
-		It also got hoisted to the top of its scope 
-		but didn't initialize.
-		It can't be updated 
-		It can't be re-declared.
-		It's also a new way to declare a variable, which introduces in ES6.
-		
-		let and const are hoisted but remain in the Temporal Dead Zone until initialization.
+	while : 
+		let i = 0;
+		while (i < 5) {
+			console.log(i);
+			i++;
+		}
 	
-Q. what is cursor in js?
-A. JavaScript cursor is a thing used as a mouse cursor whenever it’s going to point on specific elements. 
-   There are various types of cursor available those are like wait, help, move, pointer, crosshair, cell, not allowed, zoom-in, zoom-out, etc. 
-   This cursor can be changed by assigning value to document.body.style.cursor.
-   
-Q. How to set the cursor to wait in JavaScript?
-A. The cursor can be set to wait in JavaScript by using the property "cursor". The following example illustrates the usage:
-	<script>  
-	window.document.body.style.cursor = "wait";   
-	</script>
+	do while : 
+		let i = 10;
+		do {
+			console.log(i);
+			i++;
+		} while (i < 5);
 	
+	for...of : Used to iterate over the values of an iterable, such as an array, string, Set, or Map.
+		const numbers = [10, 20, 30];
+
+		for (const value of numbers) {
+			console.log(value);
+		}	
+	output : 10
+			20
+			30
+			
+	for...in : Used to iterate over the enumerable property keys of an object.
+		const user = {
+			name: "Gautam",
+			age: 30
+		};
+
+		for (const key in user) {
+			console.log(key, user[key]);
+		}
+	output : 
+		name Gautam
+		age 30
+		
+		
+	Array.forEach() : It's an array method rather than a language loop statement
+		forEach() does not wait for the async callback
+		For sequential async operations, a for...of loop is usually more appropriate.
+			
+		const numbers = [10, 20, 30];
+		numbers.forEach((value, index) => {
+			console.log(index, value);
+		});
+	output : 
+		0 10
+		1 20
+		2 30
+		
+		numbers.forEach(async (num) => {
+			await someFunction(num);
+		});
+		
+Q. for...in  vs for...of
+a.	for...in → keys/indexes
+	for...of → values	
+	
+	const arr = ["A", "B", "C"];
+
+	for (const x in arr) {
+		console.log(x);
+	}
+	// 0 1 2
+
+	for (const x of arr) {
+		console.log(x);
+	}
+	// A B C
+
+	const user = {
+		name: "Gautam",
+		age: 30
+	};
+
+	for (const key in user) {
+		console.log(key);
+	}
+	// name
+	// age
+
 Q. What are the pop-up boxes available in JavaScript?
    Alert Box : An alert box is often used if you want to make sure information comes through to the user.
 		alert("I am an alert box!");
@@ -310,7 +565,8 @@ A. "View state" is specific to a page in a session whereas
 	"Session state" is specific to a user or browser that can be accessed across all pages in the web application.
 
 Q. Define closure.
-   In JavaScript, we need closures when a variable which is defined outside the scope in reference, is accessed from some inner scope.
+   A closure is created when an inner function remembers and can access variables from its outer function's scope 
+   even after the outer function has finished executing
 
 	function outer() {
 	    let count = 0;	
@@ -333,7 +589,18 @@ A. The this keyword is a reference variable that refers to the current object.
 	this is a special keyword whose value depends on the execution context. 
 	In regular functions, it is determined by how the function is called. 
 	Arrow functions don't have their own this; they inherit it from the surrounding lexical scope.
+	we can change 
 	
+	const user = {
+		name: "Gautam",
+		greet() {
+			console.log(this.name);
+		}
+	};
+	const fn = user.greet;
+	fn();
+	in normal it will output "Gautam" but in strict mode will "undefined"
+
 Q. How to handle exceptions in JavaScript?
 A.  By the help of try/catch block, we can handle exceptions in JavaScript. 
 	JavaScript supports try, catch, finally and throw keywords for exception handling.
@@ -352,41 +619,115 @@ A.  By the help of try/catch block, we can handle exceptions in JavaScript.
 	  finally {
 		document.getElementById("demo").value = "";
 	  }
+	  
+	try {
+	  console.log("Trying...");
+	  throw new Error("Something went wrong");
+	} catch (error) {
+	  console.log("Caught:", error.message);
+	} finally {
+	  console.log("Finally executed");
+	}
+	output : 
+	Trying...
+	Caught: Something went wrong
+	Finally executed
 	
 Q. What is the use of debugger keyword in JavaScript?
-A. JavaScript debugger keyword sets the breakpoint through the code itself. The debugger stops the execution of the program at the position it is applied.
+A. JavaScript debugger keyword sets the breakpoint through the code itself. 
+	The debugger stops the execution of the program at the position it is applied.
+	in call stack of debugger we can see execution flow or from where code called.
 	
 Q. What is the role of a strict mode in JavaScript?
-A. JavaScript's strict mode, introduced in ECMAScript 5. This expression can only be placed as the first statement in a script or a function.
+A. JavaScript's strict mode, introduced in ECMAScript 5. 
+	This expression can only be placed as the first statement in a script or a function.
    It is not a statement, but a literal expression, ignored by earlier versions of JavaScript.
    The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
    With strict mode, you can not use undeclared variables.
    
 Q. What are the falsy values in JavaScript, and how can we check if a value is falsy?
 A. Those values which become false while converting to Boolean are called falsy values.
-	const falsyValues = ['', 0, null, undefined, NaN, false];   
 	We can check if a value is falsy by using the Boolean function or the Double NOT operator (!!).
+	list falsy value : false, 0, -0, 0n, "", null, undefined, NaN
+	
+	Everything else is generally truthy icluding [], {}, "0", "false", -1 
+	
+	console.log(Boolean(null));     // false
+	console.log(!!null);       // false
 
 Q. What does the isNaN() function?
    The isNan() function returns true if the variable value is not a number.
    
-Q. explain foreach in javasccript
-A. forEach is a method available on arrays that allows you to iterate over each element in the array and perform a specified action on each element.
-   array.forEach(callbackFunction(element, index, array));
+Q. How to create a array in JS?
+A. An array in JavaScript is an ordered collection of values. 
+	It can contain values of different data types, and its index starts from 0.  
+	
+	const arr = [10, "hello", true, null];
+	console.log(arr[0]); // 10
+	console.log(arr[1]); // hello
+	console.log(arr.length); // 4	
 
-	let numbers = [10, 20, 30, 40];
-	numbers.forEach(function(value) {
-	    console.log(value);
-	});
-   
+
+	js doesn't have string index as in PHP 
+	let user = [];
+	user["name"] = "Gautam";
+	user["age"] = 30;
+	console.log(user["name"]); // Gautam
+	
+	syntactically its not a error and this will print the value 
+	but name and age are object properties, not array elements. 
+	So this is not recommended.
+	Use Map for dynamic key-value data
+		let user = new Map();
+
+		user.set("name", "Gautam");
+		user.set("age", 30);
+
+		console.log(user.get("name")); // Gautam
+		console.log(user.get("age"));  // 30
+
+	Different ways to create an Array -
+	
+	Array literal — most common: const names = ["John", 5, "Sam"];
+	
+	Using new Array(): const arr = new Array(1, 2, 3);
+		Be careful with a single number:
+		const arr = new Array(5);
+		console.log(arr.length); // 5
+		This creates an array with 5 empty slots, not [5].
+		
+	Array.of() : const arr = Array.of(5);	console.log(arr);	// [5]
+	
+	new Array(5); // [empty × 5]
+	Array.of(5);  // [5]
+	
+	Array.from() : Creates an array from an iterable or array-like object
+		const str = "hello";
+		const arr = Array.from(str);
+		console.log(arr);	// ["h", "e", "l", "l", "o"]
+
+Q. adding element in an array 
+A. 
+	push() : Adds element(s) to the end.
+	const arr = [2, 3];
+	arr.push(3);
+	console.log(arr); // [1, 2, 3]
+
+	unshift() : Adds element(s) to the beginning.
+	const arr = [2, 3];
+	arr.unshift(1); 
+	console.log(arr); // [1,2,3]
+
 Q. how to remove an element from an array?
 	let fruits = ["Apple", "Banana", "Mango"];
 
-	JavaScript pop() function: This method is used to remove elements from the end of an array.	
+	pop() : This method is used to remove elements from the end of an array.	
 		let a=fruits.pop(); console.log(a);
-	JavaScript shift() function: This method is used to remove elements from the start of an array.
+	shift() : This method is used to remove elements from the start of an array.
 		let a=fruits.shift(); console.log(a);
-	JavaScript splice() function: This method is used to remove elements from the specific index of an array.
+		
+		
+	splice() : This method is used to remove elements from the specific index of an array.
 		Adds, removes, or replaces elements in the original array.
 		syntax: array.splice(start, deleteCount, item1, item2...)
 
@@ -396,57 +737,244 @@ Q. how to remove an element from an array?
 		if deleteCount is zero it add elements
 		if its greater than zero and no further parameter then it removes
 		if its greater than zero and further parameter then it replace
+	
+	slice(): it Returns a new array without modifying the original array.
+		array.slice(start, end)
+		start → Inclusive
+		end → Exclusive
+
+		const arr = [10, 20, 30, 40, 50];	
+		const result = arr.slice(1, 4);	
+		console.log(result);	// [20, 30, 40]
+		console.log(arr);	// [10, 20, 30, 40, 50]	
 		
-	JavaScript filter() function: This method is used to remove elements in a programmatic way.
+	filter() : This method is used to remove elements in a programmatic way.
+	
+	map() : Creates a new array by transforming each element; Original array isn't changed
+		const numbers = [1, 2, 3];
+		const result = numbers.map(num => num * 2);
+		console.log(result);
+		// [2, 4, 6]
+		
+	find() : Returns the first matching element. If nothing matches, it return undefined.
+		const numbers = [10, 20, 30, 40];
+		const result = numbers.find(num => num > 20);
+		console.log(result); 		// 30
+		const result1 = numbers.find(num => num > 80);
+		console.log(result1); 		// undefined
+		const result2 = numbers.find(num => num > 30);
+		console.log(result2); 		// 30
+		
+	findIndex(): Returns the index of the first matching element. If not found returns -1
+		const numbers = [10, 20, 30];
+		const index = numbers.findIndex(num => num === 20);
+		console.log(index);
 
+	includes() : Checks whether an array contains a value. Returns a boolean.
+		const numbers = [10, 20, 30];
+		console.log(numbers.includes(20));	// true
+		
+	indexOf(): Returns the first index of a value.
+		const arr = ["a", "b", "c", "b"];
+		console.log(arr.indexOf("b"));	// 1
+		console.log(arr.indexOf("x"));	// -1
+	
+	reduce(): It reduces an array to a single value.
+		const numbers = [10, 20, 30];
+		const sum = numbers.reduce((total, num) => {
+		  return total + num;
+		}, 0);
+		console.log(sum);	// 60
+	
+	sort() : Sorts an array.
+	By default, sort() converts elements to strings and compares them lexicographically
+		Const numbers = [10, 5, 100, 20];
+		numbers.sort();
+		console.log(numbers);	// [10, 100, 20, 5]
+		
+		numbers.sort((a, b) => a - b);
+		console.log(numbers);		// [5, 10, 20, 100]
+		
+	reverse() : Reverses an array in place.
+		const arr = [1, 2, 3];
+		arr.reverse();
+		console.log(arr);	// [3, 2, 1]
+	
+	concat() : Combines arrays. it simply add other array at last of first array.
+				if value already exist then will duplicate the value.
+				no data lost in this method.
+		const a = [1, 2];
+		const b = [3, 4];
+		const result = a.concat(b);
+		console.log(result);		// [1, 2, 3, 4]	
+	
+		const result = [...a, ...b]; alternate way to concat
+	
+	join() : Converts an array into a string.
+		const arr = ["Hello", "World"];
+		console.log(arr.join(" "));	// "Hello World"
+	
+	some() : Checks whether at least one element satisfies a condition.
+		some → Is ANY element matching?
+		
+		const numbers = [1, 3, 5, 8];
+		const result = numbers.some(num => num % 2 === 0);
+		console.log(result);// true
+	
+	every() : Checks whether all elements satisfy a condition.
+		every → Are ALL elements matching?
+	
+		const numbers = [2, 4, 6, 8];
+		const result = numbers.every(num => num % 2 === 0);
+		console.log(result);		// true
+		
+	flat() : Flattens nested arrays.
+
+		const arr = [1, [2, 3], [4, [5, 6]]];
+		console.log(arr.flat());		// [1, 2, 3, 4, [5, 6]]
+	
+	flatMap() :Combination of map() + flat().
+
+		const arr = [1, 2, 3];
+		const result = arr.flatMap(num => [num, num * 2]);
+		console.log(result);		// [1, 2, 2, 4, 3, 6]
+		
+	Array.isArray(): Checks whether a value is an array.
+
+		console.log(Array.isArray([1, 2, 3]));		// true
+		console.log(Array.isArray("hello"));		// false
+		console.log(Array.isArray({}));		// false
+		
+	for...of : You can iterate over array values
+	
+		const numbers = [10, 20, 30];
+		for (const num of numbers) {
+		  console.log(num);
+		}
+		output :  10
+					20
+					30
+		
+	map()       → transform every element → new array
+	filter()    → select matching elements → new array
+	reduce()    → many values → one value
+	forEach()   → execute for every element → undefined
+	find()      → first matching element
+	findIndex() → index of first matching element
+	some()      → at least one matches
+	every()     → all match
+	includes()  → value exists?
+	indexOf()   → index of value
+	slice()     → extract without modifying
+	splice()    → add/remove/replace, modifies original
+	sort()      → sort array, modifies original
+	reverse()   → reverse, modifies original
+	push()      → add to end
+	pop()       → remove from end
+	unshift()   → add to beginning
+	shift()     → remove from beginning
+	concat()    → combine arrays
+	join()      → array → string
+	flat()      → flatten nested arrays
+
+Q. map function in js
+A. The map() function in JavaScript is used to iterate over an array and create a new array by transforming each element.
+	it Does not change original array.
+	let a = [1,2,3,4];
+	let b = a.map(val=>{
+	    return val*val;
+	})
+	console.log(a)	[ 1, 2, 3, 4 ]
+	console.log(b)	[ 1, 4, 9, 16 ]
+	
+Q. slice vs splice
+A. 	slice()						splice()
+	Doesn't modify original		Modifies original
+	Extracts portion			Add/remove/replace
+	Returns new array			Returns removed elements
+	slice(start,end)			splice(start,count,items)
+
+Q. explain foreach in javasccript
+A. forEach is a method available on arrays that allows you to iterate over each element in the array 
+	and perform a specified action on each element.
+	
+   arrayVar.forEach(callbackFunction(element, index, array));
+
+	let numbers = [10, 20, 30, 40];
+	numbers.forEach(function(value) {
+	    console.log(value);
+	});
+   
+	forEach()										map()
+	Executes a function for each element			Transforms each element
+	Returns undefined								Returns a new array
+	Used for side effects							Used to create transformed data
+	Cannot be directly chained for transformation	Can be chained
+	Original array isn't modified by map itself		Original array isn't modified by map itself
+
+Q. what is array.reduce() method?
+A. It reduces an array to a single value by executing a callback function for each element
+	array.reduce((accumulator, currentValue, currentIndex, array) => {
+	    // logic
+	}, initialValue);
+	Parameter	Description
+	accumulator	Stores the accumulated result from previous iterations
+	currentValue	Current array element
+	currentIndex	Current index (optional)
+	array	Original array (optional)
+	initialValue	Initial value of the accumulator
+
+	const numbers = [10, 20, 30, 40];
+	const sum = numbers.reduce((acc, current) => {
+	    return acc + current;
+	}, 0);
+	console.log(sum);   // 100
+	
+Q. flatten an array in JavaScript?
+A. Flattening an array means converting a nested array into a single-level array.
+	1. flat() : by default flates 1 level, else pass number of level you want to flattern.
+		if its one level and you pass more than one, no error get, it will flattern one level.
+		pass Infinity if you dont know level or want all to flattern. 
+			
+		const arr = [1, [2, 3], [4, 5]];
+		console.log(arr.flat());
+		console.log(arr.flat(Infinity));
+	2. concat() (One Level Only) : 
+		const arr = [[1, 2], [3, 4], [5, 6]];
+		console.log([].concat(...arr));  // [1,2,3,4,5,6]
+	3. Using toString() 
+		const arr = [1, [2, [3, 4]]];		
+		const result = arr.toString().split(",");		
+		console.log(result);  // ["1", "2", "3", "4"]
+	4. using reduce()
+		function flatten(arr) {
+		    return arr.reduce((result, item) => {
+		        if (Array.isArray(item)) {
+		            return result.concat(flatten(item));
+		        }
+		        return result.concat(item);
+		    }, []);
+		}
+		const arr = [1, [2, [3, 4]], 5];
+		console.log(flatten(arr));
+
+Q. what is flatmap method?
+A. flatMap() maps each element and then flattens only one level.
+		const arr = [1, 2, 3];
+		const result = arr.flatMap(x => [x, x * 2]);
+		console.log(result);  // [1, 2, 2, 4, 3, 6]
+
+Q. differecne in flat and flatmap? 
+A. flat same as above and flatmap= map+flat().
+	flatmap() first map each element then apply flat.
+
+	
 Q.What a pop()method in JavaScript is?
-	The pop() method is similar to the shift() method, but the difference is that the Shift method works at the array’s start. 
-	The pop() method takes the last element off of the given array and returns it. The array on which it is called is then altered
+	The pop() method is similar to the shift() method, 
+		but the difference is that the Shift method works at the array’s start. 
+	The pop() method takes the last element off of the given array and returns it. 
+		The array on which it is called is then altered
 
-Q. explain slice() ?
-A. it Returns a new array without modifying the original array.
-	array.slice(start, end)
-	start → Inclusive
-	end → Exclusive
-
-	const arr = [10, 20, 30, 40, 50];	
-	const result = arr.slice(1, 4);	
-	console.log(result);	// [20, 30, 40]
-	console.log(arr);	// [10, 20, 30, 40, 50]
-
-Q. If we want to return the character from a specific index which method is used?
-	var str="Javatpoint";    
-	document.writeln(str.charAt(4));
-	
-Q.  What is the output of 10+20+"30" in JavaScript?  3030
-	
-Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
-	Console.log('1');
-	Settimeout(()=>{
-	Console.log('2')
-	},1000)
-	Console.lgo('3')
-   using setTimeout with a delay of 0 milliseconds means that the callback function will be executed as soon as possible, 
-   but after the current execution stack has cleared.
-   When you pass 0 as the delay in setTimeout, it doesn't mean the callback will execute immediately. 
-   Instead, it is queued up to be executed after the current code execution completes, and any other queued tasks before it have been processed. 
-   This is because JavaScript is single-threaded and runs in an event-driven environment.
-
-Q. typeof(typeof(4+"7")) output : string 
-
-Q. What is the use of a Date object in JavaScript?
-A. The JavaScript date object can be used to get a year, month and day. You can display a timer on the webpage by the help of JavaScript date object.
-
-	function display()  
-	{  
-	  var date=new Date();    
-	var day=date.getDate();    
-	var month=date.getMonth()+1;    
-	var year=date.getFullYear();    
-	document.write("<br>Date is: "+day+"/"+month+"/"+year);    
-	}  
-	display();
-	
 Q. What is the use of a Set object in JavaScript?
 A.  The JavaScript Set object is used to store the elements with unique values. 
 	The values can be of any type i.e. whether primitive values or object references. 
@@ -526,23 +1054,23 @@ A. The JavaScript Map object is used to map keys to values. It stores each eleme
 	document.writeln(map.get(3));    
 	}  
 	display();
+	
 Q. What is the use of a WeakMap object in JavaScript?
 A. The JavaScript WeakMap object is a type of collection which is almost similar to Map. 
    It stores each element as a key-value pair where keys are weakly referenced. 
    Here, the keys are objects and the values are arbitrary values. For example:
 
-function display()  
-{  
-var wm = new WeakMap();    
-var obj1 = {};    
-var obj2 = {};    
-var obj3= {};    
-wm.set(obj1, "jQuery");    
-wm.set(obj2, "AngularJS");    
-wm.set(obj3,"Bootstrap");    
-document.writeln(wm.has(obj2));     
-}     
-display();	
+	function display(){  
+		var wm = new WeakMap();    
+		var obj1 = {};    
+		var obj2 = {};    
+		var obj3= {};    
+		wm.set(obj1, "jQuery");    
+		wm.set(obj2, "AngularJS");    
+		wm.set(obj3,"Bootstrap");    
+		document.writeln(wm.has(obj2));     
+	}     
+	display();	
 
 Q. map vs weakMap
 A. Both Map and WeakMap store key-value pairs, but they differ in the types of keys they allow 
@@ -556,7 +1084,8 @@ size property	✅ Yes														❌ No
 clear()			✅ Yes														❌ No	
 keys(), values(), entries()		✅ Yes										❌ No
 Garbage Collection	Holds strong references to keys	Holds weak references to keys
-	
+
+
 Q.  What is an observable?
    An observable provides a way to emit multiple values over time, which can be processed using various operators, 
    allowing for complex event handling and data transformation.
@@ -661,7 +1190,159 @@ Q. What is the difference between promise and observable?
     3. Subscribe method is used for error handling which makes centralized and predictable error handling	                                  
     4. Provides chaining and subscription to handle complex applications	
     
- Q. What is the difference between promise and callback 
+Q. explain Promise combinator methods?
+A. 4 most important Promise combinator methods are:
+
+	Promise.all()
+	Promise.allSettled()
+	Promise.race()
+	Promise.any()
+
+	A good way to remember them is:
+
+	all = all must succeed
+	allSettled = wait for everything
+	race = first one wins
+	any = first successful one wins
+	
+	
+	Promise.all() is used when you have multiple promises and need all of them to succeed.
+
+	const p1 = Promise.resolve("User");
+	const p2 = Promise.resolve("Orders");
+	const p3 = Promise.resolve("Products");
+	Promise.all([p1, p2, p3])
+	  .then((results) => {
+	    console.log(results);
+	  });
+	output : ["User", "Orders", "Products"]
+
+	Promise.all() uses fail-fast behavior:	
+	If any promise rejects, the returned promise rejects immediately with that rejection reason.
+	The results are returned in the same order as the input promises, not the order in which they finish
+	
+	Promise.allSettled(): Promise.allSettled() waits for every promise, regardless of whether it succeeds or fails.
+		const p1 = Promise.resolve("User");
+		const p2 = Promise.reject("Order API failed");
+		const p3 = Promise.resolve("Product");
+
+		Promise.allSettled([p1, p2, p3])
+			.then(result => {
+				console.log(result);
+			});
+		outtput : 
+		[
+			{
+				status: "fulfilled",
+				value: "User"
+			},
+			{
+				status: "rejected",
+				reason: "Order API failed"
+			},
+			{
+				status: "fulfilled",
+				value: "Product"
+			}
+		]
+		
+	Promise.race() : Promise.race() returns the result of the first promise that settles.
+		Settled means:	fulfilled, OR	rejected
+		whichever promise settled first either resolved or rejected is the result.
+		
+		const p1 = new Promise(resolve =>
+			setTimeout(() => resolve("First"), 3000)
+		);
+		const p2 = new Promise(resolve =>
+			setTimeout(() => resolve("Second"), 1000)
+		);
+		Promise.race([p1, p2])
+			.then(result => console.log(result));
+		output : second 
+		
+	Promise.any(): Promise.any() is different from race().
+		It waits for the first fulfilled promise.
+	
+	const p1 = new Promise((resolve, reject) =>
+		setTimeout(() => reject("Server 1 failed"), 1000)
+	);
+
+	const p2 = new Promise(resolve =>
+		setTimeout(() => resolve("Server 2 success"), 2000)
+	);
+
+	const p3 = new Promise(resolve =>
+		setTimeout(() => resolve("Server 3 success"), 3000)
+	);
+
+	Promise.any([p1, p2, p3])
+		.then(result => console.log(result))
+		.catch(error => console.log(error));
+		
+	output : Server 2 success
+		
+	A rejected promise is ignored
+	if ALL promises rejected, then You can access individual errors
+	Promise.any([
+		Promise.reject("Error 1"),
+		Promise.reject("Error 2"),
+		Promise.reject("Error 3")
+	])
+	.catch(error => {
+		console.log(error instanceof AggregateError);
+		console.log(error.errors);
+	});
+	output : 
+	true
+	["Error 1", "Error 2", "Error 3"]
+	
+	Promise.resolve(): it converts a value into a fulfilled Promise.
+	"Promise.resolve() creates a fulfilled Promise from a given value. 
+	If the value is already a Promise, it generally returns that Promise."
+	
+	const p = Promise.resolve("Hello");
+	p.then(value => {
+		console.log(value);
+	});
+	output : Hello
+	
+	Promise.reject(): Creates an already-rejected Promise.
+	"Promise.reject() creates a rejected Promise with the specified reason."
+	
+	const p = Promise.reject("Something went wrong");
+	p.catch(error => {
+		console.log(error);
+	});
+	output: Something went wrong
+	
+Q. Difference between Promise.all() and Promise.allSettled()
+A. Promise.all()							
+	Resolves only if all promises succeed.
+	Rejects immediately when any promise rejects.
+	Returns an array of resolved values.
+
+	Promise.allSettled()
+	Waits until all promises have either fulfilled or rejected.
+	Never rejects.
+	Returns an array of objects describing each promise's outcome.
+  
+Q. Difference between Promise.race() and Promise.any()
+A. Promise.race() : settles as soon as the first promise settles, whether fulfilled or rejected.
+	Promise.any() fulfills as soon as the first promise fulfills. 
+		It only rejects when all promises reject, in which case it returns an AggregateError
+
+Q. What is callback function()?
+A. It is a function that is passed as an argument to another function and is called later by that function.
+	function greet(name, callback) {
+		console.log("Hello " + name);
+		callback();
+	}
+	function sayBye() {
+		console.log("Goodbye!");
+	}
+	greet("Gautam", sayBye);
+		
+Q. What is the difference between promise and callback 
 A.  Callback: A callback is a function passed as an argument to another function, 
    which is then executed inside the outer function to complete some kind of routine or action. 
    In the context of asynchronous operations, a callback function is often called once the operation is complete.
@@ -694,62 +1375,19 @@ Promise example :
 	    console.error(error); // Handle error
 	  });
 
-Q. How does Promise.all() work?
-A. Promise.all() is used when you want to run multiple asynchronous operations concurrently and wait for all of them to complete.
-
-	const p1 = Promise.resolve("User");
-	const p2 = Promise.resolve("Orders");
-	const p3 = Promise.resolve("Products");
-	
-	Promise.all([p1, p2, p3])
-	  .then((results) => {
-	    console.log(results);
-	  });
-	output : ["User", "Orders", "Products"]
-
-	Promise.all() uses fail-fast behavior:	
-	If any promise rejects, the returned promise rejects immediately with that rejection reason.
-
-Q. Difference between Promise.all() and Promise.allSettled()
-A. Promise.all()
-	Resolves only if all promises succeed.
-	Rejects immediately when any promise rejects.
-	Returns an array of resolved values.
-
-	const p1 = Promise.resolve("A");
-	const p2 = Promise.resolve("B");
-	const p3 = Promise.reject("Error");
-	
-	Promise.all([p1, p2, p3])
-	  .then(result => console.log(result))
-	  .catch(error => console.log(error));
-
-	Promise.allSettled()
-	Waits until all promises have either fulfilled or rejected.
-	Never rejects.
-	Returns an array of objects describing each promise's outcome.
-	const p1 = Promise.resolve("A");
-	const p2 = Promise.resolve("B");
-	const p3 = Promise.reject("Error");
-	
-	Promise.allSettled([p1, p2, p3])
-	  .then(result => console.log(result));
-
 Q. what is async
 A. async refers to a keyword that is used to declare an asynchronous function.
    async Keyword : When you declare a function with the async keyword, it means that the function will always return a Promise. 
      If the function body returns a value, JavaScript will automatically wrap that value in a resolved Promise. 
      If the function throws an error, JavaScript will wrap the error in a rejected Promise.
-   await Keyword : async functions are often used together with the await keyword, which allows you to wait for a Promise to be resolved or rejected. 
-     The await keyword can only be used inside async functions, and it pauses the execution of the function 
-     until the Promise is settled (either resolved or rejected).
+	
 	async function fetchData() {
 	    try {
-		let response = await fetch('https://api.example.com/data');
-		let data = await response.json();
-		console.log(data);
+			let response = await fetch('https://api.example.com/data');
+			let data = await response.json();
+			console.log(data);
 	    } catch (error) {
-		console.error('Error fetching data:', error);
+			console.error('Error fetching data:', error);
 	    }
 	}
 	fetchData();
@@ -768,6 +1406,23 @@ A. async refers to a keyword that is used to declare an asynchronous function.
 	}
 	showData();
 
+	
+   await Keyword : async functions are often used together with the await keyword, which allows you to wait for a Promise to be resolved or rejected. 
+   
+     The await keyword can only be used inside async functions, and it pauses the execution of the function 
+     until the Promise is settled (either resolved or rejected).
+	 but in modern JS await can be used outside async function
+	 ie on top level await.
+	 example : 
+	 const result = await Promise.resolve("Hello");
+	console.log(result);
+	
+	A JS file can use a top level await but 
+	function test() {
+		const result = await Promise.resolve("Hello");
+	}
+	this will show error.
+	
 Q. what is difference between promise and async/await?
 A. 
 	Promise .then()						async/await
@@ -797,186 +1452,64 @@ A.
 		  }
 		}
 
-Q. what is arrow function?
-A. Arrow functions provide a shorter syntax for writing functions and 
-   offer advantages in scenarios where maintaining the this context of the outer scope is important.
-   example 
-   basic : const add = (a, b) => a + b; console.log(add(2, 3)); // Output: 5
-   single parameter : const square = x => x * x; console.log(square(4)); // Output: 16
-   no parameter : const greet = () => console.log('Hello!'); greet(); // Output: Hello!
-   multiline : const multiply = (a, b) => {
-    let result = a * b;
-    return result;
-    };
-    console.log(multiply(2, 3)); // Output: 6
+Q. difference in then, catch and async
+A. async → makes a function asynchronous / Promise-returning.
+	then() is used on a Promise to handle its successful/fulfilled result.
+		.then() → what should I do when the Promise succeeds?
+	catch() is used to handle a rejected Promise / error.
+		.catch() → what should I do when something fails?
 
-   Differences from Traditional Functions
-   this Binding: Arrow functions do not have their own this context; they inherit this from the parent scope at the time they are defined
-   arguments Object: Arrow functions do not have their own arguments object. If you need to access arguments, you should use a traditional function expression.
 
-  parameter vs argument :  a parameter is a variable that defines the inputs a function can accept, 
-	while an argument is the value passed to the function when it is called
-
-Q. we can get value of a input box by both js and jquery but which one will give faster result.
-A. Plain JavaScript is faster than jQuery for retrieving the value of an input box because 
-   it accesses the DOM directly without the overhead of the jQuery library. 
-   However, the performance difference is usually minimal in most cases, 
-   and both methods are widely used depending on the project requirements and the presence of jQuery in the project.
-
-Q. what is operator in js 
-A.  an operator is a special symbol used to perform operations on operands (values or variables)
-
-Q. difference in settimeout and setinterval function 
-A. Execution	Runs once after the specified delay	Runs repeatedly at the specified interval
-   Usage	Delays a task				Repeats a task at regular intervals
-   Stopping	clearTimeout()				clearInterval()
-   Use Cases	Delayed execution, one-time tasks	Periodic updates, polling, animations
-
-let timer = setTimeout(() => {
-    console.log("This will not run");
-}, 2000);
-clearTimeout(timer); // Cancels the timeout
-
-setInterval(() => {
-    console.log("This runs every 2 seconds");
-}, 2000); // 2000 ms = 2 seconds
-
-Q. js annotation
-A. annotations (or comments) are used to add explanations, notes, or instructions within the code without affecting its execution
-   1. Single-line Comments : // 
-   2. Multi-line Comments : Use /* to start and */
-   3. Documentation Comments (JSDoc) : Use /** ... */
-
-Q. Difference between One-way Binding and Two-way Binding
-A. data binding refers to the technique of synchronizing data between the UI and the code
-   1. One-way Binding : data flows in a single direction — from the model (data) to the view (UI). 
-      Changes in the model automatically update the view, but changes in the view do not affect the model.
-   2. Two-way Binding : data flows in both directions. 
-      Any change in the model updates the view, and any change in the view automatically updates the model.
-
-Aspect			One-way Binding				Two-way Binding
-Data Flow		One direction (Model ➔ View)		Both directions (Model ⇄ View)
-Update Behavior		UI updates when the model changes	Model and UI update each other in sync
-Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchronization
-Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
-Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
-
-Q. map function in js
-A. The map() function in JavaScript is used to iterate over an array and create a new array by transforming each element.
-	it Does not change original array.
-	let a = [1,2,3,4];
-	let b = a.map(val=>{
-	    return val*val;
-	})
-	console.log(a)	[ 1, 2, 3, 4 ]
-	console.log(b)	[ 1, 4, 9, 16 ]
-
-Q. compare two array by a single loop
-A. 
-	let arr1 = [1, 2, 3, 4];
-	let arr2 = [1, 2, 3, 4];	
-	let isEqual = true;
+Q. what are the different ways to create a object in JS?
+A. 8 important approaches
+	Object literal- most common 
+		const user = {
+			name: "Gautam",
+			age: 30,
+			greet() {
+				console.log("Hello");
+			}
+		};
 	
-	if (arr1.length !== arr2.length) {
-	    isEqual = false;
-	} else {
-	    for (let i = 0; i < arr1.length; i++) {
-	        if (arr1[i] !== arr2[i]) {
-	            isEqual = false;
-	            break;
-	        }
-	    }
-	}
-	console.log(isEqual);
-
-Q. compare two object 
-A. can be checked by === or == but it gives false because it has diffrent refrence. it does not compare values. 
-	1. stringify obejct then compare : JSON.stringify(obj1) === JSON.stringify(obj2)
-	if object key sequnce different then it will return false
-	2. compare each object by keys. 
-
-	let obj1 = {
-	    name: "Gautam",
-	    age: 36
-	};
-	let obj2 = {
-	    name: "Gautam",
-	    age: 36
-	};	
-	let isEqual = true;
+	new Object() - JavaScript provides the built-in Object constructor.
+		const user = new Object();
+		user.name = "Gautam";
+		user.age = 30;
+		console.log(user);	
 	
-	let keys1 = Object.keys(obj1);
-	let keys2 = Object.keys(obj2);
+	Object.create()- Creates an object using another object as its prototype.
+		const person = {
+			greet() {
+				console.log("Hello");
+			}
+		};
+		const user = Object.create(person);
+		user.name = "Gautam";
+		user.greet();	
 	
-	if (keys1.length !== keys2.length) {
-	    isEqual = false;
-	} else {
-	    for (let key of keys1) {
-	        if (obj1[key] !== obj2[key]) {
-	            isEqual = false;
-	            break;
-	        }
-	    }
-	}
-	console.log(isEqual);
+	Object.assign(): Object.assign() is useful for creating an object by copying properties from one or more objects.
+		const user = {
+			name: "Gautam"
+		};
+		const details = {
+			age: 30
+		};
+		const result = Object.assign({}, user, details);
+		console.log(result);
+	
+	Constructor function + new : Before ES6 classes, constructor functions were commonly used to create multiple similar objects.
+		function User(name, age) {
+			this.name = name;
+			this.age = age;
+		}
 
-Q. pass by reference
-A. 	
-	let person = {
-	    name: "Gautam"
-	};	
-	function changeName(user) {
-	    user.name = "Rahul";
-	}
-	changeName(person);
-	console.log(person.name);  output : Rahul
+		const user1 = new User("Gautam", 30);
+		const user2 = new User("Rahul", 25);
 
-Q. how to reload a page by JS? window.location.reload();
-
-Q. What is negative Infinity? - Negative Infinity is a number in JavaScript which can be derived by dividing negative number by zero.
-
-Q. In JavaScript, it is possible for the programmers to convert the string to an integer? 
-  Ans. parseInt()
-
-Q.Differene between innerText and innerHTML
-	Retrieves and sets the content in plain text.			Retrieves and sets the content in HTML format.
-	We can not insert the HTML tags.				We can insert the HTML tags.
-	It ignores the spaces.						It considers the spaces.
-	It returns text without an inner element tag.			It returns a tag with an inner element tag.
-
-Q. What is event bubbling? 
-Ans. JavaScript allows DOM elements to be nested inside each other. In such a case, if the handler of the child is clicked, 
-	the handler of the parent will also work as if it were clicked too.
-	By Default JavaScript Uses Bubbling.
-Q. what is event capturing?
-A. Its opposite of Event Bubbling. Event propogates from document to traget element.
-	Enable Capturing : 
-	parent.addEventListener(
-	    "click",
-	    () => {
-	        console.log("Parent");
-	    },
-	    true
-	);
-
-Q. Explain JavaScript event loop?
-A. 
-
-Q. Write the point of difference between a web garden and a web farm?
-Ans. Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. 
-	At the same time,web-farm is a larger setup that uses more than one server.
-
-Q. what is optional chain or chaining operator?
-A. It allows you to safely access properties, methods, or array elements without throwing an error if an intermediate value is null or undefined.
-const user = {
-    name: "John",
-    address: {
-        city: "Delhi"
-    }
-};
-console.log(user.company.name); // TypeError: Cannot read properties of undefined (reading 'name')
-but can use console.log(user.company?.name); // undefined
-
+		console.log(user1);
+		console.log(user2);	
+	
+	
 Q. what are object methods? 
 A. Object methods are built-in methods provided by the Object class to create, inspect, modify, and manipulate objects.
 	Object.keys()		Returns keys
@@ -1136,12 +1669,65 @@ A. Object methods are built-in methods provided by the Object class to create, i
 	
 	Output : Animal Sound
 
-Q. what is !! operator
-A. The double NOT operator (!!) is a JavaScript trick used to convert any value into a boolean (true or false)
-const name = "John";
-console.log(!name); // false
-console.log(!!name);  // true
+Q. compare two object 
+A. can be checked by === or == but it gives false because it has diffrent refrence. it does not compare values. 
+	1. stringify obejct then compare : JSON.stringify(obj1) === JSON.stringify(obj2)
+	if object key sequnce different then it will return false
+	2. compare each object by keys. 
 
+	let obj1 = {
+	    name: "Gautam",
+	    age: 36
+	};
+	let obj2 = {
+	    name: "Gautam",
+	    age: 36
+	};	
+	let isEqual = true;
+	
+	let keys1 = Object.keys(obj1);
+	let keys2 = Object.keys(obj2);
+	
+	if (keys1.length !== keys2.length) {
+	    isEqual = false;
+	} else {
+	    for (let key of keys1) {
+	        if (obj1[key] !== obj2[key]) {
+	            isEqual = false;
+	            break;
+	        }
+	    }
+	}
+	console.log(isEqual);
+
+Q. if i want to check in a object a particular property exist or not? how to do it?
+A. 1. hasOwnProperty() 
+	const user = {
+	    name: "Gautam",
+	    age: 36
+	};
+	console.log(user.hasOwnProperty("name"));
+	2. hasOwn() : 
+		const user = {
+		    name: "Gautam",
+		    age: 36
+		};		
+		console.log(Object.hasOwn(user, "name"));
+		console.log(Object.hasOwn(user, "city"));
+	3. in
+		const user = {
+		    name: "Gautam"
+		};		
+		console.log("name" in user);  // true
+		console.log("city" in user);  // false 
+		console.log("toString" in user);  // true  toString is inherited from Object.prototype. so its true here
+		console.log(user.hasOwnProperty("toString"));  // false  
+
+	hasOwnProperty() checks only the object's own properties
+	in checks both own and inherited properties
+	4. Direct Comparison : if (user.name !== undefined) { console.log("Exists"); }
+	5. Optional Chaining (Only for Safe Access) : console.log(user?.address?.city);
+	
 Q. what is context and how can we change the context of the function?
 A. Context is the value of this inside a function.
 	The value of this depends on how the function is called, not where it is defined (except for arrow functions).
@@ -1187,102 +1773,8 @@ A. JavaScript provides three methods:call() , apply(), bind()
 		    name: "Gautam"
 		};		
 		const fn = greet.bind(person);		
-		fn();
+		fn();	
 
-Q. const names=['alice','bob','charlie','gautam','deepak'];
-	const groupFirstLetter= Object.groupBy(names,name=>name[0]);
-	console.log(groupFirstLetter);
-	output : {
-	a:[alice],
-	b:['bob'],
-	c: ['charlie'],
-	g:['gautam'],
-	d:['deepak']
-	}
-
-Q. if i want to check in a object a particular property exist or not? how to do it?
-A. 1. hasOwnProperty() 
-	const user = {
-	    name: "Gautam",
-	    age: 36
-	};
-	console.log(user.hasOwnProperty("name"));
-	2. hasOwn() : 
-		const user = {
-		    name: "Gautam",
-		    age: 36
-		};		
-		console.log(Object.hasOwn(user, "name"));
-		console.log(Object.hasOwn(user, "city"));
-	3. in
-		const user = {
-		    name: "Gautam"
-		};		
-		console.log("name" in user);  // true
-		console.log("city" in user);  // false 
-		console.log("toString" in user);  // true  toString is inherited from Object.prototype. so its true here
-		console.log(user.hasOwnProperty("toString"));  // false  
-
-	hasOwnProperty() checks only the object's own properties
-	in checks both own and inherited properties
-	4. Direct Comparison : if (user.name !== undefined) { console.log("Exists"); }
-	5. Optional Chaining (Only for Safe Access) : console.log(user?.address?.city);
-
-Q. flatten an array in JavaScript?
-A. Flattening an array means converting a nested array into a single-level array.
-	1. flat() : by default flates 1 level, else pass number of level you want to flattern.
-		if its one level and you pass more than one, no error get, it will flattern one level.
-		pass Infinity if you dont know level or want all to flattern. 
-			
-		const arr = [1, [2, 3], [4, 5]];
-		console.log(arr.flat());
-		console.log(arr.flat(Infinity));
-	2. concat() (One Level Only) : 
-		const arr = [[1, 2], [3, 4], [5, 6]];
-		console.log([].concat(...arr));  // [1,2,3,4,5,6]
-	3. Using toString() 
-		const arr = [1, [2, [3, 4]]];		
-		const result = arr.toString().split(",");		
-		console.log(result);  // ["1", "2", "3", "4"]
-	4. using reduce()
-		function flatten(arr) {
-		    return arr.reduce((result, item) => {
-		        if (Array.isArray(item)) {
-		            return result.concat(flatten(item));
-		        }
-		        return result.concat(item);
-		    }, []);
-		}
-		const arr = [1, [2, [3, 4]], 5];
-		console.log(flatten(arr));
-
-Q. what is flatmap method?
-A. flatMap() maps each element and then flattens only one level.
-		const arr = [1, 2, 3];
-		const result = arr.flatMap(x => [x, x * 2]);
-		console.log(result);  // [1, 2, 2, 4, 3, 6]
-
-Q. differecne in flat and flatmap? 
-A. flat same as above and flatmap= map+flat().
-	flatmap() first map each element then apply flat.
-
-Q. what is array.reduce() method?
-A. It reduces an array to a single value by executing a callback function for each element
-	array.reduce((accumulator, currentValue, currentIndex, array) => {
-	    // logic
-	}, initialValue);
-	Parameter	Description
-	accumulator	Stores the accumulated result from previous iterations
-	currentValue	Current array element
-	currentIndex	Current index (optional)
-	array	Original array (optional)
-	initialValue	Initial value of the accumulator
-
-	const numbers = [10, 20, 30, 40];
-	const sum = numbers.reduce((acc, current) => {
-	    return acc + current;
-	}, 0);
-	console.log(sum);   // 100
 
 Q. what is de-structuring?
 A. Destructuring is an ES6 (ECMAScript 2015) feature that allows you to 
@@ -1350,45 +1842,6 @@ A. Destructuring is an ES6 (ECMAScript 2015) feature that allows you to
 		    console.log(name);
 		});
 
-Q. what isdebounceing and throutlling?
-A. Debouncing : Debouncing delays the execution of a function until a specified amount of time has passed since the last event.
-	Suppose a user types:
-	Without debouncing: on each key press api calls
-	with debouncing : api call when user type there is a hold of specified time 
-		this.searchControl.valueChanges.pipe(
-		  debounceTime(300)
-		).subscribe(value => {
-		  console.log(value);
-		});
-
-	Throttling: Throttling ensures that a function executes at most once during a specified time interval, no matter how many events occur.
-	Suppose the scroll event fires 100 times in one second.
-	Without throttling: 100 function calls
-	With 1-second throttle:
-		this.scrollEvents.pipe(
-		  throttleTime(1000)
-		).subscribe(() => {
-		  console.log("Scroll");
-		});
-
-Q. difference in arrow and normal function?
-A. Arrow functions were introduced in ES6. 
-	The main difference is that arrow functions do not have their own this; 
-	they inherit it from the surrounding lexical scope, 
-	Arrow functions also do not have their own arguments object, 
-	cannot be used as constructors with new, 
-	and do not have a prototype.
-
-	whereas normal functions get their own this based on how they are called. 
-	Normal functions are preferred for object methods and constructors, 
-	while arrow functions are ideal for callbacks and short utility functions.
-
-	normal Function					Arrow Function
-	Own this						Lexical this
-	Can use new						Cannot use new
-	Has arguments					Use rest (...args) instead
-	Good for object methods	Good 	for callbacks
-	Has prototype					No prototype
 Q. What is a Prototype?
 A. A prototype is an object that JavaScript uses to share properties and methods between objects.
 	Instead of copying the same method into every object, 
@@ -1494,9 +1947,70 @@ A. Although they use the same syntax (...), they perform different operations de
 		console.log(name);
 		console.log(others);
 
-Q difference in local and session storage?
-A. 
+Q. explain deep copy and shalow copy
+A. Shallow copy copies only the first level. 
+	Deep copy creates independent copies of nested objects as well.
 
+	Shallow Copy : A shallow copy creates a new outer object, but nested objects are still shared.
+
+	const user1 = {
+		name: "Gautam",
+		address: {
+			city: "Delhi"
+		}
+	};
+	const user2 = { ...user1 };
+	const user3=user1;
+	
+	here user1 contains object inside a object address. 
+	show copying object like above will share same memoery refrence for address obj.
+	show changing city value in any object, will also reflect in other object
+	here if we compare user1.address === user2.address === user3.address will be true
+
+	ways to create a shalow copy : 
+		const copy = { ...original };
+		const copy = Object.assign({}, original);
+		const copy = [...originalArray];
+		const copy = originalArray.slice();
+	
+	
+	Deep Copy : A deep copy creates a completely independent copy, including nested objects and arrays.
+	
+		const user1 = {
+			name: "Gautam",
+			address: {
+				city: "Delhi"
+			}
+		};
+		const user2 = structuredClone(user1);
+		const user3 = JSON.parse(JSON.stringify(user1));
+	
+	
+Q difference in local and session storage?
+A. localStorage : Data stored in localStorage remains even after:
+	Page refresh
+	Closing the tab
+	Closing the browser
+	
+	example : 	
+		localStorage.setItem("name", "Gautam");
+		const name = localStorage.getItem("name");
+		console.log(name);
+		localStorage.removeItem("name");
+		localStorage.clear();
+		
+	
+	sessionStorage : sessionStorage is similar, but its lifetime is tied to the browser tab/window session.
+		example : 
+		sessionStorage.setItem("name", "Gautam");
+		const name = sessionStorage.getItem("name");
+		console.log(name);
+		sessionStorage.removeItem("name");
+		sessionStorage.clear();
+	
+	Typically, Web Storage provides around 5 MB for localStorage and 5 MB for sessionStorage per origin, 
+	although the exact quota is browser-dependent. When the quota is exceeded, a QuotaExceededError can occur
+	
 Q what is web wrokers? 
 A. Web Workers are a browser feature that allows JavaScript to run code in a separate background thread, 
 	so heavy computations don't block the main UI thread.
@@ -1516,42 +2030,124 @@ A. Web Workers are a browser feature that allows JavaScript to run code in a sep
 	✅ PDF generation
 	✅ AI/ML inference in the browser
 
-Q. Interface vs Type?
-A. Both can describe types.
-	interface is commonly used for object contracts.
+
+Q. what isdebounceing and throutlling?
+A. Debouncing : Debouncing delays the execution of a function until a specified amount of time has passed since the last event.
+	Suppose a user types:
+	Without debouncing: on each key press api calls
+	with debouncing : api call when user type there is a hold of specified time 
+		this.searchControl.valueChanges.pipe(
+		  debounceTime(300)
+		).subscribe(value => {
+		  console.log(value);
+		});
+
+	Throttling: Throttling ensures that a function executes at most once during a specified time interval, no matter how many events occur.
+	Suppose the scroll event fires 100 times in one second.
+	Without throttling: 100 function calls
+	With 1-second throttle:
+		this.scrollEvents.pipe(
+		  throttleTime(1000)
+		).subscribe(() => {
+		  console.log("Scroll");
+		});
+
+
+Q. Write the point of difference between a web garden and a web farm?
+Ans. Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. 
+	At the same time,web-farm is a larger setup that uses more than one server.
+
+
+programs : 
+
+Q. pass by reference output - 
+A. 	
+	let person = {
+	    name: "Gautam"
+	};	
+	function changeName(user) {
+	    user.name = "Rahul";
+	}
+	changeName(person);
+	console.log(person.name);  output : Rahul
 	
-	interface User {
-	  id: number;
-	  name: string;
+Q. If we want to return the character from a specific index which method is used?
+	var str="Javatpoint";    
+	document.writeln(str.charAt(4));
+	
+Q.  What is the output of 10+20+"30" in JavaScript?  3030
+
+Q. typeof(typeof(4+"7")) output : string 
+
+Q. output - console.log([]==[])	// false
+	output - console.log([]===[])	// false
+	output - console.log("" && 12)	// 
+	output - console.log("hi" || "")	// 
+	output - console.log(parseInt("ram34"))  // 
+	
+Q. code to short an array in ascending order.
+	const arr=[];
+A. arr.sort((a,b)=>a-b); console.log(arr);
+	
+Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
+	Console.log('1');
+	Settimeout(()=>{
+	Console.log('2')
+	},1000)
+	Console.lgo('3')
+   using setTimeout with a delay of 0 milliseconds means that the callback function will be executed as soon as possible, 
+   but after the current execution stack has cleared.
+   When you pass 0 as the delay in setTimeout, it doesn't mean the callback will execute immediately. 
+   Instead, it is queued up to be executed after the current code execution completes, and any other queued tasks before it have been processed. 
+   This is because JavaScript is single-threaded and runs in an event-driven environment.
+
+Q. output of this code ? 
+	console.log("A");
+	setTimeout(() => {
+	 console.log("B");
+	}, 0);
+	Promise.resolve().then(() => {
+	 console.log("C");
+	});
+	async function test() {
+	 console.log("D");
+	 await Promise.resolve();
+	 console.log("E");
+	}
+	test();
+	console.log("F");
+
+A. A D F C E B
+
+Q. compare two array by a single loop
+A. 
+	let arr1 = [1, 2, 3, 4];
+	let arr2 = [1, 2, 3, 4];	
+	let isEqual = true;
+	
+	if (arr1.length !== arr2.length) {
+	    isEqual = false;
+	} else {
+	    for (let i = 0; i < arr1.length; i++) {
+	        if (arr1[i] !== arr2[i]) {
+	            isEqual = false;
+	            break;
+	        }
+	    }
+	}
+	console.log(isEqual);
+
+Q. const names=['alice','bob','charlie','gautam','deepak'];
+	const groupFirstLetter= Object.groupBy(names,name=>name[0]);
+	console.log(groupFirstLetter);
+	output : {
+	a:[alice],
+	b:['bob'],
+	c: ['charlie'],
+	g:['gautam'],
+	d:['deepak']
 	}
 	
-	type can represent unions and intersections.	
-	type Status = 'active' | 'inactive';
-
-Q. What are generics?
-A. Generics allow reusable strongly typed code.
-
-	function getFirst<T>(items: T[]): T {
-	  return items[0];
-	}
-
-What is the difference between var, let and const?
-Explain Hoisting in JavaScript.
-What is the Temporal Dead Zone?
-What is a Closure in JavaScript? Give an example.
-Explain the Event Loop in JavaScript.
-What are Microtasks and Macrotasks?
-What is the difference between == and ===?
-How does the this keyword work?
-What is Prototype and Prototype Chaining?
-What are Map, Set, WeakMap and WeakSet?
-How does Promise.all() work?
-What is the difference between Promise and async/await?
-How do you deep clone an object in JavaScript?
-What is Debouncing and Throttling?
-What is Event Delegation?
-
-Programs : 
 Q write a program to replace string with number and number with string
 	const a=["a",1,"s",2]; output : [1,"a",2,"s"]
 Q. write code to implement switchmap, mermap etc 
@@ -1573,23 +2169,6 @@ Binary Tree Inorder Traversal
 Number of Islands (DFS)
 Course Schedule (Topological Sort)
 
-
-TypeScript  :
-What are the differences between interface and type?
-What is Type Inference in TypeScript?
-What are Union and Intersection Types? Give examples.
-What is the difference between any, unknown and never?
-What are Generics in TypeScript? Give an example.
-What is Type Narrowing?
-What are Utility Types? Name some commonly used.
-What is the difference between as and <T> type assertion?
-What are Enums in TypeScript?
-How do you create a readonly property?
-What are Decorators in TypeScript?
-What is the difference between class and interface?
-How does Optional Chaining (?.) work?
-How does Nullish Coalescing (??) work?
-What is the use of Partial<T>, Pick<T,K> and Omit<T,K>?
 
 JQUERY : 
 
