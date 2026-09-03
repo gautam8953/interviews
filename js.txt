@@ -41,12 +41,12 @@ A. javacript developed by Mocha in 1995. first ecma script edition come in June 
 Q. What is difference between js and TS?
 A. 	TS: supperset of JS
 		Adds static type
-		Catches error before running 
+		Catches error before running  let age: number = 25; age = "Gautam";  // ❌ TypeScript error
 		better for large applications
 
 	JS : ts converted into js
 		No type checking
-		errors found at runtime
+		errors found at runtime let age = "Gautam"; console.log(age.toFixed(2)); // ❌ Runtime error
 		faster to start
 
 Q. What is the difference between JavaScript and JScript?
