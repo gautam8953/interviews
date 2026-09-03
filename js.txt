@@ -95,8 +95,8 @@ A. JavaScript source (Code)  → parsing (Syntax check) → bytecode (code chang
 		setinterval/settimeout move to macro taskQueue (less priority)
 	then event loops continuously check if callStack empty
 	if callStack empty then event loop move one task to callStack as per priority
-	again event loop check for callStack empty & whne empty move task
-	this process continues till all task finished
+	again event loop check for callStack empty & when empty move task
+	this process continues untill all task finished
 
                     Browser
                        │
@@ -132,9 +132,28 @@ Q. What is BOM?
    BOM stands for Browser Object Model. It provides interaction with the browser. The default object of a browser is a window. 
    So, you can call all the functions of the window by specifying the window or directly. 
    The window object provides various properties like document, history, screen, navigator, location, innerHeight, innerWidth,
-   
+
+Q. what is difference between window variable and global variable?
+A. In a browser, window is the global object. 
+	Global variables declared with var in a classic script become properties of window, 
+	whereas top-level let and const do not.
+	ES modules (<script type="module">) have their own module scope, so their top-level variables aren't added to window either
+
+	var name = "Gautam"; console.log(window.name); // Gautam
+	window.name === name // true
+
+	but 
+	let age = 25; console.log(window.age);     // undefined
+
 Q. What is DOM? What is the use of document object?
-   DOM stands for Document Object Model. A document object represents the HTML document. It can be used to access and change the content of HTML.
+A. DOM stands for Document Object Model. 
+	It is a tree-like object representation of an HTML document created by the browser, 
+	which allows JavaScript to dynamically access and manipulate the document's elements, content, styles, and events
+
+	element.textContent = "Hello";
+	button.addEventListener("click", () => {
+    	console.log("Button clicked");
+	});
    
 Q. In which location cookies are stored on the hard disk?
 	Netscape Navigator - c:\Program Files\Netscape\Users\username\cookies.txt
@@ -142,8 +161,13 @@ Q. In which location cookies are stored on the hard disk?
 	
 Q. What's the difference between event.preventDefault() and event.stopPropagation() methods in JavaScript?
 A. In JavaScript, the event.preventDefault() method is used to prevent the default behavior of an element. 
-   On the other hand, the event.stopPropagation() method is used to stop the propagation of an event or 
-   stop the event from occurring in the bubbling or capturing phase.
+	example : when we click on a link browser navigate to that link
+	when we submit a form broser may relaod or navigate to another url
+	but by using event.preventDefault() we can stop this default behavior.
+	preventDefault() doesn't stop propagation;
+
+   event.stopPropagation()- stops the event from propagating in current direction.
+	either from parent to child elements or child to parent elements.
    
 Q. How can you check if the event.preventDefault() method was used in an element?
 A. When we use the event.defaultPrevent() method in the event object returns a Boolean indicating that 
