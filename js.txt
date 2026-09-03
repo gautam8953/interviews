@@ -31,7 +31,7 @@ A. javacript developed by Mocha in 1995. first ecma script edition come in June 
 
 	latest ecmaScript : july 2026, 17th version 
 	new features 
-	1. Map.getOrInsert()
+	1. Map.getOrInsert() : get a value if it already exists, or insert a default value if it doesn't exist.
 		const map = new Map();
 		const value = map.getOrInsert('count', 0);	
 		console.log(value); // 0
