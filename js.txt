@@ -89,8 +89,9 @@ A. JavaScript source (Code)  → parsing (Syntax check) → bytecode (code chang
 	JavaScript is single-threaded from the perspective of its main execution thread.
 
 	as js code start executing, it executes in call stacks line by line
-	as asynchronus code get like settimeout, setinterval, await etc then next code move to task queue via web api
-	when timer finished then code moved to task queue
+	as asynchronus code get like settimeout, setinterval, await etc 
+	then next code present in callback moved to task queue via web api,
+	code moves only after timer finished, till then 2 sec timeout or api calling is handled by the browser.
 		promise/callback move to micro taskQueue (High priority)
 		setinterval/settimeout move to macro taskQueue (less priority)
 	then event loops continuously check if callStack empty
@@ -110,7 +111,7 @@ A. JavaScript source (Code)  → parsing (Syntax check) → bytecode (code chang
         │
         ├── Ignition (byte code)
         │
-        ├── TurboFan (optimize code)
+        ├── TurboFan (optimizes code that runs frequently) 
         │
         └── Call Stack
                        │
@@ -120,13 +121,21 @@ A. JavaScript source (Code)  → parsing (Syntax check) → bytecode (code chang
             ┌──────────┴──────────┐
             ▼                     ▼
        Task Queue           Microtask Queue
+	
+	Hot code = code that is executed frequently.
+	TurboFan is V8's optimizing compiler. 
+	JavaScript is dynamic, but CPUs want predictable machine-level operations.
+	so as frequently running code apprears it optimize it for faster exexcution.
+	for ex: if its a multiple then it tell not to do type check just multiple it.
+	but as it get string instead of number it also Deoptimize it for safer execution.
 
 Q. Explain JavaScript event loop?
 A. The Event Loop continuously checks whether the Call Stack is empty and 
 	then moves eligible callbacks from the appropriate task/microtask queues to the Call Stack for execution.
 	It is the mechanism that allows JavaScript to handle asynchronous operations 
 		even though JavaScript's main execution is single-threaded
-
+	priority 1: micro task queue - promise, callback, observable, async/await, queueMicrotask(), 
+	priority 2 : macro task queue - settimeout, setinterval, MessageChannel, postMessage(),  DOM events like click, input, keydown
 
 Q. What is BOM?
    BOM stands for Browser Object Model. It provides interaction with the browser. The default object of a browser is a window. 
@@ -446,7 +455,12 @@ Q. Name the types of functions in JS?
 		Async Function				Uses async/await, returns a Promise
 		Method	Function 			defined on an object
 		Recursive Function			Calls itself
-		
+
+Q. what is use of IIFE or real use case of this function?
+A.  An IIFE is a function expression that is immediately invoked. 
+	Its main purpose is to create an isolated/private scope and avoid polluting the global scope.
+	as its executed immediately so its inside variable will not be accessible outside.
+
 Q. what is arrow function?
 A. Arrow functions provide a shorter syntax for writing functions and 
    offer advantages in scenarios where maintaining the this context of the outer scope is important.
@@ -1887,18 +1901,63 @@ A. A prototype is an object that JavaScript uses to share properties and methods
 	prototype : Belongs to functions.
 	__proto__ : Belongs to objects.
 
+Q. How to create your own prototype and attach it and call it?
+A. In JavaScript, you can create your own prototype object, attach it to another object, 
+	and then call methods defined on that prototype
+
+	Using Object.create() — simplest
+
+		const personPrototype = {
+		    greet() {
+		        console.log("Hello Gautam!");
+		    }
+		};		
+		const person = Object.create(personPrototype);
+		person.greet();	// Hello Gautam!
+	When you do: person.greet();
+	JavaScript first looks for greet inside person.
+	It doesn't find it, so it looks at: personPrototype
+	It finds greet() there and executes it.
+
+	console.log(Object.getPrototypeOf(person) === personPrototype);  // true
+
+
+	Using a constructor function — very important for interviews
+		function Person(name) {
+		    this.name = name;
+		}		
+		Person.prototype.greet = function () {
+		    console.log("Hello " + this.name);
+		};		
+		const p1 = new Person("Gautam");		
+		p1.greet();		// Hello Gautam
+
+		You can also manually change the prototype
+			const personPrototype = {
+			    greet() {
+			        console.log("Hello " + this.name);
+			    }
+			};
+			const person = {
+			    name: "Gautam"
+			};
+			Object.setPrototypeOf(person, personPrototype);
+			person.greet();
+			
+			Object.getPrototypeOf(person) === personPrototype
+
 Q. what is prototype chaining?
 A. Prototype chaining is JavaScript's mechanism for property and method lookup. 
 	If a property isn't found on an object, JavaScript searches its prototype, 
 	then the prototype's prototype, continuing until it finds the property or reaches null
+
 	const animal = {
 	  eat() {
 	    console.log("Eating");
 	  }
 	};
-	
 	const dog = Object.create(animal);
-	
+
 	dog.bark = function () {
 	  console.log("Barking");
 	};
@@ -1906,16 +1965,14 @@ A. Prototype chaining is JavaScript's mechanism for property and method lookup.
 	dog.bark(); // Barking
 	dog.eat();  // Eating
 
+
 	function Person(name) {
 	  this.name = name;
 	}
-	
 	Person.prototype.sayHello = function () {
 	  console.log("Hello " + this.name);
 	};
-	
 	const p1 = new Person("Gautam");
-	
 	p1.sayHello();  // Hello Gautam
 
 Q.rest and spread operator
@@ -2092,65 +2149,6 @@ Ans. Both web-garden and web-farm are web hosting systems. The only difference i
 
 
 programs : 
-
-Q. pass by reference output - 
-A. 	
-	let person = {
-	    name: "Gautam"
-	};	
-	function changeName(user) {
-	    user.name = "Rahul";
-	}
-	changeName(person);
-	console.log(person.name);  output : Rahul
-	
-Q. If we want to return the character from a specific index which method is used?
-	var str="Javatpoint";    
-	document.writeln(str.charAt(4));
-	
-Q.  What is the output of 10+20+"30" in JavaScript?  3030
-
-Q. typeof(typeof(4+"7")) output : string 
-
-Q. output - console.log([]==[])	// false
-	output - console.log([]===[])	// false
-	output - console.log("" && 12)	// 
-	output - console.log("hi" || "")	// 
-	output - console.log(parseInt("ram34"))  // 
-	
-Q. code to short an array in ascending order.
-	const arr=[];
-A. arr.sort((a,b)=>a-b); console.log(arr);
-	
-Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
-	Console.log('1');
-	Settimeout(()=>{
-	Console.log('2')
-	},1000)
-	Console.lgo('3')
-   using setTimeout with a delay of 0 milliseconds means that the callback function will be executed as soon as possible, 
-   but after the current execution stack has cleared.
-   When you pass 0 as the delay in setTimeout, it doesn't mean the callback will execute immediately. 
-   Instead, it is queued up to be executed after the current code execution completes, and any other queued tasks before it have been processed. 
-   This is because JavaScript is single-threaded and runs in an event-driven environment.
-
-Q. output of this code ? 
-	console.log("A");
-	setTimeout(() => {
-	 console.log("B");
-	}, 0);
-	Promise.resolve().then(() => {
-	 console.log("C");
-	});
-	async function test() {
-	 console.log("D");
-	 await Promise.resolve();
-	 console.log("E");
-	}
-	test();
-	console.log("F");
-
-A. A D F C E B
 
 Q. compare two array by a single loop
 A. 
