@@ -257,10 +257,6 @@ Q. What is the Temporal Dead Zone?
 A. The Temporal Dead Zone is the period between when a let/const variable is created (binding is established) 
 	and when its declaration is executed/initialized. During this period, accessing the variable causes a ReferenceError.
 
-q. what is temporal dead zone?
-A. Temporal Dead Zone (TDZ) is the period between when a let or const variable is created and 
-	when it is initialized. During this period, accessing the variable causes a ReferenceError
-
 Q. difference in let, var and const?
 	VAR : 
 		var has the function or global scope.
@@ -308,7 +304,7 @@ Q. difference in let, var and const?
 		It's also a new way to declare a variable, which introduces in ES6.
 		
 		let and const are hoisted but remain in the Temporal Dead Zone until initialization.
-Q. why can we change element of const array, but const is unchangable
+Q. const is unchangable but why can we be able to change element of const array?
 A. const prevents reassignment of the variable, not modification of the object/array that the variable refers to.
 	beacuase we are not changing what arr refers to. We are changing the contents of the array.
 	
@@ -340,16 +336,27 @@ Q. What is event bubbling?
 Ans. JavaScript allows DOM elements to be nested inside each other. In such a case, if the handler of the child is clicked, 
 	the handler of the parent will also work as if it were clicked too.
 	By Default JavaScript Uses Bubbling.
+
+	<div id="parent">
+	    <button id="child">Click Me</button>
+	</div>
+	document.getElementById("parent").addEventListener("click", () => {
+	    console.log("Parent clicked");
+	});
+	document.getElementById("child").addEventListener("click", () => {
+	    console.log("Child clicked");
+	});
+	Here parent <div> containing a child <button> And both have click handlers.
+	So When you click the button, parent click event also trigger and the output will be:
+	Child clicked
+	Parent clicked
+
 Q. what is event capturing?
 A. Its opposite of Event Bubbling. Event propogates from document to traget element.
 	Enable Capturing : 
-	parent.addEventListener(
-	    "click",
-	    () => {
+	parent.addEventListener("click",() => {
 	        console.log("Parent");
-	    },
-	    true
-	);
+	},true);
 
 Q. what is optional chain or chaining operator?
 A. It allows you to safely access properties, methods, or array elements without throwing an error if an intermediate value is null or undefined.
@@ -387,17 +394,17 @@ Q. Name the types of functions in JS?
 		function(a, b) {
 			console.log(a+b);
 		} 
-	2. anonymous function : The anonymous functions don’t have names. 
-		They need to be tied to something: variable or an event to run.
-		let oddEven=function(number){
-			if(number%2==0){ return 'EVEN'; } else { return 'ODD'; }			
-		}
-	3. Immediately invoked function expression : Invoked function expression runs as soon as the browser encounters it. 
+	2. Immediately invoked function expression : Invoked function expression runs as soon as the browser encounters it. 
 		The benefit of this function is that it runs immediately where it’s located in the code and produces a direct output.
 		let message =(function(){
 			let name = 'gauam'; return name;
 		})();
 		// imeediatly creates output 
+	3. anonymous function : The anonymous functions don’t have names. 
+		They need to be tied to something: variable or an event to run.
+		let oddEven=function(number){
+			if(number%2==0){ return 'EVEN'; } else { return 'ODD'; }			
+		}
 	4. Arrow Function : arrow function do not have their own this.
 		const add = (a, b) => {
 		  return a + b;
@@ -411,9 +418,11 @@ Q. Name the types of functions in JS?
 		  yield 3;
 		}		
 		const generator = numbers();		
-		console.log(generator.next());
-		console.log(generator.next());
-		console.log(generator.next());
+		console.log(generator.next());	// { value: 1, done: false }
+		console.log(generator.next());	// { value: 2, done: false }
+		console.log(generator.next());	// { value: 3, done: false }
+		console.log(generator.next());	// { value: undefined, done: true }
+
 	8. Async Function : Used for asynchronous operations and always returns a Promise.
 		You can use await inside an async function.
 
