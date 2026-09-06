@@ -1,3 +1,301 @@
+
+Q. pass by reference output - 
+A. 	
+	let person = {
+	    name: "Gautam"
+	};	
+	function changeName(user) {
+	    user.name = "Rahul";
+	}
+	changeName(person);
+	console.log(person.name);  output : Rahul
+	
+Q. If we want to return the character from a specific index which method is used?
+	var str="Javatpoint";    
+	document.writeln(str.charAt(4));
+	
+Q.  What is the output of 10+20+"30" in JavaScript?  3030
+
+Q. typeof(typeof(4+"7")) output : string 
+
+Q.  output 
+    Falsy values: 
+        false
+        0
+        ""
+        null
+        undefined
+        NaN
+        0n
+
+    Truthy:
+        "0"
+        "false"
+        []
+        {}
+        " "
+    A && B    Return first falsy value, otherwise return last value.
+    A || B    Return first truthy value, otherwise return last value.
+    number + number → addition
+    string + anything → concatenation
+    Other arithmetic
+        "5" - 2 → 3
+        "5" * 2 → 10
+        "5" / 2 → 2.5
+    ➡️ Usually converts strings to numbers.
+    
+    Equality
+        5 == "5"   → true
+        5 === "5"  → false
+    Objects/arrays
+        {} === {} → false
+        [] === [] → false
+    because they are different references.
+    
+    typeof
+        typeof null       → "object"   ⚠️
+        typeof []         → "object"
+        typeof {}         → "object"
+        typeof function() → "function"
+        Conversion
+        Number("")          → 0
+        Number(" ")         → 0
+        Number("10")        → 10
+        Number("abc")       → NaN
+        Number(null)        → 0
+        Number(undefined)   → NaN
+
+
+    Number("")              // 0
+    parseInt("")            // NaN
+    
+    Number(null)            // 0
+    Number(undefined)       // NaN
+    
+    typeof null             // "object"
+    typeof NaN              // "number"
+    
+    NaN === NaN             // false
+    Object.is(NaN, NaN)     // true
+    
+    [] == false             // true
+    Boolean([])             // true
+    
+    [] === []               // false
+    {} === {}               // false
+    
+    0 || 10                 // 10
+    0 ?? 10                 // 0
+    
+    "5" + 2                 // "52"
+    "5" - 2                 // 3
+    
+    0.1 + 0.2               // 0.30000000000000004
+    
+    ["1","2","3"].map(parseInt)
+    // [1, NaN, NaN]
+    
+    3 > 2 > 1
+    // false
+
+    console.log([]==[])	// false
+	console.log([]===[])	// false
+	console.log(parseInt("ram34"))  // 
+    console.log("" && true);    // ""    && returns the first falsy value.
+    console.log("hello" && true);    // true    last value as both truthy
+	console.log("" && 12)	// ""    first falsy
+	console.log("hi" || "")	//  "hi"    first truthy
+    console.log("" || "sfdf");    //  "sfdf"    || returns the first truthy value.
+    console.log("hello" || "sfdf"); // "hello"
+    console.log(10 && 20); // 20    last value
+    console.log(0 && 20); // 0 first falsy
+    console.log("" + 2);    // 2    + with a string performs string concatenation.
+    console.log("5" + 2 + 3);    // 523 from left concat
+    console.log(5 + 2 + "3");    // 73
+    console.log("" + null);    // "null
+    console.log("5" - 2);    // 3    JavaScript automatically converts one type into another when required. so "5" became 5
+    console.log("5" * 2);    // 10
+    console.log("5" / 2);    // 2.5
+    console.log("5" + 2);    // "52" + can mean addition OR string concatenation. If one operand is a string, JavaScript generally converts the other operand to a string
+    console.log("5" + "2");    // 52
+    console.log("hello" - 2);    // NAN    because "hello" cannot be converted into a valid number so NAN-2=NAN
+    console.log(null == 0);    // false
+    console.log("" == 0);    // true
+    console.log("" === 0);    // false
+    console.log(" " == 0);    // true    Whitespace string converts to 0.
+    console.log("0" == false); // true
+    console.log(NaN == NaN);    // false also false for NAN===NAN
+    Number.isNaN(NaN); / /true
+    console.log(Boolean(""));    // false    
+    console.log(Boolean(" "));    // true;
+    console.log(Boolean("false"));    // true     The string "false" is not empty, therefore truthy.
+    console.log(Boolean(0));    // false
+    console.log(Boolean("0"));    // true
+    console.log(Boolean(null));    // false
+    console.log(Boolean(undefined));    // false
+    console.log([] == false);        // true
+    console.log([] === false);        // false
+    console.log([] == []);    // false     Arrays are objects and comparison checks reference.
+    console.log({} == {});    // false     Different object references.
+    console.log([] + []);    // ""    Both arrays convert to empty strings.
+    console.log([] + {});    // "[object Object]"
+
+    console.log([1, 2] + [3, 4]);    // "1,23,4"    first array converted to string then added "1,2"+"3,4"
+    console.log(0 || 10);    // 10
+    console.log(10 || 20);    // 10
+    console.log(null || "Hello");    // hello
+    console.log(undefined || "Hello");    // "Hello"
+    console.log("" || 0 || null || "Gautam");    // "gautam"
+    console.log(10 && 20 && 30);    // 30
+    console.log(10 && 0 && 30);    // 0
+    console.log(10 && "" && 30);    // ""
+    console.log("" && 20 && 30);    // ""
+    console.log(true && "Hello" || "World");    // "Hello"
+    console.log(false && "Hello" || "World");     // "World"
+    console.log(0 || 10 && 20);    // 20     && has higher precedence than ||: 0 || (10 && 20) , → 0 || 20  , → 20
+
+    console.log(parseInt("10px"));    // 10
+    console.log(parseInt("px10")); // NAN
+    console.log(parseInt("  20  "));    // 20
+    console.log(parseInt(""));    // NaN
+    console.log(parseInt(true));    // nan    because at first converted to "true" ie string, same result for undefined, null    
+    console.log(parseInt("10", 2));    // 2
+    console.log(Number("10px"));    // nan  Because Number() expects the whole string to be a valid number.
+    console.log(Number(""));    // 0
+    console.log(Number(true));    // 1 , 0 for false, null, []
+    console.log(Number(undefined));    / nan
+    console.log(+"");    // 0  same res for with space too
+    console.log(+"10.5");    // 10.5
+    console.log(+true);    // 1   , FALSE 0
+
+    console.log(String({}));    // "[object Object]"
+
+    console.log(Boolean("false"));    // true    Because it is a non-empty string. same res for [],{},0, null, undefined
+    console.log(Boolean(NaN));    // false
+    console.log(0 ?? "default");    // 0
+    console.log([] == 0);    // true
+
+
+Q.  const a = [];
+    const b = a;
+    console.log(a === b);
+A. true
+    
+Q. output of belwo code?
+        for (var i = 0; i < 3; i++) {
+            console.log(i);
+        }        
+        console.log(i);
+A. 0 1 2
+    Because var i is function-scoped, not block-scoped
+
+Q. function test() {
+        var x = 100;
+    }
+    test();
+    console.log(x);
+A. ReferenceError: x is not defined
+    var is accessible throughout the function, but not outside the function
+
+Q. 
+    function test() {
+        console.log(x);
+        var x = 20;
+    }
+    test();
+A. undefined
+    Because the var declaration is hoisted within the function.
+
+Q. 
+    var x = 10;
+    function test() {
+        console.log(x);
+        var x = 20;
+        console.log(x);
+    }
+    test();
+A. undefined 20
+
+Q. 
+    for (var i = 0; i < 3; i++) {
+        setTimeout(() => {
+            console.log(i);
+        }, 1000);
+    }
+A. 3 3 3 
+    var creates one shared i for the loop.
+    By the time the callbacks execute:i = 3
+    So all three callbacks print 3.
+
+    if we used let instead of var then it would be printed 0 1 2
+
+Q. 
+    class Person {
+        var name = "Gautam";
+    }
+A. SyntaxError : You cannot use var directly for a class field.
+
+So all three callbacks print 3.
+Q. 
+    function test() {
+        if (false) {
+            var x = 10;
+        }
+        console.log(x);
+    }
+    test();   
+A. undefined
+    var x; is hoisted to the function scope, but the assignment never happens
+
+Q. 
+    let x = 10;
+    {
+        var x = 20;
+    }
+    console.log(x);    // x is already defined
+
+Q. 
+    var x = 10;
+    {
+        let x = 20;
+    }
+    console.log(x);    // 10 as 20 is block scoped
+
+Q. code to short an array in ascending order.
+	const arr=[];
+A. arr.sort((a,b)=>a-b); console.log(arr);
+	
+Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
+	Console.log('1');
+	Settimeout(()=>{
+	Console.log('2')
+	},1000)
+	Console.lgo('3')
+   using setTimeout with a delay of 0 milliseconds means that the callback function will be executed as soon as possible, 
+   but after the current execution stack has cleared.
+   When you pass 0 as the delay in setTimeout, it doesn't mean the callback will execute immediately. 
+   Instead, it is queued up to be executed after the current code execution completes, and any other queued tasks before it have been processed. 
+   This is because JavaScript is single-threaded and runs in an event-driven environment.
+
+Q. output of this code ? 
+	console.log("A");
+	setTimeout(() => {
+	 console.log("B");
+	}, 0);
+	Promise.resolve().then(() => {
+	 console.log("C");
+	});
+	async function test() {
+	 console.log("D");
+	 await Promise.resolve();
+	 console.log("E");
+	}
+	test();
+	console.log("F");
+
+A. A D F C E B
+
+Q. output of this code?
 console.log("1");
 setTimeout(() => console.log("2"), 0);
 Promise.resolve()
@@ -6,12 +304,7 @@ Promise.resolve()
 queueMicrotask(() => console.log("5"));
 console.log("6");
 
-1
-6
-3
-5
-4
-2
+A. 1 6 3 5 4 2
 
 4 does not immediately follow 3. The second .then() is queued as a new microtask 
   only after the first .then() finishes, 
