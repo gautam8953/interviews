@@ -499,7 +499,16 @@ A. Arrow functions were introduced in ES6.
 	Has arguments					Use rest (...args) instead
 	Good for object methods	Good 	for callbacks
 	Has prototype					No prototype
-	
+
+Q. what is First-Class Function?
+A. functions can be treated like values. 
+	They can be assigned to variables, passed as arguments, returned from other functions, and stored in objects or arrays
+
+Q. what is Higher-Order Function (HOF)?
+A. A Higher-Order Function is a function that does at least one of these:
+	1. Takes another function as an argument
+	2. Returns another function
+
 Q. what are the type of loops in JS?
 A. 	for			Anything you control with a counter		Known iterations			
 	while		Condition								Unknown iterations			
