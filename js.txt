@@ -2076,8 +2076,34 @@ A. Shallow copy copies only the first level.
 		};
 		const user2 = structuredClone(user1);
 		const user3 = JSON.parse(JSON.stringify(user1));
-	
-	
+
+Q. what is Function currying?
+A. Currying means converting a function that takes multiple arguments into a sequence of functions, 
+	where each function takes one argument.
+		function add(a) {
+		  return function (b) {
+		    return function (c) {
+		      return a + b + c;
+		    };
+		  };
+		}
+		add(10)(20)(30); // 60
+
+	The biggest advantage is that you can reuse partially applied functions.
+		function multiply(a) {
+		  return function (b) {
+		    return a * b;
+		  };
+		}
+		const multiplyBy10 = multiply(10);
+		const multiplyBy5 = multiply(5);
+		
+		console.log(multiplyBy10(2)); // 20
+		console.log(multiplyBy10(7)); // 70
+		
+		console.log(multiplyBy5(2));  // 10
+		console.log(multiplyBy5(7));  // 35
+
 Q difference in local and session storage?
 A. localStorage : Data stored in localStorage remains even after:
 	Page refresh
