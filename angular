@@ -501,6 +501,65 @@ A.
 	exhaustMap: Ignores new emissions while the current observable is running.
 	Excellent for:Preventing multiple button submissions.
 
+Q. what is hot and cold obervable?
+A. Cold Observable → each subscriber gets its own execution.
+	Hot Observable → subscribers share the same execution/source.
+
+1. Cold Observable : A Cold Observable starts producing values when someone subscribes.
+	Each subscriber gets its own independent execution.
+
+	Example
+		import { Observable } from 'rxjs';
+		
+		const observable$ = new Observable(observer => {
+		  console.log('Observable executed');
+		
+		  observer.next(Math.random());
+		});
+		
+		observable$.subscribe(value => {
+		  console.log('Subscriber 1:', value);
+		});
+		
+		observable$.subscribe(value => {
+		  console.log('Subscriber 2:', value);
+		});
+		
+		Output will look like:
+		
+		Observable executed
+		Subscriber 1: 0.123
+		
+		Observable executed
+		Subscriber 2: 0.789
+
+	2. Hot Observable : A Hot Observable has a source that is already producing values, and multiple subscribers can receive values from the same source.
+		A common example is a Subject.
+
+		import { Subject } from 'rxjs';
+		
+		const subject$ = new Subject<number>();
+		
+		subject$.subscribe(value => {
+		  console.log('Subscriber 1:', value);
+		});
+		
+		subject$.next(10);
+		subject$.next(20);
+		
+		subject$.subscribe(value => {
+		  console.log('Subscriber 2:', value);
+		});
+		
+		subject$.next(30);
+		
+		Output:
+		
+		Subscriber 1: 10
+		Subscriber 1: 20
+		
+		Subscriber 1: 30
+		Subscriber 2: 30
 
 Q. How to detect a route change in Angular?
 A. import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
