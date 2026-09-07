@@ -2170,6 +2170,93 @@ A. Debouncing : Debouncing delays the execution of a function until a specified 
 		  console.log("Scroll");
 		});
 
+Q. explain class and object in js with inheritance 
+A. A class is a blueprint for creating objects.
+	class Person {
+	  constructor(name, age) {
+	    this.name = name;
+	    this.age = age;
+	  }
+	  introduce() {
+	    console.log(`I am ${this.name}, ${this.age} years old`);
+	  }
+	}
+	const p1 = new Person("Gautam", 30);
+	const p2 = new Person("Rahul", 25);
+	
+	p1.introduce();
+	p2.introduce();
+
+	Constructor : a special method that runs automatically when you use new.
+
+	Inheritance : A child class can reuse properties and methods of a parent class.
+		class Animal {
+		  sound() {
+		    console.log("Animal makes sound");
+		  }
+		}
+		
+		class Dog extends Animal {
+		  sound() {
+			super.sound();		// calling parent function
+		    console.log("Dog barks");
+		  }
+		}
+		const dog = new Dog();
+		dog.sound();	// Dog barks
+
+	super is used to access the parent class. There are two major uses:
+	
+	1. super() → call parent constructor
+	2. super.method() → call parent method
+
+	class Person {
+	  constructor(name) {
+	    this.name = name;
+	  }
+	}
+	
+	class Developer extends Person {
+	  constructor(name, language) {
+	    super(name);
+	    this.language = language;
+	  }
+	}
+	const dev = new Developer("Gautam", "JavaScript");
+	
+	console.log(dev.name);	// gautam
+	console.log(dev.language);	// Javascript
+
+	We Need super() Because a derived class (extends) doesn't get its own usable this until the parent constructor has been called.
+	else we get error as ReferenceError: Must call super constructor in derived class
+
+	
+	static Methods and Inheritance : Classes can also have static methods.
+
+	class Person {
+	  static info() {
+	    console.log("Person class");
+	  }
+	}
+
+	Call: Person.info();
+
+	Not: Static methods belong to the class itself, not instances.
+	const p = new Person();
+	p.info(); // Error
+
+	static methods are also inherited:
+	
+	class Developer extends Person {
+	}
+
+	Then: Developer.info();
+
+Q. Why must super() be called before this?
+A. In a derived class constructor, this isn't initialized until the parent constructor has been invoked.
+
+Q. Where are class methods stored?
+A. generally in ClassName.prototype, not individually on each instance.
 
 Q. Write the point of difference between a web garden and a web farm?
 Ans. Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. 
