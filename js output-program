@@ -309,3 +309,31 @@ A. 1 6 3 5 4 2
 4 does not immediately follow 3. The second .then() is queued as a new microtask 
   only after the first .then() finishes, 
   so the already-queued queueMicrotask() callback runs first
+
+Q. 
+	console.log('start');
+	Promise.resolve().then(()=>{
+	    console.log('promise');    
+	});
+	setTimeout(()=>{
+	    console.log('1 sec'); 
+	},1000);
+	setTimeout(()=>{
+	    console.log('0 sec'); 
+	},0);
+	setTimeout(()=>{
+	    console.log('no time'); 
+	},0);
+	setTimeout(()=>{
+	    console.log('500 sec'); 
+	},500);
+	console.log('end');
+
+	output : 
+		start
+		end
+		promise
+		0 sec
+		no time
+		500 sec
+		1 sec
