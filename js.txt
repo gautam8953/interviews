@@ -629,6 +629,8 @@ Q. Define closure.
 	counter(); // 2
 	counter(); // 3
 
+Q. How to avoid memory leak as after closure gets executed still memory won't be free as it hold refrence?
+A. Just set null in variable.In above closure set counter=null;
 Q. How can we detect OS of the client machine using JavaScript?  navigator.appVersion
 
 Q. What is this keyword in JavaScript?
