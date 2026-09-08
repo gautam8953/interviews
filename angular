@@ -1241,6 +1241,15 @@ A. Modern Angular provides: takeUntilDestroyed()
 	takeUntil
 	Properly destroying subscriptions
 
+Q. What is Renderer2 and why would you use it?
+A. Renderer2 is a service that provides an abstraction for manipulating the DOM safely.
+	The main reason is platform abstraction and safer DOM manipulation.
+	Angular can then control how that operation is performed depending on the rendering environment. 
+	This is particularly important for applications that may use server-side rendering (SSR) or other rendering environments.
+	Don't use Renderer2 for normal Angular template work.
+	instead of: this.renderer.addClass(element, 'active');	
+	use : <div [class.active]="isActive"></div>
+
 Q. what is test cases. how to write it, example test case. what is its benefit?
 Q. how to get/run coverage report?
 Q. when i run ng test then how it runs. how it knows which command it need to run?
