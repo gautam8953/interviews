@@ -16,6 +16,10 @@ A. scss is pre-processor of css in angular.
 Q. different kind of selector in css
 
 Q. what is box model in css?
+A. The CSS Box Model describes how every HTML element is represented as a rectangular box.
+    It consists of 4 parts, from inside to outside:
+
+Q. what are Pseudo classes?
 
 Q. What is CSS Specificity?
 A. CSS Specificity is the set of rules the browser uses to determine 
