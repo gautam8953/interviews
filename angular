@@ -178,6 +178,15 @@ Ans. angular.json -> angular-cli configuration file main.ts -> Angular module bo
                  ▼
           Angular application
 
+Q. What is a bootstrapping module?
+A.  bootstrapping module is the root module of your application, named AppModule. 
+	It's the starting point that Angular uses to launch your application.
+	configured using the @NgModule decorator and must include a bootstrap array within its metadata.
+	If its root module then bootstrap array contain just one component "Appcomponent".
+
+	The actual bootstrapping process is initiated in the application's entry file, 
+	usually main.ts, by calling platformBrowserDynamic().bootstrapModule(AppModule). 
+	This tells Angular to load and initialize the AppModule and then render the components listed in its bootstrap array.
 
 Q. what is polyfil and why polyfil.ts is used?
 Ans. Polyfills in basic language are extra lines of code which make your application compatible for different browsers. 
