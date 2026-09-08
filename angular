@@ -1581,3 +1581,10 @@ What is the difference between class and interface?
 How does Optional Chaining (?.) work?
 How does Nullish Coalescing (??) work?
 What is the use of Partial<T>, Pick<T,K> and Omit<T,K>?
+
+Angular codes : 
+1. custom validations 
+2. custom pipes example
+3. custom directive example, if like, chnage element
+4. api calling 
+5. routing example
