@@ -1,6 +1,9 @@
 Q how to secure an application from hacking?
 A. 
 
+Q. what is saas?
+A.
+
 Q. how to restrict call from other locations 
 A. restrict access on server that it will allow access only from particular IP
 
