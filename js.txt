@@ -216,6 +216,15 @@ A. annotations (or comments) are used to add explanations, notes, or instruction
    1. Single-line Comments : // 
    2. Multi-line Comments : Use /* to start and */
    3. Documentation Comments (JSDoc) : Use /** ... */
+	example jsDoc comments : 
+	/**
+	 * Adds two numbers.
+	 *
+	 * @param {number} a First number
+	 * @param {number} b Second number
+	 * @returns {number} Sum of a and b
+	 */
+	we write @param, @returns, @type-for data type, @deprecated, @thorws etc for related descriptions.
 
 Q. Difference between One-way Binding and Two-way Binding
 A. data binding refers to the technique of synchronizing data between the UI and the code
