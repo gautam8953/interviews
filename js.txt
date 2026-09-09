@@ -240,6 +240,13 @@ Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchron
 Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
 Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
 
+	Angular has 4 main types of binding:
+	
+	1. Interpolation       {{ }}
+	2. Property binding   [ ]
+	3. Event binding      ( )
+	4. Two-way binding    [( )]
+
 Q. Tell something about the undeclared and undefined variables? 
 Ans.  undeclared -> not exist, not declared
       undefined -> exist, defined but value not assigned
