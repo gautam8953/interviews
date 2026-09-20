@@ -1590,6 +1590,9 @@ What is the difference between class and interface?
 How does Optional Chaining (?.) work?
 How does Nullish Coalescing (??) work?
 What is the use of Partial<T>, Pick<T,K> and Omit<T,K>?
+Explained the Omit utility type and its use cases
+Shared my hands-on experience working with TypeScript in real projects
+Discussed my approach to writing test cases
 
 Angular codes : 
 1. custom validations 
