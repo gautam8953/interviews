@@ -190,6 +190,9 @@ A. useEffect(() => {
   useEffect(() => {}, []);  // Runs after initial mount, subject to development Strict Mode behavior.
   useEffect(() => {}, [userId]);  // Runs when userId changes.
 
+Q. Identified common causes of useEffect infinite loops and how to fix them
+A. 
+
 Q. What is cleanup in useEffect?
 A. Cleanup is used to remove subscriptions, timers, listeners, etc.
   useEffect(() => {
@@ -583,14 +586,16 @@ Q. What is Snapshot Testing?
 
 program : 
 1. call a api to bind and show data in component 
-2. 
+2. Built a custom useFetch hook for API calls
 
 Q. How do you pass data from parent to child in React?
 Q. How do you pass data from child to parent in React?
 What is a Fragment in React?
+Q. Solved stale closure problems with practical examples
 What is the difference between functional and class components?
 What is the difference between useDeferredValue and useTransition?
 How would you render 50,000 records efficiently in React?
+Discussed virtualization concepts and implementation approaches
 How do you make a GET API call in React?
 How do you make a POST API call in React?
 Explain basic CSS vs SCSS.
