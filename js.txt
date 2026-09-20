@@ -1,3 +1,102 @@
+The early web was mostly Static Web Page. HTML could display content, but browsers needed a scripting language to make pages interactive. 
+Like button click, change pages etc. Netscape wanted a lightweight scripting language that could run inside the browser.
+So Brendan Eich created JavaScript in 1995. He worked at Netscape at the time.
+
+its first name was Mocha -> LiveScript -> JavaScript
+the first name Mocha was reportedly chosen because it was a coffee-related name, fitting Netscape's naming culture at the time
+Its name changed to javascript as at that time java was popular and and Netscape had a partnership with Sun Microsystems, the company behind Java.
+
+Netscape wanted to position its scripting language alongside Java:
+Java → powerful application language
+JavaScript → lightweight scripting language for web pages
+
+but both completly different language.
+
+Initially different browser companies implemented JavaScript independently.
+example : 
+netscape - javascript 
+Microsoft - JScript 
+
+So compatibiity issues start getting, so industry needed a standard, so ECMASCRIPT introduced .
+
+In 1996, Netscape submitted JavaScript to ECMA International for standardization.
+In 1997 ES1 published
+
+2000 - 2009 ECMAScript 4 attempted to introduce major features such as: Classes, Types, Modules, Generics etc.
+but ES4 was abandoned and in 2009 ES5 was finalized and published.
+
+in 2015  ECMASCRIPT 6 was published and renamed to ES2015. 
+after 2015 every year ecmascript published .
+
+JS became so popular because slowly at evolved  : 
+
+JavaScript
+     ↓
+DOM manipulation
+     ↓
+AJAX
+     ↓
+Rich web applications
+     ↓
+SPAs
+     ↓
+Node.js
+     ↓
+Backend development
+
+
+Node.js : Before node.js js runs on browsers. Developers couldn't normally use JavaScript as a general-purpose server-side platform
+in 2009 Ryan Dahl created node.js by using google chrome v8 engine.
+
+angular : 
+AngularJS released in 2010 by Misko Hevery and a Google team
+
+It was originally developed as a JavaScript framework for building dynamic web applications.
+Developers were struggling to build large interactive web applications using only: HTML, CSS, JavaScript, jQuery
+So AngularJS provided a structured framework for it.
+
+AngularJS had limitations as applications became larger. so Google decided not to simply continue AngularJS 1.x.
+Instead, they created a new framework and named it angular 2 released in 2016. 
+
+Angular 2
+   ↓
+Component architecture
+
+Angular 4–8
+   ↓
+CLI + improved framework
+
+Angular 9
+   ↓
+Ivy
+
+Angular 14
+   ↓
+Standalone components introduced
+
+Angular 16
+   ↓
+Signals introduced
+   ↓
+Modern reactive Angular
+
+Angular 17+
+   ↓
+New control flow
+@for
+@if
+@switch
+
+Angular 18+
+   ↓
+More signal-based / modern Angular architecture
+
+
+React.js : 
+developed by Jordan Walke in 2011 and open sourced in 2013. 
+He was A software engineer at Facebook (now Meta).
+React was originally developed for Facebook.
+
 Q. What’s the difference between JavaScript and ECMAScript?
 A. A standard for scripting languages like JavaScript, JScript is ECMAScript.
 	It is a trademark scripting language specification. 
