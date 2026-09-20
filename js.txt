@@ -2288,6 +2288,10 @@ Ans. Both web-garden and web-farm are web hosting systems. The only difference i
 	At the same time,web-farm is a larger setup that uses more than one server.
 
 
+Q. Wrote a polyfill for the filter array method
+Q. Implemented a solution to flatten nested arrays
+
+
 programs : 
 
 Q. compare two array by a single loop
