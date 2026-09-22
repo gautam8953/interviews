@@ -596,6 +596,8 @@ A. Arrow functions provide a shorter syntax for writing functions and
   parameter vs argument :  a parameter is a variable that defines the inputs a function can accept, 
 	while an argument is the value passed to the function when it is called
 
+	"Lexical" basically means determined by where the function is written/created, rather than how it is called.
+
 Q. difference in arrow and normal function?
 A. Arrow functions were introduced in ES6. 
 	The main difference is that arrow functions do not have their own this; 
@@ -614,6 +616,8 @@ A. Arrow functions were introduced in ES6.
 	Has arguments					Use rest (...args) instead
 	Good for object methods	Good 	for callbacks
 	Has prototype					No prototype
+
+	"Lexical" basically means determined by where the function is written/created, rather than how it is called.
 
 Q. what is First-Class Function?
 A. functions can be treated like values. 
