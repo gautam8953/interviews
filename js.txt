@@ -773,6 +773,7 @@ Q. Define closure.
 
 Q. How to avoid memory leak as after closure gets executed still memory won't be free as it hold refrence?
 A. Just set null in variable.In above closure set counter=null;
+
 Q. How can we detect OS of the client machine using JavaScript?  navigator.appVersion
 
 Q. What is this keyword in JavaScript?
@@ -948,6 +949,9 @@ Q. how to remove an element from an array?
 		// [2, 4, 6]
 		
 	find() : Returns the first matching element. If nothing matches, it return undefined.
+		find return based first matching condition and it return the value;
+		If matched for value present in array than it return the same value;
+
 		const numbers = [10, 20, 30, 40];
 		const result = numbers.find(num => num > 20);
 		console.log(result); 		// 30
@@ -965,7 +969,7 @@ Q. how to remove an element from an array?
 		const numbers = [10, 20, 30];
 		console.log(numbers.includes(20));	// true
 		
-	indexOf(): Returns the first index of a value.
+	indexOf(): Returns the first index of a specific value.
 		const arr = ["a", "b", "c", "b"];
 		console.log(arr.indexOf("b"));	// 1
 		console.log(arr.indexOf("x"));	// -1
