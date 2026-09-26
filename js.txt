@@ -1134,9 +1134,19 @@ A. Flattening an array means converting a nested array into a single-level array
 		const arr = [1, [2, 3], [4, 5]];
 		console.log(arr.flat());
 		console.log(arr.flat(Infinity));
-	2. concat() (One Level Only) : 
+	2. concat() (One Level Only) : Array.concat() is a JavaScript method used to combine two or more arrays and return a new array
+		concat() does not modify the original array.
+		but push() modifies the original array.
+
 		const arr = [[1, 2], [3, 4], [5, 6]];
 		console.log([].concat(...arr));  // [1,2,3,4,5,6]
+
+		const a = [1, 2];
+		const b = [3, 4];
+		const c = [5, 6];
+		const result = a.concat(b, c);
+		console.log(result);
+
 	3. Using toString() 
 		const arr = [1, [2, [3, 4]]];		
 		const result = arr.toString().split(",");		
