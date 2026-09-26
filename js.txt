@@ -1359,6 +1359,10 @@ A. A Promise in JavaScript is an object that represents the future result of an 
 	  .catch(error => {
 	    console.error(error); // Output if rejected: Operation failed!
 	  });
+	in short for output can rite like this  : 
+		Promise.resolve().then(() => {
+		 console.log("C");
+		});
 
 Q. What is the difference between promise and observable?
    1. Single vs. Multiple Values :
@@ -2063,6 +2067,18 @@ Q. How to create your own prototype and attach it and call it?
 A. In JavaScript, you can create your own prototype object, attach it to another object, 
 	and then call methods defined on that prototype
 
+	const animal = {
+	    sound() {
+	        console.log("Animal Sound");
+	    }
+	};
+	const dog = {};
+	Object.setPrototypeOf(dog, animal);
+	dog.sound();
+	
+	Output : Animal Sound
+
+
 	Using Object.create() — simplest
 
 		const personPrototype = {
@@ -2419,11 +2435,10 @@ Ans. Both web-garden and web-farm are web hosting systems. The only difference i
 	At the same time,web-farm is a larger setup that uses more than one server.
 
 
+programs : 
+
 Q. Wrote a polyfill for the filter array method
 Q. Implemented a solution to flatten nested arrays
-
-
-programs : 
 
 Q. compare two array by a single loop
 A. 
