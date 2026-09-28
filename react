@@ -32,6 +32,50 @@ A. The Virtual DOM is an in-memory representation of the UI.
 
     This comparison process is part of reconciliation.
 
+Q. what are React core principles?
+A. React is based on component-based architecture, declarative UI, one-way data flow, props and state, composition, and reconciliation. 
+	We build the UI using reusable components, describe what the UI should look like based on state and props, 
+	pass data down through props, update state through controlled mechanisms, 
+	and let React's reconciliation process determine the required DOM updates. 
+	Keys provide stable identity when rendering dynamic lists.
+
+	Component-based architecture → App, UserList, User
+	State → users
+	Props → users, user
+	One-way data flow → parent → child
+	Declarative UI → JSX describes what UI should look like
+	Keys → key={user.id}
+	Composition → small components combined into a larger UI
+	Reconciliation → React determines what UI needs updating
+
+Q. expalin React life cycle
+A. It describes the different stages a component goes through, from its creation to its removal from the UI.
+	In React, a component has three main lifecycle phases:
+
+	Mounting – The component is created and added to the DOM.
+	Updating – The component renders again because its state or props change, or its parent renders.
+	Unmounting – The component is removed from the DOM.
+ 
+	useEffect(() => {
+	  console.log("Component mounted");
+	}, []);
+	Runs after initial mount
+
+	useEffect(() => {
+	  console.log("Count changed:", count);
+	}, [count]);
+	Runs after initial mount and whenever count changes
+
+	useEffect(() => {
+	  console.log("Component mounted");
+
+	  return () => {
+		console.log("Component unmounted");
+	  };
+	}, []);
+	Cleanup runs when the component unmounts
+
+
 Q. What is the difference between props and state in React? Explain default props in React?
 A. Props are inputs passed from a parent component to a child and should be treated as read-only.
     State is data managed by the component itself and can change over time.
@@ -164,15 +208,28 @@ A. Two major rules:
     }
   }, [isLoggedIn]);
 
-Q. Difference between useMemo and useCallback.
-A.   useMemo     → memoizes a calculated value
-      useCallback → memoizes a function
+Q .What is the difference between useEffect and useLayoutEffect?
+A. useEffect runs after the browser has generally had a chance to paint.
+  useLayoutEffect runs synchronously after DOM mutations but before the browser paints.  
+  Use useLayoutEffect when you need to measure or synchronously adjust DOM layout to avoid visible flicker.
+  
+  Example:
+  
+  useLayoutEffect(() => {
+    const width = elementRef.current.offsetWidth;
+  }, []);
+  
+  For normal API calls and subscriptions, useEffect is usually preferable.
 
 Q. Difference between useState & useRef?
 A.   useState	                            useRef
     Updating causes render	            Updating doesn't cause render
     Used for UI state	                  Used for mutable values/DOM references
     Value managed by React rendering	  current is mutable
+	
+Q. Difference between useMemo and useCallback.
+A.   useMemo     → memoizes a calculated value
+      useCallback → memoizes a function
 
 Q. When should you NOT use useMemo or useCallback?
 A. I don't use them by default.
@@ -191,8 +248,74 @@ A. useEffect(() => {
   useEffect(() => {}, [userId]);  // Runs when userId changes.
 
 Q. Identified common causes of useEffect infinite loops and how to fix them
-A. 
+A. useEffect infinite loop usually happens because the effect changes state, 
+	and that state change causes the effect to run again.
+	
+	useEffect goes into an infinite loop when the effect causes a state or prop change 
+	that causes one of its dependencies to change, which triggers the effect again
+	
+	1. No dependency array : 
+	useEffect(() => {
+	  setCount(count + 1);
+	});
+	The effect runs after every render → setCount() causes another render → infinite loop.
+	fix : use [], effect runs only after the initial render
+	useEffect(() => {
+	  setCount(count + 1);
+	}, []);
+	
+	2. Updating a dependency inside the effect
+	
+	const [count, setCount] = useState(0);
+	useEffect(() => {
+	  setCount(count + 1);
+	}, [count]);
+	
+	3. Object as dependency
+		const user = {
+		  name: "John"
+		};
+		useEffect(() => {
+		  console.log(user);
+		}, [user]);
+	Fix : use user.name as dependency or memoize the object:
+		const user = useMemo(() => ({
+		  name: "John"
+		}), []);
+	
+	4. Function as dependency
+		const getUser = () => {
+		  // ...
+		};
+		useEffect(() => {
+		  getUser();
+		}, [getUser]);
 
+		getUser is recreated on every render, so React sees a new function reference.
+
+		Fix: Use useCallback.
+
+		const getUser = useCallback(() => {
+		  // ...
+		}, []);
+		useEffect(() => {
+		  getUser();
+		}, [getUser]);
+	
+	5. Incorrect dependency array
+
+		useEffect(() => {
+		  fetchUser(userId);
+		}, []);
+	If userId can change, the effect has a stale value. Better:
+
+	useEffect(() => {
+	  fetchUser(userId);
+	}, [userId]);
+
+	Every reactive value used inside an effect should generally be included in its dependency array.
+
+	
 Q. What is cleanup in useEffect?
 A. Cleanup is used to remove subscriptions, timers, listeners, etc.
   useEffect(() => {
@@ -206,17 +329,23 @@ A. Cleanup is used to remove subscriptions, timers, listeners, etc.
   }, []);
   Without cleanup, we can create memory leaks or duplicate subscriptions.
 
-Q. How do you cancel an API request in React?
-A. I use AbortController
-  useEffect(() => {
-    const controller = new AbortController();  
-    fetch("/api/users", {
-      signal: controller.signal
-    });  
-    return () => controller.abort();
-  }, []);
-  This is especially useful when a component unmounts or the request becomes obsolete
-
+Q. What is a custom Hook?
+A. A custom Hook is a reusable function whose name starts with use and which can use other Hooks.
+  Example:
+  
+  function useDebounce(value, delay) {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+      return () => clearTimeout(timer);
+    }, [value, delay]);
+    return debouncedValue;
+  }
+  
+  This allows reusable stateful logic without duplicating component code.
+  
 Q. How do you handle API calls in React?
 A. useEffect + fetch/axios
     For production applications with significant server state, I prefer a server-state solution such as TanStack Query.
@@ -231,6 +360,17 @@ A. useEffect + fetch/axios
     Refetching
     Authentication
     Error handling
+
+Q. How do you cancel an API request in React?
+A. I use AbortController
+  useEffect(() => {
+    const controller = new AbortController();  
+    fetch("/api/users", {
+      signal: controller.signal
+    });  
+    return () => controller.abort();
+  }, []);
+  This is especially useful when a component unmounts or the request becomes obsolete
 
 Q. How do you prevent race conditions in API calls?
 A. Suppose the user searches:
@@ -455,36 +595,6 @@ A. useTransition lets us mark some state updates as non-urgent.
     
     React can prioritize urgent interactions over the transition update.
 
-Q .What is the difference between useEffect and useLayoutEffect?
-A. useEffect runs after the browser has generally had a chance to paint.
-  useLayoutEffect runs synchronously after DOM mutations but before the browser paints.  
-  Use useLayoutEffect when you need to measure or synchronously adjust DOM layout to avoid visible flicker.
-  
-  Example:
-  
-  useLayoutEffect(() => {
-    const width = elementRef.current.offsetWidth;
-  }, []);
-  
-  For normal API calls and subscriptions, useEffect is usually preferable.
-
-Q. What is a custom Hook?
-A. A custom Hook is a reusable function whose name starts with use and which can use other Hooks.
-  Example:
-  
-  function useDebounce(value, delay) {
-    const [debouncedValue, setDebouncedValue] = useState(value);
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-      return () => clearTimeout(timer);
-    }, [value, delay]);
-    return debouncedValue;
-  }
-  
-  This allows reusable stateful logic without duplicating component code.
-
 Q. What are Error Boundaries?
 A. Error boundaries catch errors during rendering and certain lifecycle operations in their child component tree and show a fallback UI instead of crashing the entire UI tree.
 Traditionally they are implemented using class components.
@@ -498,25 +608,6 @@ Traditionally they are implemented using class components.
   Feature
   
   For production applications, I typically place boundaries around meaningful feature areas rather than relying on one giant boundary.
-
-Q. How do you test React applications?
-A. I generally use:
-
-  Vitest/Jest for unit tests
-  React Testing Library for component behavior
-  Playwright/Cypress for end-to-end testing
-  
-  I focus tests on user behavior rather than implementation details.
-  
-  For example, instead of testing an internal state variable, I test:
-  
-  User clicks Login
-         ↓
-  Loading appears
-         ↓
-  API succeeds
-         ↓
-  Dashboard appears
 
 Q. How would you structure a large React application?
 A. For a large application, I prefer feature-oriented organization.
@@ -581,37 +672,66 @@ A. First, I wouldn't immediately add useMemo.
 
 But I'd only do this if profiling shows it matters.
 
-Q. how to check and remove unnecessay re-render in react
+
+
+What is the difference between functional and class components?
+What is the difference between useDeferredValue and useTransition?
+Discussed virtualization concepts and implementation approaches
+Q. What is a Fragment in React?
+
+Q. ng store use and example 
+A.  it is present in ngrx store module. read ngrx for details
+
+Q. what is redux,
+Q. exaplain React-Thunk, React-Saga, flux, redux, redux-toolkit,
+
+    React Hooks,
+    Redux Store
+
+
+Q. How do you test React applications?
+A. I generally use:
+
+  Vitest/Jest for unit tests
+  React Testing Library for component behavior
+  Playwright/Cypress for end-to-end testing
+  
+  I focus tests on user behavior rather than implementation details.
+  
+  For example, instead of testing an internal state variable, I test:
+  
+  User clicks Login
+         ↓
+  Loading appears
+         ↓
+  API succeeds
+         ↓
+  Dashboard appears
+  
+Q. react unit testing with RTL, Jest, Enzyme/mocha.
+ 
 Q. What is Snapshot Testing?
 
 program : 
-1. call a api to bind and show data in component 
-2. Built a custom useFetch hook for API calls
 
 Q. How do you pass data from parent to child in React?
 Q. How do you pass data from child to parent in React?
-What is a Fragment in React?
-Q. Solved stale closure problems with practical examples
-What is the difference between functional and class components?
-What is the difference between useDeferredValue and useTransition?
-How would you render 50,000 records efficiently in React?
-Discussed virtualization concepts and implementation approaches
-How do you make a GET API call in React?
-How do you make a POST API call in React?
-Explain basic CSS vs SCSS.
-Create an HTML form with:
-Name
-Password
-Button
-Display entered details when the submit button is clicked with validation using js.
-Implement .Net Api to retrieve list of employee data using a .NET GET API and display it in a React table.
+Q. How to share data to independent component
+Q. How would you render 50,000 records efficiently in React?
+Q Build a custom hook and use it,
+Q. custom hook example for api 
 
-redux,
-React Hooks,
-Redux Store
-React core principles,
-React life cycle, 
-React-Thunk, React-Saga, flux, redux, redux-toolkit,
-react unit testing with RTL, Jest, Enzyme/mocha.
-Q. ng store use and example 
-A.  it is present in ngrx store module. read ngrx for details
+Q. Create an HTML form with: Name, Password, DOB,  Button
+Display entered details when the submit button is clicked with validation using react.js.
+
+Q. call a api and get data, bind data in a table , if data is too much then what will do?
+
+
+
+
+Explain basic CSS vs SCSS.
+
+
+
+
+
