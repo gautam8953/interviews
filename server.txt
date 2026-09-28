@@ -4,6 +4,16 @@ A.
 Q. what is saas?
 A.
 
+Q. explain cdn, its full form and work
+A. cdn stand for "content delivery network". 
+    supose we hosted website in america and user is access it from india.
+    no data has to travel from ameria to india.
+    so cdn is uses to load data faster
+    we keep static data, files, images, css, js, font etc to user's nearby server so that it loads faster.
+    we use cdn server commonly for cached content.
+
+    CDN = copies of your website's static content stored closer to your users.
+
 Q. how to restrict call from other locations 
 A. restrict access on server that it will allow access only from particular IP
 
