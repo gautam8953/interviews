@@ -1,25 +1,184 @@
 Q. which css framework yu have used and whats difference from normal css?
-A. 
+A. 1. normal css : 
+	Advantages
+		No additional dependency
+		Simple and universally supported
+		Full control over styling
+		Good for small projects
+	Disadvantages
+		Large projects can become difficult to maintain
+		Repeated styles
+		Naming conflicts can occur
+		No variables/functions/nesting like SCSS
 
-Q. Types of CSS?
+	Use it for: small websites, simple applications, prototypes, or when you want minimal dependencies.
+	
+	2. SCSS : SCSS (Sassy CSS) is a CSS preprocessor. It extends CSS with features such as:
+		Variables
+		Nesting
+		Mixins
+		Functions
+		@extend
+		Better organization
+	SCSS is then compiled into normal CSS that the browser understands.
+	
+	Advantages
+		Excellent for large projects
+		Variables and reusable mixins
+		Nesting makes styles easier to organize
+		Good for creating a design system
+		Very suitable for Angular applications
+	Disadvantages
+		Requires compilation/build tooling
+		Can become complicated if nesting is overused
+		You still have to design your own class structure
+
+	Use it for: large applications where you want custom CSS architecture and reusable styles.
+	
+	3. Bootstrap : Bootstrap is a CSS framework/component library that provides ready-made styles and components.
+		we don't have to write css for common style, It provide it like button, form-input, text-color, colors etc
+		
+	Advantages
+		Fast development
+		Responsive design support
+		Lots of ready-made components
+		Easy for teams to understand
+		Good documentation
+	Disadvantages
+		Websites can look similar if you don't customize it
+		Can include CSS you don't actually need
+		Heavy customization can become difficult
+		Bootstrap-specific class names can make HTML verbose
+
+	Use it for: admin panels, dashboards, business applications, CRUD applications, prototypes, and projects where rapid development is important.
+
+	4. Tailwind CSS : Tailwind is a utility-first CSS framework.
+	
+	Advantages
+		Very fast UI development
+		Highly customizable
+		Consistent design system
+		Usually produces relatively small production CSS because unused utilities can be removed
+		Excellent for modern frontend applications
+	Disadvantages
+		HTML can become class-heavy
+		Initial learning curve
+		Less convenient if your team strongly prefers traditional CSS
+		Complex reusable components need some discipline
+
+	Use it for: modern React/Angular/Vue applications, SaaS products, custom dashboards, design-system-driven applications, and projects requiring highly customized UI.
+
+	Instead of creating your own CSS class:
+
+	.button {
+	  background: blue;
+	  color: white;
+	  padding: 10px;
+	}
+
+	you compose utility classes directly in HTML:
+
+	<button class="bg-blue-500 text-white px-4 py-2 rounded">
+	  Submit
+	</button>
+
+	Common utilities:
+
+	flex
+	grid
+	p-4
+	m-2
+	text-center
+	text-lg
+	font-bold
+	bg-blue-500
+	rounded
+	shadow
+
+Q. Types of CSS or different types to apply css?
 A. 1. Inline CSS, 2.Internal or Embedded CSS, 3.External CSS
 
-Q. have you use SCSS. what is different in css and scss?
+Q. what are the different types of CSS selectors
+A. 1. Element selector       → p
+	2. Class selector         → .button
+	3. ID selector            → #header
+	4. Universal selector     → *
+	5. Attribute selector     → input[type="text"]
+	6. Descendant selector    → .card p
+	7. Child selector         → .card > p
+	8. Pseudo-class           → :hover
+	9. Pseudo-element         → ::before
 
-Q. what are features of scss?
+Q. have you use SCSS. what is different in css and scss?
+A. 
+| Feature                      | CSS                                  | SCSS                          |
+| ---------------------------- | ------------------------------------ | ----------------------------- |
+| Full form                    | Cascading Style Sheets               | Sassy CSS                     |
+| Browser understands directly | ✅ Yes                               | ❌ No, usually compiled to CSS |
+| Variables                    | ✅ CSS variables                     | ✅ `$variable`                 |
+| Nesting                      | Limited/native CSS nesting available | ✅ Excellent                   |
+| Mixins                       | ❌                                   | ✅                             |
+| Functions                    | Limited built-in functions           | ✅ Custom functions            |
+| `@extend`                    | ❌                                   | ✅                             |
+| File extension               | `.css`                               | `.scss`                       |
+| Compilation required         | ❌                                   | ✅                             |
+| Best for                     | Simple/standard styling              | Large/complex applications    |
 
 Q. what are per-processors do we have in css?
+A. The major CSS preprocessors are Sass/SCSS, Less, and Stylus. 
+	They extend CSS with features like variables, nesting, mixins and functions and then compile the code into standard CSS. 
+	Among these, SCSS is one of the most commonly used in modern enterprise frontend applications.
+	
+| Feature      | Sass/SCSS           | Less                     | Stylus      |
+| ------------ | ------------------- | ------------------------ | ----------- |
+| Variables    | `$color`            | `@color`                 | `color =`   |
+| Nesting      | ✅                   | ✅                        | ✅           |
+| Mixins       | ✅                   | ✅                        | ✅           |
+| Functions    | ✅                   | ✅                        | ✅           |
+| Popularity   | ⭐⭐⭐⭐⭐               | ⭐⭐⭐                      | ⭐⭐          |
+| Common usage | Angular/general web | Bootstrap/older projects | Less common |
+
 
 Q. in angular which pre-processor we use?
 A. scss is pre-processor of css in angular.
 
-Q. different kind of selector in css
-
 Q. what is box model in css?
 A. The CSS Box Model describes how every HTML element is represented as a rectangular box.
+	It describes how the browser calculates the size and spacing of every HTML element
     It consists of 4 parts, from inside to outside:
+	
+	1. Content : The actual content of the element.
+	2. Padding : Space between content and border.
+	3. Border : The boundary around the padding/content.
+	4. Margin : Space outside the border, separating the element from other elements.
 
 Q. what are Pseudo classes?
+A. A pseudo-class is a CSS keyword used to select an element based on its state, 
+	position, or user interaction, without adding a special class to the HTML.
+
+	Pseudo-classes start with a single colon :.
+
+	button:hover {
+	  background-color: blue;
+	}
+
+| Pseudo-class    | Meaning                            |
+| --------------- | ---------------------------------- |
+| `:hover`        | Mouse is over the element          |
+| `:active`       | Element is being activated/clicked |
+| `:focus`        | Element has focus                  |
+| `:visited`      | Link has been visited              |
+| `:first-child`  | Element is the first child         |
+| `:last-child`   | Element is the last child          |
+| `:nth-child(n)` | Selects a specific child           |
+| `:not()`        | Excludes matching elements         |
+| `:checked`      | Checkbox/radio is checked          |
+| `:disabled`     | Form element is disabled           |
+| `:enabled`      | Form element is enabled            |
+| `:required`     | Required form element              |
+| `:valid`        | Form value is valid                |
+| `:invalid`      | Form value is invalid              |
+
 
 Q. What is CSS Specificity?
 A. CSS Specificity is the set of rules the browser uses to determine 
@@ -45,26 +204,209 @@ A. CSS Specificity is the set of rules the browser uses to determine
     | `!important`                                                         | Overrides normal specificity (use sparingly) |
 
 Q. what are different type of positions we have in css?
+A. the position property controls how an element is positioned in the document.
+	There are 5 main values:
 
-Q. difference in relative and absolute?
+| Position   | Normal flow? | Reference                   | Scroll behavior        |
+| ---------- | ------------ | --------------------------- | ---------------------- |
+| `static`   | ✅            | Normal flow                 | Normal                 |
+| `relative` | ✅            | Its original position       | Normal                 |
+| `absolute` | ❌            | Nearest positioned ancestor | Scrolls with page      |
+| `fixed`    | ❌            | Viewport                    | Stays fixed            |
+| `sticky`   | ✅*           | Scroll/container context    | Sticks after threshold |
 
-Q. what are different type of types in css?
+	
+	1. static — default : Every element is static by default.
+
+	.box {
+	  position: static;
+	}
+
+	The element follows the normal document flow.
+	top, left, right, and bottom generally have no effect.
+
+	2. relative : The element remains in the normal document flow, but you can move it relative to its original position.
+
+	.box {
+	  position: relative;
+	  top: 20px;
+	  left: 30px;
+	}
+
+	The original space occupied by the element is still preserved.
+
+	Important use : relative is frequently used as the positioning reference for an absolutely positioned child.
+
+	.parent {
+	  position: relative;
+	}
+
+	.child {
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	}
+	
+	3. absolute : The element is removed from the normal document flow.
+	It is positioned relative to its nearest positioned ancestor (relative, absolute, fixed, or sticky).
+
+	.parent {
+	  position: relative;
+	}
+
+	.child {
+	  position: absolute;
+	  top: 10px;
+	  right: 10px;
+	}
+
+	Here .child is positioned relative to .parent.	
+	If there is no suitable positioned ancestor, it is generally positioned relative to the initial containing block.
+
+	Common use : Dropdowns, Badges, Icons inside inputs, Overlay elements
+	
+	4. fixed : The element is positioned relative to the viewport and normally stays in the same place when you scroll.
+
+	.header {
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	}
+
+	Common examples: Fixed navbar, Floating action button, Chat button
+	
+	5. sticky : sticky behaves like relative positioning until a specified scroll threshold is reached, and then behaves like a fixed/stuck element within its containing scroll area.
+
+	.header {
+	  position: sticky;
+	  top: 0;
+	}
+
+	For example, a table header can remain visible while scrolling.
+
 
 Q. what is flexbox?
+A. Flexbox (Flexible Box Layout) is a CSS layout system used to arrange elements in a row or column 
+	and easily control their alignment, spacing, and size.
+	It is especially useful for one-dimensional layouts — either horizontally or vertically.
+	
+	<div class="container">
+	  <div>Box 1</div>
+	  <div>Box 2</div>
+	  <div>Box 3</div>
+	</div>
+	.container {
+	  display: flex;
+	}
+	By Default:
+┌──────────────────────────────┐
+│ Box 1 │ Box 2 │ Box 3        │
+└──────────────────────────────┘
+
+	Important Flexbox properties : 
+	
+	1. display: flex - Makes an element a flex container.
+
+	.container {
+	  display: flex;
+	}
+
+	Its direct children become flex items.
+
+	2. flex-direction : Controls the main direction.
+
+	.container {
+	  display: flex;
+	  flex-direction: row;
+	}
+
+	Options:
+
+	row            → → → 
+	row-reverse    ← ← ←
+	column         ↓
+	column-reverse ↑
+
+	3. justify-content : Controls alignment along the main axis.
+
+	.container {
+	  display: flex;
+	  justify-content: center;
+	}
+
+	Common values: flex-start, center, flex-end, space-between, space-around, space-evenly
+
+	Example:
+
+	.container {
+	  display: flex;
+	  justify-content: space-between;
+	}
+	Box 1                 Box 2                 Box 3
+	│-----------------------space-----------------------│
+	
+	4. align-items : Controls alignment along the cross axis.
+
+	.container {
+	  display: flex;
+	  align-items: center;
+	}
+
+	Common values: flex-start, center, flex-end, stretch, baseline
+	
+	5. gap : Controls spacing between flex items.
+
+	.container {
+	  display: flex;
+	  gap: 20px;
+	}
+
+	This is generally cleaner than adding margins to every child.
 
 Q. can you make responsive? what is responsive web designing? how to achieve it.
 A. page that look good on all screen and resolution
 
 Q. have you used media query?
+A. 
 
 Q. What is the advantage of collapsing white space?
+A. In HTML/CSS, white-space collapsing means 
+	the browser combines multiple consecutive spaces, tabs, and line breaks 
+	in normal text into a single space
+	
+	example : <p>Hello        World</p> 
+	this will show in browser like "Hello World"
+	
+	Advantages : 
+	Cleaner text rendering — accidental extra spaces don't create unwanted gaps.
+	Better readability — developers can format HTML with indentation and line breaks without affecting normal text appearance.
+	Consistent layout — prevents accidental whitespace from changing the visual spacing between words.
+	Smaller concern for HTML formatting — you don't need to worry about multiple spaces in source code when displaying normal text.
+	
+	CSS controls this behavior using the white-space property:
+	white-space: normal;	// default behavior and collapses consecutive whitespace
+	white-space: pre;		// preserve white space
+	white-space: pre-wrap;	// preserve white space
+	
 
 Q. How do you insert a copyright symbol on a browser page?
+A. html : &copy;
+	<footer>
+	  &copy; 2026 My Website. All rights reserved.
+	</footer>
+	
+	Unicode representation : &#169; or &#xA9;
+
+Q. center div horizontally and vertically
+A. 
+	.container {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
 
 Q. What are the limits of the text field size?
-
-Q. What are two types of Web Storage in HTML5? 
-A. localStorage, sessionStorage 
 
 Q. Define Semantic elements in HTML
 A. A semantic element clearly describes its meaning to both the browser and the developer.
