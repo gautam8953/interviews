@@ -6,6 +6,7 @@ A. npm create vite@latest my-react-app
 
 Q. What is React?
 A. React is a JavaScript library for building component-based user interfaces.
+	react is simple, flexible, huge ecosystem and fast because of virtual dom
   Its major concepts are:
   Components
   Props
@@ -19,18 +20,32 @@ A. React is a JavaScript library for building component-based user interfaces.
 Q. What is JSX?
 A. JSX is a syntax extension that allows us to write HTML-like code inside JavaScript.
     const element = <h1>Hello {name}</h1>;
-    JSX is transformed into JavaScript calls during compilation.
+    JSX is transformed into JavaScript calls during compilation by react.
     Important: JSX is not HTML. It follows JavaScript/React rules, such as className instead of class.
 
 Q. What is the Virtual DOM?
-A. The Virtual DOM is an in-memory representation of the UI.
+A. The Virtual DOM is an light weight in-memory copy of real DOM.
     When state or props change:
     React creates a new virtual representation.
-    React compares it with the previous representation.
-    It determines what changed.
+    It determines what changed as compared to real DOM.
     React updates the required parts of the real DOM.
 
     This comparison process is part of reconciliation.
+
+Q. What is reconciliation?
+A. Reconciliation is React's process of comparing the previous rendered tree with the new one and determining the minimal changes needed for the UI.
+  Keys are especially important because they help React identify elements across renders.
+
+Q. What is Fiber?
+A. Fiber is React's internal architecture for representing and processing work on the component tree.
+  It enables React to:
+  
+  Break rendering work into units
+  Prioritize work
+  Pause/resume certain rendering work
+  Support concurrent rendering capabilities
+  
+  For an experienced React developer, understanding Fiber conceptually is more important than knowing its internal implementation details.
 
 Q. what are React core principles?
 A. React is based on component-based architecture, declarative UI, one-way data flow, props and state, composition, and reconciliation. 
@@ -558,20 +573,7 @@ A. React escapes values rendered normally:
   
   I never assume client-side validation is sufficient for security.
 
-Q. What is reconciliation?
-A. Reconciliation is React's process of comparing the previous rendered tree with the new one and determining the minimal changes needed for the UI.
-  Keys are especially important because they help React identify elements across renders.
 
-Q. What is Fiber?
-A. Fiber is React's internal architecture for representing and processing work on the component tree.
-  It enables React to:
-  
-  Break rendering work into units
-  Prioritize work
-  Pause/resume certain rendering work
-  Support concurrent rendering capabilities
-  
-  For an experienced React developer, understanding Fiber conceptually is more important than knowing its internal implementation details.
 
 Q. What is concurrent rendering?
 A. Concurrent rendering allows React to work on rendering without necessarily blocking everything else until the entire update is complete.
