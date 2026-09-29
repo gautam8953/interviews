@@ -138,6 +138,7 @@ Q.  output
 	console.log([]===[])	// false
     console.log({} == {});    // false     Different object references.
     console.log([] == 0);    // true
+	console.log(0.1+0.2==0.3); // false
 
     console.log(Boolean(""));    // false    
     console.log(Boolean(" "));    // true;
@@ -168,6 +169,8 @@ Q.  output
     console.log(+"10.5");    // 10.5
     console.log(+true);    // 1   , FALSE 0
 
+	console.log(typeof null); // object
+	console.log(typeof (0/0)); // Number
     console.log(String({}));    // "[object Object]"
     console.log(0 ?? "default");    // 0
 
@@ -333,3 +336,44 @@ Q.
 		no time
 		500 sec
 		1 sec
+
+Q find Output of below code : 
+function empName(){}
+empName.prototype={
+    names:[],
+    showName:function (){
+        return this.names;
+    }
+}
+var e1=new empName();
+e1.names.push("gautam");
+console.log(e1.showName()); // gautam
+
+var e2=new empName();
+e2.names.push("kumar");
+console.log(e2.showName()); // gautam kumar
+console.log(e1.showName()); // gautam kumar
+
+Q. find output of code : 
+console.log("start");
+async function foo1() {
+  console.log("A");
+  await foo2(); // b1
+  console.log("B");
+}
+async function foo2() {
+  console.log("C");
+}
+setTimeout(()=>{
+    console.log("D"); // a1
+},0)
+foo1();
+new Promise((resolve) => {
+    console.log("E"); 
+    resolve();
+}).then(() => {
+    console.log("F"); // b2
+});
+console.log("end");
+
+// start a c e end b f d
