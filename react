@@ -102,7 +102,7 @@ Q. What is the difference between props and state in React? Explain default prop
 A. Props are inputs passed from a parent component to a child and should be treated as read-only.
     State is data managed by the component itself and can change over time.
 
-    Props → passed by parent
+    Props → passed by parent, full form properties
     State → managed by component
 
     default props are fallback values used when a component does not receive a particular prop.
@@ -117,9 +117,11 @@ A. Props are inputs passed from a parent component to a child and should be trea
 
   Props	                        State
   Passed from parent	          Managed by component
-  Read-only	                    Can change
+  Read-only	                    	Can change
   Used to configure component	  Used for dynamic data
-  Parent controls them	        Component controls them
+  Parent controls them	        	Component controls them
+
+props can be strings, numbers, array, objects, functions or even components.
 
 Q. What is prop drilling?
 A. Prop drilling occurs when data is passed through multiple intermediate components just to reach a deeply nested component.
@@ -460,10 +462,8 @@ A. I generally follow this process:
     I would avoid premature optimization.
 
 Q. Context API vs Redux?
-A. Context : Good for relatively stable/global values such as:
-    Theme
-    Locale
-    Authentication information
+A. Context : Provides a way to share data across components without prop drilling.
+	Good for relatively stable/global values such as: Theme, Locale, Authentication information
 
   Redux : Useful when application state is complex and needs:
     Predictable updates
