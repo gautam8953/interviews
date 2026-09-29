@@ -535,6 +535,12 @@ A. They solve different problems. Redux is commonly used for client/application 
   Background updates
 For a modern application, I wouldn't automatically put all API data into Redux.
 
+Q. what is react router? why is it used?
+A. A library for building SPA navigation.
+	It updates the UI when URL changes without reloading the page.
+
+	Fetaures : support dynamic routing, nested routes, routes parameters, reirects, and navigation hooks
+
 Q. How do you implement lazy loading in React?
 A. Using dynamic imports: const Dashboard = lazy(() => import("./Dashboard"));
     <Suspense fallback={<Loader />}>
@@ -579,7 +585,6 @@ A. React escapes values rendered normally:
   If raw HTML is required, I sanitize it using a trusted sanitizer and follow a strict content security policy.
   
   I never assume client-side validation is sufficient for security.
-
 
 
 Q. What is concurrent rendering?
