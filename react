@@ -1,3 +1,4 @@
+
 Q. react command to create app? 
 A. npm create vite@latest my-react-app
     npx create-react-app my-app
@@ -62,6 +63,19 @@ A. React is based on component-based architecture, declarative UI, one-way data 
 	Keys → key={user.id}
 	Composition → small components combined into a larger UI
 	Reconciliation → React determines what UI needs updating
+
+Q. what is "Key" in react and why it's important.
+A. A unique identifier assigned to each item in a list.
+	Importance : It is used to track which item has changed, were added or were removed.
+	Without Keys, react can render incorrect UI updates 
+	Keys improve rendering efficiency and maintain component identity.
+		
+	If we use array index as key then if any data is removed then next data became removed key.
+	This can cause incorrect render of UI.
+	
+	Example: if in array at index 3, name:"gautam" is removed
+		Then now index 4 became new 3rd index, 
+		but 3rd key was removed
 
 Q.  what are react components?
 A. react components are Independent, reusable, piece of UI that return JSX.
@@ -157,6 +171,15 @@ A. Controlled : React controls the input value.
   <input ref={inputRef} />
   Controlled components are commonly preferred for complex forms because React has full control over the form state.
 
+Q. what is Higher order components
+A. A functio that takes a componet as input and returns a new enhanced component
+	purpose : Allow code reuse, logic sharing,  and transforming props without modifying the original components.
+	HOC helps avoid duplication and improve seperation concerns.
+	
+	example : Adding authentication checks, logging or subscription logic.
+	
+	
+
 Q. What are React Hooks?
 A. Hooks allow functional components to use React features such as state, context, refs, and effects.
   Common hooks:
@@ -213,9 +236,10 @@ A. Hooks allow functional components to use React features such as state, contex
     Common uses:
     
     DOM references
-    Timers
-    Previous values
+    storing Timers or subscription Ids
+    Tracking Previous values
     Mutable instance-like values
+	caching values
 
     Example:
     const inputRef = useRef();
@@ -743,7 +767,18 @@ Q. call a api and get data, bind data in a table , if data is too much then what
 
 
 
-Explain basic CSS vs SCSS.
+
+what is react fiber 
+what is state closure 
+how react code runs 
+explain process of react application build 
+How  to shre data in two microfrontend application. how to set its state 
+redux and its concepts 
+
+
+Microfrontend architecture 
+symantic html nad its uses 
+
 
 
 
