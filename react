@@ -63,6 +63,13 @@ A. React is based on component-based architecture, declarative UI, one-way data 
 	Composition → small components combined into a larger UI
 	Reconciliation → React determines what UI needs updating
 
+Q.  what are react components?
+A. react components are Independent, reusable, piece of UI that return JSX.
+	It make application modular nad easier to maintain.
+	Its two types : 
+	fucntional components : simple JS functions returning JSX
+	class components : es6 classes extending "react component" with lifecycle methods.
+
 Q. expalin React life cycle
 A. It describes the different stages a component goes through, from its creation to its removal from the UI.
 	In React, a component has three main lifecycle phases:
