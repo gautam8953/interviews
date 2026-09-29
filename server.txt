@@ -1,8 +1,34 @@
 Q how to secure an application from hacking?
-A. 
+A. fronted : 
+        authentication :
+        authorization :
+        xss protection : inject and execute malicious code so first sanitize then display
+        csrf protection : send unwanted req from authenticated user, add csrf token in form, sae site cookie, validate origin/refrer
+        api security : https + auth header 
+        hide sensitive data
+        form data validation
+        uplaod validation 
+        error handling
+    server : 
+        https : 
+        request origin validate and block unwanted 
+        firewall        
+    backend : 
+        data and uplaod validation
+        authetication/authrization 
+        sql injection protection
+        rate limiting 
+        logging and monitoring of req/actions and errors
+    database : 
+        user authentication
+        soft delete data, no delete and truncate permission
+        encrypt sensitive data like password
+        db backups
 
 Q. what is saas?
-A.
+A. SaaS = Software as a Service
+    It is a software delivery model where you use software over the internet instead of installing and maintaining it on your own computer/server.
+    Simple example : Instead of installing Microsoft Outlook and maintaining an email server yourself, you can use Gmail through a browser.
 
 Q. explain cdn, its full form and work
 A. cdn stand for "content delivery network". 
@@ -41,23 +67,47 @@ Q. what is rest api
     c. Flexible, 
     d. Interoperable - can interact with many platforms and languages
     e. Code on demand  -  This can simplify clients by reducing the number of features that need to be pre-implemented
+
 Q. knowledge of aws 
 
 
 Explain your project in detail.
-What was the most challenging part of your project?
-How did you optimize the performance of your application?
+Q. What was the most challenging part of your project?
+A. Nothing get challenging that much, every work done. If its first time than it takes some times but all work done.
+    not getting all req at one go, most frustrating and challenging work as per my point of view.
+
+Q. How did you optimize the performance of your application?
+A.    do not get too much data in one api , get in small chunks
+    use paginations
+    use virtualization, load necessary data only 
+    error handling 
+    handling memory leaks, free memory at end
+    use eager loading, cache frequently used data 
+
 How did you handle a critical bug in production?
 Debug this JavaScript code and find the issue.
 How would you find memory leaks in an Angular application?
 How would you test an Angular application?
 How do you manage state in a large Angular application?
 Describe a time you had a conflict with a teammate.
-Why Mastercard? What excites you about this role?
+
 
 project development : 
 Q. what is agile methodology 
+A. Agile is a software development methodology where a project is developed incrementally in small cycles, 
+    with continuous customer feedback and frequent delivery of working software.
+
+    Agile is a set of principles for developing software iteratively, getting feedback frequently, 
+        collaborating with stakeholders, and adapting to changing requirements.
+    It answers: "How should we approach software development?"
+
 Q. sprints methodology 
+A. A Sprint is a fixed time-box within Scrum, during which the team works toward a defined goal and produces a usable product increment.
+AGILE
+  │
+  ├── Scrum
+  │     └── Sprints
+  │
 
 Git hub : 
 Q. difference in pull and fetch - both are used to update your local repository with changes from a remote repository.
