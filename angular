@@ -355,6 +355,28 @@ A. Data Binding can be best described as a technique that is used to link the ap
 	2. Two-way data binding: Two-way data binding in Angular version 8 helps the users to exchange data from the component to the view 
 	  and from the view to the component
 
+	Angular has 4 main types of binding:
+	
+	1. Interpolation       {{ }}
+	2. Property binding   [ ]
+	3. Event binding      ( )
+	4. Two-way binding    [( )]
+
+Q. Difference between One-way Binding and Two-way Binding
+A. data binding refers to the technique of synchronizing data between the UI and the code
+   1. One-way Binding : data flows in a single direction — from the model (data) to the view (UI). 
+      Changes in the model automatically update the view, but changes in the view do not affect the model.
+   2. Two-way Binding : data flows in both directions. 
+      Any change in the model updates the view, and any change in the view automatically updates the model.
+
+Aspect			One-way Binding				Two-way Binding
+Data Flow		One direction (Model ➔ View)		Both directions (Model ⇄ View)
+Update Behavior		UI updates when the model changes	Model and UI update each other in sync
+Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchronization
+Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
+Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
+
+
 Q. what is forRoot() in modules? What is its use?
 A. forRoot() is used when we want to maintain a single instance (singleton)of a service across the application 
 	which will also have lazy loaded modules
