@@ -428,5 +428,25 @@ A. MathML stands for Mathematical Markup Language.
 Q. What are void elements in HTML? no closing tag 
 
 Q. how webpage dispalyed in webbrowser. show process steps.
+A. 1. browser parse HTML and create DOM
+	2. browser downlaodand parse css and create cssom (css object model)
+	3. browser comine dom and css to create render tree
+	4. browser calculates exact height, width, position, margin, padding etc of each visible element
+			This stage is called Layout, and changes that require recalculating geometry are commonly called reflow
+	5. browser converts the visual information into drawing instructions, its called painting
+	6. The browser divides/handles visual content in layers where appropriate and composites those layers together, often using the GPU.
+	Finally, the result appears on the screen
+
+	when JS loaded?
+	as script tag get, js downloaded and executed according to script's loading behavior.
+
+	For a normal synchronous script: <script src="app.js"></script>
+		HTML parsing can be paused while the script is fetched/executed.
+
+	With: <script async src="app.js"></script>
+		the script downloads in parallel and executes as soon as it's ready, potentially interrupting HTML parsing.
+
+	With: <script defer src="app.js"></script>
+		the script downloads in parallel, but execution is deferred until HTML parsing has finished
 
 Q. can you make a jpg design to html
