@@ -383,19 +383,12 @@ A. The Temporal Dead Zone is the period between when a let/const variable is cre
 
 Q. difference in let, var and const?
 	VAR : 
-		var has the function or global scope.
+		var has the function or global scope(when declared outside of function).
 		It gets hoisted to the top of its scope 
 		it is initialized undefined by default
 		It can be updated 
-		It can be re-declared.
+		It can be re-declared, more than 1 variable with same name can be created.
 		It's an old way to declare a variable.
-	
-		Var variable is the old way to declare a variable in javascript; 
-		var variable has the function scope, 
-		But global scope when it is declared outside the function.
-		var variable can be re-declared and updated. 
-		re-declaration allows declaring more than one variable with the same name, 
-		because of this reason, if we declare a new variable by mistake, it will override the original variable value
 		
 		var name = "my name";
 		var myAge = 22;
@@ -492,6 +485,22 @@ const user = {
 };
 console.log(user.company.name); // TypeError: Cannot read properties of undefined (reading 'name')
 but can use console.log(user.company?.name); // undefined
+
+Q. what is nullish coalescing operator?
+A. It is used to provide a default value when the left side is null or undefined.
+	let name = null;
+	let result = name ?? "Guest";
+	console.log(result); // Guest
+
+	Important difference from || : || considers many values as falsy:
+	
+	let age = 0;
+	console.log(age || 18);  // 18
+	console.log(age ?? 18);  // 0
+	
+	Because 0 is falsy, || uses 18.
+	But ?? only checks for: null, undefined
+
 
 Q. what is !! operator
 A. The double NOT operator (!!) is a JavaScript trick used to convert any value into a boolean (true or false)
