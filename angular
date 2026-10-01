@@ -532,6 +532,27 @@ A.
 	exhaustMap: Ignores new emissions while the current observable is running.
 	Excellent for:Preventing multiple button submissions.
 
+Q. what isdebounceing and throutlling?
+A. Debouncing : Debouncing delays the execution of a function until a specified amount of time has passed since the last event.
+	Suppose a user types:
+	Without debouncing: on each key press api calls
+	with debouncing : api call when user type there is a hold of specified time 
+		this.searchControl.valueChanges.pipe(
+		  debounceTime(300)
+		).subscribe(value => {
+		  console.log(value);
+		});
+
+	Throttling: Throttling ensures that a function executes at most once during a specified time interval, no matter how many events occur.
+	Suppose the scroll event fires 100 times in one second.
+	Without throttling: 100 function calls
+	With 1-second throttle:
+		this.scrollEvents.pipe(
+		  throttleTime(1000)
+		).subscribe(() => {
+		  console.log("Scroll");
+		});
+
 Q. what is hot and cold obervable?
 A. Cold Observable → each subscriber gets its own execution.
 	Hot Observable → subscribers share the same execution/source.
