@@ -245,13 +245,18 @@ Q. what is difference between window variable and global variable?
 A. In a browser, window is the global object. 
 	Global variables declared with var in a classic script become properties of window, 
 	whereas top-level let and const do not.
-	ES modules (<script type="module">) have their own module scope, so their top-level variables aren't added to window either
+
+	ES modules (<script type="module">) have their own module scope, so their top-level variables aren't added to window either.
+	Even If variable is var type.
 
 	var name = "Gautam"; console.log(window.name); // Gautam
 	window.name === name // true
 
 	but 
 	let age = 25; console.log(window.age);     // undefined
+
+	Global variable : It is created in the global scope and can be accessed from code executing in that global scope, 
+		unless shadowed by a local binding.
 
 Q. What is DOM? What is the use of document object?
 A. DOM stands for Document Object Model. 
@@ -324,27 +329,6 @@ A. annotations (or comments) are used to add explanations, notes, or instruction
 	 * @returns {number} Sum of a and b
 	 */
 	we write @param, @returns, @type-for data type, @deprecated, @thorws etc for related descriptions.
-
-Q. Difference between One-way Binding and Two-way Binding
-A. data binding refers to the technique of synchronizing data between the UI and the code
-   1. One-way Binding : data flows in a single direction — from the model (data) to the view (UI). 
-      Changes in the model automatically update the view, but changes in the view do not affect the model.
-   2. Two-way Binding : data flows in both directions. 
-      Any change in the model updates the view, and any change in the view automatically updates the model.
-
-Aspect			One-way Binding				Two-way Binding
-Data Flow		One direction (Model ➔ View)		Both directions (Model ⇄ View)
-Update Behavior		UI updates when the model changes	Model and UI update each other in sync
-Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchronization
-Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
-Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
-
-	Angular has 4 main types of binding:
-	
-	1. Interpolation       {{ }}
-	2. Property binding   [ ]
-	3. Event binding      ( )
-	4. Two-way binding    [( )]
 
 Q. Tell something about the undeclared and undefined variables? 
 Ans.  undeclared -> not exist, not declared
@@ -764,7 +748,11 @@ A. "View state" is specific to a page in a session whereas
 
 Q. Define closure.
    A closure is created when an inner function remembers and can access variables from its outer function's scope 
-   even after the outer function has finished executing
+   even after the outer function has finished executing.
+
+	Closures are mainly used to preserve state and provide data encapsulation.
+	A function can remember variables from its outer lexical scope even after the outer function has finished execution. 
+	Common real-world uses include private variables, function factories, callbacks, event handlers, timers, and maintaining state.
 
 	function outer() {
 	    let count = 0;	
@@ -1154,7 +1142,7 @@ A. Flattening an array means converting a nested array into a single-level array
 		const b = [3, 4];
 		const c = [5, 6];
 		const result = a.concat(b, c);
-		console.log(result);
+		console.log(result); // [1,2,3,4,5,6]
 
 	3. Using toString() 
 		const arr = [1, [2, [3, 4]]];		
@@ -1231,7 +1219,7 @@ A.  The JavaScript Set object is used to store the elements with unique values.
 	setVar.intersection()
 	setVar.difference()
 	setVar.symmetricDifference()
-	setVar.isSubsetOf()
+	setVar.isSubsetOf().
 	setVar.isSupersetOf()
 	setVar.isDisjointFrom()
 	
@@ -2329,27 +2317,6 @@ A. Web Workers are a browser feature that allows JavaScript to run code in a sep
 	✅ PDF generation
 	✅ AI/ML inference in the browser
 
-
-Q. what isdebounceing and throutlling?
-A. Debouncing : Debouncing delays the execution of a function until a specified amount of time has passed since the last event.
-	Suppose a user types:
-	Without debouncing: on each key press api calls
-	with debouncing : api call when user type there is a hold of specified time 
-		this.searchControl.valueChanges.pipe(
-		  debounceTime(300)
-		).subscribe(value => {
-		  console.log(value);
-		});
-
-	Throttling: Throttling ensures that a function executes at most once during a specified time interval, no matter how many events occur.
-	Suppose the scroll event fires 100 times in one second.
-	Without throttling: 100 function calls
-	With 1-second throttle:
-		this.scrollEvents.pipe(
-		  throttleTime(1000)
-		).subscribe(() => {
-		  console.log("Scroll");
-		});
 
 Q. explain class and object in js with inheritance 
 A. A class is a blueprint for creating objects.
