@@ -377,3 +377,88 @@ new Promise((resolve) => {
 console.log("end");
 
 // start a c e end b f d
+
+Q. find qoutput of this code : 
+(function(){
+	setTimeout(()=> console.log(1),2000);
+	
+	console.log(2);
+
+  new Promise(resolve=>{
+	setTimeout(()=>
+	console.log("Promise new  resolved"),2000)
+  })
+
+  setTimeout(()=>Promise.resolve().then(() => console.log("Promise  resolved")),2000);
+  
+  Promise.resolve().then(() => console.log("Promise 1 resolved"));
+  
+  setTimeout(()=> console.log(3),0);
+  
+  console.log(4);
+  
+  Promise.resolve().then(() => console.log("Promise 2 resolved"));
+ 
+})();
+console.log("Hello, World!");
+A. 
+	2
+	4
+	Hello, World!
+	Promise 1 resolved
+	Promise 2 resolved
+	3
+	1
+	Promise new  resolved
+	Promise  resolved
+
+Q. write cdoe to find filter unique object in below array. objects may have any number of data and may have different keys to.
+	like name in first index but in ther name may not be present or fname is present.
+	the complexity of the solution should be O(n).
+	you could not use built in functions. 
+	let arr= [
+	{fname:"Praveen",age:28,department:"IT"},
+	{name:"ishu",age:26},
+	{name:"sadhna",age:29},
+	{name:"Praveen",age:28},
+	{fname:"Praveen",age:28},
+	{name:"sadhna",age:29},
+	{fname:"sadhna",age:29},
+	{name:"sadhna",age:29},
+	{name:"sadhna",age:29},
+	{name:"ishu",age:26},
+	{name:"sadhna",age:29,department:"IT"},
+	{fname:"sadhna",age:29,department:"IT"},
+	{fname:"sadhna",age:29,department:"IT"},
+	{age:29,department:"IT"},
+	{age:29,department:"IT"},
+	{name:"sadhna",age:29},
+	{name:"sadhna",age:29},
+	{city:"pune",company:"IT"},
+	{city:"pune",company:"IT"} 
+	];
+
+A. 
+function uniqueObjects(arr) {
+    var result = [];
+    var seen = {};
+
+    for (var i = 0; i < arr.length; i++) {
+
+        var obj = arr[i];
+        var key = "";
+
+        for (var prop in obj) {
+            if (obj.hasOwnProperty(prop)) {
+                key += prop + ":" + obj[prop] + "|";
+            }
+        }
+
+        if (!seen[key]) {
+            seen[key] = true;
+            result[result.length] = obj;
+        }
+    }
+
+    return result;
+}
