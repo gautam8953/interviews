@@ -10,54 +10,39 @@ A.
    A. It does not support mobile browsers. 	
    B. Angular is supported by all the popular mobile browsers.
    
-Q. What are some of the advantages of Angular over other frameworks?
-A. A. Excellent Material Design Library
-   B. Efficient Problem-Solving Patterns
-   C. More Lightweight Web Applications
-   D. Readable and Testable Code
-   E. Faster Development Process
+Q. compare Angular with react?
+A. 
+| Feature 			| Angular 					| React |
+|---|---|---|
+| Type 				| Full-fledged framework 	| UI library |
+| Developed by 		| Google 					| Meta |
+| Language 			| TypeScript 				| JavaScript / TypeScript |
+| Architecture 		| Opinionated, structured 	| Flexible |
+| UI 				| Components + templates 	| Components + JSX |
+| State management | Services, Signals, RxJS, NgRx | Hooks, Context, Redux, Zustand, etc. |
+| Learning curve 	| Higher 					| Generally easier initially |
+| Flexibility 		| Less flexible but standardized | Highly flexible |
+| Large enterprise apps | Excellent 			| Excellent |
+| Ecosystem 		| More integrated 			| Larger/broader ecosystem |
+| Job market 		| Strong 					| Generally broader |
+| Best suited for | Structured enterprise applications | Flexible UI and full-stack ecosystems |
 
-	Complete Framework (Not Just a Library like react ) : No need to install many third-party libraries
-	Two-Way Data Binding : <input [(ngModel)]="name">
-	Dependency Injection (DI) : constructor(private userService: UserService) {}
-	TypeScript by Default
-	Better for Large-Scale Applications
-	Ahead-of-Time (AOT) Compilation
-	Built-in CLI (Command Line Interface)
-	Modular Architecture
-	Strong Security (XSS Protection)
-	Built-in Testing Support
-	RxJS for Reactive Programming
-	Strong Community & Google Support
+in angular form, routing, http method is build it
+but in react you have to import packages.
+
    
 Q. latest angular version -> whats new in it -> latest angular worked on 
-A. Angular 13 on November 3, 2021
-	Feature : 
-	1. Support for TypeScript 4.4
-	2. No Longer Support for Internet Explorer 11
-	3. Improvements in Localization : $localize is a consistent API. 
-		Developers use it to produce an effective way for in-built internationalization (i18n) 
-		and tag messages for translation in code and templates
-	4. New Type of Forms : Angular v13 highlights a new type of form: FormControlStatus. 
-		It accumulates all status strings for form controls: 
-	
-	Angular 14 was released on 2 June 2022.
-	features : 
-	1. Angular CLI Auto-Completion - execute 'ng completion' for one time in terminal.
-		then by pressing tab after 'ng' you can get suggestion on cli commands
-	2. Strictly Typed Forms : now accepts a generic type that describes the type of value it holds for the first time.
-	3. Standalone Components : Now you can use Angular modules as an option. you can also use standalone components for the first time
-	4. Enhanced Template Diagnostics : better template diagnostics, allowing Angular developers to be protected from common errors by the compiler
-	5. Angular DevTools : In offline mode, you can use the Angular DevTools debugging plugin
-	
-	Angular 15 was released on 16 November 2022.
-	1. Stable Standalone APIs : Now Angular 15 can allow developers to build Angular applications without any module
-	2. Http with provideHttpClient : With the help of provideHttpClient(), it’s possible to offer the HttpClient. 
-		HTTP interceptors are also evolving and can now be defined as functions.
-	3. Optimized CLI with a Bunch of Improvements
-	4. Router Unwraps Default Imports : The router now automatically unwraps default exports when lazy loading, 
-		simplifying the router even more and reducing boilerplate.
-	5. Forms : The forms package now includes the utility functions like, isFormControl, isFormGroup, isFormRecord, and isFormArray
+A. 
+
+Angular 14 | Standalone Components introduced, Typed Reactive Forms, `inject()` function
+Angular 15 | Standalone APIs stable, Directive Composition API, Image Optimization (`NgOptimizedImage`), MDC-based Angular Material
+Angular 16 | Signals introduced, `DestroyRef`, `takeUntilDestroyed()`, required inputs, hydration, standalone by default direction
+Angular 17 | New control flow `@if`, `@for`, `@switch`, `@defer`, new Angular branding/dev experience, improved SSR/hydration
+Angular 18 | Zoneless preview, Signals improvements, material 3, built-in control flow stable, improved SSR/hydration
+Angular 19 | Standalone components/directives/pipes become default, incremental hydration, linked signals, resource APIs/dev improvements
+Angular 20 | Signals become more central, `effect()`/signal APIs mature, `@let`, improved resource APIs, zoneless becomes more practical, modern SSR
+Angular 21 | Modern Angular architecture continues: zoneless, signals, incremental hydration, improved developer tooling/build performance
+Angular 22 | signals-first APIs, zoneless, modern control flow, improved SSR/hydration and tooling
 
 Feature					Angular 20			Angular 21			Angular 22
 Signals					✅ Stable			✅ Improved	✅ 		Default ecosystem
@@ -102,21 +87,75 @@ Ans. Here’s a list of the most important files on the root folder, created by 
       – app folder – containing all the Angular code
       – assets folder – containing static files (eg. images, fonts, JSON files)
       – environments folder – containing different environments used when deploying or testing the application
+
+angular 22  stand-alone component project : 
+	my-app/
+	│
+	├── node_modules/
+	├── public/
+	│   └── favicon.ico
+	│
+	├── src/
+	│   ├── app/
+	│   │   ├── app.component.ts
+	│   │   ├── app.component.html
+	│   │   ├── app.component.scss
+	│   │   ├── app.config.ts
+	│   │   └── app.routes.ts
+	│   │
+	│   ├── index.html
+	│   ├── main.ts
+	│   └── styles.scss
+	│
+	├── angular.json
+	├── package.json
+	├── tsconfig.json
+	└── tsconfig.app.json
+
+"main.ts is the entry point. It imports the root component and app.config.ts, 
+then calls bootstrapApplication(AppComponent, appConfig). 
+Angular uses appConfig to configure the application and bootstraps AppComponent, 
+which starts the component tree."
+
+Don't say:
+"main.ts executes, then app.config.ts executes, then app.ts executes."
       
 in build following files generated : 
+my-app:
+	- index.html
    – main.js – containing the application-based transpiled code (what we made by ourselves)
    – polyfills.js – containing the additional code logic for supporting versions of older browsers
    – runtime.js – containing the plumbing code of Angular to run the application
    -scripts. js – with all the script code required for support styles and custom JavaScript libraries
    – styles.js – containing styles, defined by the application and from the third-party UX libraries (such as Bootstrap)
    – vendor.ts – the code that’s coming from the node_modules folder (ie. third-party libraries, including Angular itself).
+   - assets
 
+Angualr 22 build files : 
+dist/
+└── my-app/
+    ├── browser/
+    │   ├── index.html
+    │   ├── main-XXXX.js
+    │   ├── styles-XXXX.css
+    │   ├── chunk-XXXX.js
+    │   └── assets/
+    │
+    └── ...
+	
 Q. command to generate application, component, model, module, service etc
-A. 	application : ng new newApp
-	component:
-	model: 
-	module: 
-	service: 
+A. 	application : now standalone application by default
+		ng new newApp  or ng new newApp --standalone
+		ng new newApp --no-standalone	// old modulebased project
+		
+	component: now standalone application by default 
+		ng generate component user	or 	ng g c user --standalone
+		ng g c user --standalone=false	// old module based
+	model: Angular CLI does not have a dedicated model generator.
+		ng g interface user
+		ng g class user
+	module: ng g module user
+	service: ng g service user
 
 Q. how many files generated in component and use of it
 Ans. 4 files are generated. CSS, HTML, SPEC, TS
@@ -177,6 +216,17 @@ Ans. angular.json -> angular-cli configuration file main.ts -> Angular module bo
                  │
                  ▼
           Angular application
+		  
+		  
+anguar 20+ : standalone 
+
+"main.ts is the entry point. It imports the root component and app.config.ts, 
+then calls bootstrapApplication(AppComponent, appConfig). 
+Angular uses appConfig to configure the application and bootstraps AppComponent, 
+which starts the component tree."
+
+Don't say:
+"main.ts executes, then app.config.ts executes, then app.ts executes."
 
 Q. What is a bootstrapping module?
 A.  bootstrapping module is the root module of your application, named AppModule. 
@@ -187,6 +237,10 @@ A.  bootstrapping module is the root module of your application, named AppModule
 	The actual bootstrapping process is initiated in the application's entry file, 
 	usually main.ts, by calling platformBrowserDynamic().bootstrapModule(AppModule). 
 	This tells Angular to load and initialize the AppModule and then render the components listed in its bootstrap array.
+	
+	in angular standalone : in main.ts file 
+	bootstrapApplication(App, appConfig).catch((err) => console.error(err));
+	form here component bootstrap and loaded
 
 Q. what is polyfil and why polyfil.ts is used?
 Ans. Polyfills in basic language are extra lines of code which make your application compatible for different browsers. 
