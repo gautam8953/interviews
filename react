@@ -23,6 +23,28 @@ A. JSX is a syntax extension that allows us to write HTML-like code inside JavaS
     const element = <h1>Hello {name}</h1>;
     JSX is transformed into JavaScript calls during compilation by react.
     Important: JSX is not HTML. It follows JavaScript/React rules, such as className instead of class.
+	
+	Its full form is Javascript XMl but in official documentation its not written.
+	officialy its written only as its a syntax extension
+	It may be also Javascript extension.
+	Like xml full form is "Extensible Markup Language"
+	
+Q. what is Babel?
+A. Babel is a JavaScript compiler/transpiler used in react. 
+	It converts modern JavaScript and JSX code into JavaScript that browsers can understand.
+	
+Q. why we keep first letter as capital in react component? 
+A. myComponent → as a regular/HTML-like tag
+	MyComponent → as a React component
+	
+	So we keep first letter as capital so that babel treat it as a component not as a html tag.
+	
+	File name can be in lower case or any type, it will not show error and works fine.
+	but class name or component name first letter should be capital.
+	
+	normal function name should be in lowercase and component function name should be first capital,
+	so that Babel could distinguish between norma nad react component function.
+	If first letter is capital than we can write JSX code in function and Babel understand it and compile it.
 
 Q. What is the Virtual DOM?
 A. The Virtual DOM is an light weight in-memory copy of real DOM.
@@ -84,6 +106,33 @@ A. react components are Independent, reusable, piece of UI that return JSX.
 	fucntional components : simple JS functions returning JSX
 	class components : es6 classes extending "react component" with lifecycle methods.
 
+Q. How many ways we can export components in react.js?
+A. 2 ways : 
+	default export: write "export default User;" in last
+	named export : add export before function definition
+
+| Default Export 						| Named Export |
+
+| One default export per file 			| Multiple named exports allowed |
+| `{}` not required while importing 	| `{}` required |
+| Import name can be changed freely 	| Name normally matches export |
+| `import User from './User'` 			| `import { User } from './User'` |
+
+	we can also export a function as default as well as named
+	export function User() {
+	  return <div>User</div>;
+	}
+
+	export function Admin() {
+	  return <div>Admin</div>;
+	}
+
+	export default User;
+
+Q. how can we change component name while importing?
+A. import { User as MyUser } from './User';
+	now instead of <User> write <MyUser> to show component.
+
 Q. expalin React life cycle
 A. It describes the different stages a component goes through, from its creation to its removal from the UI.
 	In React, a component has three main lifecycle phases:
@@ -111,6 +160,12 @@ A. It describes the different stages a component goes through, from its creation
 	}, []);
 	Cleanup runs when the component unmounts
 
+Q. what is difference in state and variable?
+A. state : store changable data that shows in html
+	variable : store data values but changes not shown in html.
+	
+	If state value changes then react re-render html when state value changes,
+	but if its a normal variable than react will not re-render html.
 
 Q. What is the difference between props and state in React? Explain default props in React?
 A. Props are inputs passed from a parent component to a child and should be treated as read-only.
