@@ -34,6 +34,14 @@ but in react you have to import packages.
 Q. latest angular version -> whats new in it -> latest angular worked on 
 A. 
 
+Angular 2 : Component architecture
+Angular 4–8 : CLI + improved framework
+Angular 9 : Ivy
+Angular 14 : Standalone components introduced
+Angular 16 : Signals introduced, Modern reactive Angular
+Angular 17 : New control flow, @for, @if, @switch
+Angular 18 : More signal-based / modern Angular architecture
+
 Angular 14 | Standalone Components introduced, Typed Reactive Forms, `inject()` function
 Angular 15 | Standalone APIs stable, Directive Composition API, Image Optimization (`NgOptimizedImage`), MDC-based Angular Material
 Angular 16 | Signals introduced, `DestroyRef`, `takeUntilDestroyed()`, required inputs, hydration, standalone by default direction
@@ -257,6 +265,7 @@ A. In Angular, Directives are defined as classes that can add new behavior to th
     removing elements and even changing the appearance of the DOM elements.
     Directives are meant to be a function that executes when found in the DOM by the Angular compiler to extend the power of the HTML with new syntax. 
     Directives have a name and can be predefined or custom-defined so that they can be called anything
+	
   Types of Directives in Angular
   1. Component Directive : Special directives in Angular are called Components since this type of directive has a template or template URLs. 
 	In effect, it is a component directive that shows something in DOM.
@@ -265,32 +274,32 @@ A. In Angular, Directives are defined as classes that can add new behavior to th
 	ex: *ngIf, *ngFor
   3. Attribute directive : This type of angular directive is used to make behavior or element changes in the appearance and behavior of an element. 
 	For example, ngStyle( applying styles) or ngClass(applying CSS classes).
+	
   Creating Our Own Attribute Directive : The purpose of the following attribute directive is to change the text color whenever the pointer hovers over it.
 	Custom Directive is very similar to creating the Angular component. 
 	The custom directive is created using the @Directive decorator to replace the @component decorator.
-  1. Create a class with @Directive
-  2. Create an Attribute directive with Element Ref
-  3. Listen to the Hover event with
-  4. HostListener
-  	By using handlers, the element is referenced, and the color of the text is changed.
-	import{Directive, ElementRef, HostListener} from '@angular/core';
-	@Directive({
-		selector:'[highlight]',
-	})
+	  1. Create a class with @Directive
+	  2. Create an Attribute directive with Element Ref
+	  3. Listen to the Hover event with
+	  4. HostListener
+  	
+	By using handlers, the element is referenced, and the color of the text is changed.
+	
+	using custom directives : 
+	angular old : 
+		import directive in declarations array of AppModule or any other module where need to apply
+		if its sharedModule then declarations section of sharedModule, 
+		also export module in sharedModule
+		then import directive module in appModule's import array or 
+		any module where you want to use it	
+		
 
-export class HighlightDirective{
-constructor (private eleRef: ElementRef){ }
-@HostListerner ('mouseover') on MouseOver(){
-this.eleRef.nativeElement .style.color ='green';
-}
-@hostListener('mouseleave') onMouseLeave(){
-this.eleRef.nativeElement.style.color='black' ;
-}
-}] 
-
-Q. what is decorator in angular : Decorators are functions that are invoked with a prefixed @ symbol, and are immediately followed by a class, method or property. 
+Q. what is decorator in angular?
+A. Decorators are functions that are invoked with a prefixed @ symbol, 
+	and are immediately followed by a class, method or property. 
    They allow a service, directive or filter to be changed before being used. 
-   Basically, a decorator provides configuration metadata that determines how the component, class or a function should be processed, instantiated and used at runtime.
+   Basically, a decorator provides configuration metadata that determines how the component, 
+   class or a function should be processed, instantiated and used at runtime.
    
   -> Types of Decorators - There are four types of decorators and each type further has its own subset of decorators
     1.class : This is the first type of decorator which tells us about a particular class’s intent and helps answer questions like whether the class is a component or a module. 
@@ -300,11 +309,156 @@ Q. what is decorator in angular : Decorators are functions that are invoked with
            we can easily identify why we use any particular property of a class Like @Input (), @Output, @ReadOnly (), @Override ()
     4.Parameter Decorators: Parameter decorators allow us to decorate parameters in our class constructors.  
            @Inject () is a common and widely used parameter decorator. Using this decorator, we can inject services in Angular classes
+
+Q. how to implement routing in angular application?
+A. module base project, if routing not added add by below command.
+	ng new my-app --no-standalone
+	
+	code structure appRouting.module.ts file 
+
+	import { NgModule } from "@angular/core";
+	import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
+
+	const routes: Routes = [
+	  {
+		path: "loan",
+		loadChildren:
+		  () => import('./pages/loan/loan.module').then(m => m.LoanModule),
+		canActivate: [AuthService]
+	  }
+	 ]
+	@NgModule({
+	  imports: [
+		RouterModule.forRoot(routes)
+	  ],
+	  exports: [RouterModule]
+	})
+	export class AppRoutingModule {}
+	
+	this appRouting.module.ts file will be imported in import section of appModule.ts file
+	
+	
+	code for child loanRouting.module.ts file
+	
+	import { NgModule } from '@angular/core';
+	import { Routes, RouterModule } from '@angular/router';
+
+	const routes: Routes = [
+	  {
+		path: "",
+		children: [
+		  { path: "", redirectTo: "payment-status-update/0", pathMatch: "full" },
+		  { path: "payment-status-update/:loanNumber", component: PaymentStatusUpdateComponent }
+		]
+	  }
+	];
+
+	@NgModule({
+	  imports: [RouterModule.forChild(routes)],
+	  exports: [RouterModule]
+	})
+	export class PostDisbursalRoutingModule { }
+	
+	import this file in corresponding loan.module.ts file
+	
+	for child routing to work in like /add if url is like user/add 
+	then add <router-outlet></router-outlet> in html
+	<router-outlet></router-outlet> is the place where new route page html placed. 
+	
+	
+	
+	in standalone applications : add routing command ng generate file app.routes.ts
+	
+	file structura app.routes.ts
+
+import { Routes } from '@angular/router';
+
+import { HomeComponent } from './home/home.component';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+		  import('./users/users.routes')
+			.then(r => r.USER_ROUTES)
+  }
+];
+
+this app.routes.ts file be imported in provider array of appConfig.ts file
+import RouterOutlet in app component
+in html of app coponent write <router-outlet></router-outlet>
+
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes)
+  ]
+};
+
 	   
-Q. what is lazy loading and how to achieve it .
-A. To lazy load Angular modules, use loadChildren (instead of component) in your AppRoutingModule routes. 
-	it load the defined folder when route matches.
-   
+Q. what is lazy loading and how to achieve it.
+A. 	in module based angular : 
+	To lazy load Angular route, use loadChildren (instead of component) in your AppRoutingModule routes. 
+	it load the defined module and corresponding components with route matches.
+	in intial page load it will not load module defined in loadCHildren,
+	it will be loaded when user navigates to corresponding route.
+	
+	{
+		path: "loan",
+		loadChildren: () => import('./pages/loan/loan.module').then(m => m.LoanModule),
+		canActivate: [AuthService]
+	}
+	
+	in standalone angular : 
+	use loadComponent to lazy  load a component in routingModule.
+	
+    {
+		path: "loan",
+		loadComponent: () =>import('./users/users.component').then(c => c.UsersComponent)
+		canActivate: [AuthService]
+	}
+	
+	 lazy load nested routing : 
+
+	export const routes: Routes = [
+
+	  {
+		path: 'users',
+		loadChildren: () =>
+		  import('./users/users.routes')
+			.then(r => r.USER_ROUTES)
+	  }
+
+	];
+	
+	users.routes.ts
+	
+	import { Routes } from '@angular/router';
+
+	export const USER_ROUTES: Routes = [
+	  {
+		path: '',
+		loadComponent: () =>import('./users.component').then(c => c.UsersComponent),
+		children: [
+		  {
+			path: 'list',
+			loadComponent: () =>import('./user-list.component').then(c => c.UserListComponent)
+		  }
+		]
+	  }
+	];
+	
 Q. explain process to implement authorisation in a big application.
 A. authentication : Authentication (AuthN) is a process that verifies that someone is who? example : login authetication
     identitiy authentication : Identity authentication is the process of verifying the identity of a user or service. example : manager or employee
@@ -328,10 +482,6 @@ A. The main differences between JIT and AOT in Angular are:
    4. suitable for production
    5. example command : ng serve --aot, ng build --aot , ng build --prod
    6. template binding error are sgown at time of building
- 
-Q. testing setup in angular, process
-A. The project you create with the CLI is immediately ready to test. Just run the ng test CLI command
-	The ng test command builds the application in watch mode, and launches the Karma test runner
 
 Q. what is auth guard?
 A. AuthGuard is used to protect the routes from unauthorized access in angular. 
@@ -340,13 +490,70 @@ A. AuthGuard is used to protect the routes from unauthorized access in angular.
 	If it returns false, we can not access the page. 
 	We can write our user authorization and authentication logic inside the canActivate function.
 	
+	CanActivateChild : Controls access to child routes.
+
 	CanDeactivate :  The Angular CanDeactivate Guard determines whether we can navigate away from a route.
 	The CanDeactivate guard gives us a chance to warn the user that 
 	he has not saved his work and give him a chance to cancel the navigation
 	
+	CanMatch : 
+		Controls whether a route can match during route configuration.
+		Useful for authentication, permissions, and feature flags.
+		It can also prevent a lazy-loaded route from being matched
+	
+	Resolve : 
+		Loads required data before the route is activated.
+		Technically a resolver, not an auth guard.
+	
 Q. how to protetct a root from unauthorise access
 A. by using auth guard canActivate method.
 
+Q. in authguard for example canactivate,  can we pass multiple functions and if first one will fail then how another will call.
+	in which oerder functions will be called?
+A. 	Yes. In Angular, you can pass multiple guards in canActivate. 
+	They are executed in the order they appear in the array.
+
+		import { Routes } from '@angular/router';
+		import { authGuard } from './guards/auth.guard';
+		import { roleGuard } from './guards/role.guard';
+		import { profileGuard } from './guards/profile.guard';
+		
+		export const routes: Routes = [
+		  {
+		    path: 'admin',
+		    component: AdminComponent,
+		    canActivate: [
+		      authGuard,
+		      roleGuard,
+		      profileGuard
+		    ]
+		  }
+		];
+		
+		The execution order is:
+		1. authGuard
+		2. roleGuard
+		3. profileGuard
+	If any how any guard returns false or redirect to another url then next guard will not be read and executed.
+	
+Q. What is the purpose of Wildcard route?
+	If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. 
+	In this case, you can use wildcard route. A wildcard route has a path consisting of two asterisks to match every URL.
+	{ path: '**', component: PageNotFoundComponent }
+
+Q. How to detect a route change in Angular?
+A. import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
+	constructor(router:Router) {
+	  router.events.forEach((event) => {
+		if(event instanceof NavigationStart) {
+		}
+		// NavigationEnd
+		// NavigationCancel
+		// NavigationError
+		// RoutesRecognized
+	  });
+	}
+	
 Q. what is pipes? difference in pure and impur pipes?
 A. Pipes are simply a function that we can directly apply on any expression/value in a template to transform it into some other value.
 	Built-in pipes in Angular : 
@@ -385,21 +592,16 @@ A. component is basic building block of a UI in an Angular application.
 	   constructor() { } 
 	}
 
-Q. Explain Event Binding? <button (click)="raiseVolume()"></button>
-   Commonly Used Events
-   1. Mouse Events: click, dblclick, mousedown, mouseup, mouseenter, mouseleave
-   2. Keyboard Events: keydown, keyup, keypress
-   3. Form Events: submit, focus, blur
-   4. Input Events: input, change
-
-Q. what is property binding 
-A. Property Binding is a one-way data-binding technique. 
-	we bind a property of a DOM element to a field which is a defined property in our component TypeScript code. 
-	<button [disabled]='bool'>GeekyButton</button>
+Q. what is forRoot() in modules? What is its use?
+A. forRoot() is used when we want to maintain a single instance (singleton)of a service across the application 
+	which will also have lazy loaded modules
+	The counter is maintained by a CounterService which resides under SharedModule. 
+	Since, the lazy loaded modules creates its own instance of service, 
+	we lose the singleton behavior of the Angular Services.
 	
-Q. what is string interpolation in angular?
-A. String Interpolation is a one-way databinding technique which is used to output the data from a TypeScript code to HTML template (view). 
-	It uses the template expression in double curly braces to display the data from the component to the view
+	In routing module : 
+	The forRoot() method creates an NgModule that contains all the directives, the given routes, and the Router service itself.
+	The forChild() method creates an NgModule that contains all the directives and the given routes, but does not include the Router service
 	
 Q. Explain the concept of Data Binding. 
 A. Data Binding can be best described as a technique that is used to link the application’s data to the view layer
@@ -415,6 +617,22 @@ A. Data Binding can be best described as a technique that is used to link the ap
 	2. Property binding   [ ]
 	3. Event binding      ( )
 	4. Two-way binding    [( )]
+	
+Q. Explain Event Binding? <button (click)="raiseVolume()"></button>
+   Commonly Used Events
+   1. Mouse Events: click, dblclick, mousedown, mouseup, mouseenter, mouseleave
+   2. Keyboard Events: keydown, keyup, keypress
+   3. Form Events: submit, focus, blur
+   4. Input Events: input, change
+
+Q. what is property binding 
+A. Property Binding is a one-way data-binding technique. 
+	we bind a property of a DOM element to a field which is a defined property in our component TypeScript code. 
+	<button [disabled]='bool'>GeekyButton</button>
+	
+Q. what is string interpolation in angular?
+A. String Interpolation is a one-way databinding technique which is used to output the data from a TypeScript code to HTML template (view). 
+	It uses the template expression in double curly braces to display the data from the component to the view
 
 Q. Difference between One-way Binding and Two-way Binding
 A. data binding refers to the technique of synchronizing data between the UI and the code
@@ -429,18 +647,6 @@ Update Behavior		UI updates when the model changes	Model and UI update each othe
 Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchronization
 Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
 Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
-
-
-Q. what is forRoot() in modules? What is its use?
-A. forRoot() is used when we want to maintain a single instance (singleton)of a service across the application 
-	which will also have lazy loaded modules
-	The counter is maintained by a CounterService which resides under SharedModule. 
-	Since, the lazy loaded modules creates its own instance of service, 
-	we lose the singleton behavior of the Angular Services.
-	
-	In routing module : 
-	The forRoot() method creates an NgModule that contains all the directives, the given routes, and the Router service itself.
-	The forChild() method creates an NgModule that contains all the directives and the given routes, but does not include the Router service
 	
 Q. version controlling in angular 
 A. steps : 
@@ -510,7 +716,6 @@ A. Constructor and OnInit seem the same, but they are called at different phases
 	So you should use constructor() to setup Dependency Injection and not much else. 
 	ngOnInit() is better place to "start" - it's where/when components' bindings are resolved.	
 	
-	
 
 Q. pristine VS dirty VS touched
 	valid: This property returns true if the element’s contents are valid and false otherwise.
@@ -520,12 +725,6 @@ Q. pristine VS dirty VS touched
 	untouched: This property returns true if the user has not visited the element.
 	touched: This property returns true if the user has visited the element.
 
-
-
-Q. What is the purpose of Wildcard route?
-	If the URL doesn't match any predefined routes then it causes the router to throw an error and crash the app. 
-	In this case, you can use wildcard route. A wildcard route has a path consisting of two asterisks to match every URL.
-	{ path: '**', component: PageNotFoundComponent }
 	
 Q. subject and BehaviorSubject  difference
 A. there are four types of Subjects in RxJS (commonly used in Angular).
@@ -666,20 +865,12 @@ A. Cold Observable → each subscriber gets its own execution.
 		
 		Subscriber 1: 30
 		Subscriber 2: 30
-
-Q. How to detect a route change in Angular?
-A. import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
-	constructor(router:Router) {
-	  router.events.forEach((event) => {
-		if(event instanceof NavigationStart) {
-		}
-		// NavigationEnd
-		// NavigationCancel
-		// NavigationError
-		// RoutesRecognized
-	  });
-	}
-	
+		
+Q. what is NgRX?
+A. NgRx/store is a library for managing state in your Angular applications, it is a reactive state management library powered by RxJS. 
+   Similar to Redux, this library can be used to manage the flow of data throughout your application, 
+   when actions are dispatched, reducers act on them and mutate the store.
+   
 Q. What is Angular Ivy?
 A: 	A big part of Angular is its compiler: it takes all your HTML and generates the necessary JS code. 
 	This compiler (and the runtime) has been completely rewritten over the last year, and this is what Ivy is about. 
@@ -764,6 +955,7 @@ A. 1. Define the Component for the New Route
 
    4. Add Router Outlet in the Template  - <router-outlet></router-outlet>
    5. Add Links to Navigate to the New Route - <a routerLink="/new-page">Go to New Page</a>
+   
 Q. process to call a api in angular?
 A. Angular provides HttpClient Module that you can use to consume any API. 
 	First, you need to import the module in the AppModule or any other parent module and add it in the imports array.
@@ -826,22 +1018,73 @@ A. ng-content is used to display children in a template,
 	3. <ng-content></ng-content>
 	ng-content is used to project content into Angular components. 
 	You use the <ng-content></ng-content> tag as a placeholder for that dynamic content, 
-	then when the template is parsed Angular will replace that placeholder tag with your content
-	
-	<h1>Child Info</h1>
-	<ng-content select="[input], [form-field]"></ng-content>
-	
-	<app-child>
-	  <h1 input>Content1!</h3>
-	  <h2 form-field>Content2!</h2>
-	  <h3 input form-field>Content1 & Content2!</h1>
-	</app-child>
-	If you check your browser, all the heading tags will be visible from child component with the help of <ng-content>
+	then when the template is parsed Angular will replace that placeholder tag with your content.
+	It is useful when creating reusable components.
+	we show dynamic html with the help of <ng-content> 
 
-Q. what is NgRX?
-A. NgRx/store is a library for managing state in your Angular applications, it is a reactive state management library powered by RxJS. 
-   Similar to Redux, this library can be used to manage the flow of data throughout your application, 
-   when actions are dispatched, reducers act on them and mutate the store.
+	Content Projection vs Input
+	Using @Input() : Limited to passing data.
+	Using Content Projection : Can pass: HTML, Components, Forms, Buttons, Tables, Images etc Much more flexible.
+	
+	card componet :
+	
+	<div class="card">
+	  <h2>My Card</h2>
+	  <ng-content></ng-content>
+	</div>
+	
+	parent component : 
+	
+	<app-card>
+	  <p>This content comes from the parent.</p>
+	</app-card>
+
+	Angular will render like this ouput.
+
+	<div class="card">
+	  <h2>My Card</h2>
+	  <p>This content comes from the parent.</p>
+	</div>
+	
+	<ng-content></ng-content> acts as placeholder and passed output show in place of it.
+	
+	Multiple content projection : 
+	
+	card component : 
+	<div class="card">
+	
+	  <div class="header">
+		<ng-content select="[card-header]"></ng-content>
+	  </div>
+
+	  <div class="body">
+		<ng-content select="[card-body]"></ng-content>
+	  </div>
+
+	  <div class="footer">
+		<ng-content select="[card-footer]"></ng-content>
+	  </div>
+
+	</div>
+	
+	parent component : 
+
+	<app-card>
+
+	  <div card-header>
+		User Details
+	  </div>
+
+	  <div card-body>
+		This is user information.
+	  </div>
+
+	  <div card-footer>
+		<button>Save</button>
+	  </div>
+
+	</app-card>
+	
 
 Q. what is tree shaking?
 A. Tree shaking is a build optimization technique that removes unused (dead) code from your application's final bundle, making it smaller and faster to load.
@@ -927,28 +1170,6 @@ A. set() → Replace the value.
 	update() → Modify the value based on the previous value.
 	computed() (not "calculate") → Create a read-only value calculated from other signals.
 
-Q. if i have to show one website in another website then how can we do it?
-A. Option 1: Use an <iframe> (Simplest)
-		Advantages
-			Very easy
-			Applications remain completely independent
-			Separate deployments
-		Disadvantages
-			Parent cannot directly access child variables or components.
-			Communication requires window.postMessage().
-			Some websites block embedding using X-Frame-Options or Content-Security-Policy.
-
-	Option 2: Angular Module Federation (Recommended) : Each module can be its own Angular application.
-		The shell application loads the others dynamically.
-		Advantages
-		Shared login
-		Shared routing
-		Shared Angular runtime
-		Independent deployment
-		Very fast loading
-	Option 3: Reverse Proxy (Same Domain) : install another angular app in url like abc.com/login , abc.com/sanction
-		as they share same domain so data can be shared via localstorage and cookie
-
 
 Q. how to create a dynamic component in angular?
 A. with the help of mat dialogue. see in details.
@@ -1012,33 +1233,28 @@ Q. how to show multiple components dynamically.
 A. with the help of service. we pas component in servcie and with dialogue.open method we can show it.
 	if we have to pass data then with data parameter we pass the data.
 
-Q. in authguard for example canactivate,  can we pass multiple functions and if first one will fail then how another will call.
-	in which oerder functions will be called?
-A. 	Yes. In Angular, you can pass multiple guards in canActivate. 
-	They are executed in the order they appear in the array.
+Q. if i have to show one website in another website then how can we do it?
+A. Option 1: Use an <iframe> (Simplest)
+		Advantages
+			Very easy
+			Applications remain completely independent
+			Separate deployments
+		Disadvantages
+			Parent cannot directly access child variables or components.
+			Communication requires window.postMessage().
+			Some websites block embedding using X-Frame-Options or Content-Security-Policy.
 
-		import { Routes } from '@angular/router';
-		import { authGuard } from './guards/auth.guard';
-		import { roleGuard } from './guards/role.guard';
-		import { profileGuard } from './guards/profile.guard';
+	Option 2: Angular Module Federation (Recommended) : Each module can be its own Angular application.
+		The shell application loads the others dynamically.
+		Advantages
+		Shared login
+		Shared routing
+		Shared Angular runtime
+		Independent deployment
+		Very fast loading
+	Option 3: Reverse Proxy (Same Domain) : install another angular app in url like abc.com/login , abc.com/sanction
+		as they share same domain so data can be shared via localstorage and cookie
 		
-		export const routes: Routes = [
-		  {
-		    path: 'admin',
-		    component: AdminComponent,
-		    canActivate: [
-		      authGuard,
-		      roleGuard,
-		      profileGuard
-		    ]
-		  }
-		];
-		
-		The execution order is:
-		1. authGuard
-		2. roleGuard
-		3. profileGuard
-	If any how any guard returns false or redirect to another url then next guard will not be read and executed.
 
 Q. what is @defer @loading.  whats is its use and benefit.
 A. Imagine your dashboard contains: 
@@ -1179,6 +1395,14 @@ A. @ViewChild is a decorator used to get a reference to a single child component
 
 	@ViewChildren is similar to @ViewChild, but it retrieves all matching child components or elements and returns them as a QueryList. 
 	It's useful when there are multiple child instances, such as several tables, forms, or input fields that need to be managed together.
+	
+Q. what is content-child and content-children?
+A. 
+	| `@ContentChild` 					| `@ContentChildren` |
+	| Gets one item 					| Gets multiple items |
+	| Returns one reference 			| Returns `QueryList` |
+	| Used for single projected element/directive | Used for multiple projected elements/directives |
+	| Available after `ngAfterContentInit()` | Available after `ngAfterContentInit()` |
 
 Q. what is memory leaks?
 A. Memory leak means that memory is allocated but never released, even though your application no longer needs it.
@@ -1222,35 +1446,6 @@ A. trackBy is an Angular feature used with loops to help Angular identify which 
 	It improves performance by preventing Angular from recreating DOM elements unnecessarily.
 	without trackby if any changes will be done in array list then whole list will be created and updated in DOM.
 	with trackby only changed list will be added or updated in list.
-
-Q what is content projection in angular 
-A. Content Projection in Angular is a way to pass HTML (or components) from a parent component into a child component using <ng-content>.
-	It's similar to slots in Web Components or children props in React.
-	Instead of hardcoding content inside the child component, you let the parent decide what content should appear.
-
-	Why do we need Content Projection?
-	Suppose you create a reusable Card component.If you want to display:
-		Loan Details
-		Customer Details
-		Product Details
-	You would have to create multiple card components.
-	Instead, create one reusable Card component and let the parent supply the content.
-
-	Content Projection vs Input
-	Using @Input() : Limited to passing data.
-	Using Content Projection : Can pass: HTML, Components, Forms, Buttons, Tables, Images etc Much more flexible.
-
-	ContentChild : Sometimes the child component needs access to the projected content.
-		<app-card>		
-			<button #saveBtn> Save </button>
-		</app-card>
-		@ContentChild('saveBtn') saveButton!: ElementRef;
-		This is different from @ViewChild.
-
-	ViewChild													ContentChild
-	Accesses elements inside the component's own template		Accesses projected content from the parent
-	Uses @ViewChild												Uses @ContentChild
-	Works with the component's view								Works with <ng-content>
 
 Q. what is async pipe
 A. It automatically subscribes to an Observable or Promise, displays the latest emitted value in the template, 
@@ -1354,29 +1549,10 @@ Q what are the frameworks to write test cases in angular.
 A. jasmine and jest
 
 
-logical
-1. create a page architecture for listing of multiple student and form also for mmultiple student.
-2. how to implement lazy loading 
-3. how to implemnt authorisation steps 
-4. version control in angular 
-5. three select options are there, two have common data and third one have that common data. when a valuse is selected in third select option,
-   other select option automaticaly select the valuse that is selected in third select option
-6. real time chat application using angular 7 how to seacure a angular application
-
-code practice : 
-custom dirctive 
-custom pipe 
-custome validation 
- calling : debaunce, switchmap, mergecap etc
-
-
-
-
-chat GPT 
 
 
 Angular Architecture
-Q. Can you explain the architecture of an Angular application?
+
 Q. How does Angular's dependency injection work?
 A. What is Dependency Injection : 
    Dependency Injection (DI) in Angular is a design pattern that allows classes to be injected with dependencies rather than creating them directly.
@@ -1399,6 +1575,17 @@ A. What is Dependency Injection :
 
 Components and Modules
 Q. What are the main differences between components and directives in Angular?
+A. 
+| Component | Directive |
+
+| Used to create a **UI/view** 			| Used to **modify behavior or appearance** of existing elements |
+| Has a **template** 					| Usually doesn't have a template |
+| Uses `@Component()` 					| Uses `@Directive()` |
+| Has its own view/lifecycle 			| Works with an existing element/component |
+| Every component has a **selector** 	| Directive also has a selector |
+| Can contain directives 				| Can be applied to components/elements |
+| Example: `app-user` 					| Example: `appHighlight` |
+
 Q. How do you organize your Angular modules in a large application?
 A. 1. Core Module : Contains services, single-instance components, and application-wide logic that needs to be shared.
    2. Shared Module : Contains reusable components, directives, and pipes used across multiple modules.
@@ -1456,6 +1643,10 @@ A. 1. Optimize Change Detection: Use OnPush Change Detection:
 Q. What techniques do you use to reduce the bundle size of an Angular app?
 
 Testing
+Q. testing setup in angular, process
+A. The project you create with the CLI is immediately ready to test. Just run the ng test CLI command
+	The ng test command builds the application in watch mode, and launches the Karma test runner
+	
 Q. How do you approach testing in Angular?
 Q. What are some best practices for unit testing Angular components and services?
 
