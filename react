@@ -807,11 +807,8 @@ Q. What is Snapshot Testing?
 
 program : 
 
-Q. How do you pass data from parent to child in React?
-Q. How do you pass data from child to parent in React?
 Q. How to share data to independent component
 Q. How would you render 50,000 records efficiently in React?
-Q Build a custom hook and use it,
 Q. custom hook example for api 
 
 Q. Create an HTML form with: Name, Password, DOB,  Button
@@ -823,19 +820,158 @@ Q. call a api and get data, bind data in a table , if data is too much then what
 
 
 
+how react code runs 
+how react application builds
 what is react fiber 
 what is state closure 
-how react code runs 
-explain process of react application build 
-How  to shre data in two microfrontend application. how to set its state 
+How  to share data in two microfrontend application. how to set its state 
 redux and its concepts 
 
 
 Microfrontend architecture 
 symantic html nad its uses 
 
+Q. custom hook example 
+A.
+	import React from 'react';
+	import { useState} from 'react'
+
+	function counter(initial){
+	  const [count, setCount]=useState(initial);
+	  const handelIncr=()=>{ setCount(incr=>incr+1);}
+	  const handelDecr=()=>{ setCount(decr=>decr-1);}
+	  const handelReset=()=>{ setCount(initial);}
+	  return {count,handelIncr,handelDecr,handelReset}
+	}
+
+	function App() {
+	  const {count,handelIncr,handelDecr,handelReset}=counter(10);
+	  return (
+		<div>
+		  <p>count {count}</p>
+		  <button onClick={handelIncr}>+</button>
+		  <button onClick={handelDecr}>-</button>
+		  <button onClick={handelReset}>Reset</button>
+		</div>
+	  )
+	}
+	export default App
+
+Q. create react code to add button, on click of button increase number and show the updated numbers
+A. 
+	import { useState } from 'react'
+
+	function App() {
+	  const[count,setCount]=useState(0);
+	  const handleClick=()=>{
+		setCount(count=>count+1);
+	  }
+	  return (
+		<div>
+		<h1>Hello React {count}</h1>
+		<button onClick={handleClick}>Count +</button>
+		</div>
+	  )
+	}
+
+Q. show a list of data
+A. 
+	function App() {
+	  const listCount=[
+		{ id: 1, name: 'Gautam' },
+		{ id: 2, name: 'Rahul' },
+		{ id: 3, name: 'Amit' }
+	  ];
+	  return (
+		<div>
+		<h1>Hello React {listCount.length}</h1>
+		<ul>
+		  {listCount.map(usr=>(
+			  <li key={usr.id}>{usr.name}</li>
+		  ))
+		  }
+		</ul>
+		</div>
+	  )
+	}
+
+Q. call a api and show list of data
+A. 
+	import React from 'react';
+	import { useState,useEffect } from 'react'
+
+	function App() {
+	  const [listCount,setListCount]=useState([]);
+	  useEffect(()=>{
+		 fetch('https://jsonplaceholder.typicode.com/users')
+		  .then(response => response.json())
+		  .then(data => {
+			setListCount(data);
+		  })
+		  .catch(error => {
+			console.log(error);
+		  });
+	  },[]);
+	  return (
+		<div>
+		<h1>Hello React {listCount.length}</h1>
+		<ul>
+		  {listCount.map(usr=>(
+			  <li key={usr.id}>{usr.name}</li>
+		  ))
+		  }
+		</ul>
+		</div>
+	  )
+	}
+	export default App
 
 
+Q. parent to child data send
+A. 
+	import React from 'react';
+	function App() {
+	  const a="Gautam";
+	  return (
+		<div>
+		  <p>count</p>
+		  <ChildApp data={a} />
+		</div>
+	  )
+	}
+	function ChildApp({data}) {
+	  return (
+		<div>
+		  <p>Child {data}</p>
+		</div>
+	  )
+	}
+	export default App
 
 
-
+Q. parent to child 
+A. 
+	import React from 'react';
+	function App() {
+	  const getData=(received)=>{
+		console.log(received);
+	  }
+	  return (
+		<div>
+		  <p>count</p>
+		  <ChildApp senData={getData} />
+		</div>
+	  )
+	}
+	function ChildApp({senData}) {
+	  const handelClick=()=>{
+		senData("gautam");
+	  }
+	  return (
+		<div>
+		  <p>Child</p>
+		  <button onClick={handelClick}>send</button>
+		</div>
+	  )
+	}
+	export default App
