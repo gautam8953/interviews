@@ -365,7 +365,7 @@ console.log("end");
 
 // start a c e end b f d
 
-Q. find qoutput of this code : 
+Q. find output of this code : 
 (function(){
 	setTimeout(()=> console.log(1),2000);
 	
@@ -398,6 +398,29 @@ A.
 	1
 	Promise new  resolved
 	Promise  resolved
+
+async function one(){
+    console.log('A');
+    await Promise.resolve();
+    console.log('B');
+    return 'c';
+}
+async function two(){
+    console.log('D');
+    setTimeout(()=>{
+        console.log('E');
+    },0)
+    return 'F';
+}
+async function main(){
+    console.log('G');
+    const result = await Promise.all([one(),two()]);
+    console.log(result);
+}
+main();
+console.log('h');
+
+// output : G A D h B [ 'c', 'F' ] E
 
 
 Q find Output of below code : 
