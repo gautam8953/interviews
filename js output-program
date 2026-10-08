@@ -259,9 +259,12 @@ Q.
     }
     console.log(x);    // 10 as 20 is block scoped
 
+
 Q. code to short an array in ascending order.
 	const arr=[];
 A. arr.sort((a,b)=>a-b); console.log(arr);
+
+
 	
 Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	Console.log('1');
@@ -337,22 +340,6 @@ Q.
 		500 sec
 		1 sec
 
-Q find Output of below code : 
-function empName(){}
-empName.prototype={
-    names:[],
-    showName:function (){
-        return this.names;
-    }
-}
-var e1=new empName();
-e1.names.push("gautam");
-console.log(e1.showName()); // gautam
-
-var e2=new empName();
-e2.names.push("kumar");
-console.log(e2.showName()); // gautam kumar
-console.log(e1.showName()); // gautam kumar
 
 Q. find output of code : 
 console.log("start");
@@ -411,6 +398,43 @@ A.
 	1
 	Promise new  resolved
 	Promise  resolved
+
+
+Q find Output of below code : 
+function empName(){}
+empName.prototype={
+    names:[],
+    showName:function (){
+        return this.names;
+    }
+}
+var e1=new empName();
+e1.names.push("gautam");
+console.log(e1.showName()); // gautam
+
+var e2=new empName();
+e2.names.push("kumar");
+console.log(e2.showName()); // gautam kumar
+console.log(e1.showName()); // gautam kumar
+
+
+Q. wite program to arrange array as per output given
+A. 
+	const arr=[0,21,15,0,24,0,7];
+	// output [21,15,24,7,0,0,0]
+	let ind=0;
+	for(let i=0; i<arr.length; i++){
+	    if(arr[i]!=0){
+	        arr[ind]=arr[i];
+	        ind++;
+	    }
+	}
+	while(ind<arr.length){
+	    arr[ind]=0;
+	    ind++;
+	}
+	console.log(arr);
+
 
 Q. write cdoe to find filter unique object in below array. objects may have any number of data and may have different keys to.
 	like name in first index but in ther name may not be present or fname is present.
