@@ -1,22 +1,8 @@
-
-Q. pass by reference output - 
-A. 	
-	let person = {
-	    name: "Gautam"
-	};	
-	function changeName(user) {
-	    user.name = "Rahul";
-	}
-	changeName(person);
-	console.log(person.name);  output : Rahul
-	
+Q.  What is the output of 10+20+"30" in JavaScript?  3030
+Q. typeof(typeof(4+"7")) output : string 
 Q. If we want to return the character from a specific index which method is used?
 	var str="Javatpoint";    
 	document.writeln(str.charAt(4));
-	
-Q.  What is the output of 10+20+"30" in JavaScript?  3030
-
-Q. typeof(typeof(4+"7")) output : string 
 
 Q.  output 
     Falsy values: 
@@ -182,6 +168,17 @@ Q.  output
     console.log(0 ?? "default");    // 0
 
 
+Q. pass by reference output - 
+A. 	
+	let person = {
+	    name: "Gautam"
+	};	
+	function changeName(user) {
+	    user.name = "Rahul";
+	}
+	changeName(person);
+	console.log(person.name);  output : Rahul
+
 Q.  const a = [];
     const b = a;
     console.log(a === b);
@@ -266,6 +263,11 @@ Q.
     }
     console.log(x);    // 10 as 20 is block scoped
 
+Q. find the output of this code
+	const arr=['2','5','7','8'];
+	arr.length=0;
+	console.log(arr);		// []
+	console.log(arr[1]);	// undefined
 
 Q. code to short an array in ascending order.
 	const arr=[];
