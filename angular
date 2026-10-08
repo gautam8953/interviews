@@ -1688,6 +1688,37 @@ A.
 	distinctUntilChanged avoids duplicate searches.
 	switchMap cancels the previous request when a new search comes.
 
+
+this.searchControl.valueChanges.pipe(
+
+      // Wait 500ms after user stops typing
+      debounceTime(500),
+
+      // Don't call API for same value
+      distinctUntilChanged(),
+
+      // Call API with latest search value
+      switchMap(searchText => {
+
+        if (!searchText?.trim()) {
+          return of([]);
+        }
+
+        return this.http.get<any[]>(
+          `https://api.example.com/users?search=${searchText}`
+        );
+      })
+
+    ).subscribe({
+      next: (data) => {
+        this.results = data;
+      },
+
+      error: (error) => {
+        console.error('Search API error:', error);
+      }
+    });
+
 Q. How would you improve Angular application performance?
 A. I approach performance from multiple levels.
 	Application level
@@ -1882,9 +1913,339 @@ Explained the Omit utility type and its use cases
 Shared my hands-on experience working with TypeScript in real projects
 Discussed my approach to writing test cases
 
+
+
 Angular codes : 
-1. custom validations 
-2. custom pipes example
-3. custom directive example, if like, chnage element
-4. api calling 
-5. routing example
+
+
+ 
+custom directive :
+
+<p appHighlight>Highlight me</p>
+import{Directive, ElementRef, HostListener} from '@angular/core';
+@Directive({
+	selector:'[highlight]',
+})
+export class HighlightDirective{
+	constructor (private eleRef: ElementRef){ }
+	@HostListerner ('mouseover') on MouseOver(){
+		this.eleRef.nativeElement .style.color ='green';
+	}
+	@hostListener('mouseleave') onMouseLeave(){
+		this.eleRef.nativeElement.style.color='black' ;
+	}
+}
+
+passing parameter in custom directive : 
+
+<p [appHighlight]="'yellow'">Hello Angular</p>
+export class HighlightDirective{
+	@Input() appHighlight: string = '';
+	@HostListerner ('mouseover') on MouseOver(){
+		this.el.nativeElement.style.backgroundColor = this.appHighlight;
+	}
+}
+
+
+If like custom directive : 
+
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+@Directive({
+  selector: '[appIf]'
+})
+export class AppIfDirective {
+  private hasView = false;
+  @Input() set appIf(condition: boolean) {
+
+    if (condition && !this.hasView) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
+      this.hasView = true;
+    } 
+    else if (!condition && this.hasView) {
+      this.viewContainer.clear();
+      this.hasView = false;
+    }
+  }
+
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef
+  ) {}
+}
+
+
+custom pipe example code : 
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'uppercase'
+})
+export class UppercasePipe implements PipeTransform {
+
+  transform(value: string): string {
+    return value.toUpperCase();
+  }
+}
+
+custom validation code : 
+
+1. create custom validation in seprate ts file custom-validation.ts
+
+	import { AbstractControl, ValidationErrors } from '@angular/forms';
+
+	export function noAdminValidator(
+	  control: AbstractControl
+	): ValidationErrors | null {
+
+	  if (control.value?.toLowerCase().includes('admin')) {
+		return { noAdmin: true };
+	  }
+
+	  return null;
+	}
+	
+2. if want to get value of any other formCOntrol then
+	let pswrd=control.get('password').value;
+	
+3. import custom validation in component 
+	import { noAdminValidator } from './validators/no-admin.validator';
+	
+4. add custom validation in reactive form 
+	this.loginForm = this.formBuilder.group({
+      username: ["", [Validators.required,noAdminValidator]],
+      password: ["", [Validators.required]],
+    });
+
+
+Intercepter implementation in standalone project
+
+1. create auth.interceptor.ts file 
+
+	import { HttpInterceptorFn } from '@angular/common/http';
+
+	export const authInterceptor: HttpInterceptorFn = (req, next) => {
+
+	  const token = localStorage.getItem('token');
+
+	  if (token) {
+		req = req.clone({
+		  setHeaders: {
+			Authorization: `Bearer ${token}`
+		  }
+		});
+	  }
+
+	  return next(req);
+	};
+	
+	
+Intercepter with httpstatus handel : 
+
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { catchError, tap, throwError } from 'rxjs';
+
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+
+  const router = inject(Router);
+
+  // Get token
+  const token = localStorage.getItem('token');
+
+  // Add token to request
+  if (token) {
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
+
+  return next(req).pipe(
+
+    // Handle successful response
+    tap(event => {
+		if (event.type === HttpEventType.Response) {
+			const body = event.body;
+		}),
+	}),
+
+    // Handle HTTP errors
+    catchError((error: HttpErrorResponse) => {
+		if(error.status==500){
+			alert('server error')
+		}
+		return throwError(() => error);	// Important: send error back to component
+    })
+  );
+};
+
+
+2. Register the interceptor in app.config.ts file 
+
+	import { ApplicationConfig } from '@angular/core';
+	import { provideHttpClient, withInterceptors } from '@angular/common/http';
+
+	import { authInterceptor } from './interceptors/auth.interceptor';
+
+	export const appConfig: ApplicationConfig = {
+	  providers: [
+		provideHttpClient(
+		  withInterceptors([
+			authInterceptor
+		  ])
+		)
+	  ]
+	};
+	
+3. common http event type  values: 
+
+	HttpEventType.Sent
+	HttpEventType.UploadProgress
+	HttpEventType.ResponseHeader
+	HttpEventType.DownloadProgress
+	HttpEventType.Response
+	
+
+
+Steps to add intercepter in module based project 
+
+
+1. create intercepter using command 
+	ng generate interceptor auth
+	
+	import {
+	  HttpErrorResponse,
+	  HttpEvent,
+	  HttpHandler,
+	  HttpInterceptor,
+	  HttpRequest,
+	  HttpResponse
+	} from '@angular/common/http';
+
+	import { Injectable } from '@angular/core';
+	import { Router } from '@angular/router';
+	import { Observable, throwError } from 'rxjs';
+	import { catchError, tap } from 'rxjs/operators';
+
+	@Injectable()
+	export class AuthInterceptor implements HttpInterceptor {
+
+	  constructor(
+		private router: Router
+	  ) {}
+
+	  intercept(
+		request: HttpRequest<any>,
+		next: HttpHandler
+	  ): Observable<HttpEvent<any>> {
+
+		// Get token
+		const token = localStorage.getItem('token');
+
+		// Add token
+		if (token) {
+
+		  request = request.clone({
+			setHeaders: {
+			  Authorization: `Bearer ${token}`
+			}
+		  });
+
+		}
+
+		return next.handle(request).pipe(
+
+		  // Handle successful response
+		  tap((event: HttpEvent<any>) => {
+
+			if (event instanceof HttpResponse) {
+
+			  const body = event.body;
+
+			  // 200 but no data
+			  if (
+				body === null ||
+				body === undefined ||
+				(Array.isArray(body) && body.length === 0)
+			  ) {
+				alert('No data found');
+			  }
+
+			}
+
+		  }),
+
+		  // Handle errors
+		  catchError((error: HttpErrorResponse) => {
+			if(error.status) {
+			  alert(error.error?.message || 'Bad request')
+			}
+			return throwError(error);	// Pass error back to component
+		  })
+
+		);
+	  }
+	}
+
+2. add intercepter in app.module.ts file provider array
+
+	import { HTTP_INTERCEPTORS } from '@angular/common/http';
+	import { AuthInterceptor } from './interceptors/auth.interceptor';
+	
+	providers: [
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+
+  ],
+  
+  
+  
+ implementation of authguard in module based project 
+ 
+1. generate guard using command ng generate guard guards/auth
+2. add guard to route canActivate: [AuthGuard]
+
+in standalone application 
+1. same way generate guard and add in route.
+2. in standalone it will create function guard and in old its class based
+
+
+switchmap, deboucetime implementation 
+
+	this.searchControl.valueChanges.pipe(
+
+      // Wait 500ms after user stops typing
+      debounceTime(500),
+
+      // Don't call API for same value
+      distinctUntilChanged(),
+
+      // Call API with latest search value
+      switchMap(searchText => {
+
+        if (!searchText?.trim()) {
+          return of([]);
+        }
+
+        return this.http.get<any[]>(
+          `https://api.example.com/users?search=${searchText}`
+        );
+      })
+
+    ).subscribe({
+      next: (data) => {
+        this.results = data;
+      },
+
+      error: (error) => {
+        console.error('Search API error:', error);
+      }
+    });
