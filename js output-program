@@ -532,3 +532,13 @@ let c=b.map((char,index)=>{
 .join("");
 console.log(c);
 or let result = txt.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+
+Q. 
+	var arr=["a","b","c","d","e","f"];
+	var ind=[2,3,4,0,5,1];
+	var newArr=[];
+	// output: ["d","f","a","b","c","e"]
+	for(let i=0;i<arr.length;i++){
+	    newArr[ind[i]]=arr[i];
+	}
+	console.log(newArr);
