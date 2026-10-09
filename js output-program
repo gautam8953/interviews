@@ -518,3 +518,17 @@ function uniqueObjects(arr) {
 
     return result;
 }
+
+
+Q. 
+let txt="person_first_name";
+//output "personFirstName"
+let b=txt.split('_');
+let c=b.map((char,index)=>{
+    let str=char.replace(char.charAt(0),char.charAt(0).toUpperCase());
+    if(index==0){ str= char; }
+    return str;  
+})
+.join("");
+console.log(c);
+or let result = txt.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
