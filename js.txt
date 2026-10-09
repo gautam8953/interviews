@@ -433,6 +433,10 @@ Q.Differene between innerText and innerHTML
 	It ignores the spaces.						It considers the spaces.
 	It returns text without an inner element tag.			It returns a tag with an inner element tag.
 
+Q. what is event deligation?
+A. Event Delegation is a JS technique in which we attach a single event listener to a parent element 
+	instead of attaching separate event listeners to each child element
+
 Q. What is event bubbling? 
 Ans. JavaScript allows DOM elements to be nested inside each other. In such a case, if the handler of the child is clicked, 
 	the handler of the parent will also work as if it were clicked too.
