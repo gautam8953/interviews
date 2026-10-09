@@ -1744,13 +1744,20 @@ Testing
 Q. testing setup in angular, process
 A. The project you create with the CLI is immediately ready to test. Just run the ng test CLI command
 	The ng test command builds the application in watch mode, and launches the Karma test runner
-	
+
+Q.  name testing frameworks available in angular 
+A. Jasmine, Karma, Jest, Vitest, Cypress, and Playwright.
+
 Q. How do you approach testing in Angular?
+
+Q. what are unit test cases?
+Q. what are achived via unit test cases?
 Q. What are some best practices for unit testing Angular components and services?
 
 Angular CLI and Build Process
 Q. How do you use Angular CLI in your development workflow?
 Q. Can you explain the build process of an Angular application?
+Q. what is describe 
 
 Practical Experience
 
