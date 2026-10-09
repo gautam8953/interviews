@@ -1808,7 +1808,7 @@ this.searchControl.valueChanges.pipe(
       error: (error) => {
         console.error('Search API error:', error);
       }
-    });
+    }); 
 
 Q. How would you improve Angular application performance?
 A. I approach performance from multiple levels.
