@@ -753,9 +753,9 @@ A. "View state" is specific to a page in a session whereas
 Q. Define closure.
    A closure is created when an inner function remembers and can access variables from its outer function's scope 
    even after the outer function has finished executing.
+	A function can remember variables from its outer lexical scope even after the outer function has finished execution. 
 
 	Closures are mainly used to preserve state and provide data encapsulation.
-	A function can remember variables from its outer lexical scope even after the outer function has finished execution. 
 	Common real-world uses include private variables, function factories, callbacks, event handlers, timers, and maintaining state.
 
 	function outer() {
