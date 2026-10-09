@@ -1718,6 +1718,13 @@ A. 1. Optimize Change Detection: Use OnPush Change Detection:
      Limit change detection to only when an input property changes - changeDetection: ChangeDetectionStrategy.OnPush
      Detach Change Detection for Non-Interactive Components:  - constructor(private cdr: ChangeDetectorRef) {}  this.cdr.detach();
    2. Lazy Loading of Modules
+	3. trackBy
+	4. don't show all api data at one go, use pagination 
+	5 don't call function from html us pipe instead 
+	6. reusable component 
+	7. Avoid Memory Leaks, unsubcribe or async pipe 
+	8. don't put everything in service, create helper file, it don't need dependency
+
    3. Use Ahead-of-Time (AOT) Compilation
    4. Optimize Template Rendering
    5. Use Angular CLI Build Optimizations - ng build --prod
@@ -1729,7 +1736,7 @@ A. 1. Optimize Change Detection: Use OnPush Change Detection:
    11. Monitor and Debug Performance
    12. Optimize Forms
    14. Use Content Delivery Network (CDN) - Serve assets like font, third party css from cdn 
-   15. Avoid Memory Leaks
+   15. 
 
 Q. What techniques do you use to reduce the bundle size of an Angular app?
 
