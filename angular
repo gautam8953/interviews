@@ -1044,6 +1044,37 @@ A. Angular provides HttpClient Module that you can use to consume any API.
 	}
 
 
+Q. How do you handle global error interception and retries in HTTP requests using RxJS operators?
+A. catchError() handles errors, such as HTTP 400, 401, 403, 404, and 500.
+	retry() retries failed requests a specified number of times.
+	throwError() forwards the error to the calling component when necessary.
+
+	import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+	import { catchError, retry, throwError } from 'rxjs';
+	
+	export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+	  return next(req).pipe(
+	    // Retry failed requests up to 2 times
+	    retry({
+	      count: 2,
+	      delay: (error: HttpErrorResponse, retryCount: number) => {
+	        // Retry only network errors and server errors
+	        if (error.status === 0 || error.status >= 500) {
+	          return throwError(() => error);
+	        }
+	
+	        // Do not retry client errors such as 400 or 401
+	        return throwError(() => error);
+	      }
+	    }),
+	
+	    catchError((error: HttpErrorResponse) => {
+	      console.error('HTTP Error:', error.status, error);
+	      return throwError(() => error);
+	    })
+	  );
+	};
+
 Q. Difference between ng-template, ng-container and ng-content
 A. ng-content is used to display children in a template, 
 	ng-container is used as a non-rendered container to avoid having to add a span or a div, 
