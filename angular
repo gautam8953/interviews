@@ -806,6 +806,66 @@ A. Debouncing : Debouncing delays the execution of a function until a specified 
 		  console.log("Scroll");
 		});
 
+Q. How do you combine multiple asynchronous data streams using operators like combineLatest, forkJoin, or withLatestFrom?
+A. use combineLatest() when I need continuously updated combined state, 
+	forkJoin() when I need to wait for multiple finite API calls to complete, 
+	withLatestFrom() when one stream, such as a button click, should trigger an operation using the latest values from other streams.
+
+	1. combineLatest() — Get the latest values
+	Use case: Combine streams that update independently, such as user details and loan status.
+	Example: If the user details change, the combined result emits again with the latest loan status.
+
+	import { combineLatest } from 'rxjs';	
+	combineLatest([
+	  this.userService.getUser(),
+	  this.loanService.getLoanStatus()
+	]).subscribe(([user, status]) => {
+	  console.log(user, status);
+	});
+
+	How it works:
+	- Waits until every Observable emits at least once.
+	- Emits whenever any source emits afterward.
+	- Provides the latest value from each source.
+
+	2. forkJoin() — Wait for all to complete
+	Use case: Load multiple independent API responses when a page initializes.
+	Important: If one source never completes, forkJoin() will not emit. 
+	If a source errors, the combined Observable errors unless the error is handled.
+
+	import { forkJoin } from 'rxjs';	
+	forkJoin({
+	  users: this.userService.getUsers(),
+	  loans: this.loanService.getLoans(),
+	  branches: this.branchService.getBranches()
+	}).subscribe(({ users, loans, branches }) => {
+	  console.log(users, loans, branches);
+	});
+	
+	How it works:
+	- Waits for all Observables to emit and complete.
+	- Emits their final values once.
+	- Commonly used with Angular HttpClient, whose normal response Observables complete after the response.
+
+	3. withLatestFrom() — Trigger using one main stream
+	Use case: Submit a loan application using the latest form data or selected customer information.
+
+	For a real form, initialize the form stream with its current value if the user may click Submit before changing any field. 
+	For example, use startWith(this.loanForm.value).
+
+	import { withLatestFrom } from 'rxjs';	
+	this.submitButtonClicks.pipe(
+	  withLatestFrom(this.loanForm.valueChanges)
+	).subscribe(([click, formValue]) => {
+	  console.log('Submit form:', formValue);
+	});
+
+	How it works:
+	- The click stream triggers the output.
+	- It combines the click with the latest value emitted by valueChanges.
+	- It emits only after valueChanges has emitted at least once.
+
+
 Q. what is hot and cold obervable?
 A. Cold Observable → each subscriber gets its own execution.
 	Hot Observable → subscribers share the same execution/source.
