@@ -310,6 +310,20 @@ A. Decorators are functions that are invoked with a prefixed @ symbol,
     4.Parameter Decorators: Parameter decorators allow us to decorate parameters in our class constructors.  
            @Inject () is a common and widely used parameter decorator. Using this decorator, we can inject services in Angular classes
 
+Q. hwo to access route paramter angular?
+A. this.ActivatedRoute.snapshot.paramMap.get('id');
+
+	// if router parameter can change while angular reuses same component , then to get latets data
+ 	this.ActivatedRoute.paramMap.subscribe(params => {
+      this.userId = params.get('id') ?? '';
+    });
+
+	// to get query paramter
+	this.ActivatedRoute.queryParamMap.subscribe(params => {
+	  console.log(params.get('name')); // Gautam
+	  console.log(params.get('role')); // admin
+	});
+
 Q. how to implement routing in angular application?
 A. module base project, if routing not added add by below command.
 	ng new my-app --no-standalone
