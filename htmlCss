@@ -451,5 +451,14 @@ A. MathML stands for Mathematical Markup Language.
 Q. What are void elements in HTML? no closing tag 
 
 Q. how webpage dispalyed in webbrowser. show process steps.
+A. Broswer send http req and receive HTML response
+	browser parse the html and create dom tree
+	read css and creates cssom tree
+	dom and csson merge into render tree, 
+	only display item added in render tree, so script tag, display none not added here
+	browser calculate height & position of each element in browser 
+	browser fill the pixel with color,border,images etc
+	layer added in browser means which content in top and which in behind
+	final screen displays in browser screen
 
 Q. can you make a jpg design to html
