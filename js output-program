@@ -273,6 +273,15 @@ Q. code to short an array in ascending order.
 	const arr=[];
 A. arr.sort((a,b)=>a-b); console.log(arr);
 
+Q. find the missing number;
+A.
+	const arr=[1,2,4,5,7,8,9];
+	let setData=new Set(arr);
+	for(let i=1; i<arr[arr.length-1];i++){
+	    if(!setData.has(i)){
+	        console.log(i);
+	    }
+	}
 
 	
 Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
