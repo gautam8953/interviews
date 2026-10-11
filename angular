@@ -30,6 +30,43 @@ A.
 in angular form, routing, http method is build it
 but in react you have to import packages.
 
+
+Q. jit and aot 
+A. The main differences between JIT and AOT in Angular are:
+   Just-in-Time (JIT), compiles your app in the browser at runtime.
+   1. laods application slower as it need to compile the application when running for the first time
+   2. it download compiler nad compiles the application before displaying 
+   3. since code include compiler code, so bundle size will be high
+   4. suitable for development 
+   5. example command : ng serve, ng build 
+   6. template binding error can be viewd at the time of displaying application
+   
+   Ahead-of-Time (AOT), compiles your app at build time on the server.
+   1. laods application quiclly than jit
+   2. doesn't need to downlaod compiler as already compiles the code while building application
+   3. since compiled and optimized so bundle size is less
+   4. suitable for production
+   5. example command : ng serve --aot, ng build --aot , ng build --prod
+   6. template binding error are sgown at time of building
+
+Q. What is Angular Ivy?
+A: 	A big part of Angular is its compiler: it takes all your HTML and generates the necessary JS code. 
+	This compiler (and the runtime) has been completely rewritten over the last year, and this is what Ivy is about. 
+	The last rewrite was done in Angular 4.0.
+	Ivy is a complete rewrite of the compiler (and runtime) in order to:
+	reach better build times (with a more incremental compilation)
+	reach better build sizes (with a generated code more compatible with tree-shaking)
+	unlock new potential features (metaprogramming or higher order components, lazy loading of component instead of modules, a new change detection system not based on zone.js…)
+	
+Q. What is Bazel?
+	Google open sourced the software responsible for building most of its projects under the name Bazel. 
+	Bazel is a powerful tool which can keep track of the dependencies between different packages and build targets.
+	Some of the features of Bazel are:
+	1. It has a smart algorithm for determining the build dependencies - 
+		based on the dependency graph of a project, Bazel determines which targets it can build in parallel
+	2. Bazel is independent of the tech stack. We can build anything we want with it using the same interface. 
+		For example, there are plugins for Java, Go, TypeScript, JavaScript, and more
+
    
 Q. latest angular version -> whats new in it -> latest angular worked on 
 A. 
@@ -37,28 +74,18 @@ A.
 Angular 2 : Component architecture
 Angular 4–8 : CLI + improved framework
 Angular 9 : Ivy
-Angular 14 : Standalone components introduced
-Angular 16 : Signals introduced, Modern reactive Angular
-Angular 17 : New control flow, @for, @if, @switch
-Angular 18 : More signal-based / modern Angular architecture
+Angular 14 : Standalone components introduced, Typed Reactive Forms, `inject()` function
+Angular 15 | Standalone APIs stable, MDC-based Angular Material
+Angular 16 : Signals introduced, standalone stable, `DestroyRef`, `takeUntilDestroyed()`, required inputs, hydration
+Angular 17 : @for, @if, @switch, @defer
+Angular 18 : Zoneless preview, material 3
+Angular 19 | Standalone components/directives/pipes become default, resource APIs/dev improvements
+Angular 20 | `effect()`/signal stable, `@let`, signal form for developer
+Angular 21 | signals-form introcduced, zoneless default
+Angular 22 | signals-form stable, 
 
-Angular 14 | Standalone Components introduced, Typed Reactive Forms, `inject()` function
-Angular 15 | Standalone APIs stable, Directive Composition API, Image Optimization (`NgOptimizedImage`), MDC-based Angular Material
-Angular 16 | Signals introduced, `DestroyRef`, `takeUntilDestroyed()`, required inputs, hydration, standalone by default direction
-Angular 17 | New control flow `@if`, `@for`, `@switch`, `@defer`, new Angular branding/dev experience, improved SSR/hydration
-Angular 18 | Zoneless preview, Signals improvements, material 3, built-in control flow stable, improved SSR/hydration
-Angular 19 | Standalone components/directives/pipes become default, incremental hydration, linked signals, resource APIs/dev improvements
-Angular 20 | Signals become more central, `effect()`/signal APIs mature, `@let`, improved resource APIs, zoneless becomes more practical, modern SSR
-Angular 21 | Modern Angular architecture continues: zoneless, signals, incremental hydration, improved developer tooling/build performance
-Angular 22 | signals-first APIs, zoneless, modern control flow, improved SSR/hydration and tooling
 
-Feature					Angular 20			Angular 21			Angular 22
-Signals					✅ Stable			✅ Improved	✅ 		Default ecosystem
-Signal Forms			Preview	Developer 	Preview				✅ Stable
-Zoneless				Stable (20.2)		Improved			✅ Default
-Route-level Rendering	✅ Stable			Improved			Improved
-
-Q. What are the important changes introduced in modern Angular?
+Q. What are the important changes introduced in modern Angular or from angular 14?
 A. Important modern Angular concepts include:
 	Standalone components
 	Signals
@@ -66,21 +93,97 @@ A. Important modern Angular concepts include:
 	@if
 	@for
 	@switch
-	Improved dependency injection
+	Improved dependency injection : @inject()
 	Functional guards
 	Functional interceptors
 	Improved lazy loading
 	Deferrable views using @defer
 	Better SSR/hydration capabilities
-	Improved build system
 	Modern Angular template syntax
 	Zoneless possibilities in newer Angular versions
+	Improved build system
 
 Q. angular project setup -> how code generate
 Ans. install nodejs. npm installed by default. 
 	Then install angular by command npm install -g @angular/cli
     -g means it will be installed globaly. 
 	for specific version npm install -g @angular/cli@8.3.19
+	
+Q. list important angular comands?
+A.  now use --no-standalone for module based &
+	--no-zoneless  for zonebased project.
+
+
+a. 
+Standalone + zoneless (modern default)	ng new my-app --standalone --zoneless
+Standalone + Zone.js					ng new my-app --standalone --zone.js
+Module-based + zoneless					ng new my-app --no-standalone --zoneless
+Module-based + Zone.js					ng new my-app --no-standalone --no-zoneless
+With routing							ng new my-app --routing
+With SCSS								ng new my-app --style=scss
+With SSR								ng new my-app --ssr
+
+b. Generate components, services, and other files
+Task								Command
+Component							ng g c home
+Standalone component				ng g c home --standalone
+Component in a module-based app		ng g c home --standalone=false
+Service								ng g s services/user
+Module								ng g m features/admin
+Module with routing					ng g m features/admin --routing
+Directive							ng g d directives/highlight
+Pipe								ng g p pipes/currency-format
+Class								ng g class models/user
+Interface							ng g interface models/user
+Enum								ng g enum models/status
+Guard								ng g guard auth
+Interceptor							ng g interceptor auth
+Resolver							ng g resolver user
+Application							ng g application admin
+Library								ng g library shared-ui
+
+c. Important development commands
+Task								Command
+Run application						ng serve
+Run on a specific port				ng serve --port 4300
+Create production build				ng build
+Run unit tests						ng test
+Check Angular version				ng version
+Install Angular CLI globally		npm install -g @angular/cli
+Update Angular						ng update @angular/core @angular/cli
+See available options				ng g c --help
+Preview generated files without creating them	ng g c home --dry-run
+
+d. Routing commands
+Task									Command
+Create app with routing					ng new my-app --routing
+Generate a routing module				ng g m app-routing --flat
+Generate a feature module with routing	ng g m features/products --routing
+Generate a lazy-loaded module			ng g m features/admin --route admin --module app.module
+
+For a standalone app, configure routes in app.routes.ts and register them using provideRouter(routes). 
+
+
+e. Common generator options
+Option						Meaning
+--standalone				Generate as standalone
+--standalone=false			Generate as module-based
+--skip-tests				Skip spec test file
+--inline-template			Put HTML inside the TypeScript file
+--inline-style				Put CSS inside the TypeScript file
+--flat						Create file without a new folder
+--dry-run					Preview changes without writing files
+--force						Overwrite existing files
+--change-detection=OnPush	Set OnPush change detection for a component
+
+
+Q. how many files generated in component and use of it
+Ans. 4 files are generated. CSS, HTML, SPEC, TS
+      A. CSS -> for style 
+      B. HTML -> for display 
+      C. SPEC -> The spec files are unit tests for your source files. The convention for Angular applications is to have a .spec.ts file for each .ts file. 
+         They are run using the Jasmine javascript test framework through the Karma test runner (https://karma-runner.github.io/) when you use the ng test command
+      D. TS -> for logics and 	
       
 Q. angular architecture 
 Ans. Here’s a list of the most important files on the root folder, created by Angular CLI:
@@ -151,27 +254,6 @@ dist/
     │
     └── ...
 	
-Q. command to generate application, component, model, module, service etc
-A. 	application : now standalone application by default
-		ng new newApp  or ng new newApp --standalone
-		ng new newApp --no-standalone	// old modulebased project
-		
-	component: now standalone application by default 
-		ng generate component user	or 	ng g c user --standalone
-		ng g c user --standalone=false	// old module based
-	model: Angular CLI does not have a dedicated model generator.
-		ng g interface user
-		ng g class user
-	module: ng g module user
-	service: ng g service user
-
-Q. how many files generated in component and use of it
-Ans. 4 files are generated. CSS, HTML, SPEC, TS
-      A. CSS -> for style 
-      B. HTML -> for display 
-      C. SPEC -> The spec files are unit tests for your source files. The convention for Angular applications is to have a .spec.ts file for each .ts file. 
-         They are run using the Jasmine javascript test framework through the Karma test runner (https://karma-runner.github.io/) when you use the ng test command
-      D. TS -> for logics and 
    
 Q.  angular code execution flow 
 Ans. angular.json -> angular-cli configuration file main.ts -> Angular module bootstrap application file. 
@@ -310,7 +392,7 @@ A. Decorators are functions that are invoked with a prefixed @ symbol,
     4.Parameter Decorators: Parameter decorators allow us to decorate parameters in our class constructors.  
            @Inject () is a common and widely used parameter decorator. Using this decorator, we can inject services in Angular classes
 
-Q. hwo to access route paramter angular?
+Q. how to access route paramter angular?
 A. this.ActivatedRoute.snapshot.paramMap.get('id');
 
 	// if router parameter can change while angular reuses same component , then to get latets data
@@ -324,6 +406,14 @@ A. this.ActivatedRoute.snapshot.paramMap.get('id');
 	  console.log(params.get('role')); // admin
 	});
 
+Q. process to add a new url in a project 
+A. 1. Define the Component for the New Route
+   2. Import the RouterModule in Your corresponding Module of the component
+   3. Define the Route in the Routing Module which is imported in above module
+
+   4. Add Router Outlet in the Template  - <router-outlet></router-outlet>
+   5. Add Links to Navigate to the New Route - <a routerLink="/new-page">Go to New Page</a>
+   
 Q. how to implement routing in angular application?
 A. module base project, if routing not added add by below command.
 	ng new my-app --no-standalone
@@ -479,24 +569,6 @@ A. authentication : Authentication (AuthN) is a process that verifies that someo
    authorization : Authorization is the security process that determines a user or service's level of access.
    after login determine waht manager user have access and what employee user has access.
 
-Q. jit and aot 
-A. The main differences between JIT and AOT in Angular are:
-   Just-in-Time (JIT), compiles your app in the browser at runtime.
-   1. laods application slower as it need to compile the application when running for the first time
-   2. it download compiler nad compiles the application before displaying 
-   3. since code include compiler code, so bundle size will be high
-   4. suitable for development 
-   5. example command : ng serve, ng build 
-   6. template binding error can be viewd at the time of displaying application
-   
-   Ahead-of-Time (AOT), compiles your app at build time on the server.
-   1. laods application quiclly than jit
-   2. doesn't need to downlaod compiler as already compiles the code while building application
-   3. since compiled and optimized so bundle size is less
-   4. suitable for production
-   5. example command : ng serve --aot, ng build --aot , ng build --prod
-   6. template binding error are sgown at time of building
-
 Q. what is auth guard?
 A. AuthGuard is used to protect the routes from unauthorized access in angular. 
 	Auth guard provide lifecycle event called canActivate. The canActivate is like a constructor. 
@@ -518,6 +590,23 @@ A. AuthGuard is used to protect the routes from unauthorized access in angular.
 	Resolve : 
 		Loads required data before the route is activated.
 		Technically a resolver, not an auth guard.
+
+Q. different auth guards present in angular
+A. Route Guards are used to control navigation between routes
+	Guard				Purpose
+	CanActivate			Controls whether a route can be activated
+	CanActivateChild	Controls whether child routes can be activated
+	CanDeactivate		Prevents leaving a route
+	CanMatch			Controls whether a route matches during routing (modern replacement for many CanLoad scenarios)
+	CanLoad				Prevents loading a lazy-loaded module (legacy, still available)
+	Resolve (Resolver)	Loads required data before route activation
+
+Q.	CanMatch vs CanLoad
+A.	CanMatch									CanLoad
+	Modern and recommended						Older approach
+	Controls whether a route matches			Controls whether a lazy module is loaded
+	Works well with standalone components 		Mainly for lazy-loaded modules
+	and lazy loading
 	
 Q. how to protetct a root from unauthorise access
 A. by using auth guard canActivate method.
@@ -567,6 +656,64 @@ A. import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationC
 		// RoutesRecognized
 	  });
 	}
+
+Q. How do you handle global error interception and retries in HTTP requests using RxJS operators?
+A. catchError() handles errors, such as HTTP 400, 401, 403, 404, and 500.
+	retry() retries failed requests a specified number of times.
+	throwError() forwards the error to the calling component when necessary.
+
+	import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+	import { catchError, retry, throwError } from 'rxjs';
+	
+	export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+	  return next(req).pipe(
+	    // Retry failed requests up to 2 times
+	    retry({
+	      count: 2,
+	      delay: (error: HttpErrorResponse, retryCount: number) => {
+	        // Retry only network errors and server errors
+	        if (error.status === 0 || error.status >= 500) {
+	          return throwError(() => error);
+	        }
+	
+	        // Do not retry client errors such as 400 or 401
+	        return throwError(() => error);
+	      }
+	    }),
+	
+	    catchError((error: HttpErrorResponse) => {
+	      console.error('HTTP Error:', error.status, error);
+	      return throwError(() => error);
+	    })
+	  );
+	};
+	
+Q. process to call a api in angular?
+A. Angular provides HttpClient Module that you can use to consume any API. 
+	First, you need to import the module in the AppModule or any other parent module and add it in the imports array.
+	import { HttpClientModule } from '@angular/common/http';
+	Once it is added in the module you can import that in any service. 
+	
+	Then create a service and inject the HttpClient in the constructor. 
+	Then create methods and use it accordingly. These methods return Observable.
+	
+	import { Injectable } from '@angular/core';
+	import { HttpClient } from '@angular/common/http';
+
+	@Injectable({
+	  providedIn: 'root'
+	})
+	export class AppService {
+
+	  constructor(private http: HttpClient) { }
+
+	  rootURL = '/api';
+
+	  getUsers() {
+		return this.http.get(this.rootURL + '/users');
+	  }
+
+	}
 	
 Q. what is pipes? difference in pure and impur pipes?
 A. Pipes are simply a function that we can directly apply on any expression/value in a template to transform it into some other value.
@@ -581,7 +728,7 @@ A. Pipes are simply a function that we can directly apply on any expression/valu
 	1. Pure Pipes : A pure pipe is only called when Angular detects a change in the value or the parameters passed to a pipe.  
 	2. Impure Pipes : An impure pipe is called for every change detection cycle no matter whether the value or parameter(s) changes
 
-Q. Explain Components, Modules and Services in Angular. nad how to create it.
+Q. Explain Components, Modules and Services in Angular. and how to create it.
 A. component is basic building block of a UI in an Angular application.
 	It comes as a directive with a special decorator (@Component) and template.
 	Component decorator allows you to mark a class as an Angular component 
@@ -632,6 +779,14 @@ A. Data Binding can be best described as a technique that is used to link the ap
 	3. Event binding      ( )
 	4. Two-way binding    [( )]
 	
+
+Aspect				One-way Binding						Two-way Binding
+Data Flow			One direction (Model ➔ View)		Both directions (Model ⇄ View)
+Update Behavior		UI updates when the model changes	Model and UI update each other in sync
+Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchronization
+Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
+Complexity			Simpler to implement and debug		More complex, can introduce data flow issues
+	
 Q. Explain Event Binding? <button (click)="raiseVolume()"></button>
    Commonly Used Events
    1. Mouse Events: click, dblclick, mousedown, mouseup, mouseenter, mouseleave
@@ -647,47 +802,6 @@ A. Property Binding is a one-way data-binding technique.
 Q. what is string interpolation in angular?
 A. String Interpolation is a one-way databinding technique which is used to output the data from a TypeScript code to HTML template (view). 
 	It uses the template expression in double curly braces to display the data from the component to the view
-
-Q. Difference between One-way Binding and Two-way Binding
-A. data binding refers to the technique of synchronizing data between the UI and the code
-   1. One-way Binding : data flows in a single direction — from the model (data) to the view (UI). 
-      Changes in the model automatically update the view, but changes in the view do not affect the model.
-   2. Two-way Binding : data flows in both directions. 
-      Any change in the model updates the view, and any change in the view automatically updates the model.
-
-Aspect			One-way Binding				Two-way Binding
-Data Flow		One direction (Model ➔ View)		Both directions (Model ⇄ View)
-Update Behavior		UI updates when the model changes	Model and UI update each other in sync
-Common Use Cases	Static displays, read-only data	Forms, 	real-time data synchronization
-Framework Examples	React, Vue (one-way by default)		Angular, Vue (can use two-way with v-model)
-Complexity		Simpler to implement and debug		More complex, can introduce data flow issues
-	
-Q. version controlling in angular 
-A. steps : 
-	1. open tsconfig.app.json & tsconfig.spec.json , add “node” under compilerOptions -> types
-	2. open environment.ts and create a property for holding the application version in environment variable 
-		export const environment = {
-			appVersion: require('../../package.json').version + '-dev',
-			production: false
-		};
-	3. Add version number to a component and show it in the application
-		import {Component} from '@angular/core';
-		import {environment} from '../environments/environment';
-
-		@Component({
-			selector: 'app-root',
-			template: `<h1>{{title}}</h1>
-			<h3>v{{currentApplicationVersion}}</h3>`
-		})
-		export class AppComponent {
-			title = 'Demo application for version numbering';
-			currentApplicationVersion = environment.appVersion;
-		}
-	4. automatically increase build number in the version property. For this we will use npm version functionality
-	5. run : npm version patch   
-	The patchargument means, only the patch number will be incremented with 1. 
-	this command creates a new commit, to avoid this use '—- no-git-tag-version' flag.
-	add "prebuild": "npm --no-git-tag-version version patch", in "scripts": of package.json
  
 Q. angular life cycle and its uses 
 A. In Angular, each component is channeled through 8 different phases in its lifecycle. 
@@ -731,6 +845,202 @@ A. Constructor and OnInit seem the same, but they are called at different phases
 	ngOnInit() is better place to "start" - it's where/when components' bindings are resolved.	
 	
 
+Q. how to share data between two independent component
+A. 1. Parent to Child component: 
+	When you define @Input() in the child component it will receive value from the master or parent component.
+	parent code : <app-personal-co-app [personalData]="personalData"></app-personal-co-app>
+	childe code : import { Component, OnInit, Input } from '@angular/core';
+					@Input() personalData: any;
+					
+	2. Child to Parent component: For sharing data from child to parent we need output decorator
+	In childe code : 
+	@Output() childToParent = new EventEmitter<String>();
+	sendToParent(name){
+		this.childToParent.emit(name);
+	}
+	in parent code : <app-child (childToParent)=”childToParent($event)”></app-child>
+	
+	3. Sharing data between sibling components: First share data between the child to parent using output decorator and EventEmitter. 
+	Once received data in parent component share it to another child component using Input decorator. 
+	So siblings can talk each other via parent components.
+	
+	4. More Power: Sharing data using ViewChild decorator: 
+	import { PersonalCoAppComponent } from './personal-co-app/personal-co-app.component';
+	
+	@ViewChildren(PersonalCoAppComponent) coappComponents: QueryList<PersonalCoAppComponent>;
+	@ViewChild(AppChildComponent) child;
+	constructor() { }
+	ngAfterViewInit() {
+		this.product.productName=child.masterName; //<= This will set data
+	}
+	5. Sharing data between not related components: This happens when your components are in different modules.
+	For creating data service. We have to define BehaviorSubject. BehaviorSubject holds the current value and the last value.
+	I always prefer to use BehaviorSubject because of following reasons:
+	1. It automatically updates the lates value wherever subscribed.
+	2. Always give last value when called via getValue() method.
+	3. No need to call next, just create a set and get method in order to get value.
+	
+	import { Injectable } from '@angular/core';
+	import { BehaviorSubject } from 'rxjs';
+
+	@Injectable({
+	  providedIn: 'root'
+	})
+	export class SharedService {
+	  
+	  private notificationData = new BehaviorSubject<any>({});
+	  globalNotificationData = this.notificationData.asObservable();
+
+	  constructor() { }
+
+	  shareNotificationData(notificationDataObj){
+		this.notificationData.next(notificationDataObj);
+	  }
+	}
+	
+	share data code : this.sharedService.shareNotificationData(sharedNotificationObj);
+	get shared data : 
+	this.sharedService.globalNotificationData.subscribe(dataShared => {
+        this.notifictnCount=dataShared;
+    });
+
+Q. what is view encapsulation in angular?
+A. View Encapsulation in Angular is a mechanism that controls how a component's CSS is applied.
+	It determines whether the styles written for one component:
+	affect only that component, or	can affect other components in the application.
+
+	Angular provides 3 types:
+
+	1. Emulated (Default)
+		@Component({
+		  selector: 'app-employee',
+		  templateUrl: './employee.component.html',
+		  styleUrls: ['./employee.component.css'],
+		  encapsulation: ViewEncapsulation.Emulated
+		})
+		Only the styled component gets the style.
+	2. None : encapsulation: ViewEncapsulation.None
+			The CSS becomes global.
+
+		When should you use None?
+		Global theme styles
+		Third-party library overrides (e.g., Angular Material or PrimeNG)
+		Shared typography
+		Use it carefully because styles can unintentionally affect unrelated components.
+
+	3. ShadowDom : encapsulation: ViewEncapsulation.ShadowDom
+		ShadowDom uses the browser's native Shadow DOM to provide complete style and DOM isolation.
+		global css does not apply, only component css applies for overrides.
+
+Feature				Emulated			None			ShadowDom
+Default				✅ Yes				❌ No			❌ No
+CSS Scoped			✅ Yes				❌ No			✅ Yes
+Browser Shadow DOM	❌ No				❌ No			✅ Yes
+CSS Leakage			No					Yes				No
+Best Choice			Most applications	Global styles	Web Components / strict isolation
+
+
+Q. Difference between ng-template, ng-container and ng-content
+A. ng-content is used to display children in a template, 
+	ng-container is used as a non-rendered container to avoid having to add a span or a div, 
+	and ng-template allows you to group some content that is not rendered directly 
+	but can be used in other places of your template or you code.
+
+	1. <ng-template></ng-template> : 
+	As the name suggests the it is a template element that Angular uses with structural directives 
+	Like :( *ngIf , *ngFor , [ngSwitch] and custom directives)
+	
+	<div> 
+	   Ng-template Content 
+	   <div *ngIf=”false else showNgTemplateContent”> 
+		  Shouldn't be displayed 
+	   </div>
+	</div>
+ 
+	<ng-template #showNgTemplateContent> Should be displayed
+	</ng-template>
+	
+	2. <ng-container></ng-container> 
+	ng-container is an extremely simple directive that allows you to group elements in a template 
+	that doesn’t interfere with styles or layout because Angular doesn’t put it in the DOM.
+	This is helpful if you don’t want any extra div on DOM
+	
+	<ng-container *ngIf="details">
+	  <div *ngFor="let info of details">
+		{{ info.content }}
+	  </div>
+	</ng-container>
+	
+	3. <ng-content></ng-content>
+	ng-content is used to project content into Angular components. 
+	You use the <ng-content></ng-content> tag as a placeholder for that dynamic content, 
+	then when the template is parsed Angular will replace that placeholder tag with your content.
+	It is useful when creating reusable components.
+	we show dynamic html with the help of <ng-content> 
+
+	Content Projection vs Input
+	Using @Input() : Limited to passing data.
+	Using Content Projection : Can pass: HTML, Components, Forms, Buttons, Tables, Images etc Much more flexible.
+	
+	card componet :
+	
+	<div class="card">
+	  <h2>My Card</h2>
+	  <ng-content></ng-content>
+	</div>
+	
+	parent component : 
+	
+	<app-card>
+	  <p>This content comes from the parent.</p>
+	</app-card>
+
+	Angular will render like this ouput.
+
+	<div class="card">
+	  <h2>My Card</h2>
+	  <p>This content comes from the parent.</p>
+	</div>
+	
+	<ng-content></ng-content> acts as placeholder and passed output show in place of it.
+	
+	Multiple content projection : 
+	
+	card component : 
+	<div class="card">
+	
+	  <div class="header">
+		<ng-content select="[card-header]"></ng-content>
+	  </div>
+
+	  <div class="body">
+		<ng-content select="[card-body]"></ng-content>
+	  </div>
+
+	  <div class="footer">
+		<ng-content select="[card-footer]"></ng-content>
+	  </div>
+
+	</div>
+	
+	parent component : 
+
+	<app-card>
+
+	  <div card-header>
+		User Details
+	  </div>
+
+	  <div card-body>
+		This is user information.
+	  </div>
+
+	  <div card-footer>
+		<button>Save</button>
+	  </div>
+
+	</app-card>
+	
 Q. pristine VS dirty VS touched
 	valid: This property returns true if the element’s contents are valid and false otherwise.
 	invalid: This property returns true if the element’s contents are invalid and false otherwise.
@@ -738,8 +1048,398 @@ Q. pristine VS dirty VS touched
 	dirty: This property returns true if the element’s contents have been changed.
 	untouched: This property returns true if the user has not visited the element.
 	touched: This property returns true if the user has visited the element.
-
 	
+Q. what is tree shaking?
+A. Tree shaking is a build optimization technique that removes unused (dead) code from your application's final bundle, making it smaller and faster to load.
+	Tree shaking became possible with ES6 so it was part of angular since angular2 
+	but as introduction with new ivy compiler introduced in angular 9 it become more effective and highly optimised with angular 17-22.
+	ivy - Ivy is a complete rewrite of the compiler for better build size and time.
+
+Q. when inject() was intoduced. how to inject a router or service?
+A. inject() was introcduced in angular 14 and became more poular in angular 16 with signals.
+	to inject a service or router first import it then inject.
+	private router = inject(Router);
+	private commonService = inject(CommonService);
+
+Q. what is signal how to use it?
+A. Signal is a reactive state container introduced in Angular 16 and improved in Angular 17–20
+	It stores a value and automatically updates any code (template, computed value, or effect) that depends on it whenever the value changes
+
+	import { signal } from '@angular/core';
+	count = signal(0);
+	increment() {
+	  this.count.update(value => value + 1);
+	}
+	<h2>{{ count() }}</h2>	
+	<button (click)="increment()">
+	  Increment
+	</button>
+
+	Read value → count()
+	Set value → count.set()
+	Update value → count.update()
+
+	Computed Signal : A computed signal derives its value from one or more signals. You don't update it directly.
+
+	import { signal, computed } from '@angular/core';
+	price = signal(100);
+	quantity = signal(2);
+	total = computed(() => this.price() * this.quantity());
+
+	Price : {{ price() }}	
+	Quantity : {{ quantity() }}	
+	Total : {{ total() }}
+
+	When this.quantity.set(5); Total automatically becomes 500
+	No need to update it manually.
+
+	Effect : An effect runs automatically whenever any signal it reads changes.
+
+	import { effect } from '@angular/core';	
+	count = signal(0);	
+	constructor(){	
+	    effect(() => {
+	        console.log("Count Changed :", this.count());
+	    });	
+	}
+	whenever count chnage then offect will run and console shows. 
+	Count Changed : 0	
+	Count Changed : 1	
+	Count Changed : 2
+
+	If there is 2 signal and in effect only one signal1 value read then effect will run only,
+	when there is a value change in signal1.
+	if value change in signal2 then effect will not run.
+	effect run only when any signal value read in it and there is value chnage in that signal.
+	multiple effect can be written and one signal can appear in more than 1 effect.
+
+Q. what are the benefit of signals?
+A. Signals were introduced to make state management simpler, faster, and more predictable in Angular. 
+	Before Signals, Angular relied heavily on Zone.js and RxJS even for simple component state. 
+	Signals reduce that complexity.
+	1. Automatic UI Updates - When a signal changes, Angular updates only the parts of the UI that depend on it.
+	2. Better Performance - no need to check all component, only particular component updated
+	3. No Manual Subscription - No subscription or cleanup is needed for reading signals like rxjs subject, behaviourSubject.
+	4. Less Boilerplate - less coding
+	5. Computed Values - dependent value automatic updates
+	6. Automatic Dependency Tracking : by use of effect
+	7. Easier State Management
+	8. Excellent for Forms and UI State	
+	9. Works Well with Angular 20 Features
+	10. Shared State Without NgRx (for Small Apps)
+
+Q. what is set, update, calculate in signal
+A. set() → Replace the value.
+	update() → Modify the value based on the previous value.
+	computed() (not "calculate") → Create a read-only value calculated from other signals.
+
+
+Q. what is @defer @loading.  whats is its use and benefit.
+A. Imagine your dashboard contains: 
+	Header, Sidebar, Employee List, Reports Chart (heavy), Google Maps (heavy), PDF Viewer (heavy)
+	Without @defer, Angular downloads everything immediately.
+	With @defer, Angular downloads only what's needed initially.
+	This reduces the initial bundle size and improves metrics like Largest Contentful Paint
+
+	Basic Syntax : 
+	@defer {
+	    <app-report-chart />	
+	}
+	@placeholder : Shows content before the deferred component starts loading.
+	@loading : Displayed while Angular is downloading the deferred component.
+		@loading also supports minimum and after options to avoid flickering if loading is very fast. 
+		minimum and after is optional to add, add only when required.
+	@error : If Angular fails to download the deferred component the error block is shown.
+			(for example, a lazy-loaded JavaScript chunk cannot be fetched),
+	@defer {	
+	    <app-google-map />	
+	}
+	@placeholder {	
+	    <img src="map-placeholder.png">	
+	}
+	@loading(after 500ms; minimum 1s) {
+	    <app-spinner />
+	}
+	@error {	
+	    <p>Unable to load map.</p>	
+	}
+
+	Angular lets you choose when to load the deferred content
+	1. Default (idle) : Angular waits until the browser is idle, then loads it. @defer {  <app-report /> }
+	2. viewport : Load when the component scrolls into view. @defer(on viewport) { <app-report /> }
+	3. hover : Load when the mouse hovers. @defer(on hover) { <app-report /> }
+	4. interaction : Load when the user clicks or presses a key. @defer(on interaction) { <app-report /> }
+	5. timer : Load after a delay. @defer(on timer(5s)) { <app-report /> }
+	6. immediate : Load immediately after the initial non-deferred content finishes rendering. @defer(on immediate) { <app-report /> }
+	7. when : Load based on a condition.
+
+		showChart = signal(false);
+
+		<button (click)="showChart.set(true)">
+		    Show Chart
+		</button>		
+		@defer(when showChart()){		
+		    <app-chart/>		
+		}
+		
+Q. how to create a dynamic component in angular?
+A. with the help of mat dialogue. see in details.
+	A dynamic component means creating and displaying a component at runtime 
+	instead of declaring it directly in the HTML template.
+	instead of writing: <app-user></app-user> you decide in TypeScript which component to create and when.
+	Angular provides the ViewContainerRef.createComponent() API for this.
+
+	user.component.ts
+	
+	import { Component } from '@angular/core';	
+	@Component({
+	  selector: 'app-user',
+	  standalone: true,
+	  template: `
+	    <h2>User Component</h2>
+	    <p>This component is loaded dynamically.</p>
+	  `
+	})
+	export class UserComponent {}
+
+	Parent Component :
+	import {
+	  Component,
+	  ViewChild,
+	  ViewContainerRef
+	} from '@angular/core';	
+	import { UserComponent } from './user.component';	
+	@Component({
+	  selector: 'app-root',
+	  standalone: true,
+	  template: `
+	      <button (click)="loadComponent()">
+	          Load Component
+	      </button>	
+	      <ng-container #container></ng-container>	  `
+	})
+	export class AppComponent {	
+	  @ViewChild('container', {
+	      read: ViewContainerRef
+	  })
+	  container!: ViewContainerRef;	
+	  loadComponent() {	
+	      this.container.clear();	
+	      this.container.createComponent(UserComponent);	
+	  }	
+	}
+
+	Pass Data to Dynamic Component : Suppose the child component has an input.
+	 export class UserComponent {
+	  name = input('');
+	}
+	in parent component :
+	loadComponent() {
+	    this.container.clear();
+	    const ref =this.container.createComponent(UserComponent);
+	    ref.setInput('name', 'Gautam');
+	}
+
+Q. how to show multiple components dynamically.
+A. with the help of service. we pas component in servcie and with dialogue.open method we can show it.
+	if we have to pass data then with data parameter we pass the data.
+
+Q. if i have to show one website in another website then how can we do it?
+A. Option 1: Use an <iframe> (Simplest)
+		Advantages
+			Very easy
+			Applications remain completely independent
+			Separate deployments
+		Disadvantages
+			Parent cannot directly access child variables or components.
+			Communication requires window.postMessage().
+			Some websites block embedding using X-Frame-Options or Content-Security-Policy.
+
+	Option 2: Angular Module Federation (Recommended) : Each module can be its own Angular application.
+		The shell application loads the others dynamically.
+		Advantages
+		Shared login
+		Shared routing
+		Shared Angular runtime
+		Independent deployment
+		Very fast loading
+	Option 3: Reverse Proxy (Same Domain) : install another angular app in url like abc.com/login , abc.com/sanction
+		as they share same domain so data can be shared via localstorage and cookie
+
+
+Q. whenever we add a route, we can add a resolver over there? what is its use?
+A. you can add a resolver to any route where you need data before the component is created. 
+	However, you don't need to use a resolver for every route—only when it provides a benefit.
+	A Resolver is an Angular service that fetches or prepares data before the route is activated.
+
+	User clicks Dashboard
+	        │
+	        ▼
+	Router starts navigation
+	        │
+	        ▼
+	Resolver executes
+	        │
+	        ▼
+	API Call
+	        │
+	        ▼
+	Data received
+	        │
+	        ▼
+	Dashboard Component created
+
+		resolver creation : 
+	import { ResolveFn } from '@angular/router';
+	import { inject } from '@angular/core';
+	import { UserService } from './user.service';
+	
+	export const userResolver: ResolveFn<any> = () => {
+	  return inject(UserService).getUser();
+	};
+
+	add to url : 
+	import { Routes } from '@angular/router';	
+	export const routes: Routes = [
+	  {
+	    path: 'dashboard',
+	    loadComponent: () =>
+	      import('./dashboard.component').then(c => c.DashboardComponent),
+	    resolve: {
+	      user: userResolver
+	    }
+	  }
+	];
+	The key user is the name under which the resolved data will be available.
+
+	access the data : 
+	import { ActivatedRoute } from '@angular/router';
+	import { inject } from '@angular/core';
+	
+	export class DashboardComponent {
+	
+	  private route = inject(ActivatedRoute);
+	
+	  user = this.route.snapshot.data['user'];
+	}
+
+	it is used when we need data before component is loaded. like data which is necesarry to show component.
+	if we don't use resolver then at first component will be created then we get data.
+	so user may get view a blank html page, as data will be loaded or we have to show loader.
+
+	we can use multiple resolver in a route.
+	{
+	  path: 'dashboard',
+	  component: DashboardComponent,
+	  resolve: {
+	    user: userResolver,
+	    notifications: notificationResolver,
+	    settings: settingsResolver
+	  }
+	}
+	Resolver									ngOnInit
+	Runs before component creation				Runs after component creation
+	Route waits for data						Component renders immediately
+	Good for essential initial data				Good for optional or secondary data
+	Data available immediately in the component		Often requires loading indicators
+
+Q. how to make @input parameter mendetory or optional in a component?
+A. mendetory : by use of required method
+	message = input.required<string>();
+	@Input({ required: true }) message!: string;
+
+	optional : 
+	@Input() message?: string;
+	@Input() message = 'Default Message';
+
+Q. what is view-child and view-children and what is its use?
+A. @ViewChild is a decorator used to get a reference to a single child component, directive, or DOM element from the current component's template. 
+	It's commonly used to call child component methods, access properties, or interact with DOM elements after the view has been initialized.
+
+	@ViewChildren is similar to @ViewChild, but it retrieves all matching child components or elements and returns them as a QueryList. 
+	It's useful when there are multiple child instances, such as several tables, forms, or input fields that need to be managed together.
+	
+Q. what is content-child and content-children?
+A. 
+	| `@ContentChild` 					| `@ContentChildren` |
+	| Gets one item 					| Gets multiple items |
+	| Returns one reference 			| Returns `QueryList` |
+	| Used for single projected element/directive | Used for multiple projected elements/directives |
+	| Available after `ngAfterContentInit()` | Available after `ngAfterContentInit()` |
+
+Q. what is memory leaks?
+A. Memory leak means that memory is allocated but never released, even though your application no longer needs it.
+	As the application keeps running, memory usage keeps increasing, making the app slower and sometimes causing it to crash.
+	resons: 
+	Example 1: Observable Subscription (Most Common) : use .pipe(takeUntilDestroyed()) 
+		or a varible and at ngdestroy .unsubscribe(); it
+	Example 2: setInterval() : started but not clearInterval() it at ngdestory.
+	Example 3: Event Listener : add event listner but not window.removeEventListener() at destroy.
+	Example 4: WebSocket : shocket open but not closed it.
+	Example 5: Timers : clearTimeout() at destory
+
+Q change detection in angular
+A. Change Detection is the mechanism Angular uses to detect changes in your application's data 
+	(variables, signals, inputs, etc.) and update the DOM automatically.
+	When something happens:
+		Button click
+		API response
+		Timer
+		Input event
+	Angular starts a Change Detection Cycle. and check all components for changes and update changed DOM.
+
+	What Triggers Change Detection?
+	1. Button Click
+	2. HTTP Response
+	3. Timer
+	4. Promise
+	5. Observable
+	6. Zone.js : Before Angular's newer zoneless capabilities, Angular primarily relied on Zone.js.
+	It intercepts things like:
+	Click events, Timers, HTTP, Promise, XHR, Keyboard, Mouse
+	Then it tells Angular "Something happened." Angular then runs Change Detection.
+
+	1. Default Strategy : By default every component uses
+		changeDetection: ChangeDetectionStrategy.Default
+	2. OnPush Strategy : changeDetection: ChangeDetectionStrategy.OnPush
+		markForCheck() or detectChanges() is called
+
+Q what is track by in angular 
+A. trackBy is an Angular feature used with loops to help Angular identify which items have actually changed in a list.
+	It improves performance by preventing Angular from recreating DOM elements unnecessarily.
+	without trackby if any changes will be done in array list then whole list will be created and updated in DOM.
+	with trackby only changed list will be added or updated in list.
+
+Q. what is async pipe
+A. It automatically subscribes to an Observable or Promise, displays the latest emitted value in the template, 
+	and automatically unsubscribes when the component is destroyed.
+	{{ users$ | async }}
+
+Q. diference in eggar loading and lazy loading? which one is default.
+A. Eager loading is Angular's default loading strategy where all required modules and 
+	components are bundled and loaded when the application starts.
+
+	Lazy loading delays downloading a feature module or standalone component until the user navigates to it. 
+	This reduces the initial bundle size and improves startup performance.
+
+	Feature	Eager 				Loading			Lazy Loading
+	Default in Angular			✅ Yes			❌ No
+	Load Time					App startup		On demand
+	Initial Bundle Size			Large			Small
+	Initial App Speed			Slower			Faster
+	Navigation to Loaded Page	Instant			First visit may download code
+	Best For					Small apps or always-used features		Large enterprise apps
+
+
+Q. What is Renderer2 and why would you use it?
+A. Renderer2 is a service that provides an abstraction for manipulating the DOM safely.
+	The main reason is platform abstraction and safer DOM manipulation.
+	Angular can then control how that operation is performed depending on the rendering environment. 
+	This is particularly important for applications that may use server-side rendering (SSR) or other rendering environments.
+	Don't use Renderer2 for normal Angular template work.
+	instead of: this.renderer.addClass(element, 'active');	
+	use : <div [class.active]="isActive"></div>
+
 Q. subject and BehaviorSubject  difference
 A. there are four types of Subjects in RxJS (commonly used in Angular).
 	Subject
@@ -939,691 +1639,7 @@ A. Cold Observable → each subscriber gets its own execution.
 		
 		Subscriber 1: 30
 		Subscriber 2: 30
-		
-Q. what is NgRX?
-A. NgRx/store is a library for managing state in your Angular applications, it is a reactive state management library powered by RxJS. 
-   Similar to Redux, this library can be used to manage the flow of data throughout your application, 
-   when actions are dispatched, reducers act on them and mutate the store.
-   
-Q. What is Angular Ivy?
-A: 	A big part of Angular is its compiler: it takes all your HTML and generates the necessary JS code. 
-	This compiler (and the runtime) has been completely rewritten over the last year, and this is what Ivy is about. 
-	The last rewrite was done in Angular 4.0.
-	Ivy is a complete rewrite of the compiler (and runtime) in order to:
-	reach better build times (with a more incremental compilation)
-	reach better build sizes (with a generated code more compatible with tree-shaking)
-	unlock new potential features (metaprogramming or higher order components, lazy loading of component instead of modules, a new change detection system not based on zone.js…)
-	
-Q. What is Bazel?
-	Google open sourced the software responsible for building most of its projects under the name Bazel. 
-	Bazel is a powerful tool which can keep track of the dependencies between different packages and build targets.
-	Some of the features of Bazel are:
-	1. It has a smart algorithm for determining the build dependencies - 
-		based on the dependency graph of a project, Bazel determines which targets it can build in parallel
-	2. Bazel is independent of the tech stack. We can build anything we want with it using the same interface. 
-		For example, there are plugins for Java, Go, TypeScript, JavaScript, and more
-
-Q. how to share data between two independent component
-A. 1. Parent to Child component: 
-	When you define @Input() in the child component it will receive value from the master or parent component.
-	parent code : <app-personal-co-app [personalData]="personalData"></app-personal-co-app>
-	childe code : import { Component, OnInit, Input } from '@angular/core';
-					@Input() personalData: any;
-					
-	2. Child to Parent component: For sharing data from child to parent we need output decorator
-	In childe code : 
-	@Output() childToParent = new EventEmitter<String>();
-	sendToParent(name){
-		this.childToParent.emit(name);
-	}
-	in parent code : <app-child (childToParent)=”childToParent($event)”></app-child>
-	
-	3. Sharing data between sibling components: First share data between the child to parent using output decorator and EventEmitter. 
-	Once received data in parent component share it to another child component using Input decorator. 
-	So siblings can talk each other via parent components.
-	
-	4. More Power: Sharing data using ViewChild decorator: 
-	import { PersonalCoAppComponent } from './personal-co-app/personal-co-app.component';
-	
-	@ViewChildren(PersonalCoAppComponent) coappComponents: QueryList<PersonalCoAppComponent>;
-	@ViewChild(AppChildComponent) child;
-	constructor() { }
-	ngAfterViewInit() {
-		this.product.productName=child.masterName; //<= This will set data
-	}
-	5. Sharing data between not related components: This happens when your components are in different modules.
-	For creating data service. We have to define BehaviorSubject. BehaviorSubject holds the current value and the last value.
-	I always prefer to use BehaviorSubject because of following reasons:
-	1. It automatically updates the lates value wherever subscribed.
-	2. Always give last value when called via getValue() method.
-	3. No need to call next, just create a set and get method in order to get value.
-	
-	import { Injectable } from '@angular/core';
-	import { BehaviorSubject } from 'rxjs';
-
-	@Injectable({
-	  providedIn: 'root'
-	})
-	export class SharedService {
-	  
-	  private notificationData = new BehaviorSubject<any>({});
-	  globalNotificationData = this.notificationData.asObservable();
-
-	  constructor() { }
-
-	  shareNotificationData(notificationDataObj){
-		this.notificationData.next(notificationDataObj);
-	  }
-	}
-	
-	share data code : this.sharedService.shareNotificationData(sharedNotificationObj);
-	get shared data : 
-	this.sharedService.globalNotificationData.subscribe(dataShared => {
-        this.notifictnCount=dataShared;
-    });
-
-Q. process to add a new url in a project 
-A. 1. Define the Component for the New Route
-   2. Import the RouterModule in Your corresponding Module of the component
-   3. Define the Route in the Routing Module which is imported in above module
-
-   4. Add Router Outlet in the Template  - <router-outlet></router-outlet>
-   5. Add Links to Navigate to the New Route - <a routerLink="/new-page">Go to New Page</a>
-   
-Q. process to call a api in angular?
-A. Angular provides HttpClient Module that you can use to consume any API. 
-	First, you need to import the module in the AppModule or any other parent module and add it in the imports array.
-	import { HttpClientModule } from '@angular/common/http';
-	Once it is added in the module you can import that in any service. 
-	
-	Then create a service and inject the HttpClient in the constructor. 
-	Then create methods and use it accordingly. These methods return Observable.
-	
-	import { Injectable } from '@angular/core';
-	import { HttpClient } from '@angular/common/http';
-
-	@Injectable({
-	  providedIn: 'root'
-	})
-	export class AppService {
-
-	  constructor(private http: HttpClient) { }
-
-	  rootURL = '/api';
-
-	  getUsers() {
-		return this.http.get(this.rootURL + '/users');
-	  }
-
-	}
-
-
-Q. How do you handle global error interception and retries in HTTP requests using RxJS operators?
-A. catchError() handles errors, such as HTTP 400, 401, 403, 404, and 500.
-	retry() retries failed requests a specified number of times.
-	throwError() forwards the error to the calling component when necessary.
-
-	import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
-	import { catchError, retry, throwError } from 'rxjs';
-	
-	export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-	  return next(req).pipe(
-	    // Retry failed requests up to 2 times
-	    retry({
-	      count: 2,
-	      delay: (error: HttpErrorResponse, retryCount: number) => {
-	        // Retry only network errors and server errors
-	        if (error.status === 0 || error.status >= 500) {
-	          return throwError(() => error);
-	        }
-	
-	        // Do not retry client errors such as 400 or 401
-	        return throwError(() => error);
-	      }
-	    }),
-	
-	    catchError((error: HttpErrorResponse) => {
-	      console.error('HTTP Error:', error.status, error);
-	      return throwError(() => error);
-	    })
-	  );
-	};
-
-Q. Difference between ng-template, ng-container and ng-content
-A. ng-content is used to display children in a template, 
-	ng-container is used as a non-rendered container to avoid having to add a span or a div, 
-	and ng-template allows you to group some content that is not rendered directly 
-	but can be used in other places of your template or you code.
-
-	1. <ng-template></ng-template> : 
-	As the name suggests the it is a template element that Angular uses with structural directives 
-	Like :( *ngIf , *ngFor , [ngSwitch] and custom directives)
-	
-	<div> 
-	   Ng-template Content 
-	   <div *ngIf=”false else showNgTemplateContent”> 
-		  Shouldn't be displayed 
-	   </div>
-	</div>
- 
-	<ng-template #showNgTemplateContent> Should be displayed
-	</ng-template>
-	
-	2. <ng-container></ng-container> 
-	ng-container is an extremely simple directive that allows you to group elements in a template 
-	that doesn’t interfere with styles or layout because Angular doesn’t put it in the DOM.
-	This is helpful if you don’t want any extra div on DOM
-	
-	<ng-container *ngIf="details">
-	  <div *ngFor="let info of details">
-		{{ info.content }}
-	  </div>
-	</ng-container>
-	
-	3. <ng-content></ng-content>
-	ng-content is used to project content into Angular components. 
-	You use the <ng-content></ng-content> tag as a placeholder for that dynamic content, 
-	then when the template is parsed Angular will replace that placeholder tag with your content.
-	It is useful when creating reusable components.
-	we show dynamic html with the help of <ng-content> 
-
-	Content Projection vs Input
-	Using @Input() : Limited to passing data.
-	Using Content Projection : Can pass: HTML, Components, Forms, Buttons, Tables, Images etc Much more flexible.
-	
-	card componet :
-	
-	<div class="card">
-	  <h2>My Card</h2>
-	  <ng-content></ng-content>
-	</div>
-	
-	parent component : 
-	
-	<app-card>
-	  <p>This content comes from the parent.</p>
-	</app-card>
-
-	Angular will render like this ouput.
-
-	<div class="card">
-	  <h2>My Card</h2>
-	  <p>This content comes from the parent.</p>
-	</div>
-	
-	<ng-content></ng-content> acts as placeholder and passed output show in place of it.
-	
-	Multiple content projection : 
-	
-	card component : 
-	<div class="card">
-	
-	  <div class="header">
-		<ng-content select="[card-header]"></ng-content>
-	  </div>
-
-	  <div class="body">
-		<ng-content select="[card-body]"></ng-content>
-	  </div>
-
-	  <div class="footer">
-		<ng-content select="[card-footer]"></ng-content>
-	  </div>
-
-	</div>
-	
-	parent component : 
-
-	<app-card>
-
-	  <div card-header>
-		User Details
-	  </div>
-
-	  <div card-body>
-		This is user information.
-	  </div>
-
-	  <div card-footer>
-		<button>Save</button>
-	  </div>
-
-	</app-card>
-	
-
-Q. what is tree shaking?
-A. Tree shaking is a build optimization technique that removes unused (dead) code from your application's final bundle, making it smaller and faster to load.
-	Tree shaking became possible with ES6 so it was part of angular since angular2 
-	but as introduction with new ivy compiler introduced in angular 9 it become more effective and highly optimised with angular 17-22.
-	ivy - Ivy is a complete rewrite of the compiler for better build size and time.
-
-Q. when inject() was intoduced. how to inject a router or service?
-A. inject() was introcduced in angular 14 and became more poular in angular 16 with signals.
-	to inject a service or router first import it then inject.
-	private router = inject(Router);
-	private commonService = inject(CommonService);
-
-Q. what is signal how to use it?
-A. Signal is a reactive state container introduced in Angular 16 and improved in Angular 17–20
-	It stores a value and automatically updates any code (template, computed value, or effect) that depends on it whenever the value changes
-
-	import { signal } from '@angular/core';
-	count = signal(0);
-	increment() {
-	  this.count.update(value => value + 1);
-	}
-	<h2>{{ count() }}</h2>	
-	<button (click)="increment()">
-	  Increment
-	</button>
-
-	Read value → count()
-	Set value → count.set()
-	Update value → count.update()
-
-	Computed Signal : A computed signal derives its value from one or more signals. You don't update it directly.
-
-	import { signal, computed } from '@angular/core';
-	price = signal(100);
-	quantity = signal(2);
-	total = computed(() => this.price() * this.quantity());
-
-	Price : {{ price() }}	
-	Quantity : {{ quantity() }}	
-	Total : {{ total() }}
-
-	When this.quantity.set(5); Total automatically becomes 500
-	No need to update it manually.
-
-	Effect : An effect runs automatically whenever any signal it reads changes.
-
-	import { effect } from '@angular/core';	
-	count = signal(0);	
-	constructor(){	
-	    effect(() => {
-	        console.log("Count Changed :", this.count());
-	    });	
-	}
-	whenever count chnage then offect will run and console shows. 
-	Count Changed : 0	
-	Count Changed : 1	
-	Count Changed : 2
-
-	If there is 2 signal and in effect only one signal1 value read then effect will run only,
-	when there is a value change in signal1.
-	if value change in signal2 then effect will not run.
-	effect run only when any signal value read in it and there is value chnage in that signal.
-	multiple effect can be written and one signal can appear in more than 1 effect.
-
-Q. what are the benefit of signals?
-A. Signals were introduced to make state management simpler, faster, and more predictable in Angular. 
-	Before Signals, Angular relied heavily on Zone.js and RxJS even for simple component state. 
-	Signals reduce that complexity.
-	1. Automatic UI Updates - When a signal changes, Angular updates only the parts of the UI that depend on it.
-	2. Better Performance - no need to check all component, only particular component updated
-	3. No Manual Subscription - No subscription or cleanup is needed for reading signals like rxjs subject, behaviourSubject.
-	4. Less Boilerplate - less coding
-	5. Computed Values - dependent value automatic updates
-	6. Automatic Dependency Tracking : by use of effect
-	7. Easier State Management
-	8. Excellent for Forms and UI State	
-	9. Works Well with Angular 20 Features
-	10. Shared State Without NgRx (for Small Apps)
-
-Q. what is set, update, calculate in signal
-A. set() → Replace the value.
-	update() → Modify the value based on the previous value.
-	computed() (not "calculate") → Create a read-only value calculated from other signals.
-
-
-Q. how to create a dynamic component in angular?
-A. with the help of mat dialogue. see in details.
-	A dynamic component means creating and displaying a component at runtime 
-	instead of declaring it directly in the HTML template.
-	instead of writing: <app-user></app-user> you decide in TypeScript which component to create and when.
-	Angular provides the ViewContainerRef.createComponent() API for this.
-
-	user.component.ts
-	
-	import { Component } from '@angular/core';	
-	@Component({
-	  selector: 'app-user',
-	  standalone: true,
-	  template: `
-	    <h2>User Component</h2>
-	    <p>This component is loaded dynamically.</p>
-	  `
-	})
-	export class UserComponent {}
-
-	Parent Component :
-	import {
-	  Component,
-	  ViewChild,
-	  ViewContainerRef
-	} from '@angular/core';	
-	import { UserComponent } from './user.component';	
-	@Component({
-	  selector: 'app-root',
-	  standalone: true,
-	  template: `
-	      <button (click)="loadComponent()">
-	          Load Component
-	      </button>	
-	      <ng-container #container></ng-container>	  `
-	})
-	export class AppComponent {	
-	  @ViewChild('container', {
-	      read: ViewContainerRef
-	  })
-	  container!: ViewContainerRef;	
-	  loadComponent() {	
-	      this.container.clear();	
-	      this.container.createComponent(UserComponent);	
-	  }	
-	}
-
-	Pass Data to Dynamic Component : Suppose the child component has an input.
-	 export class UserComponent {
-	  name = input('');
-	}
-	in parent component :
-	loadComponent() {
-	    this.container.clear();
-	    const ref =this.container.createComponent(UserComponent);
-	    ref.setInput('name', 'Gautam');
-	}
-
-Q. how to show multiple components dynamically.
-A. with the help of service. we pas component in servcie and with dialogue.open method we can show it.
-	if we have to pass data then with data parameter we pass the data.
-
-Q. if i have to show one website in another website then how can we do it?
-A. Option 1: Use an <iframe> (Simplest)
-		Advantages
-			Very easy
-			Applications remain completely independent
-			Separate deployments
-		Disadvantages
-			Parent cannot directly access child variables or components.
-			Communication requires window.postMessage().
-			Some websites block embedding using X-Frame-Options or Content-Security-Policy.
-
-	Option 2: Angular Module Federation (Recommended) : Each module can be its own Angular application.
-		The shell application loads the others dynamically.
-		Advantages
-		Shared login
-		Shared routing
-		Shared Angular runtime
-		Independent deployment
-		Very fast loading
-	Option 3: Reverse Proxy (Same Domain) : install another angular app in url like abc.com/login , abc.com/sanction
-		as they share same domain so data can be shared via localstorage and cookie
-		
-
-Q. what is @defer @loading.  whats is its use and benefit.
-A. Imagine your dashboard contains: 
-	Header, Sidebar, Employee List, Reports Chart (heavy), Google Maps (heavy), PDF Viewer (heavy)
-	Without @defer, Angular downloads everything immediately.
-	With @defer, Angular downloads only what's needed initially.
-	This reduces the initial bundle size and improves metrics like Largest Contentful Paint
-
-	Basic Syntax : 
-	@defer {
-	    <app-report-chart />	
-	}
-	@placeholder : Shows content before the deferred component starts loading.
-	@loading : Displayed while Angular is downloading the deferred component.
-		@loading also supports minimum and after options to avoid flickering if loading is very fast. 
-		minimum and after is optional to add, add only when required.
-	@error : If Angular fails to download the deferred component the error block is shown.
-			(for example, a lazy-loaded JavaScript chunk cannot be fetched),
-	@defer {	
-	    <app-google-map />	
-	}
-	@placeholder {	
-	    <img src="map-placeholder.png">	
-	}
-	@loading(after 500ms; minimum 1s) {
-	    <app-spinner />
-	}
-	@error {	
-	    <p>Unable to load map.</p>	
-	}
-
-	Angular lets you choose when to load the deferred content
-	1. Default (idle) : Angular waits until the browser is idle, then loads it. @defer {  <app-report /> }
-	2. viewport : Load when the component scrolls into view. @defer(on viewport) { <app-report /> }
-	3. hover : Load when the mouse hovers. @defer(on hover) { <app-report /> }
-	4. interaction : Load when the user clicks or presses a key. @defer(on interaction) { <app-report /> }
-	5. timer : Load after a delay. @defer(on timer(5s)) { <app-report /> }
-	6. immediate : Load immediately after the initial non-deferred content finishes rendering. @defer(on immediate) { <app-report /> }
-	7. when : Load based on a condition.
-
-		showChart = signal(false);
-
-		<button (click)="showChart.set(true)">
-		    Show Chart
-		</button>		
-		@defer(when showChart()){		
-		    <app-chart/>		
-		}
-
-Q. whenever we add a route, we can add a resolver over there? what is its use?
-A. you can add a resolver to any route where you need data before the component is created. 
-	However, you don't need to use a resolver for every route—only when it provides a benefit.
-	A Resolver is an Angular service that fetches or prepares data before the route is activated.
-
-	User clicks Dashboard
-	        │
-	        ▼
-	Router starts navigation
-	        │
-	        ▼
-	Resolver executes
-	        │
-	        ▼
-	API Call
-	        │
-	        ▼
-	Data received
-	        │
-	        ▼
-	Dashboard Component created
-
-		resolver creation : 
-	import { ResolveFn } from '@angular/router';
-	import { inject } from '@angular/core';
-	import { UserService } from './user.service';
-	
-	export const userResolver: ResolveFn<any> = () => {
-	  return inject(UserService).getUser();
-	};
-
-	add to url : 
-	import { Routes } from '@angular/router';	
-	export const routes: Routes = [
-	  {
-	    path: 'dashboard',
-	    loadComponent: () =>
-	      import('./dashboard.component').then(c => c.DashboardComponent),
-	    resolve: {
-	      user: userResolver
-	    }
-	  }
-	];
-	The key user is the name under which the resolved data will be available.
-
-	access the data : 
-	import { ActivatedRoute } from '@angular/router';
-	import { inject } from '@angular/core';
-	
-	export class DashboardComponent {
-	
-	  private route = inject(ActivatedRoute);
-	
-	  user = this.route.snapshot.data['user'];
-	}
-
-	it is used when we need data before component is loaded. like data which is necesarry to show component.
-	if we don't use resolver then at first component will be created then we get data.
-	so user may get view a blank html page, as data will be loaded or we have to show loader.
-
-	we can use multiple resolver in a route.
-	{
-	  path: 'dashboard',
-	  component: DashboardComponent,
-	  resolve: {
-	    user: userResolver,
-	    notifications: notificationResolver,
-	    settings: settingsResolver
-	  }
-	}
-	Resolver									ngOnInit
-	Runs before component creation				Runs after component creation
-	Route waits for data						Component renders immediately
-	Good for essential initial data				Good for optional or secondary data
-	Data available immediately in the component		Often requires loading indicators
-
-Q. how to make @input parameter mendetory or optional in a component?
-A. mendetory : by use of required method
-	message = input.required<string>();
-	@Input({ required: true }) message!: string;
-
-	optional : 
-	@Input() message?: string;
-	@Input() message = 'Default Message';
-
-Q. what is view-child and view-children and what is its use?
-A. @ViewChild is a decorator used to get a reference to a single child component, directive, or DOM element from the current component's template. 
-	It's commonly used to call child component methods, access properties, or interact with DOM elements after the view has been initialized.
-
-	@ViewChildren is similar to @ViewChild, but it retrieves all matching child components or elements and returns them as a QueryList. 
-	It's useful when there are multiple child instances, such as several tables, forms, or input fields that need to be managed together.
-	
-Q. what is content-child and content-children?
-A. 
-	| `@ContentChild` 					| `@ContentChildren` |
-	| Gets one item 					| Gets multiple items |
-	| Returns one reference 			| Returns `QueryList` |
-	| Used for single projected element/directive | Used for multiple projected elements/directives |
-	| Available after `ngAfterContentInit()` | Available after `ngAfterContentInit()` |
-
-Q. what is memory leaks?
-A. Memory leak means that memory is allocated but never released, even though your application no longer needs it.
-	As the application keeps running, memory usage keeps increasing, making the app slower and sometimes causing it to crash.
-	resons: 
-	Example 1: Observable Subscription (Most Common) : use .pipe(takeUntilDestroyed()) 
-		or a varible and at ngdestroy .unsubscribe(); it
-	Example 2: setInterval() : started but not clearInterval() it at ngdestory.
-	Example 3: Event Listener : add event listner but not window.removeEventListener() at destroy.
-	Example 4: WebSocket : shocket open but not closed it.
-	Example 5: Timers : clearTimeout() at destory
-
-Q change detection in angular
-A. Change Detection is the mechanism Angular uses to detect changes in your application's data 
-	(variables, signals, inputs, etc.) and update the DOM automatically.
-	When something happens:
-		Button click
-		API response
-		Timer
-		Input event
-	Angular starts a Change Detection Cycle. and check all components for changes and update changed DOM.
-
-	What Triggers Change Detection?
-	1. Button Click
-	2. HTTP Response
-	3. Timer
-	4. Promise
-	5. Observable
-	6. Zone.js : Before Angular's newer zoneless capabilities, Angular primarily relied on Zone.js.
-	It intercepts things like:
-	Click events, Timers, HTTP, Promise, XHR, Keyboard, Mouse
-	Then it tells Angular "Something happened." Angular then runs Change Detection.
-
-	1. Default Strategy : By default every component uses
-		changeDetection: ChangeDetectionStrategy.Default
-	2. OnPush Strategy : changeDetection: ChangeDetectionStrategy.OnPush
-		markForCheck() or detectChanges() is called
-
-Q what is track by in angular 
-A. trackBy is an Angular feature used with loops to help Angular identify which items have actually changed in a list.
-	It improves performance by preventing Angular from recreating DOM elements unnecessarily.
-	without trackby if any changes will be done in array list then whole list will be created and updated in DOM.
-	with trackby only changed list will be added or updated in list.
-
-Q. what is async pipe
-A. It automatically subscribes to an Observable or Promise, displays the latest emitted value in the template, 
-	and automatically unsubscribes when the component is destroyed.
-	{{ users$ | async }}
-
-Q. diference in eggar loading and lazy loading? which one is default.
-A. Eager loading is Angular's default loading strategy where all required modules and 
-	components are bundled and loaded when the application starts.
-
-	Lazy loading delays downloading a feature module or standalone component until the user navigates to it. 
-	This reduces the initial bundle size and improves startup performance.
-
-	Feature	Eager 				Loading			Lazy Loading
-	Default in Angular			✅ Yes			❌ No
-	Load Time					App startup		On demand
-	Initial Bundle Size			Large			Small
-	Initial App Speed			Slower			Faster
-	Navigation to Loaded Page	Instant			First visit may download code
-	Best For					Small apps or always-used features		Large enterprise apps
-
-Q. what is view encapsulation in angular?
-A. View Encapsulation in Angular is a mechanism that controls how a component's CSS is applied.
-	It determines whether the styles written for one component:
-	affect only that component, or	can affect other components in the application.
-
-	Angular provides 3 types:
-
-	1. Emulated (Default)
-		@Component({
-		  selector: 'app-employee',
-		  templateUrl: './employee.component.html',
-		  styleUrls: ['./employee.component.css'],
-		  encapsulation: ViewEncapsulation.Emulated
-		})
-		Only the styled component gets the style.
-	2. None : encapsulation: ViewEncapsulation.None
-			The CSS becomes global.
-
-		When should you use None?
-		Global theme styles
-		Third-party library overrides (e.g., Angular Material or PrimeNG)
-		Shared typography
-		Use it carefully because styles can unintentionally affect unrelated components.
-
-	3. ShadowDom : encapsulation: ViewEncapsulation.ShadowDom
-		ShadowDom uses the browser's native Shadow DOM to provide complete style and DOM isolation.
-		global css does not apply, only component css applies for overrides.
-
-Feature				Emulated			None			ShadowDom
-Default				✅ Yes				❌ No			❌ No
-CSS Scoped			✅ Yes				❌ No			✅ Yes
-Browser Shadow DOM	❌ No				❌ No			✅ Yes
-CSS Leakage			No					Yes				No
-Best Choice			Most applications	Global styles	Web Components / strict isolation
-
-Q. different auth guards present in angular
-A. Route Guards are used to control navigation between routes
-	Guard				Purpose
-	CanActivate			Controls whether a route can be activated
-	CanActivateChild	Controls whether child routes can be activated
-	CanDeactivate		Prevents leaving a route
-	CanMatch			Controls whether a route matches during routing (modern replacement for many CanLoad scenarios)
-	CanLoad				Prevents loading a lazy-loaded module (legacy, still available)
-	Resolve (Resolver)	Loads required data before route activation
-
-	CanMatch vs CanLoad
-	CanMatch									CanLoad
-	Modern and recommended						Older approach
-	Controls whether a route matches			Controls whether a lazy module is loaded
-	Works well with standalone components 		Mainly for lazy-loaded modules
-	and lazy loading
-
+		   
 Q. How do you prevent RxJS memory leaks?
 A. Modern Angular provides: takeUntilDestroyed()
 	this.service.data$
@@ -1638,20 +1654,56 @@ A. Modern Angular provides: takeUntilDestroyed()
 	takeUntil
 	Properly destroying subscriptions
 
-Q. What is Renderer2 and why would you use it?
-A. Renderer2 is a service that provides an abstraction for manipulating the DOM safely.
-	The main reason is platform abstraction and safer DOM manipulation.
-	Angular can then control how that operation is performed depending on the rendering environment. 
-	This is particularly important for applications that may use server-side rendering (SSR) or other rendering environments.
-	Don't use Renderer2 for normal Angular template work.
-	instead of: this.renderer.addClass(element, 'active');	
-	use : <div [class.active]="isActive"></div>
+Q. what is NgRX?
+A. NgRx/store is a library for managing state in your Angular applications, it is a reactive state management library powered by RxJS. 
+   Similar to Redux, this library can be used to manage the flow of data throughout your application, 
+   when actions are dispatched, reducers act on them and mutate the store.
+
+Q. version controlling in angular 
+A. steps : 
+	1. open tsconfig.app.json & tsconfig.spec.json , add “node” under compilerOptions -> types
+	2. open environment.ts and create a property for holding the application version in environment variable 
+		export const environment = {
+			appVersion: require('../../package.json').version + '-dev',
+			production: false
+		};
+	3. Add version number to a component and show it in the application
+		import {Component} from '@angular/core';
+		import {environment} from '../environments/environment';
+
+		@Component({
+			selector: 'app-root',
+			template: `<h1>{{title}}</h1>
+			<h3>v{{currentApplicationVersion}}</h3>`
+		})
+		export class AppComponent {
+			title = 'Demo application for version numbering';
+			currentApplicationVersion = environment.appVersion;
+		}
+	4. automatically increase build number in the version property. For this we will use npm version functionality
+	5. run : npm version patch   
+	The patchargument means, only the patch number will be incremented with 1. 
+	this command creates a new commit, to avoid this use '—- no-git-tag-version' flag.
+	add "prebuild": "npm --no-git-tag-version version patch", in "scripts": of package.json
+	
+
 
 Q. what is test cases. how to write it, example test case. what is its benefit?
 Q. how to get/run coverage report?
 Q. when i run ng test then how it runs. how it knows which command it need to run?
 Q what are the frameworks to write test cases in angular. 
 A. jasmine and jest
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1701,24 +1753,13 @@ A. 1. Core Module : Contains services, single-instance components, and applicati
    7. Utility Modules : Contain helpers or utilities that don't belong to a specific domain or feature.
    8. Third-Party Modules : Wrap third-party libraries to encapsulate their integration and reduce coupling.
 
-Data Binding
-Q. Can you explain the different types of data binding in Angular?
-A. It is a mechanism that connects a component's data with its HTML template, ensuring synchronization between the model (component) and the view (template). 
-   Angular provides four main types of data binding to handle different interaction scenarios.
-   1. Interpolation (One-way Binding: Component to Template) : {{ expression }}
-   2. Property Binding (One-way Binding: Component to DOM) : [property]="expression"  - src, disabled, or class.
-   3. Event Binding (One-way Binding: DOM to Component) : (event)="expression"
-   4. Two-way Binding (Component to Template and Back) : [(ngModel)]="property"
 
-Q. How does Angular handle change detection?
 
 Services and Dependency Injection
 Q. How do you create and use services in Angular?
 Q. Can you explain the difference between providedIn: 'root' and providing a service in a module?
 
-Routing
-Q. How does Angular's routing mechanism work?
-Q. Can you describe lazy loading and its benefits in Angular?
+
 
 Advanced Topics
 
@@ -1893,9 +1934,7 @@ What are Interceptors in Angular and how are they used?
 How do you optimize the performance of an Angular app?
 
 
-Q. how to implement accessibility?
-Q. how to implement multi language support in angular ?
-Q. how to create microfrontend architecture?
+
 
 
 TypeScript  :
@@ -2039,337 +2078,3 @@ Discussed my approach to writing test cases
 
 
 
-Angular codes : 
-
-
- 
-custom directive :
-
-<p appHighlight>Highlight me</p>
-import{Directive, ElementRef, HostListener} from '@angular/core';
-@Directive({
-	selector:'[highlight]',
-})
-export class HighlightDirective{
-	constructor (private eleRef: ElementRef){ }
-	@HostListerner ('mouseover') on MouseOver(){
-		this.eleRef.nativeElement .style.color ='green';
-	}
-	@hostListener('mouseleave') onMouseLeave(){
-		this.eleRef.nativeElement.style.color='black' ;
-	}
-}
-
-passing parameter in custom directive : 
-
-<p [appHighlight]="'yellow'">Hello Angular</p>
-export class HighlightDirective{
-	@Input() appHighlight: string = '';
-	@HostListerner ('mouseover') on MouseOver(){
-		this.el.nativeElement.style.backgroundColor = this.appHighlight;
-	}
-}
-
-
-If like custom directive : 
-
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-
-@Directive({
-  selector: '[appIf]'
-})
-export class AppIfDirective {
-  private hasView = false;
-  @Input() set appIf(condition: boolean) {
-
-    if (condition && !this.hasView) {
-      this.viewContainer.createEmbeddedView(this.templateRef);
-      this.hasView = true;
-    } 
-    else if (!condition && this.hasView) {
-      this.viewContainer.clear();
-      this.hasView = false;
-    }
-  }
-
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
-  ) {}
-}
-
-
-custom pipe example code : 
-
-import { Pipe, PipeTransform } from '@angular/core';
-
-@Pipe({
-  name: 'uppercase'
-})
-export class UppercasePipe implements PipeTransform {
-
-  transform(value: string): string {
-    return value.toUpperCase();
-  }
-}
-
-custom validation code : 
-
-1. create custom validation in seprate ts file custom-validation.ts
-
-	import { AbstractControl, ValidationErrors } from '@angular/forms';
-
-	export function noAdminValidator(
-	  control: AbstractControl
-	): ValidationErrors | null {
-
-	  if (control.value?.toLowerCase().includes('admin')) {
-		return { noAdmin: true };
-	  }
-
-	  return null;
-	}
-	
-2. if want to get value of any other formCOntrol then
-	let pswrd=control.get('password').value;
-	
-3. import custom validation in component 
-	import { noAdminValidator } from './validators/no-admin.validator';
-	
-4. add custom validation in reactive form 
-	this.loginForm = this.formBuilder.group({
-      username: ["", [Validators.required,noAdminValidator]],
-      password: ["", [Validators.required]],
-    });
-
-
-Intercepter implementation in standalone project
-
-1. create auth.interceptor.ts file 
-
-	import { HttpInterceptorFn } from '@angular/common/http';
-
-	export const authInterceptor: HttpInterceptorFn = (req, next) => {
-
-	  const token = localStorage.getItem('token');
-
-	  if (token) {
-		req = req.clone({
-		  setHeaders: {
-			Authorization: `Bearer ${token}`
-		  }
-		});
-	  }
-
-	  return next(req);
-	};
-	
-	
-Intercepter with httpstatus handel : 
-
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { catchError, tap, throwError } from 'rxjs';
-
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-
-  const router = inject(Router);
-
-  // Get token
-  const token = localStorage.getItem('token');
-
-  // Add token to request
-  if (token) {
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-  }
-
-  return next(req).pipe(
-
-    // Handle successful response
-    tap(event => {
-		if (event.type === HttpEventType.Response) {
-			const body = event.body;
-		}),
-	}),
-
-    // Handle HTTP errors
-    catchError((error: HttpErrorResponse) => {
-		if(error.status==500){
-			alert('server error')
-		}
-		return throwError(() => error);	// Important: send error back to component
-    })
-  );
-};
-
-
-2. Register the interceptor in app.config.ts file 
-
-	import { ApplicationConfig } from '@angular/core';
-	import { provideHttpClient, withInterceptors } from '@angular/common/http';
-
-	import { authInterceptor } from './interceptors/auth.interceptor';
-
-	export const appConfig: ApplicationConfig = {
-	  providers: [
-		provideHttpClient(
-		  withInterceptors([
-			authInterceptor
-		  ])
-		)
-	  ]
-	};
-	
-3. common http event type  values: 
-
-	HttpEventType.Sent
-	HttpEventType.UploadProgress
-	HttpEventType.ResponseHeader
-	HttpEventType.DownloadProgress
-	HttpEventType.Response
-	
-
-
-Steps to add intercepter in module based project 
-
-
-1. create intercepter using command 
-	ng generate interceptor auth
-	
-	import {
-	  HttpErrorResponse,
-	  HttpEvent,
-	  HttpHandler,
-	  HttpInterceptor,
-	  HttpRequest,
-	  HttpResponse
-	} from '@angular/common/http';
-
-	import { Injectable } from '@angular/core';
-	import { Router } from '@angular/router';
-	import { Observable, throwError } from 'rxjs';
-	import { catchError, tap } from 'rxjs/operators';
-
-	@Injectable()
-	export class AuthInterceptor implements HttpInterceptor {
-
-	  constructor(
-		private router: Router
-	  ) {}
-
-	  intercept(
-		request: HttpRequest<any>,
-		next: HttpHandler
-	  ): Observable<HttpEvent<any>> {
-
-		// Get token
-		const token = localStorage.getItem('token');
-
-		// Add token
-		if (token) {
-
-		  request = request.clone({
-			setHeaders: {
-			  Authorization: `Bearer ${token}`
-			}
-		  });
-
-		}
-
-		return next.handle(request).pipe(
-
-		  // Handle successful response
-		  tap((event: HttpEvent<any>) => {
-
-			if (event instanceof HttpResponse) {
-
-			  const body = event.body;
-
-			  // 200 but no data
-			  if (
-				body === null ||
-				body === undefined ||
-				(Array.isArray(body) && body.length === 0)
-			  ) {
-				alert('No data found');
-			  }
-
-			}
-
-		  }),
-
-		  // Handle errors
-		  catchError((error: HttpErrorResponse) => {
-			if(error.status) {
-			  alert(error.error?.message || 'Bad request')
-			}
-			return throwError(error);	// Pass error back to component
-		  })
-
-		);
-	  }
-	}
-
-2. add intercepter in app.module.ts file provider array
-
-	import { HTTP_INTERCEPTORS } from '@angular/common/http';
-	import { AuthInterceptor } from './interceptors/auth.interceptor';
-	
-	providers: [
-
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-
-  ],
-  
-  
-  
- implementation of authguard in module based project 
- 
-1. generate guard using command ng generate guard guards/auth
-2. add guard to route canActivate: [AuthGuard]
-
-in standalone application 
-1. same way generate guard and add in route.
-2. in standalone it will create function guard and in old its class based
-
-
-switchmap, deboucetime implementation 
-
-	this.searchControl.valueChanges.pipe(
-
-      // Wait 500ms after user stops typing
-      debounceTime(500),
-
-      // Don't call API for same value
-      distinctUntilChanged(),
-
-      // Call API with latest search value
-      switchMap(searchText => {
-
-        if (!searchText?.trim()) {
-          return of([]);
-        }
-
-        return this.http.get<any[]>(
-          `https://api.example.com/users?search=${searchText}`
-        );
-      })
-
-    ).subscribe({
-      next: (data) => {
-        this.results = data;
-      },
-
-      error: (error) => {
-        console.error('Search API error:', error);
-      }
-    });
