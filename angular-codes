@@ -1,5 +1,423 @@
 Q. how to implement accessibility?
 Q. how to implement multi language support in angular ?
+A. In angular multi language support can be implemented in 2 ways.
+	1. using packages : there are package that provide multi language support.
+	A. tanslate npm packae : npm i translate
+		1. this package provide language uspport using google and other websites.
+		2. install the package 
+		3. import in component using "import translate from "translate";"
+		4. or can load its script js file library
+			<script type="module" src="https://cdn.jsdelivr.net/npm/translate/index.min.js"></script>
+		5. set api key and translate engine 
+		6. now can translate data and show it
+
+		// Omit this line if loading from a CDN
+		import translate from "translate";
+		
+		translate.engine = "deepl"; // "google", "yandex", "libre", "deepl"
+		translate.key = process.env.DEEPL_KEY;
+		
+		const text = await translate("Hello world", "es");
+		console.log(text);
+		// "Hola mundo"
+	B. using ngx-translate : internation standerd package 
+		1. install package using "npm install @ngx-translate/core @ngx-translate/http-loader"
+		2. add configuration in app.config.ts file, import service and add in provider
+			import { provideTranslateService } from '@ngx-translate/core';
+			import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+			providers: [
+				provideTranslateService({
+			      loader: provideTranslateHttpLoader({
+			        prefix: './i18n/',
+			        suffix: '.json'
+			      }),
+			      lang: 'en',
+			      fallbackLang: 'en'
+			    })
+			]
+			provideHttpClient() enables HTTP requests to load translation files.
+			provideTranslateService() initializes the translation system.
+			lang: 'en' sets the initial language to English.
+			fallbackLang: 'en' uses English as the fallback language.
+			prefix and suffix specify where the JSON files are located.
+		3. Create translation files in "public/i18n/" folder
+			create file for each language like "en.json", "hi.json" etc							
+				{
+				  "APP": {
+				    "TITLE": "Multilingual Application",
+				    "WELCOME": "Welcome to our application",
+				    "DESCRIPTION": "Learn Angular with multilingual support",
+				    "LANGUAGE": "Select language",
+				    "HOME": "Home"
+				  },
+				  "FORM": {
+				    "NAME": "Your name",
+				    "EMAIL": "Your email",
+				    "SUBMIT": "Submit",
+				    "SUCCESS": "Form submitted successfully!"
+				  }
+				}
+				
+				{
+				  "APP": {
+				    "TITLE": "बहुभाषी एप्लिकेशन",
+				    "WELCOME": "हमारे एप्लिकेशन में आपका स्वागत है",
+				    "DESCRIPTION": "बहुभाषी सपोर्ट के साथ Angular सीखें",
+				    "LANGUAGE": "भाषा चुनें",
+				    "HOME": "होम"
+				  },
+				  "FORM": {
+				    "NAME": "आपका नाम",
+				    "EMAIL": "आपका ईमेल",
+				    "SUBMIT": "जमा करें",
+				    "SUCCESS": "फ़ॉर्म सफलतापूर्वक सबमिट हुआ!"
+				  }
+				}
+		4. Update the root component
+			Registers the three supported languages.
+			Loads the saved language from local storage.
+			Switches the active language.
+			Saves the user's selection so it persists after a refresh.
+			Handles a simple demo form submission.
+
+				import { Component, inject } from '@angular/core';
+				import { FormsModule } from '@angular/forms';
+				import {
+				  TranslatePipe,
+				  TranslateService
+				} from '@ngx-translate/core';
+				
+				@Component({
+				  selector: 'app-root',
+				  standalone: true,
+				  imports: [FormsModule, TranslatePipe],
+				  templateUrl: './app.component.html',
+				  styleUrl: './app.component.css'
+				})
+				export class AppComponent {
+				  private translate = inject(TranslateService);
+				
+				  selectedLanguage = 'en';
+				  name = '';
+				  email = '';
+				  message = '';
+				
+				  constructor() {
+				    this.translate.addLangs(['en', 'hi', 'es']);
+				
+				    const savedLanguage =
+				      typeof localStorage !== 'undefined'
+				        ? localStorage.getItem('app-language')
+				        : null;
+				
+				    const language = ['en', 'hi', 'es'].includes(savedLanguage ?? '')
+				      ? savedLanguage!
+				      : 'en';
+				
+				    this.selectedLanguage = language;
+				    this.translate.use(language);
+				  }
+				
+				  changeLanguage(language: string): void {
+				    if (!['en', 'hi', 'es'].includes(language)) {
+				      return;
+				    }
+				
+				    this.selectedLanguage = language;
+				    this.translate.use(language);
+				
+				    if (typeof localStorage !== 'undefined') {
+				      localStorage.setItem('app-language', language);
+				    }
+				  }
+				
+				  submitForm(): void {
+				    if (!this.name.trim() || !this.email.trim()) {
+				      return;
+				    }
+				
+				    this.message = 'FORM.SUCCESS';
+				  }
+				}
+		5. write select option in app.html file 
+
+			<div class="container">
+			  <header class="header">
+			    <h2>{{ 'APP.TITLE' | translate }}</h2>
+			
+			    <div class="language-selector">
+			      <label for="language">
+			        {{ 'APP.LANGUAGE' | translate }}
+			      </label>
+			
+			      <select
+			        id="language"
+			        [ngModel]="selectedLanguage"
+			        (ngModelChange)="changeLanguage($event)"
+			      >
+			        <option value="en">English</option>
+			        <option value="hi">हिन्दी</option>
+			        <option value="es">Español</option>
+			      </select>
+			    </div>
+			  </header>
+			
+			  <main class="content">
+			    <h1>{{ 'APP.WELCOME' | translate }}</h1>
+			
+			    <p>{{ 'APP.DESCRIPTION' | translate }}</p>
+			
+			    <form #userForm="ngForm" (ngSubmit)="submitForm()">
+			      <div class="form-group">
+			        <label for="name">
+			          {{ 'FORM.NAME' | translate }}
+			        </label>
+			
+			        <input
+			          id="name"
+			          type="text"
+			          name="name"
+			          [(ngModel)]="name"
+			          required
+			          #nameField="ngModel"
+			        />
+			
+			        @if (nameField.invalid && nameField.touched) {
+			          <small class="error">Name is required.</small>
+			        }
+			      </div>
+			
+			      <div class="form-group">
+			        <label for="email">
+			          {{ 'FORM.EMAIL' | translate }}
+			        </label>
+			
+			        <input
+			          id="email"
+			          type="email"
+			          name="email"
+			          [(ngModel)]="email"
+			          required
+			          email
+			          #emailField="ngModel"
+			        />
+			
+			        @if (emailField.invalid && emailField.touched) {
+			          <small class="error">Enter a valid email address.</small>
+			        }
+			      </div>
+			
+			      <button type="submit" [disabled]="userForm.invalid">
+			        {{ 'FORM.SUBMIT' | translate }}
+			      </button>
+			    </form>
+			
+			    @if (message) {
+			      <p class="success">{{ message | translate }}</p>
+			    }
+			  </main>
+			</div>
+
+		To implement both local and api based translation we have to Create a custom translation loader
+		the laoder will load json file from api in same format as in local.
+		if key matches it repalceslocal file object with api response 
+		register the custom loader in app.config.ts file 
+		connect loader to app component
+		display dta using pipe 
+
+	2. create a custom laguage translate service or pipe 
+		a. Create the JSON translation files in public/i18n/
+			keep same keys in all language.json files
+			hi.json
+				{
+				  "appTitle": "भाषा अनुवाद ऐप",
+				  "welcome": "मेरे एप्लिकेशन में आपका स्वागत है",
+				  "description": "यह एक सरल बहुभाषी परीक्षण एप्लिकेशन है।",
+				  "name": "अपना नाम दर्ज करें",
+				  "submit": "जमा करें",
+				  "selectLanguage": "भाषा चुनें",
+				  "message": "नमस्ते! आपका फिर से स्वागत है।",
+				  "home": "होम",
+				  "about": "हमारे बारे में"
+				}
+		b. Configure HttpClient 
+			Open src/app/app.config.ts and add provideHttpClient() to the providers.
+
+			import { ApplicationConfig } from '@angular/core';
+			import { provideHttpClient } from '@angular/common/http';
+			
+			export const appConfig: ApplicationConfig = {
+			  providers: [
+			    provideHttpClient()
+			  ]
+			};
+		c. Create the translation service
+			File: src/app/services/translate.service.ts
+
+			import { Injectable, inject, signal } from '@angular/core';
+			import { HttpClient } from '@angular/common/http';
+			import { firstValueFrom } from 'rxjs';
+			
+			export type Language = 'en' | 'hi' | 'kn';
+			
+			@Injectable({
+			  providedIn: 'root'
+			})
+			export class TranslateService {
+			  private http = inject(HttpClient);
+			
+			  private translations = signal<Record<string, string>>({});
+			
+			  async loadLanguage(language: Language): Promise<void> {
+			    const data = await firstValueFrom(
+			      this.http.get<Record<string, string>>(
+			        `/i18n/${language}.json`
+			      )
+			    );
+			
+			    this.translations.set(data);
+			  }
+			
+			  translate(key: string): string {
+			    return this.translations()[key] ?? key;
+			  }
+			}
+			HttpClient loads the selected JSON file.
+			firstValueFrom() lets us use async/await.
+			translations stores the loaded dictionary in an Angular signal.
+			translate() returns the translated value or the key if it is missing.
+		d. Update app.component.ts
+			import { Component, OnInit, inject } from '@angular/core';
+			import { FormsModule } from '@angular/forms';
+			import { TranslateService, Language } from './services/translate.service';
+			
+			@Component({
+			  selector: 'app-root',
+			  standalone: true,
+			  imports: [FormsModule],
+			  templateUrl: './app.component.html',
+			  styleUrl: './app.component.css'
+			})
+			export class AppComponent implements OnInit {
+			  private translateService = inject(TranslateService);
+			
+			  selectedLanguage: Language = 'en';
+			  userName = '';
+			
+			  async ngOnInit(): Promise<void> {
+			    await this.translateService.loadLanguage('en');
+			  }
+			
+			  async changeLanguage(language: Language): Promise<void> {
+			    this.selectedLanguage = language;
+			    await this.translateService.loadLanguage(language);
+			  }
+			
+			  t(key: string): string {
+			    return this.translateService.translate(key);
+			  }
+			
+			  submit(): void {
+			    alert(`${this.t('message')} ${this.userName}`);
+			  }
+			}			
+		e. Update app.component.html
+			<div class="container">
+			  <header>
+			    <h1>{{ t('appTitle') }}</h1>
+			
+			    <label for="language">
+			      {{ t('selectLanguage') }}
+			    </label>
+			
+			    <select
+			      id="language"
+			      [ngModel]="selectedLanguage"
+			      (ngModelChange)="changeLanguage($event)"
+			    >
+			      <option value="en">English</option>
+			      <option value="hi">हिंदी</option>
+			      <option value="kn">ಕನ್ನಡ</option>
+			    </select>
+			  </header>
+			
+			  <main>
+			    <h2>{{ t('welcome') }}</h2>
+			
+			    <p>{{ t('description') }}</p>
+			
+			    <nav>
+			      <a href="#home">{{ t('home') }}</a>
+			      <a href="#about">{{ t('about') }}</a>
+			    </nav>
+			
+			    <form (ngSubmit)="submit()">
+			      <label for="userName">{{ t('name') }}</label>
+			
+			      <input
+			        id="userName"
+			        name="userName"
+			        type="text"
+			        [(ngModel)]="userName"
+			        [placeholder]="t('name')"
+			        required
+			      />
+			
+			      <button type="submit">
+			        {{ t('submit') }}
+			      </button>
+			    </form>
+			  </main>
+			</div>
+		f. update css 
+			.container {
+			  max-width: 600px;
+			  margin: 50px auto;
+			  padding: 30px;
+			  font-family: Arial, sans-serif;
+			  border: 1px solid #ddd;
+			  border-radius: 12px;
+			}
+			
+			header,
+			main {
+			  display: flex;
+			  flex-direction: column;
+			  gap: 12px;
+			}
+			
+			h1 {
+			  color: #2563eb;
+			}
+			
+			select,
+			input {
+			  padding: 10px;
+			  border: 1px solid #ccc;
+			  border-radius: 6px;
+			  font-size: 16px;
+			}
+			
+			nav {
+			  display: flex;
+			  gap: 20px;
+			}
+			
+			nav a {
+			  color: #2563eb;
+			  text-decoration: none;
+			}
+			
+			button {
+			  padding: 12px;
+			  color: white;
+			  background: #2563eb;
+			  border: none;
+			  border-radius: 6px;
+			  cursor: pointer;
+			}
+
+			When the signal updates, Angular refreshes the template expressions that read it.
 Q. how to create microfrontend architecture?
 Q. chat application flow and codes
 
