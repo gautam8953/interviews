@@ -1407,6 +1407,9 @@ A. Change Detection is the mechanism Angular uses to detect changes in your appl
 	2. OnPush Strategy : changeDetection: ChangeDetectionStrategy.OnPush
 		markForCheck() or detectChanges() is called
 
+		markForCheck() — marks a component so Angular checks it during the next change-detection cycle.
+		detectChanges() — immediately checks the component and its descendants for changes.
+
 Q what is track by in angular 
 A. trackBy is an Angular feature used with loops to help Angular identify which items have actually changed in a list.
 	It improves performance by preventing Angular from recreating DOM elements unnecessarily.
