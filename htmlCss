@@ -461,4 +461,18 @@ A. Broswer send http req and receive HTML response
 	layer added in browser means which content in top and which in behind
 	final screen displays in browser screen
 
+Q. How to Ensure Accessibility
+A. Accessibility ensures that users with different abilities can use the application, including people who rely on keyboards, screen readers, or magnification.
+	A. Use semantic HTML
+	B. Use ARIA attributes where necessary
+	C. Support keyboard navigation
+	D. Display accessible validation errors
+	E. Test accessibility
+		Automated accessibility checks, such as axe DevTools, axe-core, or Lighthouse	
+		Keyboard-only testing.
+		Screen-reader testing.
+		Color contrast checks.
+		Manual testing of dialogs, forms, tables, and dynamic updates.
+
+
 Q. can you make a jpg design to html
