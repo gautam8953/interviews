@@ -386,7 +386,7 @@ A. Decorators are functions that are invoked with a prefixed @ symbol,
   -> Types of Decorators - There are four types of decorators and each type further has its own subset of decorators
     1.class : This is the first type of decorator which tells us about a particular class’s intent and helps answer questions like whether the class is a component or a module. 
           There are various Class decorators in Angular, and among them @Component and @NgModule are widely used
-    2.method : Method decorators, as the name indicates, are used to decorate the method defined inside our class with functionality
+    2.method : Method decorators, as the name indicates, are used to decorate the method defined inside our class with functionality  @hostListner()
     3.property : Property decorators are used to decorate specific properties inside a class. Using a property decorator, 
            we can easily identify why we use any particular property of a class Like @Input (), @Output, @ReadOnly (), @Override ()
     4.Parameter Decorators: Parameter decorators allow us to decorate parameters in our class constructors.  
