@@ -67,7 +67,10 @@ Q. What is Bazel?
 	2. Bazel is independent of the tech stack. We can build anything we want with it using the same interface. 
 		For example, there are plugins for Java, Go, TypeScript, JavaScript, and more
 
-   
+ Q. What is transpiling in Angular ?
+A. ranspiling is the process of transforming the source code of one programming language into the source code of another. 
+	Typically, in Angular, this implies translating TypeScript to JavaScript.
+
 Q. latest angular version -> whats new in it -> latest angular worked on 
 A. 
 
