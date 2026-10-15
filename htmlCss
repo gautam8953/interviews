@@ -392,6 +392,16 @@ Q. what is difference in flexbox and css grid?
 A. Flexbox is designed primarily for one-dimensional layouts (a row or a column), 
 	while CSS Grid is designed for two-dimensional layouts (rows and columns together).
 
+Q. difference in opacity 0 and hidden
+A.	Feature						opacity: 0				visibility: hidden
+	Visible on screen			No						No
+	Occupies layout space		Yes						Yes
+	ckickable					Yes, generally			No
+	Keyboard focus				May still be focusable	Normally not focusable
+	Screen reader accessibility	May still be exposed	Normally hidden
+	Can animate smoothly		Yes	Can be animated, 	often with a delay
+	Child visibility			Children can override opacity	Children can override visibility
+
 Q. can you make responsive? what is responsive web designing? how to achieve it.
 A. page that look good on all screen and resolution.
 	can be achieved using css libraries or framework like bootstrap 
