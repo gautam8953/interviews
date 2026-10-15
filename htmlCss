@@ -457,9 +457,7 @@ Q. What are the limits of the text field size?
 
 Q. Define Semantic elements in HTML
 A. A semantic element clearly describes its meaning to both the browser and the developer.
-    Examples of non-semantic elements: <div> and <span> - Tells nothing about its content.
-    Examples of semantic elements: <form>, <table>, and <article> - Clearly defines its content.
-    <header>,<nav>,<main>,<section>,<article>,<footer>
+    Examples of non-semantic elements: <div> and <span> - Tells nothing about its content
 
     Benefits:
     Accessibility
@@ -467,7 +465,20 @@ A. A semantic element clearly describes its meaning to both the browser and the 
     Maintainability
     Better document structure
 
-    
+	<header>		Introductory content or a section header
+	<nav>	 		Navigation links
+	<main>			Main content of the page
+	<section>		A thematic grouping of content
+	<article>		Self-contained content that can stand independently
+	<aside>			Complementary content, such as a sidebar
+	<footer>		Footer information
+	<figure>		Self-contained media or illustrative content
+	<figcaption>	Caption for a figure
+	<details>		Expandable or collapsible content
+	<summary>		Visible heading for a <details> element
+	<time>			Represents a date or time
+	<address>		Contact information for the relevant person or organization
+
 Q. Why do we need the MathML element in HTML5 -> 
 A. MathML stands for Mathematical Markup Language. 
     It is used for displaying mathematical expressions on web pages
