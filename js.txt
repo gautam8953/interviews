@@ -177,6 +177,21 @@ Q. What is the difference between JavaScript and JScript?
    
 Q. Is JavaScript case sensitive language?  Yes
 
+Q. difference in async & defer JS script loading
+A. Both async and defer are attributes used with external JavaScript files to prevent scripts from unnecessarily blocking HTML parsing
+	1 Normal Script : <script type="javascript" src=""></script>
+		Parse html  ->  Download + run JS  ->  Resume HTML
+		HTML parsing pauses while the browser downloads and executes the script.
+	2. async : <script async type="javascript" src=""></script>
+			Parse HTML  ->  Download JS
+		Downloads in parallel with HTML parsing, then executes as soon as the script is ready. 
+		Execution can interrupt parsing
+		use : script that can run in any order, html parsing not required
+	3. defer : <script defer type="javascript" src=""></script>
+			Parse HTML  ->  Download JS  ->  Execute JS
+		Downloads in parallel, but executes after HTML parsing is complete. Deferred classic scripts preserve document order.
+		use : when scripts need dom first parsed, scripts need t run in specific order
+
 q. show steps how Javascript code runs.
 A. JavaScript source (Code)  → parsing (Syntax check) → bytecode (code change to machine code) → execution
 	When JavaScript starts executing, it creates an Execution Context.
