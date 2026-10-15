@@ -59,3 +59,48 @@ A.
       </div>
     )
   }
+
+Q. show small example to share data using context
+A. 1. create context file 
+    2. provide data, here sharing from app component
+    3. consume data in child component
+
+    1. UserContext.jsx
+      import { createContext } from "react";
+      export const UserContext = createContext();
+
+    2. App.jsx
+        import { UserContext } from "./UserContext";
+        import Child from "./Child";
+        
+        function App() {
+          const user = {
+            name: "Gautam",
+            role: "Developer"
+          };
+
+          return (
+            <UserContext.Provider value={user}>
+              <h2>Parent Component</h2>
+              <Child />
+            </UserContext.Provider>
+          );
+        }
+        export default App;
+
+      3. Child.jsx
+        import { useContext } from "react";
+        import { UserContext } from "./UserContext";
+        
+        function Child() {
+          const user = useContext(UserContext);
+
+          return (
+            <div>
+              <h3>Child Component</h3>
+              <p>Name: {user.name}</p>
+              <p>Role: {user.role}</p>
+            </div>
+          );
+        }        
+        export default Child;
