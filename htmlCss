@@ -388,6 +388,10 @@ A. Flexbox (Flexible Box Layout) is a CSS layout system used to arrange elements
 
 	This is generally cleaner than adding margins to every child.
 
+Q. what is difference in flexbox and css grid?
+A. Flexbox is designed primarily for one-dimensional layouts (a row or a column), 
+	while CSS Grid is designed for two-dimensional layouts (rows and columns together).
+
 Q. can you make responsive? what is responsive web designing? how to achieve it.
 A. page that look good on all screen and resolution.
 	can be achieved using css libraries or framework like bootstrap 
