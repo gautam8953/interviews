@@ -1,0 +1,61 @@
+Q. write code to add counter functionality 
+A. 
+  function App() {
+    const[count,setCount]=useState(0);
+    const handelAdd=()=>{
+      setCount(val=>val+1)
+    }
+    const handelMin=()=>{
+      
+    }
+    return (
+      <div>
+        <p>{count}</p>
+        <button onClick={()=>handelAdd()}>+</button>
+        <button onClick={()=>setCount(0)}>Reset</button>
+        <button onClick={()=>setCount(val=>val-1)}>-</button>
+      </div>
+    )
+  }
+
+Q. write code to implement * rating functionality
+A. 
+  function App() {
+    let [starRate,setStarRate]=useState(0);
+    let arrStar=[1,2,3,4,5,6,7,8,9,10];
+  
+    let starClick=(clickVal)=>{
+      setStarRate(clickVal);
+      console.log(starRate);
+    }
+    return (
+      <div>
+      {arrStar.map((starVal,ind)=>(
+        <button key={starVal} onClick={()=>starClick(starVal)}>*</button>
+      ))}
+      <div>Rating:{starRate}/10</div>
+      {(starRate>0 && starRate<4) && <div>Poor</div>}
+      {(starRate>=4 && starRate<7) && <div>good</div>}
+      {(starRate>=7 && starRate<=10) && <div>Best</div>}
+      </div>
+    )
+  }
+
+Q. call a api and bind its data in html 
+A. 
+  function App() {
+    const [userData,setUserData]=useState([]);
+    useEffect(()=>{
+    fetch("https://jsonplaceholder.typicode.com/users")
+    .then(res=>{ return res.json() })
+    .then(res=>{ setUserData(res) })
+    .catch(err=>{ console.log(err) })
+    },[])
+    return (
+      <div>
+        {userData.map(userVal=>(
+          <p key={userVal.id}>{userVal.name}</p>
+        ))}
+      </div>
+    )
+  }
