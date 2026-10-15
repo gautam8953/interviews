@@ -5,21 +5,15 @@ Q. If we want to return the character from a specific index which method is used
 	document.writeln(str.charAt(4));
 
 Q.  output 
-    Falsy values: 
-        false
-        0
-        ""
-        null
-        undefined
-        NaN
-        0n
+    Falsy values: false, 0,"", null, undefined, NaN, 0n
+    Truthy: "0", "false", [], {}, " "
 
-    Truthy:
-        "0"
-        "false"
-        []
-        {}
-        " "
+	Boolean → number.
+	String compared with number → string converts to number.
+	Object compared with primitive → object may convert to a primitive.
+	null == undefined is true.
+	=== does not perform these implicit type conversions.
+
     A && B    Return first falsy value, otherwise return last value.
     A || B    Return first truthy value, otherwise return last value.
     number + number → addition
