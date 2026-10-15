@@ -460,10 +460,10 @@ A. A semantic element clearly describes its meaning to both the browser and the 
     Examples of non-semantic elements: <div> and <span> - Tells nothing about its content
 
     Benefits:
-    Accessibility
-    SEO
-    Maintainability
-    Better document structure
+	Accessibility: Screen readers can identify landmarks such as navigation, main content, and complementary content.
+	SEO: Semantic structure helps search engines interpret page content, although semantic tags alone do not guarantee higher rankings.
+	Maintainability: Developers can understand the structure more easily.
+	Consistency: Semantic elements provide standard browser behavior and meaningful document structure.
 
 	<header>		Introductory content or a section header
 	<nav>	 		Navigation links
