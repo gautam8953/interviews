@@ -124,6 +124,30 @@ A.
 | Compilation required         | ❌                                   | ✅                             |
 | Best for                     | Simple/standard styling              | Large/complex applications    |
 
+Q. what is diff in rem, em, and px
+A. These are CSS units used to define font sizes, widths, heights, margins, padding, and other dimensions
+	1. px — Pixels : A CSS pixel is a reference unit, not necessarily one physical screen pixel.
+	2. em — Relative to font size
+		For font-size, em is relative to the inherited font size of the parent. 
+		For other properties, it is relative to the element's own computed font size.
+		.parent {
+		  font-size: 20px;
+		}
+		
+		.child {
+		  font-size: 1.5em;
+		  padding: 1em;
+		}
+
+		Result:
+		- Child font size = 1.5 × 20px = 30px.
+		- Child padding = 1 × 30px = 30px.
+	3. rem — Relative to the root font size
+		rem stands for root em. 
+		It is based on the computed font size of the root element, usually html.
+	4. % — Percentage 
+		A percentage is relative to a reference determined by the CSS property
+
 Q. what are per-processors do we have in css?
 A. The major CSS preprocessors are Sass/SCSS, Less, and Stylus. 
 	They extend CSS with features like variables, nesting, mixins and functions and then compile the code into standard CSS. 
