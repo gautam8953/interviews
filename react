@@ -445,20 +445,9 @@ A. Cleanup is used to remove subscriptions, timers, listeners, etc.
 
 Q. What is a custom Hook?
 A. A custom Hook is a reusable function whose name starts with use and which can use other Hooks.
-  Example:
-  
-  function useDebounce(value, delay) {
-    const [debouncedValue, setDebouncedValue] = useState(value);
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-      return () => clearTimeout(timer);
-    }, [value, delay]);
-    return debouncedValue;
-  }
-  
-  This allows reusable stateful logic without duplicating component code.
+  	This allows reusable stateful logic without duplicating component code.
+
+	Example code in rect-code.txt file
   
 Q. How do you handle API calls in React?
 A. useEffect + fetch/axios
