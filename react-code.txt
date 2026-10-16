@@ -41,6 +41,39 @@ A.
     )
   }
 
+Q. create a simple custom hook example 
+A. 1. create custom hook useCounter.js
+  2. import hook in component and use it
+
+  1. useCounter.js
+      import { useState } from "react";
+      
+      function useCounter() {
+        const [count, setCount] = useState(0);
+      
+        const increment = () => setCount(c => c + 1);
+        const decrement = () => setCount(c => c - 1);
+      
+        return { count, increment, decrement };
+      }      
+      export default useCounter;
+
+    2. 
+      import useCounter from "./useCounter";
+      
+      function App() {
+        const { count, increment, decrement } = useCounter();
+      
+        return (
+          <div>
+            <h2>Count: {count}</h2>
+      
+            <button onClick={increment}>+</button>
+            <button onClick={decrement}>-</button>
+          </div>
+        );
+      }
+      export default App;
 Q. call a api and bind its data in html 
 A. 
   function App() {
