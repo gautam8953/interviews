@@ -60,15 +60,26 @@ A. Reconciliation is React's process of comparing the previous rendered tree wit
   Keys are especially important because they help React identify elements across renders.
 
 Q. What is Fiber?
-A. Fiber is React's internal architecture for representing and processing work on the component tree.
-  It enables React to:
-  
-  Break rendering work into units
-  Prioritize work
-  Pause/resume certain rendering work
-  Support concurrent rendering capabilities
+A. React Fiber is the reimplementation of React's reconciliation algorithm, introduced in React 16. 
+	It helps React manage rendering work more efficiently, especially in large applications.
+	Fiber is React's internal architecture for representing and processing work on the component tree.
+
+	Why was Fiber introduced?
+		Before Fiber, React used a synchronous reconciliation process. 
+		Once rendering work started, it generally ran until completion, which could make the UI feel unresponsive during heavy updates.
+		Fiber allows React to break rendering work into smaller units, prioritize updates, and pause or resume rendering work when appropriate.
+
+  It enables React to:  
+	  Break rendering work into units
+	  Prioritize work
+	  Pause/resume certain rendering work
+	  Support concurrent rendering capabilities
   
   For an experienced React developer, understanding Fiber conceptually is more important than knowing its internal implementation details.
+
+	Fiber vs Virtual DOM
+	- Virtual DOM: A representation of the UI that React uses to calculate changes.
+	- Fiber: The internal architecture React uses to represent component work, reconcile changes, and schedule rendering.
 
 Q. what are React core principles?
 A. React is based on component-based architecture, declarative UI, one-way data flow, props and state, composition, and reconciliation. 
