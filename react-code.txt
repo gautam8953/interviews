@@ -93,6 +93,48 @@ A.
     )
   }
 
+Q. write code to share data from parent to child 
+A.
+    function App() {
+      const myName="Gautam";
+      return (
+        <div>
+        Parent screen
+        <Child userName={myName} />
+        </div>
+      )
+    }
+    function Child({userName}){
+      return (
+        <div>Child data {userName}</div>
+      )
+    }
+Q. write code to share data from Child to parent
+A.
+    function App() {
+      const [myName,setmyName]=useState("");
+      const getData=(nameRec)=>{
+        setmyName(nameRec);
+      }
+      return (
+        <div>
+        Parent screen {myName}
+        <Child childData={getData} />
+        </div>
+      )
+    }
+    function Child({childData}){
+      const sendData=()=>{
+        childData("Gautam");
+      }
+      return (
+        <>
+        <div>Child data</div>
+        <button onClick={sendData}>Send</button>
+        </>
+      )
+    }
+
 Q. show small example to share data using context
 A. 1. create context file 
     2. provide data, here sharing from app component
@@ -137,3 +179,8 @@ A. 1. create context file
           );
         }        
         export default Child;
+
+
+Q. write code to share data/state using redux 
+
+
