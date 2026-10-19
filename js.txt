@@ -587,6 +587,9 @@ Q. Name the types of functions in JS?
 		let oddEven=function(number){
 			if(number%2==0){ return 'EVEN'; } else { return 'ODD'; }			
 		}
+		use : writing IIFE functions
+		use as callbacks in settimeout, map, filter, reduce etc
+
 	4. Arrow Function : arrow function do not have their own this.
 		const add = (a, b) => {
 		  return a + b;
@@ -832,6 +835,13 @@ Q. Define closure.
 	counter(); // 1
 	counter(); // 2
 	counter(); // 3
+
+Q. list disadvantages of closures.
+A.
+	Memory Leaks: Closures can unintentionally keep outer function scopes alive, causing memory leaks.
+	Variable Sharing: They can lead to unexpected variable sharing between closures.
+	Performance Issues: Overuse can impact performance due to increased memory usage.
+	Debugging Complexity: Understanding and debugging code with closures can be challenging due to the complexity of the scope chain.
 
 Q. How to avoid memory leak as after closure gets executed still memory won't be free as it hold refrence?
 A. Just set null in variable.In above closure set counter=null;
