@@ -346,7 +346,14 @@ A. In JavaScript, the event.preventDefault() method is used to prevent the defau
 Q. How can you check if the event.preventDefault() method was used in an element?
 A. When we use the event.defaultPrevent() method in the event object returns a Boolean indicating that 
 	the event.preventDefault() was called in a particular element.
-	
+
+Q. Explain Implicit Type Coercion in javascript
+A. Implicit type coercion in javascript is the automatic conversion of value from one data type to another. 
+	It takes place when the operands of an expression are of different data types.
+
+	String coercion : When a number is added to a string, the number type is always converted to the string type
+
+
 Q. What are the different data types present in JavaScript?
    There are two types of data types in JavaScript:
 	1. Primitive data types  - String, Number, Boolean, BigInt, Undefined, Null, typeof
@@ -2452,6 +2459,9 @@ A. Web Workers are a browser feature that allows JavaScript to run code in a sep
 		  console.log('Message from main script:', event.data);
 		  postMessage('Hello, main script!');
 		};
+
+Q. Explain passed by value and passed by reference.
+A. In JavaScript, primitive data types are passed by value and non-primitive data types are passed by reference
 
 Q. explain class and object in js with inheritance 
 A. A class is a blueprint for creating objects.
