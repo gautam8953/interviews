@@ -2442,9 +2442,16 @@ A. Web Workers are a browser feature that allows JavaScript to run code in a sep
 	✅ PDF generation
 	✅ AI/ML inference in the browser
 
+	main.js :
 		const worker = new Worker('worker.js');
 		worker.postMessage('Hello, worker!');		
 		worker.onmessage = (event) => console.log('Message from worker:', event.data);
+
+	worker.js
+		onmessage = (event) => {
+		  console.log('Message from main script:', event.data);
+		  postMessage('Hello, main script!');
+		};
 
 Q. explain class and object in js with inheritance 
 A. A class is a blueprint for creating objects.
@@ -2533,6 +2540,10 @@ A. In a derived class constructor, this isn't initialized until the parent const
 
 Q. Where are class methods stored?
 A. generally in ClassName.prototype, not individually on each instance.
+
+Q. What are some common performance bottlenecks in JavaScript applications?
+A. Common performance bottlenecks in JavaScript applications often stem from inefficient DOM manipulation, 
+	excessive global variables, blocking the main thread with heavy computations, memory leaks, and improper use of asynchronous operations.
 
 Q. Write the point of difference between a web garden and a web farm?
 Ans. Both web-garden and web-farm are web hosting systems. The only difference is that web-garden is a setup that includes many processors in a single server. 
