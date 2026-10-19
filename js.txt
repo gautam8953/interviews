@@ -650,6 +650,31 @@ Q. Name the types of functions in JS?
 		Method	Function 			defined on an object
 		Recursive Function			Calls itself
 
+Q. What are iterators in JS?
+A. Iterators define a sequence and terminate with a potential return value. 
+	They require a next() method that returns an object with value (next sequence value) 
+	and done (boolean indicating completion) properties.
+
+	Example of an iterator:
+	
+	const iterator = {
+	  current: 0,
+	  last: 5,
+	  next() {
+	    if (this.current <= this.last) {
+	      return { value: this.current++, done: false };
+	    } else {
+	      return { value: undefined, done: true };
+	    }
+	  },
+	};
+
+let result = iterator.next();
+while (!result.done) {
+  console.log(result.value); // Logs 0, 1, 2, 3, 4, 5
+  result = iterator.next();
+}
+
 Q. what is use of IIFE or real use case of this function?
 A.  An IIFE is a function expression that is immediately invoked. 
 	Its main purpose is to create an isolated/private scope and avoid polluting the global scope.
