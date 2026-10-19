@@ -251,6 +251,14 @@ A. The Event Loop continuously checks whether the Call Stack is empty and
 	priority 1: micro task queue - promise, callback, observable, async/await, queueMicrotask(), 
 	priority 2 : macro task queue - settimeout, setinterval, MessageChannel, postMessage(),  DOM events like click, input, keydown
 
+Q. What are "deoptimizations" (deopts) in V8, and what causes them?
+A.  V8 uses a Just-In-Time (JIT) compiler to turn JavaScript into highly optimized machine code. 
+	It relies on speculative assumptions based on previously passed data types (using Hidden Classes or Shapes).
+
+	"Deopts" occur when a function that has been optimized for a specific type shape suddenly receives a completely different data type. 
+	V8 has to discard the optimized machine code and roll back to baseline interpreted bytecode, hurting application performance. 
+	Pass structurally consistent objects and avoid changing object shapes dynamically to prevent this.
+
 Q. What is BOM?
    BOM stands for Browser Object Model. It provides interaction with the browser. The default object of a browser is a window. 
    So, you can call all the functions of the window by specifying the window or directly. 
