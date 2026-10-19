@@ -259,6 +259,44 @@ A.  V8 uses a Just-In-Time (JIT) compiler to turn JavaScript into highly optimiz
 	V8 has to discard the optimized machine code and roll back to baseline interpreted bytecode, hurting application performance. 
 	Pass structurally consistent objects and avoid changing object shapes dynamically to prevent this.
 
+Q. Explain Garbage Collection in V8 (Mark-and-Sweep) and how memory leaks occur despite it.
+A. V8 manages memory automatically automatically, so there is no need to manually allocate and free memory.
+	The fundamental Mark-and-Sweep approach starts from GC roots (Garbage Collection Root).
+	It marks all reachable objects, and reclaims memory occupied by unreachable objects.
+	Modern V8 also uses generational, incremental, and concurrent collection techniques to improve performance
+
+	Generational collection: Separates objects by age because many objects die young.
+	Minor GC: Collects young-generation objects.
+	Major GC: Collects and compacts the old generation when needed.
+	Incremental and concurrent work: Performs parts of GC alongside application execution to reduce pauses
+
+	Step GC root:
+	Step 1 - Mark : references that are considered live, such as active execution contexts, reachable global objects, and relevant runtime references.
+	step 2 - Sweep : V8 identifies objects in the managed heap that were not marked as reachable and reclaims their memory when appropriate.
+
+	Mark-and-Sweep is based on reachability, not on whether an object looks unused to the developer.
+	If its unreachable then it doesn't mean it will be removed immediately from memory.
+	
+
+	If there is no reference exist for any variable then it became eligible for garage collection.
+	Any object unreachable from the roots is marked for removal and swept.
+	
+	automatic garbage collection does not prevent every memory leak. 
+	A leak can occur when your application unintentionally keeps references to objects that it no longer needs
+
+
+	How memory leaks occur despite garbage collection : 
+	A memory leak occurs when memory remains occupied unnecessarily, often because objects that should have been discarded are still reachable.
+
+Common causes of memory leaks
+Cause						Why memory stays allocated						Solution
+Global variables			Remain reachable globally						Use local scope
+Closures					Retain captured values							Release unnecessary callbacks and references
+Event listeners				Long-lived targets retain handlers				Remove listeners
+setInterval()				Repeated callback retains references			Call clearInterval()
+Unbounded arrays or caches	Objects remain referenced						Limit or clear data
+Detached DOM elements		JavaScript references retain removed elements	Release references and listeners
+
 Q. What is BOM?
    BOM stands for Browser Object Model. It provides interaction with the browser. The default object of a browser is a window. 
    So, you can call all the functions of the window by specifying the window or directly. 
