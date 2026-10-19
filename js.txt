@@ -422,6 +422,24 @@ A. Hoisting is the default behavior of JavaScript which moves variables and func
 	console.log(a); var a = 10; // undefined
 	console.log(a); let a = 10; // ReferenceError: Cannot access 'a' before initialization
 
+Q. what are the issues caused by hoisting?
+A. variables being accessed before their declaration, resulting undefined and reference error
+	it also create confusion between function declarations and expressions
+
+		// 1. Function declaration
+		console.log(add(2, 3)); // 5
+		
+		function add(a, b) {
+		    return a + b;
+		}
+		
+		// 2. Function expression
+		console.log(subtract(5, 3)); // TypeError with var : subtract is not a function
+		
+		var subtract = function (a, b) {
+		    return a - b;
+		};
+
 Q. What is the Temporal Dead Zone?
 A. The Temporal Dead Zone is the period between when a let/const variable is created (binding is established) 
 	and when its declaration is executed/initialized. During this period, accessing the variable causes a ReferenceError.
