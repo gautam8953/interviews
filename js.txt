@@ -252,7 +252,9 @@ A. The Event Loop continuously checks whether the Call Stack is empty and
 	priority 2 : macro task queue - settimeout, setinterval, MessageChannel, postMessage(),  DOM events like click, input, keydown
 
 Q. What are "deoptimizations" (deopts) in V8, and what causes them?
-A.  V8 uses a Just-In-Time (JIT) compiler to turn JavaScript into highly optimized machine code. 
+A.  Deoptimization happens when optimized code becomes invalid. This usually occurs when variable types change unexpectedly
+	
+	V8 uses a Just-In-Time (JIT) compiler to turn JavaScript into highly optimized machine code. 
 	It relies on speculative assumptions based on previously passed data types (using Hidden Classes or Shapes).
 
 	"Deopts" occur when a function that has been optimized for a specific type shape suddenly receives a completely different data type. 
