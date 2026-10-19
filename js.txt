@@ -2311,6 +2311,13 @@ A. Shallow copy copies only the first level.
 		const user2 = structuredClone(user1);
 		const user3 = JSON.parse(JSON.stringify(user1));
 
+Q. JSON.stringify vs structuredClone()
+A.
+Feature					JSON.stringify / parse								structuredClone()
+Circular References		Throws a TypeError.									Handles recursively without crashing.
+Data Type Support		Loses Date, RegExp, Map, Set, Blob, TypedArrays.	Retains proper classes and structures.
+Functions/Symbols		Strips them out or turns them to null.				Throws a DataCloneError (neither can clone functions).
+
 Q. what is Function currying?
 A. Currying means converting a function that takes multiple arguments into a sequence of functions, 
 	where each function takes one argument.
