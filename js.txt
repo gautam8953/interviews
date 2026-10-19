@@ -2442,6 +2442,9 @@ A. Web Workers are a browser feature that allows JavaScript to run code in a sep
 	✅ PDF generation
 	✅ AI/ML inference in the browser
 
+		const worker = new Worker('worker.js');
+		worker.postMessage('Hello, worker!');		
+		worker.onmessage = (event) => console.log('Message from worker:', event.data);
 
 Q. explain class and object in js with inheritance 
 A. A class is a blueprint for creating objects.
