@@ -2565,7 +2565,75 @@ Ans. Both web-garden and web-farm are web hosting systems. The only difference i
 programs : 
 
 Q. Wrote a polyfill for the filter array method
+A.
+	Array.prototype.myFilter = function (callback, thisArg) {
+	  if (this == null) {
+	    throw new TypeError("Array.prototype.myFilter called on null or undefined");
+	  }	
+	  if (typeof callback !== "function") {
+	    throw new TypeError("Callback must be a function");
+	  }
+	
+	  const arr = Object(this);
+	  const result = [];
+	
+	  for (let i = 0; i < arr.length; i++) {
+	    if (i in arr) {
+	      const value = arr[i];	
+	      if (callback.call(thisArg, value, i, arr)) {
+	        result.push(value);
+	      }
+	    }
+	  }
+	
+	  return result;
+	};
+
+	const numbers = [10, 15, 20, 25, 30];
+	const result = numbers.myFilter((num) => num > 20);
+	console.log(result); // [25, 30]
+
+
+	// simple example to set own prototype
+	function Person(name) {
+	    this.name = name;
+	}
+	
+	// Add a method to the prototype
+	Person.prototype.sayHello = function () {
+	    console.log("Hello, " + this.name);
+	};
+	
+	const person1 = new Person("Rahul");
+	const person2 = new Person("Amit");
+	
+	person1.sayHello(); // Hello, Rahul
+	person2.sayHello(); // Hello, Amit
+
 Q. Implemented a solution to flatten nested arrays
+A.
+	function flattenArray(arr) {
+	    let result = [];
+	
+	    for (let i = 0; i < arr.length; i++) {
+	        if (Array.isArray(arr[i])) {
+	            // result = result.concat(flattenArray(arr[i]));  // using concat
+	
+	            // result.push(...flattenArray(arr[i]));  // using recursive
+	
+	            // using without function code
+	            let temp=flattenArray(arr[i]);
+	            for (let j = 0; j < temp.length; j++) {
+	                result.push(temp[j]);
+	            }
+	        } else {
+	            result.push(arr[i]);
+	        }
+	    }	
+	    return result;
+	}
+	const arr = [1, [2, [3, 4], 5], [6, 7]];
+	console.log(flattenArray(arr));// [1, 2, 3, 4, 5, 6, 7]
 
 Q. compare two array by a single loop
 A. 
@@ -2598,11 +2666,38 @@ Q. const names=['alice','bob','charlie','gautam','deepak'];
 	
 Q write a program to replace string with number and number with string
 	const a=["a",1,"s",2]; output : [1,"a",2,"s"]
-Q. write code to implement switchmap, mermap etc 
+
+Q. Longest Substring Without Repeating Characters
+A.
+	function longestSubstring(str) {
+	    let longest = "";
+	
+	    for (let i = 0; i < str.length; i++) {
+	        let current = "";
+	
+	        for (let j = i; j < str.length; j++) {
+	            if (current.includes(str[j])) {
+	                break;
+	            }
+	
+	            current += str[j];
+	
+	            if (current.length > longest.length) {
+	                longest = current;
+	            }
+	        }
+	    }
+	
+	    console.log("Substring:", longest);
+	    console.log("Length:", longest.length);
+	}
+	
+	longestSubstring("abcabcbb");
+
+Q. write code to implement switchmap, mergemap etc 
 Q. write code to call search api after 500ms
 
-Two Sum
-Valid Parentheses
+
 Longest Substring Without Repeating Characters
 Merge Intervals
 Group Anagrams
