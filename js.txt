@@ -2694,23 +2694,14 @@ A.
 	
 	longestSubstring("abcabcbb");
 
+Q. write code to find first non repitative character
+A. 
+
 Q. write code to implement switchmap, mergemap etc 
 Q. write code to call search api after 500ms
 
 
-Longest Substring Without Repeating Characters
-Merge Intervals
-Group Anagrams
-Maximum Subarray
-Container With Most Water
-Best Time to Buy and Sell Stock
-Product of Array Except Self
-Find Minimum in Rotated Sorted Array
-Linked List Cycle
-Reverse Linked List
-Binary Tree Inorder Traversal
-Number of Islands (DFS)
-Course Schedule (Topological Sort)
+
 
 
 JQUERY : 
