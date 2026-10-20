@@ -349,8 +349,18 @@ Q. How can you check if the event.preventDefault() method was used in an element
 A. When we use the event.defaultPrevent() method in the event object returns a Boolean indicating that 
 	the event.preventDefault() was called in a particular element.
 
-Q. Explain Implicit Type Coercion in javascript
-A. Implicit type coercion in javascript is the automatic conversion of value from one data type to another. 
+Q. Explain type coercion with examples in javascript
+A. Type coercion means JavaScript automatically or manually converts a value from one data type to another.
+	For example, converting a string to a number or a number to a string.
+
+	There are two types of type coercion:
+	1. Implicit coercion: JavaScript automatically converts the type.
+	2. Explicit coercion: The developer converts the type manually.
+
+	1. Implicit type coercion : console.log(10 + "20"); // "1020"
+	2. Explicit type coercion : let a = "100"; console.log(Number(a)); // 100
+
+Implicit type coercion in javascript is the automatic conversion of value from one data type to another. 
 	It takes place when the operands of an expression are of different data types.
 
 	String coercion : When a number is added to a string, the number type is always converted to the string type
@@ -512,8 +522,22 @@ Q. how to reload a page by JS? window.location.reload();
 
 Q. What is negative Infinity? - Negative Infinity is a number in JavaScript which can be derived by dividing negative number by zero.
 
+Q. explain Infinity in js
+A. Infinity represents a value greater than any finite JavaScript number. -Infinity represents negative infinity.
+	console.log(1 / 0);   // Infinity
+	console.log(-1 / 0);  // -Infinity
+	console.log(Infinity + 100); // Infinity
+
 Q. In JavaScript, it is possible for the programmers to convert the string to an integer? 
   Ans. parseInt()
+
+Q. why typeof null returns "object"?
+A. typeof null returns "object" due to a historical bug in JavaScript's original implementation. 
+	This behavior is preserved for backward compatibility. To check whether a value is null, I use value === null instead of typeof
+
+Q. What is short-circuit evaluation?
+A. Short-circuit evaluation means JavaScript stops evaluating an expression once the result is determined. 
+	With &&, it stops at the first falsy value; with ||, it stops at the first truthy value
 
 Q.Differene between innerText and innerHTML
 	Retrieves and sets the content in plain text.			Retrieves and sets the content in HTML format.
@@ -762,6 +786,12 @@ A. 	for			Anything you control with a counter		Known iterations
 	for...of	Values									Arrays, strings, Set, Map
 	for...in	Keys/properties							Objects
 	forEach()	Array values							Simple array iteration
+
+	The main difference is:
+	- for...in iterates over property keys (usually object keys).
+	- for...of iterates over values from an iterable, such as an array or string.
+	- forEach() executes a callback for each array element.
+
 
 	for : 
 		for (let i = 0; i < 5; i++) {
@@ -1849,8 +1879,9 @@ A. Object methods are built-in methods provided by the Object class to create, i
 	Object.values()		Returns values
 	Object.entries()	Returns key-value pairs
 	Object.assign()		Copies/merges objects
-	Object.freeze()		Makes object immutable
-	Object.seal()		Prevents adding/removing properties
+	Object.freeze()		Makes object immutable, no change allowed
+	Object.seal()		Prevents adding/removing properties, can update
+	Object.preventExtensions() — prevents adding new properties, but allows changing and deleting existing properties.
 	Object.hasOwn()		Checks if a property exists directly on the object
 	Object.create()		Creates an object with a specified prototype
 	Object.fromEntries()	Converts entries to an object
