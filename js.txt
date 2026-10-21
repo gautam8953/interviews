@@ -1444,6 +1444,9 @@ clear()			✅ Yes														❌ No
 keys(), values(), entries()		✅ Yes										❌ No
 Garbage Collection	Holds strong references to keys	Holds weak references to keys
 
+Q. What is the difference between Map and a plain object?
+A. In JavaScript, both Map and plain objects store key-value pairs. 
+	The main difference is that Map allows keys of any data type, while plain objects primarily use strings and symbols as keys
 
 Q.  What is an observable?
    An observable provides a way to emit multiple values over time, which can be processed using various operators, 
