@@ -182,5 +182,83 @@ A. 1. create context file
 
 
 Q. write code to share data/state using redux 
+A.  install redux package using command : npm install @reduxjs/toolkit react-redux
+
+  1. create redux slice : counterSlice.js
+        import { createSlice } from "@reduxjs/toolkit";
+        
+        const counterSlice = createSlice({
+          name: "counter",
+        
+          initialState: { value: 0 },
+        
+          reducers: {
+            increment: (state) => { state.value += 1; },
+            decrement: (state) => { state.value -= 1; },
+            reset: (state) => { state.value = 0; }
+          }
+        });
+        
+        export const { increment, decrement, reset } =
+          counterSlice.actions;
+        
+        export default counterSlice.reducer;
+
+  2. create redux store : store.js
+      import { configureStore } from "@reduxjs/toolkit";
+      import counterReducer from "./counterSlice";
+      
+      export const store = configureStore({
+        reducer: {
+          counter: counterReducer
+        }
+      });
+
+    3. Provide the store to React
+      import { StrictMode } from 'react'
+      import { createRoot } from 'react-dom/client'
+      import './index.css'
+      import App from './App.jsx'
+      import { Provider } from "react-redux";
+      import { store } from "./store";
+      
+      createRoot(document.getElementById('root')).render(
+        <StrictMode>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </StrictMode>,
+      )
+
+    4. Use Redux in a component
+      import { useEffect, useState } from "react";
+      import { useSelector, useDispatch } from "react-redux";
+      import { increment, decrement, reset } from "./counterSlice";
+      
+      function App() {
+        const count = useSelector(
+          (state) => state.counter.value
+        );
+        const dispatch = useDispatch();
+      
+        return (
+          <div>
+            <h1>Count: {count}</h1>
+            <button onClick={() => dispatch(increment())}>
+              Increment
+            </button>
+            <button onClick={() => dispatch(decrement())}>
+              Decrement
+            </button>
+            <button onClick={() => dispatch(reset())}>
+              Reset
+            </button>
+          </div>
+        );
+      }
+      export default App
+
+
+
 
 
