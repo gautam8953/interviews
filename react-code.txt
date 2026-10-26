@@ -258,6 +258,49 @@ A.  install redux package using command : npm install @reduxjs/toolkit react-red
       }
       export default App
 
+Q. Reusable component example in react.js 
+A. 1. create a reusable component 
+
+      function Button({ text, color, onClick }) {
+        return (
+          <button
+            style={{ backgroundColor: color, color: "white" }}
+            onClick={onClick}
+          >
+            {text}
+          </button>
+        );
+      }      
+      export default Button;
+
+  2. import in other component and use it .
+
+        import Button from "./Button";
+        
+        function App() {
+          return (
+            <>
+              <Button
+                text="Save"
+                color="green"
+                onClick={() => alert("Saved!")}
+              />
+        
+              <Button
+                text="Delete"
+                color="red"
+                onClick={() => alert("Deleted!")}
+              />
+        
+              <Button
+                text="Cancel"
+                color="gray"
+                onClick={() => alert("Cancelled!")}
+              />
+            </>
+          );
+        }
+        export default App;
 
 
 
