@@ -277,6 +277,101 @@ A.
 	    }
 	}
 
+Q. wite program to arrange array as per output given
+A. 
+	const arr=[0,21,15,0,24,0,7];
+	// output [21,15,24,7,0,0,0]
+	let ind=0;
+	for(let i=0; i<arr.length; i++){
+	    if(arr[i]!=0){
+	        arr[ind]=arr[i];
+	        ind++;
+	    }
+	}
+	while(ind<arr.length){
+	    arr[ind]=0;
+	    ind++;
+	}
+	console.log(arr);
+
+
+Q. write cdoe to find filter unique object in below array. objects may have any number of data and may have different keys to.
+	like name in first index but in ther name may not be present or fname is present.
+	the complexity of the solution should be O(n).
+	you could not use built in functions. 
+	let arr= [
+	{fname:"Praveen",age:28,department:"IT"},
+	{name:"ishu",age:26},
+	{name:"sadhna",age:29},
+	{name:"Praveen",age:28},
+	{fname:"Praveen",age:28},
+	{name:"sadhna",age:29},
+	{fname:"sadhna",age:29},
+	{name:"sadhna",age:29},
+	{name:"sadhna",age:29},
+	{name:"ishu",age:26},
+	{name:"sadhna",age:29,department:"IT"},
+	{fname:"sadhna",age:29,department:"IT"},
+	{fname:"sadhna",age:29,department:"IT"},
+	{age:29,department:"IT"},
+	{age:29,department:"IT"},
+	{name:"sadhna",age:29},
+	{name:"sadhna",age:29},
+	{city:"pune",company:"IT"},
+	{city:"pune",company:"IT"} 
+	];
+
+A. 
+	function uniqueObjects(arr) {
+	    var result = [];
+	    var seen = {};
+	
+	    for (var i = 0; i < arr.length; i++) {
+	
+	        var obj = arr[i];
+	        var key = "";
+	
+	        for (var prop in obj) {
+	            if (obj.hasOwnProperty(prop)) {
+	                key += prop + ":" + obj[prop] + "|";
+	            }
+	        }
+	
+	        if (!seen[key]) {
+	            seen[key] = true;
+	            result[result.length] = obj;
+	        }
+	    }
+	    return result;
+	}
+
+
+Q. convet string to as output given
+	let txt="person_first_name";
+	//output "personFirstName"
+	let b=txt.split('_');
+	let c=b.map((char,index)=>{
+	    let str=char.replace(char.charAt(0),char.charAt(0).toUpperCase());
+	    if(index==0){ str= char; }
+	    return str;  
+	})
+	.join("");
+	console.log(c);
+	or let result = txt.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+
+Q. rearrange array element as per new index in given array
+	var arr=["a","b","c","d","e","f"];
+	var ind=[2,3,4,0,5,1];
+	var newArr=[];
+	// output: ["d","f","a","b","c","e"]
+	for(let i=0;i<arr.length;i++){
+	    newArr[ind[i]]=arr[i];
+	}
+	console.log(newArr);
+
+
+
+
 	
 Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	Console.log('1');
@@ -453,95 +548,3 @@ console.log(e2.showName()); // gautam kumar
 console.log(e1.showName()); // gautam kumar
 
 
-Q. wite program to arrange array as per output given
-A. 
-	const arr=[0,21,15,0,24,0,7];
-	// output [21,15,24,7,0,0,0]
-	let ind=0;
-	for(let i=0; i<arr.length; i++){
-	    if(arr[i]!=0){
-	        arr[ind]=arr[i];
-	        ind++;
-	    }
-	}
-	while(ind<arr.length){
-	    arr[ind]=0;
-	    ind++;
-	}
-	console.log(arr);
-
-
-Q. write cdoe to find filter unique object in below array. objects may have any number of data and may have different keys to.
-	like name in first index but in ther name may not be present or fname is present.
-	the complexity of the solution should be O(n).
-	you could not use built in functions. 
-	let arr= [
-	{fname:"Praveen",age:28,department:"IT"},
-	{name:"ishu",age:26},
-	{name:"sadhna",age:29},
-	{name:"Praveen",age:28},
-	{fname:"Praveen",age:28},
-	{name:"sadhna",age:29},
-	{fname:"sadhna",age:29},
-	{name:"sadhna",age:29},
-	{name:"sadhna",age:29},
-	{name:"ishu",age:26},
-	{name:"sadhna",age:29,department:"IT"},
-	{fname:"sadhna",age:29,department:"IT"},
-	{fname:"sadhna",age:29,department:"IT"},
-	{age:29,department:"IT"},
-	{age:29,department:"IT"},
-	{name:"sadhna",age:29},
-	{name:"sadhna",age:29},
-	{city:"pune",company:"IT"},
-	{city:"pune",company:"IT"} 
-	];
-
-A. 
-function uniqueObjects(arr) {
-    var result = [];
-    var seen = {};
-
-    for (var i = 0; i < arr.length; i++) {
-
-        var obj = arr[i];
-        var key = "";
-
-        for (var prop in obj) {
-            if (obj.hasOwnProperty(prop)) {
-                key += prop + ":" + obj[prop] + "|";
-            }
-        }
-
-        if (!seen[key]) {
-            seen[key] = true;
-            result[result.length] = obj;
-        }
-    }
-
-    return result;
-}
-
-
-Q. 
-let txt="person_first_name";
-//output "personFirstName"
-let b=txt.split('_');
-let c=b.map((char,index)=>{
-    let str=char.replace(char.charAt(0),char.charAt(0).toUpperCase());
-    if(index==0){ str= char; }
-    return str;  
-})
-.join("");
-console.log(c);
-or let result = txt.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
-
-Q. 
-	var arr=["a","b","c","d","e","f"];
-	var ind=[2,3,4,0,5,1];
-	var newArr=[];
-	// output: ["d","f","a","b","c","e"]
-	for(let i=0;i<arr.length;i++){
-	    newArr[ind[i]]=arr[i];
-	}
-	console.log(newArr);
