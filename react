@@ -213,6 +213,16 @@ A. Prop drilling occurs when data is passed through multiple intermediate compon
   Custom hooks
   Server-state libraries where appropriate
 
+Q. how many ways we can share states in react.
+A. many ways: 
+	1. useState : for local state
+	2. useState : for sharing in child component but not in depth
+	3. useContext : multiple related component
+	4. useReduceer: when state is complex than simple useState
+	5. Redux : action is predectible and want centerlize state share 
+	6. url state : via query param or route param
+	7. via local or session storage
+
 Q. What is component composition?
 A. Composition means building complex components by combining smaller components rather than creating a large inheritance hierarchy.
     Example:
@@ -443,9 +453,25 @@ A. Cleanup is used to remove subscriptions, timers, listeners, etc.
   }, []);
   Without cleanup, we can create memory leaks or duplicate subscriptions.
 
+Q. explain useReducer and what is its use ?
+A. useReducer() is a Hook used to manage state when the state logic is more complex than a simple useState() update.
+	It is useful when multiple actions can update the same state, 
+		such as incrementing, decrementing, resetting a counter, or managing form data.
+
+	examle code in react-code.txt
+
+Q. difference in useReducer and redux
+A.
+useState()								useReducer()
+Best for simple state					Best for complex state logic
+Update state directly with setter		Dispatch actions
+Example: setCount(count + 1)			Example: dispatch({ type: "increment" })
+Logic often stays in the component		Update logic stays in the reducer
+
 Q. What is a custom Hook?
 A. A custom Hook is a reusable function whose name starts with use and which can use other Hooks.
   	This allows reusable stateful logic without duplicating component code.
+	we create a custom Hook when we want to reuse stateful logic or Hook-based functionality across multiple components
 
 	Example code in rect-code.txt file
   
