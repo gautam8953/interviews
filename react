@@ -7,7 +7,8 @@ A. npm create vite@latest my-react-app
 
 Q. What is React?
 A. React is a JavaScript library for building component-based user interfaces.
-	react is simple, flexible, huge ecosystem and fast because of virtual dom
+	react is simple, flexible, huge ecosystem and fast because of virtual dom.
+	it is developed by Jordan Walke in 2011 and open sourced in 2013. 
   Its major concepts are:
   Components
   Props
