@@ -1486,7 +1486,13 @@ A. there are four types of Subjects in RxJS (commonly used in Angular).
 	subject.subscribe(x => console.log(x));
 	Console output: 1	
 
-
+Q. compare debouncing and throttling
+A. 
+Debouncing									Throttling
+Executes after events stop.					Executes at controlled intervals.
+Uses clearTimeout() and setTimeout().		Can use setTimeout() or timestamps.
+Good for search input.						Good for scroll and resize events.
+Waits for inactivity.						Limits execution frequency.
 
 Q. Explain RxJS Operators switchMap, mergeMap, concatMap, exhaustMap.
 A.
