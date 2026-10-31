@@ -321,7 +321,7 @@ Q. write cdoe to find filter unique object in below array. objects may have any 
 	{city:"pune",company:"IT"} 
 	];
 
-A. 
+A. write code to find unique object in above array of object
 	function uniqueObjects(arr) {
 	    var result = [];
 	    var seen = {};
@@ -369,10 +369,300 @@ Q. rearrange array element as per new index in given array
 	}
 	console.log(newArr);
 
-
-
-
+Q. Implemented a solution to flatten nested arrays
+A.
+	function flattenArray(arr) {
+	    let result = [];
 	
+	    for (let i = 0; i < arr.length; i++) {
+	        if (Array.isArray(arr[i])) {
+	            // result = result.concat(flattenArray(arr[i]));  // using concat
+	
+	            // result.push(...flattenArray(arr[i]));  // using recursive
+	
+	            // using without function code
+	            let temp=flattenArray(arr[i]);
+	            for (let j = 0; j < temp.length; j++) {
+	                result.push(temp[j]);
+	            }
+	        } else {
+	            result.push(arr[i]);
+	        }
+	    }	
+	    return result;
+	}
+	const arr = [1, [2, [3, 4], 5], [6, 7]];
+	console.log(flattenArray(arr));// [1, 2, 3, 4, 5, 6, 7]
+
+Q. compare two array by a single loop
+A. 
+	let arr1 = [1, 2, 3, 4];
+	let arr2 = [1, 2, 3, 4];	
+	let isEqual = true;
+	
+	if (arr1.length !== arr2.length) {
+	    isEqual = false;
+	} else {
+	    for (let i = 0; i < arr1.length; i++) {
+	        if (arr1[i] !== arr2[i]) {
+	            isEqual = false;
+	            break;
+	        }
+	    }
+	}
+	console.log(isEqual);
+
+Q. const names=['alice','bob','charlie','gautam','deepak'];
+	const groupFirstLetter= Object.groupBy(names,name=>name[0]);
+	console.log(groupFirstLetter);
+	output : {
+	a:[alice],
+	b:['bob'],
+	c: ['charlie'],
+	g:['gautam'],
+	d:['deepak']
+	}
+	
+Q write a program to replace string with number and number with string
+	const a=["a",1,"s",2]; output : [1,"a",2,"s"]
+
+Q. Longest Substring Without Repeating Characters
+A.
+	function longestSubstring(str) {
+	    let longest = "";
+	
+	    for (let i = 0; i < str.length; i++) {
+	        let current = "";
+	
+	        for (let j = i; j < str.length; j++) {
+	            if (current.includes(str[j])) {
+	                break;
+	            }
+	
+	            current += str[j];
+	
+	            if (current.length > longest.length) {
+	                longest = current;
+	            }
+	        }
+	    }
+	
+	    console.log("Substring:", longest);
+	    console.log("Length:", longest.length);
+	}
+	
+	longestSubstring("abcabcbb");
+
+Q. write code to find first non repitative character
+A. 
+
+Q. write code to create own prtotype in JS
+A.	// simple example to set own prototype
+	function Person(name) {
+	    this.name = name;
+	}
+	
+	// Add a method to the prototype
+	Person.prototype.sayHello = function () {
+	    console.log("Hello, " + this.name);
+	};
+	
+	const person1 = new Person("Rahul");
+	const person2 = new Person("Amit");
+	
+	person1.sayHello(); // Hello, Rahul
+	person2.sayHello(); // Hello, Amit
+
+Q. Wrote a polyfill for the map array method
+A.
+		Array.prototype.myMap = function (callback) {
+		    const result = [];		
+		    for (let i = 0; i < this.length; i++) {
+		        result.push(callback(this[i], i, this));
+		    }		
+		    return result;
+		};
+		
+		// Example
+		const numbers = [1, 2, 3, 4, 5];		
+		const output = numbers.myMap((num) => num * 2);		
+		console.log(output);		// [2, 4, 6, 8, 10]
+
+Q. Wrote a polyfill for the reduce array method
+A. 
+		Array.prototype.myReduce = function (callback, initialValue) {
+		    let accumulator = initialValue;
+		    let startIndex = 0;
+		
+		    if (arguments.length < 2) {
+		        accumulator = this[0];
+		        startIndex = 1;
+		    }		
+		    for (let i = startIndex; i < this.length; i++) {
+		        accumulator = callback(accumulator, this[i], i, this);
+		    }		
+		    return accumulator;
+		};
+		
+		// Example
+		const numbers = [1, 2, 3, 4];		
+		const output = numbers.myReduce(
+		    (acc, num) => acc + num,
+		    0
+		);		
+		console.log(output);		// 10
+
+Q. Wrote a polyfill for the filter array method
+A.
+	Array.prototype.myFilter = function (callback, thisArg) {
+	  if (this == null) {
+	    throw new TypeError("Array.prototype.myFilter called on null or undefined");
+	  }	
+	  if (typeof callback !== "function") {
+	    throw new TypeError("Callback must be a function");
+	  }
+	
+	  const arr = Object(this);
+	  const result = [];
+	
+	  for (let i = 0; i < arr.length; i++) {
+	    if (i in arr) {
+	      const value = arr[i];	
+	      if (callback.call(thisArg, value, i, arr)) {
+	        result.push(value);
+	      }
+	    }
+	  }
+	
+	  return result;
+	};
+
+	const numbers = [10, 15, 20, 25, 30];
+	const result = numbers.myFilter((num) => num > 20);
+	console.log(result); // [25, 30]
+
+Q. Wrote a polyfill for the find array method
+A.
+		Array.prototype.myFind = function (callback) {
+		    for (let i = 0; i < this.length; i++) {
+		        if (callback(this[i], i, this)) {
+		            return this[i];
+		        }
+		    }
+		
+		    return undefined;
+		};
+		
+		// Example
+		const numbers = [10, 20, 30, 40];
+		
+		const output = numbers.myFind(num => num > 20);
+		
+		console.log(output); // 30
+
+Q. Wrote a polyfill for the foreach array method
+	Array.prototype.myForEach = function (callback) {
+	    for (let i = 0; i < this.length; i++) {
+	        callback(this[i], i, this);
+	    }
+	};
+	
+	// Example
+	const numbers = [10, 20, 30];
+	
+	numbers.myForEach((num, index) => {
+	    console.log(index, num);
+	});
+	
+	// 0 10
+	// 1 20
+	// 2 30
+
+Q. write code to implement debounce in JS
+A.
+		function debounce(callback, delay) {
+		    let timer;
+		
+		    return function (...args) {
+		        clearTimeout(timer);
+		
+		        timer = setTimeout(() => {
+		            callback.apply(this, args);
+		        }, delay);
+		    };
+		}
+		
+		// Example
+		function searchData(value) {
+		    console.log("API called:", value);
+		}		
+		const debouncedSearch = debounce(searchData, 1000);
+		
+		// Simulate typing
+		debouncedSearch("A");
+		debouncedSearch("An");
+		debouncedSearch("Ang");
+		debouncedSearch("Angu");
+		debouncedSearch("Angular");
+		
+		// Only executes once after 1 second of inactivity:
+		// API called: Angular
+
+Q. write code to implement throttling in JS
+A. settimeout can be implemented using settimeout and 
+	throttling can be implemented using closure and settimeout
+
+	throttling using settimeout:
+		function throttle(fn, delay) {
+		    let isThrottled = false;
+		
+		    return function (...args) {
+		        if (isThrottled) return;
+		
+		        isThrottled = true;
+		
+		        setTimeout(() => {
+		            isThrottled = false;
+		        }, delay);
+		
+		        fn.apply(this, args);
+		    };
+		}
+
+		calling : 
+		function handleScroll() {
+		    console.log("Scroll event triggered", Date.now());
+		}
+		
+		const throttledScroll = throttle(handleScroll, 2000);
+		
+		window.addEventListener("scroll", throttledScroll);
+
+
+	throttling using closure: 
+		function throttle(fn, delay) {
+		    let lastTime = 0;
+		
+		    return function (...args) {
+		        const currentTime = Date.now();
+		
+		        if (currentTime - lastTime >= delay) {
+		            lastTime = currentTime;
+		            fn.apply(this, args);
+		        }
+		    };
+		}
+
+Q. write code to call a api after 500ms and show its data in html
+
+
+
+
+
+
+
+
+
 Q. output of below code and what if pass 0 in setTimeout inpalce of 1000
 	Console.log('1');
 	Settimeout(()=>{
