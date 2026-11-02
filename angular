@@ -1494,8 +1494,10 @@ Uses clearTimeout() and setTimeout().		Can use setTimeout() or timestamps.
 Good for search input.						Good for scroll and resize events.
 Waits for inactivity.						Limits execution frequency.
 
-Q. Explain RxJS Operators switchMap, mergeMap, concatMap, exhaustMap.
+Q. Explain RxJS Operators map, switchMap, mergeMap, concatMap, exhaustMap.
 A.
+	map: Transforms each emitted value.
+
 	switchMap: Cancels/unsubscribes from the previous inner observable when a new value arrives.
 		Good for: Search/autocomplete.
 		search$.pipe(
