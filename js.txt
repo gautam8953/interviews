@@ -116,10 +116,10 @@ A. javacript developed by Mocha in 1995. first ecma script edition come in June 
 	Feature				Example					Why important
 	let / const			let x = 10;				Block-scoped variables
 	Arrow functions		const add=(a,b)=>a+b	Shorter functions + lexical this
+	Default parameters	function f(x = 10)		Default argument values
 	Classes				class User {}			Cleaner OOP syntax
 	Template literals	Hello ${name}`			String interpolation
 	Destructuring		const {name} = user		Easy extraction of values
-	Default parameters	function f(x = 10)		Default argument values
 	Rest parameter		function f(...args)		Collect arguments into an array
 	Spread operator		[...arr1, ...arr2]		Expand/copy arrays and objects
 	Modules				import / export			Code organization
