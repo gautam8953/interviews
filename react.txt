@@ -262,65 +262,95 @@ A. Hooks allow functional components to use React features such as state, contex
   Common hooks:
     useState
     useEffect
-    useContext
-    useReducer
-    useRef
     useMemo
     useCallback
+    useRef
+    useContext
+    useReducer
     useLayoutEffect
+	useImperativeHandle
 
-  useState adds local state to a functional component.
     const [count, setCount] = useState(0);
     setCount(count + 1);  // calling 
 
+  useState adds local state to a functional component.
   React schedules a state update and may re-render the component.
-  For updates based on previous state, I prefer the functional form:
-    setCount(prev => prev + 1);
+  For updates based on previous state, I prefer the functional form: setCount(prev => prev + 1);
   This avoids relying on a potentially stale value.
 
 
-  useEffect is used to synchronize a component with external systems such as:
-    API calls
-    subscriptions
-    timers
-    browser APIs
-    event listeners
-
     useEffect(() => {
       fetchUsers();
+		return()=>{
+		}
     }, []);
+  useEffect is used to synchronize a component with external systems such as:
+    API calls, subscriptions, timers, browser APIs, event listeners
   The empty dependency array means the effect doesn't depend on changing reactive values.
   Important interview point: 
   useEffect should not be treated as a general-purpose place for every piece of component logic. 
   If something can be calculated during rendering, an effect may be unnecessary.
 
 
+	const filteredUsers = useMemo(() => {
+	    return users.filter(user => user.active);
+	  }, [users]);
   useMemo memoizes the result of an expensive calculation.
-  const filteredUsers = useMemo(() => {
-    return users.filter(user => user.active);
-  }, [users]);
+	It does not prevent component re-rendering.
   The calculation is recomputed when dependencies change.
   Important: I don't use useMemo everywhere. It has its own overhead and should be used when memoization actually helps.
+	  
 
-
-  useCallback memoizes a function reference.
   const handleClick = useCallback(() => {
     console.log("clicked");
   }, []);
+  useCallback memoizes a function reference.
+  It prevents React from creating a new function reference on every component render, unless its dependencies change
   It's particularly useful when passing callbacks to memoized child components or when function identity matters.
+  example : if we don't use useCallback then on every render a new function refrence will be created,
+	so when this function will be passed in child component, then child component will also render again,
+	as function refrence has changed, so it will consider it as new function.
 
-  useRef provides a mutable value that persists between renders without causing a re-render when it changes.
-    Common uses:
-    
+
+  const inputRef = useRef();
+  inputRef.current.focus();
+	useRef provides or stores a changeable value, its value persist during renders and value change in it doesn't cause re-render.
+    Common uses:    
     DOM references
     storing Timers or subscription Ids
     Tracking Previous values
     Mutable instance-like values
 	caching values
 
-    Example:
-    const inputRef = useRef();
-    inputRef.current.focus();
+  const value = useContext(MyContext);		// example code in react-code.txt
+	useContext() is a hook used to share data between multiple components, 
+	without passing props manually through every intermediate component.
+	It helps solve a problem called Prop Drilling.
+	When value changes in context, it causes re-render
+
+// code in react-code.txt
+  useReducer() is a React hook used to manage complex state logic in a component.
+	It is an alternative to useState, especially when:
+	- State has multiple related properties.
+	- Multiple actions can update the same state.
+	- State updates depend on the previous state.
+	- You want to keep state update logic in one place.
+ 
+  useLayoutEffect(() => {
+    const width = elementRef.current.offsetWidth;
+  }, []);  
+	useLayoutEffect is a React Hook that runs synchronously after React updates the DOM 
+	but before the browser paints the updated UI on the screen.
+  	For normal API calls and subscriptions, useEffect is usually preferable.
+
+  useImperativeHandle is a React Hook that allows a child component 
+	to expose selected functions or methods to its parent component through a ref.
+	How it works:
+	1. Parent creates inputRef using useRef().
+	2. Parent passes it to the child.
+	3. Child receives the ref using forwardRef.
+	4. useImperativeHandle exposes focusInput() and clearInput().
+	5. Parent invokes these methods using inputRef.current.
 
 Q. What are the rules of Hooks?
 A. Two major rules:
@@ -334,17 +364,12 @@ A. Two major rules:
   }, [isLoggedIn]);
 
 Q .What is the difference between useEffect and useLayoutEffect?
-A. useEffect runs after the browser has generally had a chance to paint.
-  useLayoutEffect runs synchronously after DOM mutations but before the browser paints.  
-  Use useLayoutEffect when you need to measure or synchronously adjust DOM layout to avoid visible flicker.
-  
-  Example:
-  
-  useLayoutEffect(() => {
-    const width = elementRef.current.offsetWidth;
-  }, []);
-  
-  For normal API calls and subscriptions, useEffect is usually preferable.
+A. 
+useEffect										useLayoutEffect
+Runs after the browser paints (generally)		Runs before the browser paints
+Does not block browser painting					Blocks browser painting until its code finishes
+Used for API calls, subscriptions, timers		Used for DOM measurements and layout adjustments, tool tips positioning
+Preferred for most side effects					Use only when necessary
 
 Q. Difference between useState & useRef?
 A.   useState	                            useRef
@@ -353,13 +378,36 @@ A.   useState	                            useRef
     Value managed by React rendering	  current is mutable
 	
 Q. Difference between useMemo and useCallback.
-A.   useMemo     → memoizes a calculated value
-      useCallback → memoizes a function
+A.   
+useMemo								useCallback
+Memoizes a calculated value			Memoizes a function
+Returns a value						Returns a function
+Used for expensive calculations		Used to maintain function reference
 
 Q. When should you NOT use useMemo or useCallback?
 A. I don't use them by default.
   If the calculation is cheap or the child isn't sensitive to function identity, memoization can make the code more complex without providing meaningful benefit.
   I first identify an actual performance issue using profiling, then optimize.
+
+Q. When should you use useLayoutEffect?
+A.
+Use case				Why useLayoutEffect?
+Tooltip positioning		Measure available screen space
+Dropdown positioning	Prevent incorrect initial placement
+Modal positioning		Calculate dimensions before display
+Dynamic table layout	Measure column or container dimensions
+Scroll restoration		Set scroll position before paint
+Text editor	Measure 	cursor or selection position
+Chart integration		Measure container dimensions before drawing
+
+Q. When should you NOT use useLayoutEffect?
+A.  Avoid using it for:
+	- API calls
+	- Fetching data
+	- Event subscriptions
+	- Timers
+	- Logging
+	- Normal state updates unrelated to layout
 
 Q. What is the dependency array in useEffect?
 A. useEffect(() => {
@@ -468,6 +516,12 @@ Best for simple state					Best for complex state logic
 Update state directly with setter		Dispatch actions
 Example: setCount(count + 1)			Example: dispatch({ type: "increment" })
 Logic often stays in the component		Update logic stays in the reducer
+
+Q. explain react.memo
+A. React.memo is a higher-order component (HOC) that prevents a functional component from re-rendering when its props have not changed
+
+Q. explain Zustand
+A. 
 
 Q. What is a custom Hook?
 A. A custom Hook is a reusable function whose name starts with use and which can use other Hooks.
