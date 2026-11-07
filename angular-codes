@@ -176,9 +176,10 @@ A. Accessibility (a11y) means making a web application usable by everyone,
 			Fix the reported problems.
 			Run the audit again.
 
-	Step 2. Implement automated accessibility testing using axe-core
+	Step 2. Implement automated accessibility testing using axe-core.
 		This is particularly useful for enterprise applications because you can automate accessibility testing for every page.
 		The same testing approach works for Angular and React.
+		Need to write test case in this step.
 		npm install -D @playwright/test @axe-core/playwright
 		npx playwright install
 	step 3. write playwrite test case for accessibility test
