@@ -1,4 +1,216 @@
 Q. how to implement accessibility?
+A. Accessibility (a11y) means making a web application usable by everyone, 
+	including people with visual, hearing, motor, cognitive or other disabilities.
+	For both Angular and React, the primary target should be WCAG 2.2 Level AA (Web Content Accessibility Guidelines).
+
+	Accessibility fundamentals : 
+	1. Semantic HTML : Always use HTML elements according to their intended purpose
+		if have to show button then use button tag, do not use div and with style show it as button.
+		use : <header> for page headers.
+				<nav> for navigation.
+				<main> for main content.
+				<section> for logical sections.
+				<button> for actions.
+				<a> for navigation.
+				<form> for forms.
+				<label> for form labels.
+	2. Images and alternative text : Every meaningful image should have descriptive alternative text.
+		example : <img src="profile.jpg" alt="Customer profile photograph">
+		for decoretive or style images , left it as blank
+		example : <img src="background.png" alt="">
+	3. Keyboard accessibility : Users must be able to operate the application without a mouse.
+		Key				Purpose
+		Tab				Move to next focusable element
+		Shift + Tab		Move to previous element
+		Enter			Activate links and buttons
+		Space			Activate buttons and checkboxes
+		Escape			Close dialogs and menus
+		Arrow keys		Navigate certain widgets
+	4. ARIA attributes : ARIA (Accessible Rich Internet Applications) provides additional accessibility information to assistive technologies.
+		example : <button aria-label="Close dialog"> X </button>
+	5. Color contrast : Text should have sufficient contrast against its background.
+		WCAG AA requirements:
+		- Normal text: minimum 4.5:1.
+		- Large text: minimum 3:1.
+		- UI components and meaningful graphical objects: minimum 3:1 against adjacent colors.
+		Do not communicate errors or status using color alone.
+	6. Accessible forms : Every input should have a properly associated label.
+		Use appropriate error messages and associate them with their respective fields.
+		<input type="email" id="email" name="email" required aria-describedby="email-error" />
+		<span id="email-error"> Please enter a valid email address. </span>
+	7. Accessible tables : Use semantic table elements.
+		example : inside table if have to show heading : <caption>Customer information</caption>
+	8. Accessible dialogs and modals
+		A modal should:
+		- Receive focus when opened.
+		- Keep keyboard focus inside while open.
+		- Close using Escape when appropriate.
+		- Return focus to the triggering element when closed.
+		- Have an accessible name.
+		- Prevent interaction with background content while modal.
+	9. Responsive accessibility
+		Ensure:
+		- Text can be zoomed to 200% without loss of content.
+		- Layout works at narrow viewport widths.
+		- Content does not require horizontal scrolling unnecessarily.
+		- Touch targets meet WCAG 2.2 AA requirements, generally at least 24 × 24 CSS pixels, subject to exceptions.
+	10. Dynamic content announcements
+		When API responses, errors or status messages update dynamically, make them available to screen readers.
+		<div aria-live="polite" aria-atomic="true">
+		  Data loaded successfully.
+		</div>
+
+	Part 2: Complete accessibility implementation in Angular 20
+	1. Install accessibility package : Angular provides the CDK accessibility module and Angular Aria directives.
+			npm install @angular/cdk
+			npm install @angular/aria
+			
+			The packages provide:
+			- Focus management.
+			- Focus trapping.
+			- Screen reader announcements.
+			- Keyboard navigation support.
+			- Accessible UI interaction patterns.
+
+	2. Create an accessible application layout : Create a application layout with semantic HTML in including form and all sections .
+	3. If have to read api response or responseMessage : Install/use Angular CDK LiveAnnouncer
+			notification.service.ts
+		import { Injectable, inject } from '@angular/core';
+		import { LiveAnnouncer } from '@angular/cdk/a11y';
+		
+		@Injectable({
+		  providedIn: 'root'
+		})
+		export class NotificationService {
+		
+		  private announcer = inject(LiveAnnouncer);
+		
+		  announce(message: string) {
+		    this.announcer.announce(message, 'polite');
+		  }
+		}
+
+		Use it inside a component:
+		this.notificationService.announce(
+		  'Customer data loaded successfully'
+		);
+	4. For modal dialogues : Install CDK if not already installed.
+		Use cdkTrapFocus to keep keyboard focus inside the dialog.
+		also implement:
+		- Initial focus on an appropriate control.
+		- Escape-key handling.
+		- Focus restoration to the opener.
+		- Background interaction prevention.
+		- Proper dialog lifecycle.
+
+		import { Component } from '@angular/core';
+		import { A11yModule } from '@angular/cdk/a11y';
+		
+		@Component({
+		  selector: 'app-confirm-dialog',
+		  standalone: true,
+		  imports: [A11yModule],
+		  template: `
+		    <section
+		      role="dialog"
+		      aria-modal="true"
+		      aria-labelledby="dialog-title"
+		      cdkTrapFocus
+		      cdkTrapFocusAutoCapture
+		    >
+		      <h2 id="dialog-title">Confirm Action</h2>
+		
+		      <p>Do you want to continue?</p>
+		
+		      <button type="button" (click)="close()">
+		        Cancel
+		      </button>
+		
+		      <button type="button" (click)="confirm()">
+		        Confirm
+		      </button>
+		    </section>
+		  `
+		})
+		export class ConfirmDialogComponent {
+		
+		  close() {}
+		
+		  confirm() {}
+		}
+
+	5. Implement accessible routing : When navigating between Angular routes, move focus to the new page's main heading.
+
+	Part 3: For React.js project
+	1. install package : 
+		npm install -D eslint-plugin-jsx-a11y
+		npm install @axe-core/react
+	2. for testing install package : 
+			npm install -D @playwright/test @axe-core/playwright
+	3. use Symantic html in JSX.
+		tabIndex instead of tabindex.
+		className instead of class.
+		htmlFor instead of for.
+
+	Part 4: Testing - You need to perform three types of testing:
+		1. Static code analysis.
+		2. Automated browser testing.
+		3. Manual accessibility testing.
+
+	Step 1. Use browser accessibility extensions.
+		Use below chrome extension tools for accessibility testing
+		1. axe DevTools
+		2. WAVE
+		3. Google Lighthouse
+		4. Accessibility Insights
+
+		testing steps : 
+			Start your Angular or React application.			
+			Open the application in Chrome.
+			Open Chrome DevTools using F12.
+			Navigate to the Lighthouse tab.
+			Select Accessibility.
+			Select the Desktop or Mobile device mode.
+			Click Analyze page load.
+			Review the accessibility findings.
+			Fix the reported problems.
+			Run the audit again.
+
+	Step 2. Implement automated accessibility testing using axe-core
+		This is particularly useful for enterprise applications because you can automate accessibility testing for every page.
+		The same testing approach works for Angular and React.
+		npm install -D @playwright/test @axe-core/playwright
+		npx playwright install
+	step 3. write playwrite test case for accessibility test
+	Step 4. Test dynamic components
+		Do not scan only the initial page.		
+		You should also test the accessibility of:
+		- Open dropdowns.
+		- Expanded accordions.
+		- Open modal dialogs.
+		- Form validation errors.
+		- API loading and success messages.
+		- Pagination.
+		- Tabs.
+		- Search results.
+		- Dynamic tables.
+	Step 5. Implement ESLint accessibility checks
+			If your project does not already use Angular ESLint: ng add angular-eslint
+		Configure Angular ESLint template accessibility rules in your project.			
+			Examples of checks to enable:
+			- Missing image alternative text.
+			- Missing button type.
+			- Non-interactive elements with click events.
+			- Invalid ARIA attributes.
+			- Missing labels for form controls.
+
+	Part 5: Manual accessibility testing
+		1. Keyboard-only testing
+		2. Screen reader testing
+		3. Visual accessibility testing
+		4. Mobile accessibility testing
+	Part 6: Integrate accessibility testing into CI/CD
+
 Q. how to implement multi language support in angular ?
 A. In angular multi language support can be implemented in 2 ways.
 	1. using packages : there are package that provide multi language support.
