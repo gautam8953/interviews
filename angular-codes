@@ -632,7 +632,12 @@ A. In angular multi language support can be implemented in 2 ways.
 
 			When the signal updates, Angular refreshes the template expressions that read it.
 Q. how to create microfrontend architecture?
-A.
+A. for microfronted application, Its required 1 shell application and other are child application. 
+	application can be in any tech like angular, react.js, vue.js
+	1. React application – React 19.
+	2. Angular application – Angular 20.
+	3. Root application (Shell) – Responsible for loading and managing both applications
+
 
 Q. chat application flow and codes
 
