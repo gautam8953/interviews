@@ -1952,7 +1952,7 @@ How do you optimize the performance of an Angular app?
 
 
 TypeScript  :
-Q. Interface vs Type?
+Q. Interface vs Type & when you use where with example?
 A. Both can describe types.
 	interface is commonly used for object contracts.
 	
@@ -2093,6 +2093,10 @@ what is generic function in typescript?
 what us as const in typescript?
 how to fredge object in typescript
 what does private access modifier do when added to a class variable or method?
+what is decoraters in typescritp nad what are its use?
+wat us type guard in typescript and when you use a typeguard?
+how is structural typing different from normal typing
+
 
 
 
