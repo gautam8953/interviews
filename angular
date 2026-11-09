@@ -2089,6 +2089,11 @@ What is the use of Partial<T>, Pick<T,K> and Omit<T,K>?
 Explained the Omit utility type and its use cases
 Shared my hands-on experience working with TypeScript in real projects
 Discussed my approach to writing test cases
+what is generic function in typescript?
+what us as const in typescript?
+how to fredge object in typescript
+what does private access modifier do when added to a class variable or method?
+
 
 
 
