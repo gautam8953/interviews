@@ -638,6 +638,47 @@ A. for microfronted application, Its required 1 shell application and other are 
 	2. Angular application – Angular 20.
 	3. Root application (Shell) – Responsible for loading and managing both applications
 
+1. create angular workspace
+  npx @angular/cli@20 new angular-mfe --no-create-application
+
+2. create angular applications
+  ng generate application shell --routing --style=scss 
+  ng generate application loan --routing --style=scss 
+  ng generate application disbursal --routing --style=scss 
+  ng generate application reports --routing --style=scss 
+
+3. Install module federation
+  ng add @angular-architects/module-federation@^20 --project shell --type host --port 4200
+  ng add @angular-architects/module-federation@^20 --project loan --type remote --port 4201
+  ng add @angular-architects/module-federation@^20 --project reports --type remote --port 4202
+  ng add @angular-architects/module-federation@^20 --project disbursal --type remote --port 4203
+
+  If only install module federation using below command then have to define remote and host application using step 4 command
+
+  add module fedretion in package.json - npm i -d @angular-architects/module-federation
+
+4. define which one is your host application and which one is your remote application 
+  ng g @angular-architects/module-federation:init --project shell --port 4200 --type dynamic-host
+  ng g @angular-architects/module-federation:init --project loan --port 4201 --type remote
+  ng g @angular-architects/module-federation:init --project reports --port 4202 --type remote
+  ng g @angular-architects/module-federation:init --project disbursal --port 4203 --type remote
+
+ 5. expose routes of remote app : add path of app route in expose object of webpack.config.js
+    './Routes': './projects/loan/src/app/app.routes.ts'
+
+6. in shell application public folder there will be a mf.manifest.json file 
+    define all remote app entry.js file url here 
+7. configue shell application routes. You can add shell application own routes too. 
+      {
+            path: 'loan',
+            loadChildren: () => loadRemoteModule({
+                type: 'manifest',
+                remoteName: 'loan',
+                exposedModule: './Routes'
+            }).then(m => m.routes)
+        }
+8. run all project using "ng serve projectName" set port too while running
+  example ng serve loan --port  4201
 
 Q. chat application flow and codes
 
