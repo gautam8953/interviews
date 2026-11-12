@@ -1187,8 +1187,8 @@ Q. how to remove an element from an array?
 	flatMap() :Combination of map() + flat().
 
 		const arr = [1, 2, 3];
-		const result = arr.flatMap(num => [num, num * 2]);
-		console.log(result);		// [1, 2, 2, 4, 3, 6]
+		const result = arr.flatMap(num => num * 2);
+		console.log(result);		// [2, 4, 6]
 		
 	Array.isArray(): Checks whether a value is an array.
 
