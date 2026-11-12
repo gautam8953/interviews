@@ -827,7 +827,54 @@ A. In Angular, each component is channeled through 8 different phases in its lif
 		OnDestroy is a lifecycle hook that is called when a directive, pipe, or service is destroyed. 
 		Use this for any custom cleanup that needs to occur when the instance is destroyed.
 		This hook is mostly used to unsubscribe from our observable streams and detach event handlers to avoid memory leaks.
+
+Q. afterNextRender() vs afterEveryRender() vs ngAfterViewInit()
+A. ngAfterViewInit() : A lifecycle hook that runs once after Angular initializes a component's view.
+	Example:
+	@ViewChild('chart') chart!: ElementRef;	
+	ngAfterViewInit() {
+	  console.log(this.chart.nativeElement);
+	}
+	✅ Access initialized view queries.
+	✅ Integrate with child components.
+	⚠️ Changing bound state here can cause ExpressionChangedAfterItHasBeenCheckedError.
+
+	afterNextRender(): Registers a callback that runs once after Angular finishes rendering the application to the DOM.
+	Example:
+	constructor() {
+	  afterNextRender(() => {
+	    console.log('DOM rendered!');
+	  });
+	}
+	✅ Runs once after the next render.
+	✅ Useful for DOM measurements.
+	✅ Helpful for third-party UI libraries.
+
+	What is afterEveryRender() : Registers a callback that runs after every completed application render.
+	Example:
+	constructor() {
+	  afterEveryRender(() => {
+	    console.log('Render completed!');
+	  });
+	}
+	✅ Runs after each application render.
+	✅ Useful for repeated DOM synchronization.
+	⚠️ Avoid expensive operations on every render.
+
+	Key Differences : 
+
+	📌 ngAfterViewInit()
+	➡️ Component lifecycle hook.
+	➡️ Runs once after view initialization.
 	
+	📌 afterNextRender()
+	➡️ Application-wide render callback.
+	➡️ Runs once after the next render.
+	
+	📌 afterEveryRender()
+	➡️ Application-wide render callback.
+	➡️ Runs after every render.
+
 Q. why use constructor if we have ngOnInit
 A. Constructor and OnInit seem the same, but they are called at different phases. 
 	Angular has two phases: the bootstrapping phase and the change detection phase.
