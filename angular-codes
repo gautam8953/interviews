@@ -717,30 +717,30 @@ Q. passing parameter in custom directive :
 
 Q. custom structural directive like if: 
 
-  import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-  
-  @Directive({
-    selector: '[appIf]'
-  })
-  export class AppIfDirective {
-    private hasView = false;
-    @Input() set appIf(condition: boolean) {
-  
-      if (condition && !this.hasView) {
-        this.viewContainer.createEmbeddedView(this.templateRef);
-        this.hasView = true;
-      } 
-      else if (!condition && this.hasView) {
-        this.viewContainer.clear();
-        this.hasView = false;
-      }
-    }
-  
-    constructor(
-      private templateRef: TemplateRef<any>,
-      private viewContainer: ViewContainerRef
-    ) {}
-  }
+	import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+	@Directive({
+	  selector: '[appIf]',
+	  standalone: true
+	})
+	export class AppIfDirective {
+	
+	  constructor(
+	    private templateRef: TemplateRef<any>,
+	    private viewContainer: ViewContainerRef
+	  ) {}
+	
+	  @Input()
+	  set appIf(condition: boolean) {
+	
+	    this.viewContainer.clear();
+	
+	    if (condition) {
+	      this.viewContainer.createEmbeddedView(this.templateRef);
+	    }
+	
+	  }
+	}
 
 
 Q. custom pipe example code : 
