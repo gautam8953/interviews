@@ -1,3 +1,8 @@
+practice code : custom directive (if like and color change), custom  pipe, signal example
+reactive form with custom validations, api call and bind data,  
+rxjs example list data and action, data from api call ,  intercepter, auth guard
+
+
 Q. how to implement accessibility?
 A. Accessibility (a11y) means making a web application usable by everyone, 
 	including people with visual, hearing, motor, cognitive or other disabilities.
